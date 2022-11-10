@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"name": "Arduino Controle Nextion",
+			"path": "Tela",
+		},
+		{
+			"name": "Arduino Controle Box",
+			"path": "Box",
+		},
+		{
+			"name": "Arduino Controle Geral",
+			"path": ".",
+		}
+
+	]
+
+}
