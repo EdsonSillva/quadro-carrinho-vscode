@@ -1,5 +1,5 @@
-c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\QuadroCarrinho\Arduino\Tela\build\sketch\ControlScreen.ino.cpp.o: \
- c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\QuadroCarrinho\Arduino\Tela\build\sketch\ControlScreen.ino.cpp \
+c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\ControlScreen.ino.cpp.o: \
+ c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\ControlScreen.ino.cpp \
  C:\Users\edson\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.5\cores\arduino/Arduino.h \
  C:\Users\edson\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.5\cores\arduino/binary.h \
  C:\Users\edson\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.5\cores\arduino/WCharacter.h \

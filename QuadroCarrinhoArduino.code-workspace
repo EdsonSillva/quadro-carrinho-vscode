@@ -2,14 +2,21 @@
 	"folders": [
 		{
 			"name": "Arduino Controle Nextion",
-			"path": "Tela",
+			"path": "Arduino//Tela",
 		},
+
 		{
 			"name": "Arduino Controle Box",
-			"path": "Box",
+			"path": "Arduino//Box",
 		},
+
 		{
-			"name": "Arduino Controle Geral",
+			"name": "Arduino Geral",
+			"path": "Arduino//Geral",
+		},
+
+		{
+			"name": "Projeto Todo",
 			"path": ".",
 		}
 
