@@ -1,25 +1,38 @@
 {
 	"folders": [
 		{
-			"name": "Arduino Controle Nextion",
+			"name": "# Arduino Controle Nextion",
 			"path": "Arduino//Tela",
 		},
 
 		{
-			"name": "Arduino Controle Box",
+			"name": "# Arduino Controle Box",
 			"path": "Arduino//Box",
 		},
 
 		{
-			"name": "Arduino Geral",
+			"name": "# Libary EEPROM",
+			"path": "C://users//edson//OneDrive//Documentos//.Desenvolvimento//Arduino//libraries//BoxMemoryEEPROM",
+		},
+
+		{
+			"name": "# Arduino Geral",
 			"path": "Arduino//Geral",
 		},
 
 		{
-			"name": "Projeto Todo",
+			"name": "# Projeto Todo",
 			"path": ".",
 		}
 
-	]
+	],
+	"settings": {
+		"files.associations": {
+			"*.cpp": "cpp",
+			"cstddef": "cpp"
+		}
+	}
 
 }
+
+

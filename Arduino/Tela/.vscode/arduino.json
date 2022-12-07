@@ -1,6 +1,6 @@
 {
-    "sketch": "ControlScreen.ino",
-    "output": "build",
     "configuration": "cpu=atmega328",
-    "board": "arduino:avr:nano"
+    "board": "arduino:avr:nano",
+    "sketch": "ControlScreen.ino",
+    "output": "build"
 }
