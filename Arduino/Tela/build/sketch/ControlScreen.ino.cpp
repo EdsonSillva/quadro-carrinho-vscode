@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #line 1 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\ControlScreen.ino"
 
 /*
@@ -36,7 +35,8 @@ void loop() { }
 
 #include <Nextion.h>
 #include <BoxMemoryEEPROM.h>
-
+#include <dht.h>
+#include <Arduino.h>
 
 /**
  * Definição das funções utilizadas no projeto

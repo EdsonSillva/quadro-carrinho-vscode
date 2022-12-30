@@ -21,11 +21,41 @@
   },
   {
     "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\build\\sketch\\ControlScreen.ino.cpp",
+    "Include": "dht.h",
+    "Includepath": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\DHT"
+  },
+  {
+    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\build\\sketch\\ControlScreen.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\build\\sketch\\src\\BuzzerBoxCar\\BuzzerBoxCar.cpp",
     "Include": "",
     "Includepath": null
   },
   {
     "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\build\\sketch\\src\\ScreenNextionBoxCar\\screenNextionBoxCar.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\build\\sketch\\src\\ScreenNextionBoxCar\\screenNextionJanela.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\build\\sketch\\src\\ScreenNextionBoxCar\\screenNextionObjeto.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\build\\sketch\\src\\SensorLDRBoxCar\\SensorLDRBoxCar.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\build\\sketch\\src\\TemperaturaHumidadeBoxCar\\TemperaturaHumidadeBoxCar.cpp",
     "Include": "",
     "Includepath": null
   },
@@ -176,6 +206,11 @@
   },
   {
     "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\BoxMemoryEEPROM\\src\\Pinos.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\DHT\\dht.cpp",
     "Include": "",
     "Includepath": null
   },

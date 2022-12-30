@@ -34,7 +34,8 @@ void loop() { }
 
 #include <Nextion.h>
 #include <BoxMemoryEEPROM.h>
-
+#include <dht.h>
+#include <Arduino.h>
 
 /**
  * Definição das funções utilizadas no projeto
@@ -57,4 +58,4 @@ void loop()
 
 
 
-#endif  //Fim da diretiva do código de controle de qual sketch será compilado. Sketch em branco ou o sketch com os código
+#endif  //Fim da diretiva do código de controle de qual sketch será compilado. Sketch em branco ou o sketch do projeto
