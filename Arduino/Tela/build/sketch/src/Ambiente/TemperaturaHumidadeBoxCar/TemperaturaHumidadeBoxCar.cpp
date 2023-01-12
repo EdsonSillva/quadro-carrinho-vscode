@@ -1,9 +1,10 @@
+#line 1 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\src\\Ambiente\\TemperaturaHumidadeBoxCar\\TemperaturaHumidadeBoxCar.cpp"
 
 
 #include "TemperaturaHumidadeBoxCar.h"
 
 
-TemperaturaHumidadeBoxCar::TemperaturaHumidadeBoxCar(/* args */) { }
+TemperaturaHumidadeBoxCar::TemperaturaHumidadeBoxCar() { }
 
 TemperaturaHumidadeBoxCar::~TemperaturaHumidadeBoxCar() { }
 

@@ -1,3 +1,4 @@
+#line 1 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\src\\Ambiente\\SensorLDRBoxCar\\SensorLDRBoxCar.h"
 /*
     Módulo para tratar leitura do sensor de luminosidade LDR
     Pino: Analógico A0
@@ -6,6 +7,9 @@
     Date: 22/07/18
 
 */
+
+#ifndef __SENSORLDRBOXCAR_H__
+#define __SENSORLDRBOXCAR_H__
 
 #ifndef Arduino_h
 #include <Arduino.h>
@@ -29,9 +33,9 @@ public:
     SensorLDRBoxCar(/* args */);
     ~SensorLDRBoxCar();
 
+    void iniciarSensorLDR();
     void setPinoConexao(byte Pino);         // Usar pinos analógicos
     void setMinimoMaximo(byte Min, byte Max);
-    void IniciarSensorLDR();
     int getValorPuroOnLDR();
     int getValorMapOnLDR();
     int getValorMapInvertidoOnLDR();
@@ -39,5 +43,4 @@ public:
 };
 
 
-
-
+#endif  // __SENSORLDRBOXCAR_H__

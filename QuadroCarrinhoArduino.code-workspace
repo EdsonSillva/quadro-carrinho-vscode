@@ -16,6 +16,11 @@
 		},
 
 		{
+			"name": "# Libary Dados Acao",
+			"path": "C://users//edson//OneDrive//Documentos//.Desenvolvimento//Arduino//libraries//BoxDadosAcao",
+		},
+
+		{
 			"name": "# Arduino Geral",
 			"path": "Arduino//Geral",
 		},
@@ -29,7 +34,8 @@
 	"settings": {
 		"files.associations": {
 			"*.cpp": "cpp",
-			"cstddef": "cpp"
+			"cstddef": "cpp",
+			"initializer_list": "cpp"
 		}
 	}
 

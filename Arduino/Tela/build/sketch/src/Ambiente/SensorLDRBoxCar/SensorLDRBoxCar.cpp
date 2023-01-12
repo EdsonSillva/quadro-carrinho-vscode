@@ -1,13 +1,14 @@
+#line 1 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\src\\Ambiente\\SensorLDRBoxCar\\SensorLDRBoxCar.cpp"
 
 
 #include "SensorLDRBoxCar.h"
 
 
-SensorLDRBoxCar::SensorLDRBoxCar(/* args */) { }
+SensorLDRBoxCar::SensorLDRBoxCar() { }
 
 SensorLDRBoxCar::~SensorLDRBoxCar() { }
 
-void SensorLDRBoxCar::IniciarSensorLDR() {
+void SensorLDRBoxCar::iniciarSensorLDR() {
     pinMode(_pinoConexao, INPUT);    // Habilita o pino para utilização do sensor 
 }
 

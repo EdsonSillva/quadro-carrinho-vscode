@@ -20,6 +20,7 @@ void BuzzerBoxCar::setPinoConexao(byte Pino){
 }
 void BuzzerBoxCar::iniciarBuzzer() {
     pinMode(_pinoConexao, OUTPUT);          // Habilita o pino para utilização do Buzzer    
+    delayMicroseconds(100);                 // Necessário para aguardar a inicialização do componente anterior.                 
 }
 
 void BuzzerBoxCar::beepBuzzer(unsigned int frequencia = 14000, unsigned long duracao = 6) {

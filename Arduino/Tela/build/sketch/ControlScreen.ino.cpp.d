@@ -37,6 +37,21 @@ c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\
  C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\libraries\ITEADLIB_Arduino_Nextion-master/NexGpio.h \
  C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\libraries\ITEADLIB_Arduino_Nextion-master/NexRtc.h \
  C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\libraries\BoxMemoryEEPROM\src/BoxMemoryEEPROM.h \
+ C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\libraries\BoxDadosAcao\src/BoxDadosAcao.h \
+ C:\Users\edson\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.5\libraries\Wire\src/Wire.h \
+ C:\Users\edson\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.5\cores\arduino/Stream.h \
  C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\libraries\BoxMemoryEEPROM\src/Device.h \
  C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\libraries\BoxMemoryEEPROM\src/Pinos.h \
- C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\libraries\DHT/dht.h
+ C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\libraries\DHT/dht.h \
+ C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\libraries\DS3231/DS3231.h \
+ c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\src/ScreenBoxCar.h \
+ c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\src/enum/enumBox.h \
+ c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\src/ScreenNextionBoxCar/screenNextionBoxCar.h \
+ c:\users\edson\onedrive\documentos\.desenvolvimento\arduino\projetos\ide-vscode\quadro-carrinho-vscode\arduino\tela\build\sketch\src\enum\enumbox.h \
+ c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\src/ScreenNextionBoxCar/screenNextionJanela.h \
+ c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\src/ScreenNextionBoxCar/ScreenNextionObjeto.h \
+ c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\src/BuzzerBoxCar/BuzzerBoxCar.h \
+ c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\src/DateTimeBoxCar/DateTimeBoxCar.h \
+ c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\src/Ambiente/Ambiente.h \
+ c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\src/Ambiente/SensorLDRBoxCar/SensorLDRBoxCar.h \
+ c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\src/Ambiente/TemperaturaHumidadeBoxCar/TemperaturaHumidadeBoxCar.h

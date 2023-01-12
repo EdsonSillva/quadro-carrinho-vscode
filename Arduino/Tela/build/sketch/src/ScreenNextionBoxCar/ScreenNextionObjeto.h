@@ -1,10 +1,20 @@
 #line 1 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\src\\ScreenNextionBoxCar\\ScreenNextionObjeto.h"
+/*
 
+  Biblioteca auxiliar para Nextion (screen)
+  Desenvolvido por Edson Silva
+  Date: 26/05/18
+  Comunicação Rx e Tx padrão do microcontrolador (Serial: 9600)
+
+*/
+
+
+#ifndef __SCREENNEXTIONOBJETO_H__
+#define __SCREENNEXTIONOBJETO_H__
 
 #ifndef Arduino_h
 #include <Arduino.h>
 #endif
-
 
 class screenNextionObjeto
 {
@@ -45,3 +55,7 @@ public:
                     IDAS                      = 13;
 
 };
+
+
+
+#endif  // __SCREENNEXTIONOBJETO_H__

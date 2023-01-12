@@ -1,14 +1,13 @@
-
 /*
     Projeto Quadro de carrinhos
     Módulo: >> CONTROLADOR PARA TELA <<
     Descrição: Projeto para controlar os leds de cada box no quadro de carrinhos
 
-    Este projeto tera uma tela como inteface das ações 
-    que serão executadas no quadro.
+    Este projeto tera uma tela como inteface das ações que serão executadas no quadro.
 
     Função deste sketch: Interagir com a tela e passar os comandos para a memória EEPROM,
-                         onde o outro arduino irá interpretar e executar a função
+                         onde o outro arduino irá interpretar e executar a função de 
+                         interação com os leds do quadro de carrinho
 
     Autor:          Edson Silva
     Data Inicio:    27/05/18
@@ -34,8 +33,11 @@ void loop() { }
 
 #include <Nextion.h>
 #include <BoxMemoryEEPROM.h>
+#include <BoxDadosAcao.h>
 #include <dht.h>
+#include <DS3231.h>
 #include <Arduino.h>
+#include "src/ScreenBoxCar.h"
 
 /**
  * Definição das funções utilizadas no projeto
@@ -44,15 +46,24 @@ void loop() { }
 void setup();
 void loop();
 
-BoxMemoryEEPROM Memory = BoxMemoryEEPROM(11, 13);
+ScreenBoxCar    screen = ScreenBoxCar();
 
-void setup()
-{
+
+void setup() {
+
+
 
 }
 
-void loop()
-{
+void loop() {
+
+    if (screen.tela.getStandByOnScreen() == 1) {
+        delay(1000);
+    } else {
+        screen.executarAcao();
+    }
+    
+    
     
 }
 

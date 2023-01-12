@@ -13,13 +13,23 @@
 
 */
 
+#ifndef __SCREENNEXTIONBOXCAR_H__
+#define __SCREENNEXTIONBOXCAR_H__
+
 #ifndef __NEXTION_H__
 #include <Nextion.h>
+#endif
+
+#ifndef __BOXDADOSACAO_H__
+#include <BoxDadosAcao.h>
 #endif
 
 #include "../enum/enumBox.h"
 #include "screenNextionJanela.h"
 #include "ScreenNextionObjeto.h"
+
+typedef void (*funcDataDS3231)(byte*, byte*, byte*, byte*, int*);
+typedef void (*funcHoraDS3231)(byte*, byte*, byte*);
 
 class screenNextionBoxCar
 {
@@ -31,18 +41,38 @@ private:
         
     int                     _Milenio    = 2000;
 
-
+    void DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS);
 
 public:
-    screenNextionBoxCar(/* args */);
+    screenNextionBoxCar();
     ~screenNextionBoxCar();
 
     bool iniciarNextion();
+    int getMilenio();
     void setVarNextion(char VarGlobal[], int TestoLEngth, String NomeVar);
     byte getAcaoOnScreen();
     byte getStandByOnScreen();
     void setAcaoOnScreen(uint32_t Acao);
     void setExecArduinoOnScreen(eCodeExec CodeExec);
+    void setLDROnScreen(uint32_t ValorSensor);
+    void getRGBBrilhoOnScreen(byte *R, byte *G, byte *B, byte *Brilho);
+    
+    void getRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao);
+    
+    void setCodeRGBBrilhoOnScreen(byte CodeAcao, byte R, byte G, byte B, byte Brilho);
+    byte getDoWOnScreen();
+    void getDataOnScreen(byte *pDia, byte *pMes, byte *pAno, byte *DoW);
+    void getHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);
+    void getTextoOnScreen(char Texto[], byte *pQtdeChar);
+    void ShowDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW);
+    void ShowHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);
+    bool getBeepOnScreen();
+    void ShowTempSysOnScreen(int TemperaturaSys);
+    void ShowTemperaturaOnScreen(double TemperaturaAmbiente);
+    void ShowHumidadeOnScreen(double HumidadeAmbiente);
 
 };
 
+
+
+#endif  // __SCREENNEXTIONBOXCAR_H__

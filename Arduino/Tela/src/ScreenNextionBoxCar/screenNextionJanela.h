@@ -1,9 +1,19 @@
+/*
 
+  Biblioteca auxiliar para Nextion (screen)
+  Desenvolvido por Edson Silva
+  Date: 26/05/18
+  Comunicação Rx e Tx padrão do microcontrolador (Serial: 9600)
+
+*/
+
+
+#ifndef __SCREENNEXTIONJANELA_H__
+#define __SCREENNEXTIONJANELA_H__
 
 #ifndef Arduino_h
 #include <Arduino.h>
 #endif
-
 
 class screenNextionJanela
 {
@@ -24,3 +34,7 @@ public:
                     Creditos            =  9,
                     ConfigArduino       = 12;
 };
+
+
+
+#endif  // __SCREENNEXTIONJANELA_H__

@@ -1,4 +1,3 @@
-#line 1 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\src\\TemperaturaHumidadeBoxCar\\TemperaturaHumidadeBoxCar.h"
 /*
     Módulo para tratar as chamadas da Biblioteca DHT
     Pino: Analógico A1
@@ -8,23 +7,27 @@
 
 */
 
+#ifndef __TEMPERATURAHUMIDADEBOXCAR_H__
+#define __TEMPERATURAHUMIDADEBOXCAR_H__
+
+
 #ifndef dht_h
 #include <dht.h>
 #endif
 
 // Definição do pino do DHT
 // ------------------------
-#define pin_dht     A1    // Pino para recedber o sinal do DHT11
+#define pin_dht             A1              // Pino para recedber o sinal do DHT11
 
 class TemperaturaHumidadeBoxCar
 {
 private:
-    /* data */
+
     dht     _dht            = dht();
     byte    _pinoConexao    = pin_dht;
 
 public:
-    TemperaturaHumidadeBoxCar(/* args */);
+    TemperaturaHumidadeBoxCar();
     ~TemperaturaHumidadeBoxCar();
 
     void setPinoConexao(byte Pino);         // Usar pinos digitais
@@ -35,3 +38,6 @@ public:
 
 };
 
+
+
+#endif  // __TEMPERATURAHUMIDADEBOXCAR_H__

@@ -37,6 +37,7 @@ c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\
  C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\libraries\ITEADLIB_Arduino_Nextion-master/NexScrolltext.h \
  C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\libraries\ITEADLIB_Arduino_Nextion-master/NexGpio.h \
  C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\libraries\ITEADLIB_Arduino_Nextion-master/NexRtc.h \
+ C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\libraries\BoxDadosAcao\src/BoxDadosAcao.h \
  c:\users\edson\onedrive\documentos\.desenvolvimento\arduino\projetos\ide-vscode\quadro-carrinho-vscode\arduino\tela\build\sketch\src\enum\enumbox.h \
  c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\src\ScreenNextionBoxCar\screenNextionJanela.h \
  c:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\Tela\build\sketch\src\ScreenNextionBoxCar\ScreenNextionObjeto.h

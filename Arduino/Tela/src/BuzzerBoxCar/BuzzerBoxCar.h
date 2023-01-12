@@ -7,6 +7,9 @@
 
 */
 
+#ifndef __BUZZERBOXCAR_H__
+#define __BUZZERBOXCAR_H__
+
 #ifndef Arduino_h
 #include <Arduino.h>
 #endif
@@ -20,15 +23,15 @@ private:
 
     byte    _pinoConexao        = _pin_Buzzer_;
 
-
 public:
     BuzzerBoxCar(/* args */);
     ~BuzzerBoxCar();
 
     void setPinoConexao(byte Pino);         // Usar pinos analógicos
     void iniciarBuzzer();
-    void beepBuzzer(unsigned int frequencia, unsigned long duracao);
-
+    void beepBuzzer(unsigned int frequencia = 14000, unsigned long duracao = 6);
 
 };
 
+
+#endif  // __BUZZERBOXCAR_H__
