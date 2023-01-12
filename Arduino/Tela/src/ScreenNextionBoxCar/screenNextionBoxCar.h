@@ -38,7 +38,6 @@ private:
     screenNextionJanela     _tela       = screenNextionJanela();
     screenNextionObjeto     _objeto     = screenNextionObjeto();
     eCodeExec               _CodeExec   = eCodeExec::SemExecucao;
-        
     int                     _Milenio    = 2000;
 
     void DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS);
@@ -56,10 +55,12 @@ public:
     void setExecArduinoOnScreen(eCodeExec CodeExec);
     void setLDROnScreen(uint32_t ValorSensor);
     void getRGBBrilhoOnScreen(byte *R, byte *G, byte *B, byte *Brilho);
-    
     void getRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao);
     
     void setCodeRGBBrilhoOnScreen(byte CodeAcao, byte R, byte G, byte B, byte Brilho);
+
+    void setCodeRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao);
+
     byte getDoWOnScreen();
     void getDataOnScreen(byte *pDia, byte *pMes, byte *pAno, byte *DoW);
     void getHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);

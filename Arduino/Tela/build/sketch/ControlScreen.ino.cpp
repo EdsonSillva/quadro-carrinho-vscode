@@ -49,26 +49,29 @@ void loop();
 
 ScreenBoxCar    screen = ScreenBoxCar();
 
-
 void setup() {
 
-
+    screen.iniciar();
 
 }
 
 void loop() {
 
-    if (screen.tela.getStandByOnScreen() == 1) {
+    if (!screen.eeprom.disponivel()) {
+        
         delay(1000);
+        screen.atualizaDadosMemoriaOnScreen();
+
+    } else if (screen.tela.getStandByOnScreen() == 1) {
+        
+        delay(1000);
+    
     } else {
+    
         screen.executarAcao();
-    }
     
-    
-    
+    }    
 }
-
-
 
 #endif  //Fim da diretiva do código de controle de qual sketch será compilado. Sketch em branco ou o sketch do projeto
 

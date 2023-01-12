@@ -38,7 +38,6 @@
 #define   _pino_eeprom_usado_     11
 #define   _pino_eeprom_alerta_    13
 
-
 class ScreenBoxCar
 {
 
@@ -57,6 +56,7 @@ private:
   void inicializacaoDaTela();
 
 public:
+
   ScreenBoxCar();
   ~ScreenBoxCar();
 
@@ -74,6 +74,7 @@ public:
   void atualizaTemperaturaSysOnScreen();
   void atualizaTemperaturaOnScreen();
   void atualizaHumidadeOnScreen();
+  void atualizaDadosMemoriaOnScreen();
 
 };
 

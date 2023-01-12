@@ -13,7 +13,7 @@ void ScreenBoxCar::iniciar() {
 
     pinMode(_pinoControle, OUTPUT);     // Pino de controle indicando quando este arduino pode iniciar suas rotinas baseado na Ação da tela
     digitalWrite(_pinoControle, LOW);
-    eeprom.iniciarEEPROM();             
+    eeprom.inicializar();             
     som.iniciarBuzzer();
     ambiente.iniciarSensorLDR();
     data.iniciarDS3231(true);
@@ -25,27 +25,21 @@ void ScreenBoxCar::iniciar() {
 void ScreenBoxCar::inicializacaoDaTela() {
 
     while(!_telaOnLine){        
+
         _telaOnLine = tela.iniciarNextion();
 
         if(_telaOnLine) {
     
             delayMicroseconds(1000);
 
-            eeprom.getDadosOnMemory(&acao);
-
-            if (acao.getCodeAcao() == 254) {
-
-            }
-
+            atualizaDadosMemoriaOnScreen();
 
         } else {        //Fica beepando se a inicialização da tela não for Ok
             som.beepBuzzer(),   delay(500);
             som.beepBuzzer(),   delay(500);
             som.beepBuzzer(),   delay(5000);
         }
-
     }
-
 }
 
 void ScreenBoxCar::executarAcao() {
@@ -119,6 +113,21 @@ void ScreenBoxCar::executarAcao() {
 
     atualizaDadosNaTela();
 
+}
+
+void ScreenBoxCar::atualizaDadosMemoriaOnScreen() {
+
+    eeprom.getDadosOnMemory(&acao);
+
+    if (eeprom.disponivel()) {
+        
+        tela.setCodeRGBBrilhoOnScreen(&acao);
+
+    } else {        // Fica beepando se a memória EEPROM não estiver disponível 
+        som.beepBuzzer(),   delay(500);
+        som.beepBuzzer(),   delay(500);
+        som.beepBuzzer(),   delay(500);
+    }
 }
 
 void ScreenBoxCar::atualizaLDROnScreen() {

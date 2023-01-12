@@ -138,6 +138,9 @@ void screenNextionBoxCar::getRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao) {
 
 }
 
+/* 
+    @deprecated Antigo 
+*/
 void screenNextionBoxCar::setCodeRGBBrilhoOnScreen(byte CodeAcao, byte R, byte G, byte B, byte Brilho) {
   
     NexVariable vaCode = NexVariable(_tela.VarGlobais, _objeto.IDCode, "");
@@ -154,6 +157,35 @@ void screenNextionBoxCar::setCodeRGBBrilhoOnScreen(byte CodeAcao, byte R, byte G
 
     NexVariable vaBrilho = NexVariable(_tela.VarGlobais, _objeto.IDBrilho, "");
     vaBrilho.setValueByID((uint32_t)Brilho);
+
+    NexVariable vaRGBNextion = NexVariable(_tela.VarGlobais, _objeto.IDCorRGB, "");
+
+    uint32_t RGBNextion = (R / 8 * 2048) + (G / 4 *32) + (B / 8);   // Cálculo necessário porque o Nextion trata a cor RGB diferente
+    vaRGBNextion.setValueByID(RGBNextion);
+
+}
+
+
+void screenNextionBoxCar::setCodeRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao) {
+
+    byte R      = DadosAcao->getR();
+    byte G      = DadosAcao->getG();
+    byte B      = DadosAcao->getB();
+
+    NexVariable vaCode = NexVariable(_tela.VarGlobais, _objeto.IDCode, "");
+    vaCode.setValueByID((uint32_t)DadosAcao->getCodeAcao());
+
+    NexVariable vaR = NexVariable(_tela.VarGlobais, _objeto.IDR, "");
+    vaR.setValueByID((uint32_t)R);
+
+    NexVariable vaG = NexVariable(_tela.VarGlobais, _objeto.IDG, "");
+    vaG.setValueByID((uint32_t)G);
+
+    NexVariable vaB = NexVariable(_tela.VarGlobais, _objeto.IDB, "");
+    vaB.setValueByID((uint32_t)B);
+
+    NexVariable vaBrilho = NexVariable(_tela.VarGlobais, _objeto.IDBrilho, "");
+    vaBrilho.setValueByID((uint32_t)DadosAcao->getBrilho());
 
     NexVariable vaRGBNextion = NexVariable(_tela.VarGlobais, _objeto.IDCorRGB, "");
 
