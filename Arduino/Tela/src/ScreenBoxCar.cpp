@@ -10,18 +10,46 @@ void ScreenBoxCar::iniciar() {
 
     delay(3000);                        // Necessário para aguardar a inicialização física da tela e arduino Box.
 
+    // Serial.println("...ScreenBoxCar::iniciar():Entrou");
+
     pinMode(_pinoControle, OUTPUT);     // Pino de controle indicando quando este arduino pode iniciar suas rotinas baseado na Ação da tela
     digitalWrite(_pinoControle, LOW);
-    eeprom.inicializar();             
-    som.iniciarBuzzer();
-    ambiente.iniciarSensorLDR();
-    data.iniciarDS3231(true);
-    inicializacaoDaTela();
     
+    // digitalWrite(_pinoControle, HIGH);
+    // delay(5000);
+    // digitalWrite(_pinoControle, LOW);
+
+    // Serial.println(F(" >> ScreenBoxCar::iniciar():In(EEPROM)"));
+      eeprom.inicializar();
+    delay(1000);
+    // Serial.println(F("  >> ScreenBoxCar::iniciar():Out"));
+    
+    // Serial.println(F(">> ScreenBoxCar::iniciar():In(Buzzer)"));
+      som.iniciarBuzzer();
+    delay(1000);
+
+    // Serial.println(F("  >> ScreenBoxCar::iniciar():Out"));
+    
+    // Serial.println(F(">> ScreenBoxCar::iniciar():In(iniciarSensorLDR)"));
+      ambiente.iniciarSensorLDR();
+    delayMicroseconds(1000);
+    // Serial.println(F("  >> ScreenBoxCar::iniciar():Out"));
+    
+    // Serial.println(F(">> ScreenBoxCar::iniciar():In(iniciarDS3231)"));
+      data.iniciarDS3231(true);
+    delay(1000);
+    // Serial.println(F("  >> ScreenBoxCar::iniciar():Out"));
+    
+    inicializacaoDaTela();
+    delayMicroseconds(1000);
+    
+    // Serial.println("...ScreenBoxCar::iniciar():Saiu");
 
 }
 
 void ScreenBoxCar::inicializacaoDaTela() {
+
+    // Serial.println(F(" >> ScreenBoxCar::iniciar():inicializacaoDaTela")),delay(1000);
 
     while(!_telaOnLine){        
 
@@ -34,6 +62,7 @@ void ScreenBoxCar::inicializacaoDaTela() {
             atualizaDadosMemoriaOnScreen();
 
         } else {        //Fica beepando se a inicialização da tela não for Ok
+            // Serial.println(F(" >> erro:inicializacaoDaTela")), delay(1000);
             som.beepBuzzer(),   delay(500);
             som.beepBuzzer(),   delay(500);
             som.beepBuzzer(),   delay(5000);

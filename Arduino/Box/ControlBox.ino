@@ -1,4 +1,3 @@
-
 /*
     Projeto Quadro de carrinhos
     Módulo: >> CONTROLADOR QUADRO LED (BOX) <<
@@ -34,14 +33,24 @@ void loop() { }
 #else
 
 
+#include <Arduino.h>
+#include <Adafruit_NeoPixel.h>
+#include <BoxMemoryEEPROM.h>
+#include <BoxDadosAcao.h>
+#include <BoxBuzzerCar.h>
+#include "src/BoxCar.h"
+#ifdef __AVR__
+  #include <avr/power.h>
+#endif
+
+
+
 /**
  * Definição das funções utilizadas no projeto
  */
 
 void setup();
 void loop();
-
-//#include "C:/Users/edson/OneDrive/Documentos/.Desenvolvimento/Arduino/Projetos/IDE-vscode/quadro-carrinho-vscode/Arduino/Geral/TesteClass"
 
 
 void setup()

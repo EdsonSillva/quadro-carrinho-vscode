@@ -2,8 +2,6 @@
 /*
   Classe Base para controle do tratamento com a tela Nextion (screen)
 
-  Comunicação Rx e Tx padrão do microcontrolador (Serial: 9600)
-
   Desenvolvido por Edson Silva
   Date: 26/05/18
   
@@ -24,16 +22,18 @@
 #include <BoxDadosAcao.h>
 #endif
 
+#ifndef __BOXBUZZERCAR_H__
+#include <BoxBuzzerCar.h>
+#endif
+
 #ifndef __ENUMBOX_H__
 #include "enum/enumBox.h"
 #endif
 
+// #include "BuzzerBoxCar/BuzzerBoxCar.h"
 #include "ScreenNextionBoxCar/screenNextionBoxCar.h"
-#include "BuzzerBoxCar/BuzzerBoxCar.h"
 #include "DateTimeBoxCar/DateTimeBoxCar.h"
 #include "Ambiente/Ambiente.h"
-
-
 
 #define   _pin_Controle_          12
 #define   _pino_eeprom_usado_     11
@@ -62,7 +62,7 @@ public:
   ~ScreenBoxCar();
 
   screenNextionBoxCar         tela        = screenNextionBoxCar();
-  BuzzerBoxCar                som         = BuzzerBoxCar();
+  BoxBuzzerCar                som         = BoxBuzzerCar();
   DateTimeBoxCar              data        = DateTimeBoxCar();
   Ambiente                    ambiente    = Ambiente();
   BoxMemoryEEPROM             eeprom      = BoxMemoryEEPROM();

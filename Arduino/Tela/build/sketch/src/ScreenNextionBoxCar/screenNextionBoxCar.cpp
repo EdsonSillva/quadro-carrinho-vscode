@@ -66,7 +66,7 @@ byte screenNextionBoxCar::getAcaoOnScreen() {
 
 byte screenNextionBoxCar::getStandByOnScreen() {
 
-    uint32_t value = 1;     //Se não retorna nada mantem em stand by
+    uint32_t value = 0;     //Se não retorna nada mantem em stand by
 
     NexVariable StandBy = NexVariable(_tela.VarGlobais, _objeto.IDStandBy, "");  
     StandBy.getValueByID(&value);
@@ -165,7 +165,6 @@ void screenNextionBoxCar::setCodeRGBBrilhoOnScreen(byte CodeAcao, byte R, byte G
     vaRGBNextion.setValueByID(RGBNextion);
 
 }
-
 
 void screenNextionBoxCar::setCodeRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao) {
 

@@ -1,6 +1,7 @@
 {
+    "configuration": "cpu=atmega328old",
     "sketch": "ControlBox.ino",
+    "board": "arduino:avr:nano",
     "output": "build",
-    "configuration": "cpu=atmega328",
-    "board": "arduino:avr:nano"
+    "programmer": "arduino:avrisp"
 }

@@ -1,13 +1,13 @@
 {
 	"folders": [
 		{
-			"name": "# Arduino Controle Nextion",
-			"path": "Arduino//Tela",
+			"name": "# Arduino Controle Box",
+			"path": "Arduino//Box",
 		},
 
 		{
-			"name": "# Arduino Controle Box",
-			"path": "Arduino//Box",
+			"name": "# Arduino Controle Nextion",
+			"path": "Arduino//Tela",
 		},
 
 		{
@@ -18,6 +18,10 @@
 		{
 			"name": "# Libary Dados Acao",
 			"path": "C://users//edson//OneDrive//Documentos//.Desenvolvimento//Arduino//libraries//BoxDadosAcao",
+		},
+		{
+			"name": "# Libary Buzzer",
+			"path": "C://users//edson//OneDrive//Documentos//.Desenvolvimento//Arduino//libraries//BoxBuzzerCar",
 		},
 
 		{

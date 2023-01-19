@@ -14,10 +14,15 @@ DateTimeBoxCar::~DateTimeBoxCar() { }
   @param Clock24hs indica se a contagem de horas vai ser em 12hs ou 24hs. Informe true=24hs ou false=12hs
   
 */
-void DateTimeBoxCar::iniciarDS3231(bool Clock24hs){
-    Wire.begin();                                      // Entra no barramento I2c
-    _RTC.setClockMode(!Clock24hs);                     // set  true=12hs false=24hs format
-    _RTC.setDoW(0);                                    // set the Day-of-Week to SUNDAY (0)
+void DateTimeBoxCar::iniciarDS3231(bool Clock24hs) {
+
+    // Serial.println(F("... DateTimeBoxCar::iniciarDS3231(bool Clock24hs)"));
+    // delay(100);
+
+    Wire.begin();                           // Entra no barramento I2c
+    delay(10);                              // Aguarda a inicialização do Wire
+    _RTC.setClockMode(!Clock24hs);          // set  true=12hs false=24hs format
+    _RTC.setDoW(0);                         // set the Day-of-Week to SUNDAY (0)
 }
 
 byte DateTimeBoxCar::getDoW() {

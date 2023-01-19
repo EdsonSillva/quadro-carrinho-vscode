@@ -2,15 +2,100 @@
   {
     "Sourcefile": null,
     "Include": "",
-    "Includepath": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.5\\cores\\arduino"
+    "Includepath": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino"
   },
   {
     "Sourcefile": null,
     "Include": "",
-    "Includepath": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.5\\variants\\eightanaloginputs"
+    "Includepath": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs"
   },
   {
-    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\QuadroCarrinho\\Arduino\\Box\\build\\sketch\\ControlBox.ino.cpp",
+    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Box\\build\\sketch\\ControlBox.ino.cpp",
+    "Include": "Adafruit_NeoPixel.h",
+    "Includepath": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\Adafruit_NeoPixel"
+  },
+  {
+    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Box\\build\\sketch\\ControlBox.ino.cpp",
+    "Include": "BoxMemoryEEPROM.h",
+    "Includepath": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\BoxMemoryEEPROM\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Box\\build\\sketch\\ControlBox.ino.cpp",
+    "Include": "BoxDadosAcao.h",
+    "Includepath": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\BoxDadosAcao\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Box\\build\\sketch\\ControlBox.ino.cpp",
+    "Include": "Wire.h",
+    "Includepath": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Box\\build\\sketch\\ControlBox.ino.cpp",
+    "Include": "BoxBuzzerCar.h",
+    "Includepath": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\BoxBuzzerCar\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Box\\build\\sketch\\ControlBox.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Box\\build\\sketch\\src\\BoxCar.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\Adafruit_NeoPixel\\Adafruit_NeoPixel.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\Adafruit_NeoPixel\\esp.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\Adafruit_NeoPixel\\esp8266.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\Adafruit_NeoPixel\\kendyte_k210.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\BoxMemoryEEPROM\\src\\BoxMemoryEEPROM.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\BoxMemoryEEPROM\\src\\Device.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\BoxMemoryEEPROM\\src\\Pinos.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\BoxDadosAcao\\src\\BoxDadosAcao.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src\\Wire.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src\\utility\\twi.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\libraries\\BoxBuzzerCar\\src\\BoxBuzzerCar.cpp",
     "Include": "",
     "Includepath": null
   }

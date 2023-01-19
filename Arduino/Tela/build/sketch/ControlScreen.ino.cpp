@@ -23,9 +23,11 @@
 
 */
 #define __PROJETO_EM_BRANCO__                       false
-#define __MONITORAR_SERIAL__                        true
+#define __MONITORAR_SERIAL__                        false
 
 #if(__PROJETO_EM_BRANCO__ == true)
+
+#include <Arduino.h>
 
 void setup(){ }
 void loop() { }
@@ -35,6 +37,7 @@ void loop() { }
 #include <Nextion.h>
 #include <BoxMemoryEEPROM.h>
 #include <BoxDadosAcao.h>
+#include <BoxBuzzerCar.h>
 #include <dht.h>
 #include <DS3231.h>
 #include <Arduino.h>
@@ -51,23 +54,34 @@ ScreenBoxCar    screen = ScreenBoxCar();
 
 void setup() {
 
+    // Serial.println(F("Projeto Refatorado...")), delay(1000);
+
+    // Serial.begin(9600);
+    // while(!Serial);
+    // Serial.println(F("Setup():Entrada")), delay(1000);
     screen.iniciar();
+    // Serial.println(F("Setup():Fim")), delay(1000);
 
 }
 
 void loop() {
 
+    byte StandBy = screen.tela.getStandByOnScreen();
+
     if (!screen.eeprom.disponivel()) {
         
+        // Serial.println(F("loop():eeprom.nao.disponivel"));
         delay(1000);
         screen.atualizaDadosMemoriaOnScreen();
 
-    } else if (screen.tela.getStandByOnScreen() == 1) {
+    } else if (StandBy == 1) {
         
+        // Serial.println(F("loop():standBy = |")), Serial.print(StandBy), Serial.print("|");
         delay(1000);
     
     } else {
     
+        // Serial.println(F("loop():executarAcao()"));
         screen.executarAcao();
     
     }    

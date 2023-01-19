@@ -47,20 +47,23 @@
 
 
 
-# 35 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\ControlScreen.ino" 2
-# 36 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\ControlScreen.ino" 2
+
+
 # 37 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\ControlScreen.ino" 2
 # 38 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\ControlScreen.ino" 2
 # 39 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\ControlScreen.ino" 2
 # 40 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\ControlScreen.ino" 2
 # 41 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\ControlScreen.ino" 2
+# 42 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\ControlScreen.ino" 2
+# 43 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\ControlScreen.ino" 2
+# 44 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\ControlScreen.ino" 2
 
 /**
 
  * Definição das funções utilizadas no projeto
 
  */
-# 46 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\ControlScreen.ino"
+# 49 "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\Tela\\ControlScreen.ino"
 void setup();
 void loop();
 
@@ -68,23 +71,34 @@ ScreenBoxCar screen = ScreenBoxCar();
 
 void setup() {
 
+    // Serial.println(F("Projeto Refatorado...")), delay(1000);
+
+    // Serial.begin(9600);
+    // while(!Serial);
+    // Serial.println(F("Setup():Entrada")), delay(1000);
     screen.iniciar();
+    // Serial.println(F("Setup():Fim")), delay(1000);
 
 }
 
 void loop() {
 
+    byte StandBy = screen.tela.getStandByOnScreen();
+
     if (!screen.eeprom.disponivel()) {
 
+        // Serial.println(F("loop():eeprom.nao.disponivel"));
         delay(1000);
         screen.atualizaDadosMemoriaOnScreen();
 
-    } else if (screen.tela.getStandByOnScreen() == 1) {
+    } else if (StandBy == 1) {
 
+        // Serial.println(F("loop():standBy = |")), Serial.print(StandBy), Serial.print("|");
         delay(1000);
 
     } else {
 
+        // Serial.println(F("loop():executarAcao()"));
         screen.executarAcao();
 
     }

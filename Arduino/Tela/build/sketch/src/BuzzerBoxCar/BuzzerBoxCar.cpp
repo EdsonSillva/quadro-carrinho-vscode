@@ -19,6 +19,9 @@ void BuzzerBoxCar::setPinoConexao(byte Pino){
     _pinoConexao = Pino;
 }
 void BuzzerBoxCar::iniciarBuzzer() {
+   
+    // Serial.println(F("... BuzzerBoxCar::iniciarBuzzer()"));
+
     pinMode(_pinoConexao, OUTPUT);          // Habilita o pino para utilização do Buzzer    
     delayMicroseconds(100);                 // Necessário para aguardar a inicialização do componente anterior.                 
 }

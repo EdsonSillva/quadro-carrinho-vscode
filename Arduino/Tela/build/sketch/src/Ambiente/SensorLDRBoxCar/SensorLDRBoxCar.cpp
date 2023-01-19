@@ -9,6 +9,9 @@ SensorLDRBoxCar::SensorLDRBoxCar() { }
 SensorLDRBoxCar::~SensorLDRBoxCar() { }
 
 void SensorLDRBoxCar::iniciarSensorLDR() {
+    
+    // Serial.println(F("... SensorLDRBoxCar::iniciarSensorLDR()"));
+
     pinMode(_pinoConexao, INPUT);    // Habilita o pino para utilização do sensor 
 }
 
