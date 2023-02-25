@@ -1,8 +1,0 @@
-#line 1 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\.vscode\\arduino.json"
-{
-    "sketch": "ControlBox.ino",
-    "configuration": "cpu=atmega328old",
-    "board": "arduino:avr:nano",
-    "programmer": "arduino:avrisp",
-    "output": "../build"
-}

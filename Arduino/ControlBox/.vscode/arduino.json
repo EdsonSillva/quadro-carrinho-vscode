@@ -1,7 +1,7 @@
 {
-    "sketch": "ControlBox.ino",
+    "sketch": "..\\ControlScreen\\ControlScreen.ino",
     "configuration": "cpu=atmega328old",
     "board": "arduino:avr:nano",
     "programmer": "arduino:avrisp",
-    "output": "../build"
+    "output": "../buildBox"
 }

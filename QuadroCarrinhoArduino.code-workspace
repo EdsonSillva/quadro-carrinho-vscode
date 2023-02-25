@@ -12,16 +12,16 @@
 
 		{
 			"name": "# Libary EEPROM",
-			"path": "C://users//edson//OneDrive//Documentos//.Desenvolvimento//Arduino//libraries//BoxMemoryEEPROM",
+			"path": "C://users//edson//Documents//Arduino//libraries//BoxEEPROM",
 		},
 
 		{
 			"name": "# Libary Dados Acao",
-			"path": "C://users//edson//OneDrive//Documentos//.Desenvolvimento//Arduino//libraries//BoxDadosAcao",
+			"path": "C://users//edson//Documents//Arduino//libraries//BoxDadosAcao",
 		},
 		{
 			"name": "# Libary Buzzer",
-			"path": "C://users//edson//OneDrive//Documentos//.Desenvolvimento//Arduino//libraries//BoxBuzzerCar",
+			"path": "C://users//edson//Documents//Arduino//libraries//BoxBuzzerCar",
 		},
 
 		{

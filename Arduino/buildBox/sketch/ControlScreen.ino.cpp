@@ -1,3 +1,4 @@
+#line 1 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino"
 /*
     Projeto Quadro de carrinhos
     Módulo: >> CONTROLADOR PARA TELA <<
@@ -34,7 +35,7 @@ void loop() { }
 #else
 
 #include <Nextion.h>
-#include <BoxEEPROM.h>
+#include <BoxMemoryEEPROM.h>
 #include <BoxDadosAcao.h>
 #include <BoxBuzzerCar.h>
 #include <dht.h>
@@ -88,3 +89,4 @@ void loop() {
 }
 
 #endif  //Fim da diretiva do código de controle de qual sketch será compilado. Sketch em branco ou o sketch do projeto
+

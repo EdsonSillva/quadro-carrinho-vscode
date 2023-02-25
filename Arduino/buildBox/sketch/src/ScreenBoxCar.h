@@ -1,3 +1,4 @@
+#line 1 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\src\\ScreenBoxCar.h"
 /*
   Classe Base para controle do tratamento com a tela Nextion (screen)
 
@@ -13,8 +14,8 @@
 #include <Arduino.h>
 #endif
 
-#ifndef __BOXEEPROM_H__
-#include <BoxEEPROM.h>
+#ifndef __BOXMEMORYEEPROM_H__
+#include <BoxMemoryEEPROM.h>
 #endif
 
 #ifndef __BOXDADOSACAO_H__
@@ -64,7 +65,7 @@ public:
   BoxBuzzerCar                som         = BoxBuzzerCar();
   DateTimeBoxCar              data        = DateTimeBoxCar();
   Ambiente                    ambiente    = Ambiente();
-  BoxEEPROM                   eeprom      = BoxEEPROM();
+  BoxMemoryEEPROM             eeprom      = BoxMemoryEEPROM();
   BoxDadosAcao                acao        = BoxDadosAcao();
 
   void iniciar();
