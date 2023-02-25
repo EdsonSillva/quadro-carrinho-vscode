@@ -2,10 +2,10 @@
 echo "======================================================="
 echo " Abrindo o projeto Arduino Quadro de carrinhos" [TELA]
 echo "======================================================="
-code Arduino/Tela/
+code Arduino/ControlScreen/
 echo
 echo
 echo "======================================================="
 echo " Abrindo o projeto Arduino Quadro de carrinhos" [BOX]
 echo "======================================================="
-code Arduino/Box/
+code Arduino/ControlBox/

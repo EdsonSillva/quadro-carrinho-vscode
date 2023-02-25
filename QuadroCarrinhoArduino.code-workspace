@@ -2,12 +2,12 @@
 	"folders": [
 		{
 			"name": "# Arduino Controle Box",
-			"path": "Arduino//Box",
+			"path": "C://Users//edson//OneDrive//Documentos//.Desenvolvimento//Arduino//Projetos//IDE-vscode//quadro-carrinho-vscode//Arduino//ControlBox",
 		},
 
 		{
 			"name": "# Arduino Controle Nextion",
-			"path": "Arduino//Tela",
+			"path": "C://Users//edson//OneDrive//Documentos//.Desenvolvimento//Arduino//Projetos//IDE-vscode//quadro-carrinho-vscode//Arduino//ControlScreen",
 		},
 
 		{
@@ -40,7 +40,8 @@
 			"*.cpp": "cpp",
 			"cstddef": "cpp",
 			"initializer_list": "cpp"
-		}
+		},
+		"window.title": "${dirty}${activeEditorShort}${separator}${rootnamPath}${separator}${appName}"
 	}
 
 }
