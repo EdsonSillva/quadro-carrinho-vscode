@@ -34,7 +34,7 @@ public:
     unsigned int AddressQtdeChar     = AddressDataSegTxt + 0x00;
     unsigned int AddressIniTexto     = AddressDataSegTxt + 0x01;
 
-    Device(/* args */);
+    Device();
     ~Device();
     void setAddress(unsigned int Address);
     unsigned int getAddress();

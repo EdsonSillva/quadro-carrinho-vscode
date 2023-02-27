@@ -4,11 +4,8 @@
 #include "MascaraLetra.h"
 
 
-MascaraLetra::MascaraLetra(/* args */) { }
-
+MascaraLetra::MascaraLetra() { }
 MascaraLetra::~MascaraLetra() { }
-
-
 
 void MascaraLetra::montarMascara(char Letra, char LetraMascarada[], byte *pFimBitMascara) {
 

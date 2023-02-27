@@ -20,6 +20,10 @@ void BoxCar::iniciarBoxCar() {
 
 }
 
+bool BoxCar::acaoSolicitada() {
+    return acaoScreen.acaoAtiva();
+}
+
 /*
     @brief Metodo para executar uma ação no quadro de carrinho.
 */

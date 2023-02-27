@@ -14,7 +14,7 @@ private:
 
 
 public:
-    MascaraLetra(/* args */);
+    MascaraLetra();
     ~MascaraLetra();
     void montarMascara(char Letra, char LetraMascarada[], byte *pFimBitMascara);
 };

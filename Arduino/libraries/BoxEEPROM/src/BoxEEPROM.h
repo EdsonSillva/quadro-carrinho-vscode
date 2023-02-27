@@ -8,8 +8,8 @@
 
 */
 
-#ifndef __BOXMEMORYEEPROM_H__
-#define __BOXMEMORYEEPROM_H__
+#ifndef __BOXEEPROM_H__
+#define __BOXEEPROM_H__
 
 #ifndef __BOXDADOSACAO_H__
 #include <BoxDadosAcao.h>
@@ -25,7 +25,7 @@ typedef void (*pTipoVoid)(unsigned int, unsigned long);
 /*
     Classe de controle dos metodos de tratamento da memória EEPROM externa acoplada ao projeto quadro de carrinho.
 */
-class BoxMemoryEEPROM
+class BoxEEPROM
 {
 private:
 
@@ -48,10 +48,10 @@ private:
 
 public:
 
-    BoxMemoryEEPROM();
-    BoxMemoryEEPROM(int pinoUsando, int pinoAlerta);
-    BoxMemoryEEPROM(Device device, int pinoUsando, int pinoAlerta);
-    ~BoxMemoryEEPROM();
+    BoxEEPROM();
+    BoxEEPROM(int pinoUsando, int pinoAlerta);
+    BoxEEPROM(Device device, int pinoUsando, int pinoAlerta);
+    ~BoxEEPROM();
 
     void inicializar();
     bool disponivel();
@@ -69,4 +69,4 @@ public:
 };
 
 
-#endif  // __BoxMEMORYEEPROM_H__
+#endif  // __BOXEEPROM_H__

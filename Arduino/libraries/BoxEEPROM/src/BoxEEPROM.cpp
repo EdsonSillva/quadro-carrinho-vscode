@@ -9,27 +9,28 @@
 */
 
 
-#include <BoxMemoryEEPROM.h>
+#include <BoxEEPROM.h>
+
 
 /**
  * Este construtor utiliza os pinos padrões de 'uso' e 'alerta'
  * definidos na classe Pinos.
 */
-BoxMemoryEEPROM::BoxMemoryEEPROM() { }
+BoxEEPROM::BoxEEPROM() { }
 
-BoxMemoryEEPROM::BoxMemoryEEPROM(int pinoUsando, int pinoAlerta)
+BoxEEPROM::BoxEEPROM(int pinoUsando, int pinoAlerta)
 {
     _pinos.setPinos(pinoUsando, pinoAlerta);
 }
 
-BoxMemoryEEPROM::BoxMemoryEEPROM(Device device, int pinoUsando, int pinoAlerta) { 
+BoxEEPROM::BoxEEPROM(Device device, int pinoUsando, int pinoAlerta) { 
     _device = device;
     _pinos.setPinos(pinoUsando, pinoAlerta);
 }
 
-BoxMemoryEEPROM::~BoxMemoryEEPROM() { }
+BoxEEPROM::~BoxEEPROM() { }
 
-void BoxMemoryEEPROM::inicializar() {
+void BoxEEPROM::inicializar() {
     
     // Serial.println(F("... BoxMemoryEEPROM::inicializar()"));
 
@@ -40,15 +41,15 @@ void BoxMemoryEEPROM::inicializar() {
 
 }
 
-bool BoxMemoryEEPROM::disponivel() {
+bool BoxEEPROM::disponivel() {
     return _eepromDisponivel;
 }
 
-byte BoxMemoryEEPROM::getPinLedUso(){
+byte BoxEEPROM::getPinLedUso(){
     return (byte)_pinos.getPinoLedUsandoEEPROM();
 }
 
-void BoxMemoryEEPROM::alertaSonoroNaoResponde(){
+void BoxEEPROM::alertaSonoroNaoResponde(){
     if(_FuncBuzzer != NULL) _FuncBuzzer(_frequencia, _duracao);
     digitalWrite(_pinos.getPinoLedAlerta(), HIGH), delay(500);
     if(_FuncBuzzer != NULL) _FuncBuzzer(_frequencia, _duracao);
@@ -62,7 +63,7 @@ void BoxMemoryEEPROM::alertaSonoroNaoResponde(){
 /* 
     @deprecated Antigo 
 */
-void BoxMemoryEEPROM::getDadosOnMemory(byte *pCodeAcao, byte *pR, byte *pG, byte *pB, byte *pBrilho) {
+void BoxEEPROM::getDadosOnMemory(byte *pCodeAcao, byte *pR, byte *pG, byte *pB, byte *pBrilho) {
 
     digitalWrite(_pinos.getPinoLedUsandoEEPROM(), HIGH);
         *pCodeAcao  = lerEEPROM((int)_device.AddressCodeAcao);
@@ -78,7 +79,7 @@ void BoxMemoryEEPROM::getDadosOnMemory(byte *pCodeAcao, byte *pR, byte *pG, byte
 
 }
 
-void BoxMemoryEEPROM::getDadosOnMemory(BoxDadosAcao *DadosAcao) {
+void BoxEEPROM::getDadosOnMemory(BoxDadosAcao *DadosAcao) {
 
     byte CodeAcao = 0, R = 0, G = 0, B = 0, Brilho = 0;
 
@@ -107,7 +108,7 @@ void BoxMemoryEEPROM::getDadosOnMemory(BoxDadosAcao *DadosAcao) {
 /* 
     @deprecated Antigo 
 */
-void BoxMemoryEEPROM::setDadosOnMemory(byte CodeAcao, byte R, byte G, byte B, byte Brilho) {
+void BoxEEPROM::setDadosOnMemory(byte CodeAcao, byte R, byte G, byte B, byte Brilho) {
 
     digitalWrite(_pinos.getPinoLedUsandoEEPROM(), HIGH);
         gravarEEPROM((int)_device.AddressR, R);
@@ -119,7 +120,7 @@ void BoxMemoryEEPROM::setDadosOnMemory(byte CodeAcao, byte R, byte G, byte B, by
 
 }
 
-void BoxMemoryEEPROM::setDadosOnMemory(BoxDadosAcao *DadosAcao) {
+void BoxEEPROM::setDadosOnMemory(BoxDadosAcao *DadosAcao) {
 
     DadosAcao->getR();
 
@@ -133,7 +134,7 @@ void BoxMemoryEEPROM::setDadosOnMemory(BoxDadosAcao *DadosAcao) {
 
 }
 
-void BoxMemoryEEPROM::setTextoOnMemory(char Texto[], byte QtdeChar){
+void BoxEEPROM::setTextoOnMemory(char Texto[], byte QtdeChar) {
 
     int Address   = _device.AddressIniTexto;                      // Pega o endereço inicial da mensagem
 
@@ -145,7 +146,7 @@ void BoxMemoryEEPROM::setTextoOnMemory(char Texto[], byte QtdeChar){
 
 }
 
-void BoxMemoryEEPROM::getTextoOnMemory(char Texto[], byte *pQtdeChar){
+void BoxEEPROM::getTextoOnMemory(char Texto[], byte *pQtdeChar) {
 
     int Address   = _device.AddressIniTexto;                  // Pega o endereço inicial da mensagem
     int QtdeChar  = lerEEPROM((int)_device.AddressQtdeChar);          // Le o tamanho da Mensagem
@@ -158,7 +159,7 @@ void BoxMemoryEEPROM::getTextoOnMemory(char Texto[], byte *pQtdeChar){
 
 }
 
-byte BoxMemoryEEPROM::lerEEPROM(int offSet) {
+byte BoxEEPROM::lerEEPROM(int offSet) {
 
     byte            Dado          = 0xFF;
     unsigned long   MaxWait       = millis() + 10000;        // Seta o tempo máximo de 10 segundos aguardando a resposta do device EEPROM
@@ -189,7 +190,7 @@ byte BoxMemoryEEPROM::lerEEPROM(int offSet) {
 
 }
 
-void BoxMemoryEEPROM::gravarEEPROM(int offSet, unsigned int Dado) {
+void BoxEEPROM::gravarEEPROM(int offSet, unsigned int Dado) {
     startEEPROMsetOffSet(offSet);
     Wire.write((byte)Dado);
     Wire.endTransmission();
@@ -197,13 +198,13 @@ void BoxMemoryEEPROM::gravarEEPROM(int offSet, unsigned int Dado) {
 
 }
 
-void BoxMemoryEEPROM::startEEPROMsetOffSet(unsigned int offSet) {
+void BoxEEPROM::startEEPROMsetOffSet(unsigned int offSet) {
     Wire.beginTransmission((uint8_t)_device.getAddress());
         Wire.write( (int)(offSet >>    8) );
         Wire.write( (int)(offSet &  0xFF) );
 }
 
-void BoxMemoryEEPROM::setFuncBuzzer(pTipoVoid FuncBuzzer, unsigned int frequencia, unsigned long duracao) {
+void BoxEEPROM::setFuncBuzzer(pTipoVoid FuncBuzzer, unsigned int frequencia, unsigned long duracao) {
     _FuncBuzzer = FuncBuzzer;
     _frequencia = frequencia;
     _duracao = duracao;

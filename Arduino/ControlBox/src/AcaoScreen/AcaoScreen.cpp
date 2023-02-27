@@ -12,7 +12,7 @@ AcaoScreen::~AcaoScreen() { }
     
     @return True quado o pino estiver em HIGH, False quando o pino estiver em LOW
 */
-bool inline AcaoScreen::acaoAtiva(){
+bool AcaoScreen::acaoAtiva(){
     return digitalRead(_pinoControle);
 }
     

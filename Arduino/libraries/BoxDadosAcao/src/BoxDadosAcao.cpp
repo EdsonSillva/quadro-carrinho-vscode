@@ -25,6 +25,12 @@ void BoxDadosAcao::setRGBB(byte R, byte G, byte B, byte Brilho) {
     _Brilho = Brilho;
 }
 
+void BoxDadosAcao::setRGBGamma(byte GammaR, byte GammaG, byte GammaB) {
+    _GammaR = GammaR;
+    _GammaG = GammaG;
+    _GammaB = GammaB;
+}
+
 void BoxDadosAcao::setCodeAcaoRGBB(byte CodeAcao, byte R, byte G, byte B, byte Brilho) {
     setCodeAcao(CodeAcao);
     setRGBB(R, G, B, Brilho);
@@ -71,6 +77,18 @@ byte BoxDadosAcao::getG() {
 
 byte BoxDadosAcao::getB() {
     return _B;
+}
+
+byte BoxDadosAcao::getGammaR() {
+    return _GammaR;
+}
+
+byte BoxDadosAcao::getGammaG() {
+    return _GammaG;
+}
+
+byte BoxDadosAcao::getGammaB() {
+    return _GammaB;
 }
 
 byte BoxDadosAcao::getBrilho() {

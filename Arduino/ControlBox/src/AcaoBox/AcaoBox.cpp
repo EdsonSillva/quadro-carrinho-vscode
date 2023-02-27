@@ -4,7 +4,6 @@
 
 
 AcaoBox::AcaoBox() { }
-
 AcaoBox::~AcaoBox() { }
 
 void AcaoBox::iniciarLeds(int IntensidadeBrilho) {

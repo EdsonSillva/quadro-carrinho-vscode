@@ -29,6 +29,9 @@ private:
     byte    _R                      = 0;
     byte    _G                      = 0;
     byte    _B                      = 0;
+    byte    _GammaR                 = 0;
+    byte    _GammaG                 = 0;
+    byte    _GammaB                 = 0;
     byte    _Brilho                 = 0;
     String  _ChaveAcaoAtual         = "";
     String  _ChaveAcaoAnterior      = "";
@@ -39,6 +42,7 @@ public:
 
     void setCodeAcao(byte CodeAcao);
     void setRGBB(byte R, byte G, byte B, byte Brilho);
+    void setRGBGamma(byte GammaR, byte GammaG, byte GammaB);
     void setCodeAcaoRGBB(byte CodeAcao, byte R, byte G, byte B, byte Brilho);
     String gerarChaveAcao();
     String getChaveAcao();
@@ -46,6 +50,9 @@ public:
     byte getR();
     byte getG();
     byte getB();
+    byte getGammaR();
+    byte getGammaG();
+    byte getGammaB();
     byte getBrilho();
     byte getCodeAcao();
     byte getIDAcaoMsg();

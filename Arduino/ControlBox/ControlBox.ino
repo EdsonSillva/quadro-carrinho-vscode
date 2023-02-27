@@ -49,7 +49,6 @@ void loop() { }
 #endif
 
 
-
 /**
  * Definição das funções utilizadas no projeto
  */
@@ -68,12 +67,11 @@ void setup() {
 
 void loop() {
 	
-    if (box.acaoScreen.acaoAtiva()) {
+    if (box.acaoSolicitada()) {
         box.identificarExecutarAcao();
     }
 
 }
-
 
 
 #endif  //Fim da diretiva do código de controle de qual sketch será compilado. Sketch em branco ou o sketch com os código

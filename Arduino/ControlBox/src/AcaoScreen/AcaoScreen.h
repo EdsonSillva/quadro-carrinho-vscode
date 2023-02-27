@@ -50,7 +50,7 @@ public:
     AcaoScreen(byte PinoControle);
     ~AcaoScreen();
 
-    bool inline acaoAtiva();
+    bool acaoAtiva();
     void resetAcao(BoxDadosAcao *DadosAcao);
     void ledsAcesos(BoxDadosAcao *DadosAcao);
     void ledsXadrezFade(BoxDadosAcao *DadosAcao);

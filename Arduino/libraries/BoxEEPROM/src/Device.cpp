@@ -8,7 +8,7 @@
 
 #include <Device.h>
 
-Device::Device(/* args */) { }
+Device::Device() { }
 Device::~Device() { }
 
 void Device::setAddress(unsigned int Address) {

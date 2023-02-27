@@ -82,7 +82,7 @@ void setup() {
 
 void loop() {
 
-    if (box.acaoScreen.acaoAtiva()) {
+    if (box.acaoSolicitada()) {
         box.identificarExecutarAcao();
     }
 

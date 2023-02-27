@@ -21,10 +21,8 @@
 
 
 typedef void (*funcAcaoClass_t)(bool, byte, BoxDadosAcao);
-
 typedef void (*FuncAcaoVoid)(bool, byte, byte, byte, byte);
 typedef void (*FuncAcao)(bool, BoxDadosAcao);
-
 
 typedef struct cascata_t {
     uint8_t   Coluna;
@@ -33,7 +31,5 @@ typedef struct cascata_t {
     float     Percentual;
     bool      Finalizado;
 } cascata_t;
-
-
 
 #endif  // __TYPEDEFBOX_H__

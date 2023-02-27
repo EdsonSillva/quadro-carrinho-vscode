@@ -82,6 +82,7 @@ public:
   AcaoBox               acaoBox         = AcaoBox();
 
   void iniciarBoxCar();
+  bool acaoSolicitada();
   void identificarExecutarAcao();
   void executarAcao(eAcao CodigoAcao);
 
