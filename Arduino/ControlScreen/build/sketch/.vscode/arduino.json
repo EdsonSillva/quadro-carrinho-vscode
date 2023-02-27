@@ -1,8 +1,0 @@
-#line 1 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\.vscode\\arduino.json"
-{
-    "configuration": "cpu=atmega328old",
-    "sketch": "ControlScreen.ino",
-    "board": "arduino:avr:nano",
-    "output": "build",
-    "programmer": "arduino:avrisp"
-}

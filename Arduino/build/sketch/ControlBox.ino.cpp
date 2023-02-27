@@ -1,3 +1,4 @@
+#line 1 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
 /*
     Projeto Quadro de carrinhos
     Módulo: >> CONTROLADOR QUADRO LED (BOX) <<
@@ -77,3 +78,4 @@ void loop() {
 
 
 #endif  //Fim da diretiva do código de controle de qual sketch será compilado. Sketch em branco ou o sketch com os código
+

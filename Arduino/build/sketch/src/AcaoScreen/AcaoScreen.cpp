@@ -1,3 +1,4 @@
+#line 1 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\src\\AcaoScreen\\AcaoScreen.cpp"
 
 
 #include "AcaoScreen.h"

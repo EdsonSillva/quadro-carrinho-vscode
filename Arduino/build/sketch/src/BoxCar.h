@@ -1,3 +1,4 @@
+#line 1 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\src\\BoxCar.h"
 /*
   Classe Base para controle do tratamento das ações no quadro de carrinho
 
@@ -85,7 +86,12 @@ public:
   void identificarExecutarAcao();
   void executarAcao(eAcao CodigoAcao);
 
+
+  
+
 };
+
+
 
 #endif  // __BOXCAR_H__
 
