@@ -18,9 +18,9 @@ bool AcaoScreen::acaoAtiva(){
     
 void AcaoScreen::setLeds(BoxDadosAcao *DadosAcao) {
 
-    if(!DadosAcao->chaveAcaoAnteriorAtualIgual()) {
+    // if(!DadosAcao->chaveAcaoAnteriorAtualIgual()) {
         _box.boxLedsRGBB(DadosAcao);
-    }
+    // }
 
 }
 
@@ -41,7 +41,7 @@ void AcaoScreen::ledsAcesos(BoxDadosAcao *DadosAcao) {
 
 void AcaoScreen::ledsXadrezFade(BoxDadosAcao *DadosAcao) {
 
-    if(!DadosAcao->chaveAcaoAnteriorAtualIgual()) {
+    // if(!DadosAcao->chaveAcaoAnteriorAtualIgual()) {
 
         bool  IniciarImpar = true;
         int   Percentual   = 100;
@@ -68,7 +68,7 @@ void AcaoScreen::ledsXadrezFade(BoxDadosAcao *DadosAcao) {
 
         }
 
-    }
+    // }
 
 }
 
@@ -87,7 +87,7 @@ void AcaoScreen::mensagem(BoxDadosAcao *DadosAcao, byte LinhaShow) {
 
 void AcaoScreen::ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcao Acao = eAcao::acaoLinha) {
 
-    if(!DadosAcao->chaveAcaoAnteriorAtualIgual()) { 
+    // if(!DadosAcao->chaveAcaoAnteriorAtualIgual()) { 
 
         bool IniciarImpar = true;
         _tmpWaitRotina = 11000;
@@ -115,16 +115,7 @@ void AcaoScreen::ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcao Acao = eAcao
 
         }
 
-    }
-}
-
-/* @deprecated Antigo*/
-void AcaoScreen::ledsShowBoxFixoAcao(BoxDadosAcao *DadosAcao, eBoxTematico Tema) {
-
-    _box.iniciarMapaBox();
-    _box.boxAcaoTematico(Tema, DadosAcao);
-    while(acaoAtiva());
-
+    // }
 }
 
 void AcaoScreen::ledsTematico(BoxDadosAcao *DadosAcao, eBoxTematico Tema) {
@@ -139,7 +130,7 @@ void AcaoScreen::ledsTematico(BoxDadosAcao *DadosAcao, eBoxTematico Tema) {
 
 void AcaoScreen::ledsAcaoCascata(BoxDadosAcao *DadosAcao) {
 
-    if(!DadosAcao->chaveAcaoAnteriorAtualIgual()) {
+    // if(!DadosAcao->chaveAcaoAnteriorAtualIgual()) {
 
         _tmpWaitRotina                     = 11000;
         uint8_t sizeCascata               = 15;
@@ -179,7 +170,7 @@ void AcaoScreen::ledsAcaoCascata(BoxDadosAcao *DadosAcao) {
 
         }
 
-    }
+    // }
 
 }
 

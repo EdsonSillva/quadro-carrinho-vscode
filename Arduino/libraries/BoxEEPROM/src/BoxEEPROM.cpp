@@ -8,22 +8,28 @@
 
 */
 
-
 #include <BoxEEPROM.h>
-
 
 /**
  * Este construtor utiliza os pinos padrões de 'uso' e 'alerta'
  * definidos na classe Pinos.
 */
-BoxEEPROM::BoxEEPROM() { }
+BoxEEPROM::BoxEEPROM() {
+    _som = BoxBuzzerCar();
+ }
+
+BoxEEPROM::BoxEEPROM(BoxBuzzerCar som) {
+    _som = som;
+ }
 
 BoxEEPROM::BoxEEPROM(int pinoUsando, int pinoAlerta)
 {
+    _som = BoxBuzzerCar();
     _pinos.setPinos(pinoUsando, pinoAlerta);
 }
 
 BoxEEPROM::BoxEEPROM(Device device, int pinoUsando, int pinoAlerta) { 
+    _som = BoxBuzzerCar();
     _device = device;
     _pinos.setPinos(pinoUsando, pinoAlerta);
 }
@@ -32,12 +38,11 @@ BoxEEPROM::~BoxEEPROM() { }
 
 void BoxEEPROM::inicializar() {
     
-    // Serial.println(F("... BoxMemoryEEPROM::inicializar()"));
-
     Wire.begin();                           // Entra no barramento I2c e inicializa os pinos do I2c
     delay(10);                              // Aguarda a inicialização do Wire
     _pinos.inicializar();                   // Inicializa os pinos de uso e leitura da EEPROM
     delayMicroseconds(1000);                // Necessário para aguardar a inicialização do componente anterior.
+    _som.iniciarBuzzer();                   // Inicializar a saida de som
 
 }
 
@@ -50,33 +55,14 @@ byte BoxEEPROM::getPinLedUso(){
 }
 
 void BoxEEPROM::alertaSonoroNaoResponde(){
-    if(_FuncBuzzer != NULL) _FuncBuzzer(_frequencia, _duracao);
+    _som.beepBuzzer(_frequencia, _duracao);
     digitalWrite(_pinos.getPinoLedAlerta(), HIGH), delay(500);
-    if(_FuncBuzzer != NULL) _FuncBuzzer(_frequencia, _duracao);
+    _som.beepBuzzer(_frequencia, _duracao);
     digitalWrite(_pinos.getPinoLedAlerta(), LOW), delay(200);
-    if(_FuncBuzzer != NULL) _FuncBuzzer(_frequencia, _duracao);
+    _som.beepBuzzer(_frequencia, _duracao);
     digitalWrite(_pinos.getPinoLedAlerta(), HIGH), delay(500);
-    if(_FuncBuzzer != NULL) _FuncBuzzer(_frequencia, _duracao);
+    _som.beepBuzzer(_frequencia, _duracao);
     digitalWrite(_pinos.getPinoLedAlerta(), LOW);
-}
-
-/* 
-    @deprecated Antigo 
-*/
-void BoxEEPROM::getDadosOnMemory(byte *pCodeAcao, byte *pR, byte *pG, byte *pB, byte *pBrilho) {
-
-    digitalWrite(_pinos.getPinoLedUsandoEEPROM(), HIGH);
-        *pCodeAcao  = lerEEPROM((int)_device.AddressCodeAcao);
-        if(*pCodeAcao == 254){
-            alertaSonoroNaoResponde();
-            return;
-        }
-        *pR         = lerEEPROM((int)_device.AddressR);
-        *pG         = lerEEPROM((int)_device.AddressG);
-        *pB         = lerEEPROM((int)_device.AddressB);
-        *pBrilho    = lerEEPROM((int)_device.AddressBrilho);
-    digitalWrite(_pinos.getPinoLedUsandoEEPROM(),LOW);
-
 }
 
 void BoxEEPROM::getDadosOnMemory(BoxDadosAcao *DadosAcao) {
@@ -101,21 +87,6 @@ void BoxEEPROM::getDadosOnMemory(BoxDadosAcao *DadosAcao) {
     
         DadosAcao->setCodeAcaoRGBB(CodeAcao, R, G, B, Brilho);
     
-    digitalWrite(_pinos.getPinoLedUsandoEEPROM(),LOW);
-
-}
-
-/* 
-    @deprecated Antigo 
-*/
-void BoxEEPROM::setDadosOnMemory(byte CodeAcao, byte R, byte G, byte B, byte Brilho) {
-
-    digitalWrite(_pinos.getPinoLedUsandoEEPROM(), HIGH);
-        gravarEEPROM((int)_device.AddressR, R);
-        gravarEEPROM((int)_device.AddressG, G);
-        gravarEEPROM((int)_device.AddressB, B);
-        gravarEEPROM((int)_device.AddressBrilho, Brilho);
-        gravarEEPROM((int)_device.AddressCodeAcao, CodeAcao);
     digitalWrite(_pinos.getPinoLedUsandoEEPROM(),LOW);
 
 }
@@ -204,8 +175,3 @@ void BoxEEPROM::startEEPROMsetOffSet(unsigned int offSet) {
         Wire.write( (int)(offSet &  0xFF) );
 }
 
-void BoxEEPROM::setFuncBuzzer(pTipoVoid FuncBuzzer, unsigned int frequencia, unsigned long duracao) {
-    _FuncBuzzer = FuncBuzzer;
-    _frequencia = frequencia;
-    _duracao = duracao;
-}

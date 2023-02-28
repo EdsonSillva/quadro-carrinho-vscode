@@ -6,8 +6,6 @@
 
 */
 
-//#define   ChaveAcao(CodeAcao, R, G, B, Brilho) ((String)(String(CodeAcao) + String(R) + String(G) + String(B) + String(Brilho)))
-
 #ifndef __BOXDADOSACAO_H__
 #define __BOXDADOSACAO_H__
 
@@ -24,6 +22,7 @@ class BoxDadosAcao
 {
 private:
 
+    bool    _Executando             = false;
     byte    _IDAcaoMsg              = _IDAcaoMsg_;
     byte    _CodeAcao               = 0;
     byte    _R                      = 0;
@@ -41,6 +40,9 @@ public:
     ~BoxDadosAcao();
 
     void setCodeAcao(byte CodeAcao);
+    void setExecutando(bool valor);
+    bool getExecutando();
+    void limpaDados();
     void setRGBB(byte R, byte G, byte B, byte Brilho);
     void setRGBGamma(byte GammaR, byte GammaG, byte GammaB);
     void setCodeAcaoRGBB(byte CodeAcao, byte R, byte G, byte B, byte Brilho);
@@ -60,8 +62,6 @@ public:
     bool chaveAcaoAtualIsMsg();
 
 };
-
-
 
 #endif  // __BOXDADOSACAO_H__
 

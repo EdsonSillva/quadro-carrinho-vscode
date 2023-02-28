@@ -10,46 +10,27 @@ void ScreenBoxCar::iniciar() {
 
     delay(3000);                        // Necessário para aguardar a inicialização física da tela e arduino Box.
 
-    // Serial.println("...ScreenBoxCar::iniciar():Entrou");
-
     pinMode(_pinoControle, OUTPUT);     // Pino de controle indicando quando este arduino pode iniciar suas rotinas baseado na Ação da tela
     digitalWrite(_pinoControle, LOW);
     
-    // digitalWrite(_pinoControle, HIGH);
-    // delay(5000);
-    // digitalWrite(_pinoControle, LOW);
-
-    // Serial.println(F(" >> ScreenBoxCar::iniciar():In(EEPROM)"));
-      eeprom.inicializar();
-    delay(1000);
-    // Serial.println(F("  >> ScreenBoxCar::iniciar():Out"));
-    
-    // Serial.println(F(">> ScreenBoxCar::iniciar():In(Buzzer)"));
-      som.iniciarBuzzer();
+    som.iniciarBuzzer();
     delay(1000);
 
-    // Serial.println(F("  >> ScreenBoxCar::iniciar():Out"));
-    
-    // Serial.println(F(">> ScreenBoxCar::iniciar():In(iniciarSensorLDR)"));
-      ambiente.iniciarSensorLDR();
+    eeprom.inicializar();
+    delay(1000);
+
+    ambiente.iniciarSensorLDR();
     delayMicroseconds(1000);
-    // Serial.println(F("  >> ScreenBoxCar::iniciar():Out"));
     
-    // Serial.println(F(">> ScreenBoxCar::iniciar():In(iniciarDS3231)"));
-      data.iniciarDS3231(true);
+    data.iniciarDS3231(true);
     delay(1000);
-    // Serial.println(F("  >> ScreenBoxCar::iniciar():Out"));
     
     inicializacaoDaTela();
     delayMicroseconds(1000);
     
-    // Serial.println("...ScreenBoxCar::iniciar():Saiu");
-
 }
 
 void ScreenBoxCar::inicializacaoDaTela() {
-
-    // Serial.println(F(" >> ScreenBoxCar::iniciar():inicializacaoDaTela")),delay(1000);
 
     while(!_telaOnLine){        
 
@@ -62,7 +43,6 @@ void ScreenBoxCar::inicializacaoDaTela() {
             atualizaDadosMemoriaOnScreen();
 
         } else {        //Fica beepando se a inicialização da tela não for Ok
-            // Serial.println(F(" >> erro:inicializacaoDaTela")), delay(1000);
             som.beepBuzzer(),   delay(500);
             som.beepBuzzer(),   delay(500);
             som.beepBuzzer(),   delay(5000);
@@ -70,76 +50,119 @@ void ScreenBoxCar::inicializacaoDaTela() {
     }
 }
 
-void ScreenBoxCar::executarAcao() {
+void ScreenBoxCar::gerenciarAcao() {
 
-    acao.setCodeAcao(tela.getAcaoOnScreen());
-    tela.getRGBBrilhoOnScreen(&acao);
-    acao.gerarChaveAcao();
+    // Levar para dentro do objeto como gerenciarAcao()
     
-    switch (acao.getCodeAcao()) {
+    if(acaoSelecionada() && !acaoExecutando()) {
+        // Existe ação no screen, mas screen.AcaoExecutando() = false: executar a ação
+        executaAcao();
 
-        case 0:                                                 // Reset Ação 
-        case 254:                                               // Device EEPROM não disponível
-        case 255:                                               // Reset Ação
-            
-            if (!acao.chaveAcaoAnteriorAtualIgual()) {
-                digitalWrite(_pinoControle, LOW);               // Sinaliza Off para o outro Arduino
-                delay(50);
-            }
-
-        break;
-
-        /* 
-         * ******************************************************************
-         * Ações usadas para configuração do sistema e screen Nextion
-         * ******************************************************************
-         */
-
-        case 1:                                                             // Ação Configurar Data
-            tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-            configuraDataNoDevice();        
-        break;
-        case 2:                                                             // Ação Configurar Hora
-            tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-            configuraHoraNoDevice();
-        break;
-        case 3:                                                             // Ação Configurar RGB Brilho dos Led's
-            tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-        break;
-        case 4:                                                             // Ação Configurar Beep
-            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
-            _Beep = tela.getBeepOnScreen();
-            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
-        break;
-
-    default:
-        
-        /* *******************************************************************
-        *  Opções para ação no quadro de carrinho 
-        *  ********************************************************************
-        */
-
-        if(!acao.chaveAcaoAnteriorAtualIgual()){
-
-            if(acao.chaveAcaoAtualIsMsg()){                              // Mensagem na Tela
-                char Texto[50] = {0};
-                byte QtdeChar = 0;
-                tela.getTextoOnScreen(Texto, &QtdeChar);
-                eeprom.setTextoOnMemory(Texto, QtdeChar);
-            }
-            // eeprom.setDadosOnMemory(CodeAcao,  R,  G,  B,  Brilho);
-            eeprom.setDadosOnMemory(&acao);
-            digitalWrite(_pinoControle, HIGH);
-        }
+    } else if(!acaoSelecionada() && acaoExecutando()) {
+        // Não existe ação no screen, mas screen.AcaoExecutando() = true: reset dos leds no quadro
+        stopAcao();
 
     }
 
-    /* *****************************************************************************
-     *  Rotinas de atualização das variáveis de Data, hora, tempertura e humidade
-     * *****************************************************************************
-     */
+    // Não existe acao no screen e screen.AcaoExecutando() = false: não faz nada
+    
+    atualizaDadosNaTela();        // Atualização das variáveis de Data, hora, tempertura e humidade
 
-    atualizaDadosNaTela();
+}
+
+
+bool ScreenBoxCar::acaoSelecionada() {
+    acao.setCodeAcao(tela.getAcaoOnScreen());
+    if (acao.getCodeAcao() > 0) return true;
+    return false;
+}
+
+bool ScreenBoxCar::acaoExecutando() {
+    return acao.getExecutando();
+}
+
+void ScreenBoxCar::stopAcao() {
+
+    digitalWrite(_pinoControle, LOW);               // Sinaliza ação cancelada para o outro Arduino
+    acao.setExecutando(false);
+    delay(50);
+
+}
+
+void ScreenBoxCar::executaAcao() {
+
+    byte CodeAcao = acao.getCodeAcao();
+    
+    if (CodeAcao > 10) {
+
+        // acao.setCodeAcao(tela.getAcaoOnScreen());
+        tela.getRGBBrilhoOnScreen(&acao);
+        // acao.gerarChaveAcao();
+
+        switch (CodeAcao) {
+
+            // case 0:                                             // Reset Ação 
+            //     digitalWrite(_pinoControle, LOW);               // Sinaliza ação  cancelada para o outro Arduino
+            //     delay(50);
+            //     break;
+            case 254:                                               // Device EEPROM não disponível
+            case 255:                                               // Reset Ação
+                
+                // if (!acao.chaveAcaoAnteriorAtualIgual()) {
+                    digitalWrite(_pinoControle, LOW);               // Sinaliza Off para o outro Arduino
+                    delay(50);
+                // }
+
+                break;
+
+            default:
+            
+                /* 
+                *  Ações direcionadas ao quadro de carrinho 
+                */
+
+                // if(!acao.chaveAcaoAnteriorAtualIgual()){
+
+                if(acao.chaveAcaoAtualIsMsg()){                              // Mensagem na Tela
+                    char Texto[50] = {0};
+                    byte QtdeChar = 0;
+                    tela.getTextoOnScreen(Texto, &QtdeChar);
+                    eeprom.setTextoOnMemory(Texto, QtdeChar);
+                }
+
+                eeprom.setDadosOnMemory(&acao);
+                delay(50);                                                  // Aguarda a atuaização da EEPROm 
+                digitalWrite(_pinoControle, HIGH);                          // Indica que existe ação para o outro arduino
+                acao.setExecutando(true);                                   // Indica que a ação está sendo executada 
+                // }
+        }
+
+    } else {
+
+        /* 
+        * Ações reservadas para serem usadas na configuração do sistema e screen Nextion
+        */
+        switch (CodeAcao) {
+
+            case 1:                                                             // Ação Configurar Data
+                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+                configuraDataNoDevice();        
+                break;
+            case 2:                                                             // Ação Configurar Hora
+                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+                configuraHoraNoDevice();
+                break;
+            case 3:                                                             // Ação Configurar RGB Brilho dos Led's
+                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+                break;
+            case 4:                                                             // Ação Configurar Beep
+                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+                _Beep = tela.getBeepOnScreen();
+                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+                break;
+        }
+
+    }
 
 }
 

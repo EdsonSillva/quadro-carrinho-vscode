@@ -25,15 +25,6 @@ void AcaoBox::iniciarMapaBox() {
     }
 }
 
-void AcaoBox::setCorBoxFade(int Inicio, int R, int G, int B) {
-    for(int i = Inicio; i < Total_Leds; i++){
-        //Configura a cor do Led
-        _Leds.setPixelColor(i, _Leds.Color(R, G, B));
-        i++; // Necessário para pular um Led e formar o efeito de grid
-    }
-    delay(5);
-}
-
 #pragma region Funções de controle da posição de cada box no quadro de carrinho
 
 int AcaoBox::PosicaoBoxTop(int PosicaoDada) {
@@ -108,69 +99,55 @@ int AcaoBox::PosicaoBoxCellInvertido(int Linha, int Coluna) {
 
 #pragma endregion
 
-void inline AcaoBox::showLeds(int Wait) {
-  _Leds.show();
-  delay(Wait);
-}
+// void AcaoBox::VitrineBoxLedsRGBB(byte Start, byte End, BoxDadosAcao *DadosAcao) {
 
-/* @deprecated Antigo*/
-void AcaoBox::vitrineLedsRGBB(byte R, byte G, byte B, byte Br) {
-    VitrineBoxLedsRGBB(Start_Led_Vitrine, Total_Leds, R, G, B, Br);
+//     uint8_t Brilho  = (uint8_t)DadosAcao->getBrilho(),
+//             R       = (uint8_t)DadosAcao->getGammaR(),
+//             G       = (uint8_t)DadosAcao->getGammaG(),
+//             B       = (uint8_t)DadosAcao->getGammaB();
 
-    /*
-    // if (_Leds.getBrightness() != (uint8_t)Br) { setBrilho((int)Br); }
+//     if (_Leds.getBrightness() != Brilho) { setBrilho((int)Brilho); }
     
-    // for(int Led = Star_Led_Vitrine; Led < Total_Leds; Led++){
-    //   _Leds.setPixelColor(Led, _Leds.Color(R, G, B));
-    // }
-    */
-}
+//     for(int Led = Start; Led < End; Led++){
+//         _Leds.setPixelColor(Led, _Leds.Color(R, G, B));
+//     }
+// }
 
-void AcaoBox::vitrineLedsRGBB(BoxDadosAcao *DadosAcao) {
-    VitrineBoxLedsRGBB(Start_Led_Vitrine, Total_Leds, DadosAcao);
-}
-
-void AcaoBox::boxLedsRGBB(BoxDadosAcao *DadosAcao) {
-    VitrineBoxLedsRGBB(0, Total_Leds, DadosAcao);
-    showLeds(500);
-}
-
-void AcaoBox::boxLedsRGBB(byte R, byte G, byte B, byte Br) {
-    VitrineBoxLedsRGBB(0, Total_Leds, R, G, B, Br);
-    showLeds(500);
-
-    /*
-    // if (_Leds.getBrightness() != (uint8_t)Br) { setBrilho((int)Br); }
-    
-    // for(int Led = 0; Led < Total_Leds; Led++){
-    //   _Leds.setPixelColor(Led, _Leds.Color(R, G, B));
-    // }
-    // showLeds(500);
-    */
-}
-
-/* @deprecated Antigo*/
-void AcaoBox::VitrineBoxLedsRGBB(byte Start, byte End, byte R, byte G, byte B, byte Br) {
-
-    if (_Leds.getBrightness() != (uint8_t)Br) { setBrilho((int)Br); }
-    
-    for(int Led = Start; Led < End; Led++){
-        _Leds.setPixelColor(Led, _Leds.Color(R, G, B));
-    }
-}
-
-void AcaoBox::VitrineBoxLedsRGBB(byte Start, byte End, BoxDadosAcao *DadosAcao) {
+void AcaoBox::setCorLedsRGBBB(byte Start, byte End, BoxDadosAcao *DadosAcao) {
 
     uint8_t Brilho  = (uint8_t)DadosAcao->getBrilho(),
-            R       = (uint8_t)DadosAcao->getR(),
-            G       = (uint8_t)DadosAcao->getG(),
-            B       = (uint8_t)DadosAcao->getB();
+            R       = (uint8_t)DadosAcao->getGammaR(),
+            G       = (uint8_t)DadosAcao->getGammaG(),
+            B       = (uint8_t)DadosAcao->getGammaB();
 
     if (_Leds.getBrightness() != Brilho) { setBrilho((int)Brilho); }
     
     for(int Led = Start; Led < End; Led++){
         _Leds.setPixelColor(Led, _Leds.Color(R, G, B));
     }
+}
+
+void AcaoBox::setCorBoxFade(int Inicio, int R, int G, int B) {
+    for(int i = Inicio; i < Total_Leds; i++){
+        //Configura a cor do Led
+        _Leds.setPixelColor(i, _Leds.Color(R, G, B));
+        i++; // Necessário para pular um Led e formar o efeito de grid
+    }
+    delay(5);
+}
+
+void inline AcaoBox::showLeds(int Wait) {
+  _Leds.show();
+  delay(Wait);
+}
+
+void AcaoBox::vitrineLedsRGBB(BoxDadosAcao *DadosAcao) {
+    setCorLedsRGBBB(Start_Led_Vitrine, Total_Leds, DadosAcao);
+}
+
+void AcaoBox::boxLedsRGBB(BoxDadosAcao *DadosAcao) {
+    setCorLedsRGBBB(0, Total_Leds, DadosAcao);
+    showLeds(500);
 }
 
 void AcaoBox::boxAcaoXadrezFade(bool IniciarImpar, BoxDadosAcao *DadosAcao, int PercentualRecebido) {
@@ -180,13 +157,13 @@ void AcaoBox::boxAcaoXadrezFade(bool IniciarImpar, BoxDadosAcao *DadosAcao, int 
     float PercentualEntrada = (float)(PercentualRecebido / 100.0);
     float PercentualInverso = ((100 - PercentualRecebido) / 100.0);
 
-    RHigh = (byte)(DadosAcao->getR() * PercentualEntrada);
-    GHigh = (byte)(DadosAcao->getG() * PercentualEntrada);
-    BHigh = (byte)(DadosAcao->getB() * PercentualEntrada);
+    RHigh = (byte)(DadosAcao->getGammaR() * PercentualEntrada);
+    GHigh = (byte)(DadosAcao->getGammaG() * PercentualEntrada);
+    BHigh = (byte)(DadosAcao->getGammaB() * PercentualEntrada);
 
-    RLow  = (byte)(DadosAcao->getR() * PercentualInverso),    
-    GLow  = (byte)(DadosAcao->getG() * PercentualInverso),  
-    BLow  = (byte)(DadosAcao->getB() * PercentualInverso);
+    RLow  = (byte)(DadosAcao->getGammaR() * PercentualInverso),    
+    GLow  = (byte)(DadosAcao->getGammaG() * PercentualInverso),  
+    BLow  = (byte)(DadosAcao->getGammaB() * PercentualInverso);
 
     if (_Leds.getBrightness() != (uint8_t)DadosAcao->getBrilho()) { setBrilho((int)DadosAcao->getBrilho()); }
 
@@ -203,66 +180,9 @@ void AcaoBox::boxAcaoXadrezFade(bool IniciarImpar, BoxDadosAcao *DadosAcao, int 
 
     }
     
-    vitrineLedsRGBB(105, 248, 196, DadosAcao->getBrilho());
+    vitrineLedsRGBB(DadosAcao);
     showLeds(500);
     
-}
-
-void AcaoBox::boxLedsRGBBXadrezFade(bool IniciarImpar, byte R, byte G, byte B, byte Br, int PercentualRecebido) {
-
-    byte  RLow, GLow, BLow, RHigh, GHigh, BHigh, RShow,  GShow,  BShow;
-    float PercentualEntrada = (float)(PercentualRecebido / 100.0);
-    float PercentualInverso = ((100 - PercentualRecebido) / 100.0);
-
-    RHigh = (byte)(R * PercentualEntrada);
-    GHigh = (byte)(G * PercentualEntrada);
-    BHigh = (byte)(B * PercentualEntrada);
-
-    RLow  = (byte)(R * PercentualInverso),    
-    GLow  = (byte)(G * PercentualInverso),  
-    BLow  = (byte)(B * PercentualInverso);
-
-    if (_Leds.getBrightness() != (uint8_t)Br) { setBrilho((int)Br); }
-
-    if(IniciarImpar){ RShow = RHigh,  GShow = GHigh,  BShow = BHigh; }
-    else            { RShow = RLow,   GShow = GLow,   BShow = BLow; }
-    
-    for(int Led = 0; Led < qtd_Boxes; Led++){
-      
-      _Leds.setPixelColor(Led, _Leds.Color(RShow, GShow, BShow));
-      
-      RShow = RShow == RHigh  ?   RLow : RHigh;
-      GShow = GShow == GHigh  ?   GLow : GHigh;
-      BShow = BShow == BHigh  ?   BLow : BHigh;
-    }
-    
-    vitrineLedsRGBB(105, 248, 196, Br);
-    showLeds(500);
-}
-
-/*@deprecated Antigo*/
-void AcaoBox::boxLedsRGBBColuna(bool IniciarImpar, byte R, byte G, byte B, byte Br) {
-
-    byte Rb = 20,  Gb = 20,  Bb = 20;
-    byte Rd = 0,  Gd = 0,  Bd = 0;
-
-    if (_Leds.getBrightness() != (uint8_t)Br) { setBrilho((int)Br); }
-
-    for(byte L = 1; L <= qtd_Linhas; L++){
-
-      if(IniciarImpar){ Rd = R, Gd = G, Bd = B; }
-      else { Rd = Rb, Gd = Gb, Bd = Bb; }
-
-      for(byte C = 1; C <= qtd_Colunas; C++){
-        _Leds.setPixelColor(PosicaoBoxCellInvertido(L, C), _Leds.Color(Rd, Gd, Bd));
-        Rd = Rd == R ? Rb : R;
-        Gd = Gd == G ? Gb : G;
-        Bd = Bd == B ? Bb : B;
-      }
-    }
-    vitrineLedsRGBB(R, G, B, Br);
-    showLeds(500);
-
 }
 
 void AcaoBox::boxAcaoColuna(bool IniciarImpar, BoxDadosAcao *DadosAcao) {
@@ -290,32 +210,7 @@ void AcaoBox::boxAcaoColuna(bool IniciarImpar, BoxDadosAcao *DadosAcao) {
       }
     }
 
-    vitrineLedsRGBB(R, G, B, Brilho);
-    showLeds(500);
-
-}
-
-/* @deprecated Antigo*/
-void AcaoBox::boxLedsRGBBLinha(bool IniciarImpar, byte R, byte G, byte B, byte Br) {
-
-    byte Rb = 20,  Gb = 20,  Bb = 20;
-    byte Rd = 0,  Gd = 0,  Bd = 0;
-
-    if (_Leds.getBrightness() != (uint8_t)Br) { setBrilho((int)Br); }
-
-    for(byte C = 1; C <= qtd_Colunas; C++){
-
-      if(IniciarImpar){ Rd = R, Gd = G, Bd = B; }
-      else { Rd = Rb, Gd = Gb, Bd = Bb; }
-
-      for(byte L = 1; L <= qtd_Linhas; L++){
-        _Leds.setPixelColor(PosicaoBoxCellInvertido(L, C), _Leds.Color(Rd, Gd, Bd));
-        Rd = Rd == R ? Rb : R;
-        Gd = Gd == G ? Gb : G;
-        Bd = Bd == B ? Bb : B;
-      }
-    }
-    vitrineLedsRGBB(R, G, B, Br);
+    vitrineLedsRGBB(DadosAcao);
     showLeds(500);
 
 }
@@ -345,7 +240,7 @@ void AcaoBox::boxAcaoLinha(bool IniciarImpar, BoxDadosAcao *DadosAcao) {
       }
     }
 
-    vitrineLedsRGBB(R, G, B, Brilho);
+    vitrineLedsRGBB(DadosAcao);
     showLeds(500);
 
 }
@@ -496,44 +391,8 @@ void AcaoBox::boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao) {
         break;
     }
 
-    showMapaBoxes(R, G, B, Brilho, 50);
+    showMapaBoxes(DadosAcao, 50);
 
-}
-
-/* @deprecated metodo antigo recebendo os parâmetros por variáveis separadas */
-void AcaoBox::showMapaBoxes(byte R, byte G, byte B, byte Br, byte LuzFundo) {
-
-    word MapaBoxLinha = 0x00;
-    byte RF = LuzFundo,  GF = LuzFundo,  BF = LuzFundo;
-    byte Rd = 0,  Gd = 0,  Bd = 0;
-    byte RL = 156,  GL = 0,  BL = 0;  // Cor para Label
-    
-    if (_Leds.getBrightness() != (uint8_t)Br) { setBrilho((int)Br); }
-
-    for(byte L = 1; L <= qtd_Linhas; L++){
-
-      MapaBoxLinha = _MapaBox[L - 1];
-      
-      for(byte C = 1; C <= qtd_Colunas; C++){
-
-        if(bitRead(MapaBoxLinha, 16 - C)){
-
-            if(bitRead(_MapaBox[15],16 - C)) {
-                Rd = R, Gd = G, Bd = B;     // É label usa a cor diferente
-            } else { 
-                Rd = 255, Gd = 0, Bd = 0;   // É informação (dado) usa cor informado da tela
-            }
-
-        } else { Rd = RF, Gd = GF, Bd = BF; }
-
-        _Leds.setPixelColor(PosicaoBoxCellInvertido(L, C), _Leds.Color(Gd, Rd, Bd));
-      }
-
-    //   if(!getValorPinAcao()) return;
-    
-    }
-    vitrineLedsRGBB(R, G, B, Br);
-    showLeds(500);
 }
 
 void AcaoBox::showMapaBoxes(BoxDadosAcao *DadosAcao, byte LuzFundo) {
@@ -582,67 +441,13 @@ void AcaoBox::showMapaBoxes(BoxDadosAcao *DadosAcao, byte LuzFundo) {
     //   if(!getValorPinAcao()) return;
     
     }
-    vitrineLedsRGBB(R, G, B, Brilho);
+    vitrineLedsRGBB(DadosAcao);
     showLeds(500);
 }
 
 #pragma endregion
 
 #pragma region Rotinas para tratamento e display da mensagem
-
-/* @deprecated metodo antigo recebendo os parâmetros por variáveis separadas */
-void AcaoBox::showMsgBox(char Msg[], byte TamanhoMsg, byte R, byte G, byte B, byte Brilho, byte LinhaShow) {
-
-    bool Label          = false;
-    LinhaShow           = LinhaShow - 1;      // Necessário porque os arrays começam na posição 0
-    byte LinhaBox       = LinhaShow;
-
-    iniciarMapaBox();
-
-    for(byte Letra = 0; Letra <= TamanhoMsg; Letra++){
-      
-        byte FimBitMascara      = 0;
-        char LetraMascarada[5]  = {0x00,      // 1º Linha
-                                   0x00,      // 2º Linha
-                                   0x00,      // 3º Linha
-                                   0x00,      // 4º Linha
-                                   0x00};     // 5º Linha
-
-        montarMascara(Msg[Letra], LetraMascarada, &FimBitMascara);
-        
-        for(byte BitLetra = 7; BitLetra >= FimBitMascara; BitLetra--){
-
-            for(byte PosicaoDaLetra = 0; PosicaoDaLetra <= 4; PosicaoDaLetra++){
-                bitWrite(_MapaBox[LinhaBox], 0, bitRead(LetraMascarada[PosicaoDaLetra], BitLetra));      // Set o bit 0 da mascara com o bit da mascara da letra
-                LinhaBox++;
-            }
-
-            if(Label) bitWrite(_MapaBox[15], 0, 1);    //Set o bit 0 da cor com 1 (para label)
-            else      bitWrite(_MapaBox[15], 0, 0);    //Set o bit 0 da cor com 0 (para dado)
-            
-            showMapaBoxes(R, G, B, Brilho, 40);                                                       // ShowMapaBoxes
-            shifEsquerdaMapaBox(LinhaShow, LinhaShow + 4, 1);
-            LinhaBox   = LinhaShow;
-            delay(60);
-        }
-
-        if(Msg[Letra] != ' '){
-            showMapaBoxes(R, G, B, Brilho, 40);                                                       // ShowMapaBoxes
-            shifEsquerdaMapaBox(LinhaShow, LinhaShow + 4, 1);                                         // Shift para espaço entre letras
-            delay(60);
-        }
-        
-        //********************  REVER COMO FAREI O CONTROLE  *****************
-        // if(!getValorPinAcao()){Letra = TamanhoMsg+1;}    //Abandona o Loop
-    
-    }
-
-    for(byte ColunasBranco = 1; ColunasBranco <= 15; ColunasBranco++ ){
-       shifEsquerdaMapaBox(LinhaShow, LinhaShow + 4, 1);                                         // Shift para espaço entre letras
-       showMapaBoxes(R, G, B, Brilho, 40);                                                       // ShowMapaBoxes
-       delay(60);
-    }
-}
 
 void AcaoBox::showMsgBox(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAcao, byte LinhaShow) {
 
@@ -678,15 +483,15 @@ void AcaoBox::showMsgBox(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAcao, b
             if(Label) bitWrite(_MapaBox[15], 0, 1);    //Set o bit 0 da cor com 1 (para label)
             else      bitWrite(_MapaBox[15], 0, 0);    //Set o bit 0 da cor com 0 (para dado)
             
-            showMapaBoxes(R, G, B, Brilho, 40);                                                       // ShowMapaBoxes
+            showMapaBoxes(DadosAcao, 40);                                                       // ShowMapaBoxes
             shifEsquerdaMapaBox(LinhaShow, LinhaShow + 4, 1);
             LinhaBox   = LinhaShow;
             delay(60);
         }
 
         if(Msg[Letra] != ' '){
-            showMapaBoxes(R, G, B, Brilho, 40);                                                       // ShowMapaBoxes
-            shifEsquerdaMapaBox(LinhaShow, LinhaShow + 4, 1);                                         // Shift para espaço entre letras
+            showMapaBoxes(DadosAcao, 40);                                                       // ShowMapaBoxes
+            shifEsquerdaMapaBox(LinhaShow, LinhaShow + 4, 1);                                   // Shift para espaço entre letras
             delay(60);
         }
         
@@ -697,16 +502,21 @@ void AcaoBox::showMsgBox(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAcao, b
 
     for(byte ColunasBranco = 1; ColunasBranco <= 15; ColunasBranco++ ){
        shifEsquerdaMapaBox(LinhaShow, LinhaShow + 4, 1);                                         // Shift para espaço entre letras
-       showMapaBoxes(R, G, B, Brilho, 40);                                                       // ShowMapaBoxes
+       showMapaBoxes(DadosAcao, 40);                                                       // ShowMapaBoxes
        delay(60);
     }
 }
 
-void AcaoBox::showMsgBoxDebug(char Msg[], byte TamanhoMsg, byte R, byte G, byte B, byte Brilho, byte LinhaShow) {
+void AcaoBox::showMsgBoxDebug(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAcao, byte LinhaShow) {
 
     bool Label      = false;
     LinhaShow       = LinhaShow - 1;    // Necessário porque os arrays começam na posição 0
     byte LinhaBox   = LinhaShow;
+
+    uint8_t     Brilho  = (uint8_t)DadosAcao->getBrilho(),
+                R       = (uint8_t)DadosAcao->getR(),
+                G       = (uint8_t)DadosAcao->getG(),
+                B       = (uint8_t)DadosAcao->getB();
 
     iniciarMapaBox();
 
@@ -737,14 +547,14 @@ void AcaoBox::showMsgBoxDebug(char Msg[], byte TamanhoMsg, byte R, byte G, byte 
               if(Label) bitWrite(_MapaBox[15], 0, 1);    //Set o bit 0 da cor com 1 (para label)
               else      bitWrite(_MapaBox[15], 0, 0);    //Set o bit 0 da cor com 0 (para dado)
               
-              showMapaBoxes(R, G, B, Brilho, 40);                                                       // ShowMapaBoxes
+              showMapaBoxes(DadosAcao, 40);                                                       // ShowMapaBoxes
               shifEsquerdaMapaBox(LinhaShow, LinhaShow + 4, 1);                                       
               LinhaBox   = LinhaShow;
               delay(60);
           }
 
           if(Msg[Letra] != ' '){
-            showMapaBoxes(R, G, B, Brilho, 40);                                                       // ShowMapaBoxes
+            showMapaBoxes(DadosAcao, 40);                                                       // ShowMapaBoxes
             shifEsquerdaMapaBox(LinhaShow, LinhaShow + 4, 1);                                         // Shift para espaço entre letras
             delay(60);
           }
@@ -756,7 +566,7 @@ void AcaoBox::showMsgBoxDebug(char Msg[], byte TamanhoMsg, byte R, byte G, byte 
 
     for(byte ColunasBranco = 1; ColunasBranco <= 15; ColunasBranco++ ){
        shifEsquerdaMapaBox(LinhaShow, LinhaShow + 4, 1);                                         // Shift para espaço entre letras
-       showMapaBoxes(R, G, B, Brilho, 40);                                                       // ShowMapaBoxes
+       showMapaBoxes(DadosAcao, 40);                                                       // ShowMapaBoxes
        delay(60);
     }
 }

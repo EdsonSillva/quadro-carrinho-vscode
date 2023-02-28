@@ -1,7 +1,0 @@
-{
-    "configuration": "cpu=atmega328old",
-    "sketch": "ControlScreen.ino",
-    "board": "arduino:avr:nano",
-    "output": "build",
-    "programmer": "arduino:avrisp"
-}

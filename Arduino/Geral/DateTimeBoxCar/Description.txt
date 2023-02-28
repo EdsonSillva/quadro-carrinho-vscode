@@ -1,2 +1,0 @@
-Diretorio contendo as classes de controle de data e hora para 
-serem usadas na interação do arduino com a tela nextion.

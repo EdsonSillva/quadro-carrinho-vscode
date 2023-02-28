@@ -38,7 +38,6 @@
 #endif
 
 
-
 /***********************************************
  * Declaração das variáveis Globais de controle
  ***********************************************/
@@ -69,8 +68,6 @@
 #define LinhaPosicaoDada    05
 #define ColunaPosicaoDada   06
 
-
-
 class AcaoBox : public MascaraLetra
 {
 private:
@@ -86,7 +83,7 @@ private:
     int _StartFadeUp        = 0;
 
     /*
-        @brief Representação de cada box no qudro de carrinho
+        @brief Representação de cada box no quadro de carrinho
     */
     word _MapaBox[qtd_Linhas + 1] = {    0b0000000000000000      // Linha 01 do quadro e cada bit representa a coluna
                                         ,0b0000000000000000      // Linha 02 do quadro e cada bit representa a coluna
@@ -104,7 +101,6 @@ private:
                                         ,0b0000000000000000      // Linha 14 do quadro e cada bit representa a coluna
                                     };
 
-
     int PosicaoBoxTop(int PosicaoDada);
     int PosicaoBoxBotton(int PosicaoDada);
     int PosicaoBoxLeft(int PosicaoDada);
@@ -112,8 +108,6 @@ private:
     int PosicaoBox(int PosicaoDada, int PosicaoSolicitada);
     int PosicaoBoxCell(int Linha, int Coluna);
     int PosicaoBoxCellInvertido(int Linha, int Coluna);
-    void VitrineBoxLedsRGBB(byte Start, byte End, byte R, byte G, byte B, byte Br);
-    void VitrineBoxLedsRGBB(byte Start, byte End, BoxDadosAcao *DadosAcao);
     void AcendeOuApagaLeds(uint8_t r, uint8_t g, uint8_t b);
 
 public:
@@ -124,30 +118,22 @@ public:
     void setBrilho(uint8_t Intensidade);
     void iniciarMapaBox();
     void setCorBoxFade(int Inicio, int R, int G, int B);
+    void setCorLedsRGBBB(byte Start, byte End, BoxDadosAcao *DadosAcao);
     void inline showLeds(int Wait);
-    void vitrineLedsRGBB(byte R, byte G, byte B, byte Br);
     void vitrineLedsRGBB(BoxDadosAcao *DadosAcao);
-    void boxLedsRGBB(byte R, byte G, byte B, byte Br);
     void boxLedsRGBB(BoxDadosAcao *DadosAcao);
-    void boxLedsRGBBXadrezFade(bool IniciarImpar, byte R, byte G, byte B, byte Br, int PercentualRecebido);
-    void boxLedsRGBBColuna(bool IniciarImpar, byte R, byte G, byte B, byte Br);
-    void boxLedsRGBBLinha(bool IniciarImpar, byte R, byte G, byte B, byte Br);
     void boxAcaoXadrezFade(bool IniciarImpar, BoxDadosAcao *DadosAcao, int PercentualRecebido);
     void boxAcaoColuna(bool IniciarImpar, BoxDadosAcao *DadosAcao);
     void boxAcaoLinha(bool IniciarImpar, BoxDadosAcao *DadosAcao);
     void boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao);
     void boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t cascata[], uint8_t coluna);
-    void showMapaBoxes(byte R, byte G, byte B, byte Br, byte LuzFundo);
     void showMapaBoxes(BoxDadosAcao *DadosAcao, byte LuzFundo);
     void todosLedsAcesos(uint8_t r, uint8_t g, uint8_t b);
     void todosLedsApagados();
-    void showMsgBox(char Msg[], byte TamanhoMsg, byte R, byte G, byte B, byte Brilho, byte LinhaShow);
     void showMsgBox(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAcao, byte LinhaShow);
-    void showMsgBoxDebug(char Msg[], byte TamanhoMsg, byte R, byte G, byte B, byte Brilho, byte LinhaShow);
+    void showMsgBoxDebug(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAcao, byte LinhaShow);
     void shifEsquerdaMapaBox(byte PrimeiraLinha, byte UltimaLinha, byte QtdeBit);
-    
 
 };
-
 
 #endif  // __ACAOBOX_H__

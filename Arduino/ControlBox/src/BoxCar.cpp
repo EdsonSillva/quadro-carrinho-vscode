@@ -7,7 +7,6 @@
 
 
 BoxCar::BoxCar() { }
-
 BoxCar::~BoxCar() { }
 
 void BoxCar::iniciarBoxCar() {

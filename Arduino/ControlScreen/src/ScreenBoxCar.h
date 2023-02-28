@@ -52,7 +52,6 @@ private:
 
   void configuraDataNoDevice();
   void configuraHoraNoDevice();
-  void atualizaDadosNaTela();
   void inicializacaoDaTela();
 
 public:
@@ -64,11 +63,16 @@ public:
   BoxBuzzerCar                som         = BoxBuzzerCar();
   DateTimeBoxCar              data        = DateTimeBoxCar();
   Ambiente                    ambiente    = Ambiente();
-  BoxEEPROM                   eeprom      = BoxEEPROM();
+  BoxEEPROM                   eeprom      = BoxEEPROM(som);
   BoxDadosAcao                acao        = BoxDadosAcao();
 
   void iniciar();
-  void executarAcao();
+  void gerenciarAcao();
+  void executaAcao();
+  bool acaoSelecionada();
+  bool acaoExecutando();
+  void stopAcao();
+  void atualizaDadosNaTela();
   void atualizaLDROnScreen();
   void atualizaDataHoraOnScreen();
   void atualizaTemperaturaSysOnScreen();

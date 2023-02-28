@@ -1,7 +1,8 @@
 /*
  * Gerenciador das Rotinas das Ações recebidas pela tela Nextion
  * Desenvolvido por Edson Silva
- * Date: 07/07/19  
+ * 
+ * Date: 07/07/19
  * Alteração: jul/22
 */
 
@@ -32,7 +33,6 @@
 #include "../enum/enumAcao.h"
 #endif
 
-
 class AcaoScreen
 {
 private:
@@ -56,13 +56,10 @@ public:
     void ledsXadrezFade(BoxDadosAcao *DadosAcao);
     void mensagem(BoxDadosAcao *DadosAcao, byte LinhaShow);
     void ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcao Acao);
-    void ledsShowBoxFixoAcao(BoxDadosAcao *Dadosacao, eBoxTematico Tema);
     void ledsTematico(BoxDadosAcao *Dadosacao, eBoxTematico Tema);
     void ledsAcaoCascata(BoxDadosAcao *DadosAcao);
 
 };
-    
-
 
 #endif  // __ACAOSCREEN_H__
 

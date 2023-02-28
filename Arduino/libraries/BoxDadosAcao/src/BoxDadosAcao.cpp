@@ -10,12 +10,23 @@
 
 
 BoxDadosAcao::BoxDadosAcao() { }
-
 BoxDadosAcao::~BoxDadosAcao() { }
-
 
 void BoxDadosAcao::setCodeAcao(byte CodeAcao) {
     _CodeAcao = CodeAcao;
+}
+
+void BoxDadosAcao::setExecutando(bool valor){
+    _Executando = valor;
+}
+
+bool BoxDadosAcao::getExecutando() {
+    return _Executando;
+}
+
+void BoxDadosAcao::limpaDados() {
+    _R      = 0, _G      = 0, _B      = 0, _Brilho = 0;
+    _GammaR = 0, _GammaG = 0, _GammaB = 0;
 }
 
 void BoxDadosAcao::setRGBB(byte R, byte G, byte B, byte Brilho) {

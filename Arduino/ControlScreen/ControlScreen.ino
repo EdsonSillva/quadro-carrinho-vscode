@@ -42,7 +42,6 @@ void loop() { }
 #include <Arduino.h>
 #include "src/ScreenBoxCar.h"
 
-
 /**
  * Definição das funções utilizadas no projeto
  */
@@ -54,13 +53,7 @@ ScreenBoxCar    screen = ScreenBoxCar();
 
 void setup() {
 
-    // Serial.println(F("Projeto Refatorado...")), delay(1000);
-
-    // Serial.begin(9600);
-    // while(!Serial);
-    // Serial.println(F("Setup():Entrada")), delay(1000);
     screen.iniciar();
-    // Serial.println(F("Setup():Fim")), delay(1000);
 
 }
 
@@ -70,19 +63,17 @@ void loop() {
 
     if (!screen.eeprom.disponivel()) {
         
-        // Serial.println(F("loop():eeprom.nao.disponivel"));
         delay(1000);
         screen.atualizaDadosMemoriaOnScreen();
 
     } else if (StandBy == 1) {
         
-        // Serial.println(F("loop():standBy = |")), Serial.print(StandBy), Serial.print("|");
         delay(1000);
+        // Mudar depois para Serial.available() e ficar em um loop até ela ficar disponível 
     
     } else {
-    
-        // Serial.println(F("loop():executarAcao()"));
-        screen.executarAcao();
+
+        screen.gerenciarAcao();
     
     }    
 }

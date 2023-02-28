@@ -13,7 +13,6 @@
 #include <Arduino.h>
 #endif
 
-
 #define _pino_usando_       11
 #define _pino_alerta_       13
 
