@@ -24,7 +24,7 @@ typedef void (*funcAcaoClass_t)(bool, byte, BoxDadosAcao);
 typedef void (*FuncAcaoVoid)(bool, byte, byte, byte, byte);
 typedef void (*FuncAcao)(bool, BoxDadosAcao);
 
-typedef struct cascata_t {
+typedef struct {
     uint8_t   Coluna;
     int8_t    Linha;
     uint8_t   Arrasto;

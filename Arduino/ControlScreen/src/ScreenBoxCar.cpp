@@ -50,10 +50,8 @@ void ScreenBoxCar::inicializacaoDaTela() {
     }
 }
 
-void ScreenBoxCar::gerenciarAcao() {
+void ScreenBoxCar::avaliarAcao() {
 
-    // Levar para dentro do objeto como gerenciarAcao()
-    
     if(acaoSelecionada() && !acaoExecutando()) {
         // Existe ação no screen, mas screen.AcaoExecutando() = false: executar a ação
         executaAcao();
@@ -70,7 +68,6 @@ void ScreenBoxCar::gerenciarAcao() {
 
 }
 
-
 bool ScreenBoxCar::acaoSelecionada() {
     acao.setCodeAcao(tela.getAcaoOnScreen());
     if (acao.getCodeAcao() > 0) return true;
@@ -82,11 +79,9 @@ bool ScreenBoxCar::acaoExecutando() {
 }
 
 void ScreenBoxCar::stopAcao() {
-
     digitalWrite(_pinoControle, LOW);               // Sinaliza ação cancelada para o outro Arduino
     acao.setExecutando(false);
     delay(50);
-
 }
 
 void ScreenBoxCar::executaAcao() {
@@ -168,7 +163,9 @@ void ScreenBoxCar::executaAcao() {
 
 void ScreenBoxCar::atualizaDadosMemoriaOnScreen() {
 
+    // nexSerial.print(F("Chamando: eeprom.getDadosOnMemory(&acao)"));
     eeprom.getDadosOnMemory(&acao);
+    // nexSerial.print(F("Retornou de: eeprom.getDadosOnMemory(&acao)"));
 
     if (eeprom.disponivel()) {
         
@@ -255,9 +252,13 @@ void ScreenBoxCar::atualizaDadosNaTela() {
         atualizaHumidadeOnScreen();
         atualizaLDROnScreen();
 
-        _MaxWait = millis() + 500;                    // Acrescenta mais 0,5 segundo
+        _MaxWait = millis() + 10;                    // Acrescenta mais 0,5 segundo
 
     }
     
+}
+
+bool ScreenBoxCar::DadosRecebidoTela() {
+    return tela.existeDadoNoNextion();
 }
 

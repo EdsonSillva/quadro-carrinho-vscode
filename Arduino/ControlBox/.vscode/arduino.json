@@ -4,5 +4,5 @@
     "board": "arduino:avr:nano",
     "programmer": "arduino:avrisp",
     "output": "../build",
-    "port": "COM6"
+    "port": "COM5"
 }

@@ -37,14 +37,21 @@
 #include "../enum/enumBoxTematico.h"
 #endif
 
+#ifndef __ENUMPOSICAOBOX_H__
+#include "../enum/enumPosicaoBox.h"
+#endif
+
 
 /***********************************************
  * Declaração das variáveis Globais de controle
  ***********************************************/
 
-// Porta sendo usada para o Box e Vitrine
-//****************************************
-#define pin_Led             13
+// Porta default sendo usada para o Box e Vitrine
+//***********************************************
+#define   _pin_Led_         13
+#ifndef _pin_Controle_
+#define   _pin_Controle_    12
+#endif
 
 // Definições para controle do Box
 //*********************************
@@ -72,16 +79,21 @@ class AcaoBox : public MascaraLetra
 {
 private:
 
-    BoxDadosAcao acao       = BoxDadosAcao();
+    int                 _qtdColunas             = qtd_Colunas;
+    int                 _qtdLinhas              = qtd_Linhas;
+    int                 _qtdBoxes               = qtd_Boxes;
+    int                 _startLedVitrine        = Start_Led_Vitrine;
+    int                 _qtdLedsVitrine         = qtd_Leds_Vitrine;
+    int                 _totalLeds              = Total_Leds;
+    byte                _pinLed                 = _pin_Led_;
+    byte                _pinoControle           = _pin_Controle_;
+    byte                _intensidadeBrilho      = BrightnessDefault;
+    int                 _startFadeUp            = 0;
+    bool                _emSaudacao             = false;
+    cascata_t           _cascata[qtd_Colunas];
 
     /* Definições do Objeto de controle dos Led */
-    Adafruit_NeoPixel _Leds = Adafruit_NeoPixel(
-                                Total_Leds, 
-                                pin_Led,
-                                NEO_GRB + NEO_KHZ800);
-
-    int _StartFadeUp        = 0;
-
+    Adafruit_NeoPixel   _Leds;
     /*
         @brief Representação de cada box no quadro de carrinho
     */
@@ -101,22 +113,33 @@ private:
                                         ,0b0000000000000000      // Linha 14 do quadro e cada bit representa a coluna
                                     };
 
+    bool acaoAtiva();
     int PosicaoBoxTop(int PosicaoDada);
     int PosicaoBoxBotton(int PosicaoDada);
     int PosicaoBoxLeft(int PosicaoDada);
     int PosicaoBoxRight(int PosicaoDada);
-    int PosicaoBox(int PosicaoDada, int PosicaoSolicitada);
+    int PosicaoBox(int PosicaoDada, eBoxPosicao PosicaoSolicitada);
     int PosicaoBoxCell(int Linha, int Coluna);
     int PosicaoBoxCellInvertido(int Linha, int Coluna);
     void AcendeOuApagaLeds(uint8_t r, uint8_t g, uint8_t b);
+    void MontaMapaBoxTematico(eBoxTematico Tema);
 
 public:
     AcaoBox();
+    AcaoBox(byte pinoControle);
+    AcaoBox(byte pinoDados, byte pinoControle);
     ~AcaoBox();
-    
+
+
+
+    void inicializarCascata();
+
+    cascata_t *getItemCascata(byte item);
+
     void iniciarLeds(int IntensidadeBrilho);
     void setBrilho(uint8_t Intensidade);
     void iniciarMapaBox();
+    void showSaudacaoBox(BoxDadosAcao *DadosAcao, byte LuzFundo, int Aguarda = 2000);
     void setCorBoxFade(int Inicio, int R, int G, int B);
     void setCorLedsRGBBB(byte Start, byte End, BoxDadosAcao *DadosAcao);
     void inline showLeds(int Wait);

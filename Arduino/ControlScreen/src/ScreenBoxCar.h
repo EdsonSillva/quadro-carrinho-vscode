@@ -46,7 +46,7 @@ private:
   byte    _pinoControle           = _pin_Controle_;
   byte    _pinoUsandoEEPROM       = _pino_eeprom_usado_;
   byte    _pinoAlertaEEPROM       = _pino_eeprom_alerta_;
-  bool    _Beep                   = false;
+  bool    _Beep                   = true;
   long    _MaxWait                = millis();
   bool    _telaOnLine             = false;
 
@@ -63,12 +63,13 @@ public:
   BoxBuzzerCar                som         = BoxBuzzerCar();
   DateTimeBoxCar              data        = DateTimeBoxCar();
   Ambiente                    ambiente    = Ambiente();
-  BoxEEPROM                   eeprom      = BoxEEPROM(som);
+  BoxEEPROM                   eeprom      = BoxEEPROM(&som);
   BoxDadosAcao                acao        = BoxDadosAcao();
 
   void iniciar();
-  void gerenciarAcao();
+  void avaliarAcao();
   void executaAcao();
+  void executaConfig();
   bool acaoSelecionada();
   bool acaoExecutando();
   void stopAcao();
@@ -79,6 +80,7 @@ public:
   void atualizaTemperaturaOnScreen();
   void atualizaHumidadeOnScreen();
   void atualizaDadosMemoriaOnScreen();
+  bool DadosRecebidoTela();
 
 };
 

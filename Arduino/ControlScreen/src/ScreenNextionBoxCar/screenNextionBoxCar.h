@@ -51,6 +51,7 @@ public:
     void setVarNextion(char VarGlobal[], int TestoLEngth, String NomeVar);
     byte getAcaoOnScreen();
     byte getStandByOnScreen();
+    bool existeDadoNoNextion();
     void setAcaoOnScreen(uint32_t Acao);
     void setExecArduinoOnScreen(eCodeExec CodeExec);
     void setLDROnScreen(uint32_t ValorSensor);

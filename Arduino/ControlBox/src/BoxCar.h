@@ -60,7 +60,8 @@ public:
   AcaoScreen            acaoScreen      = AcaoScreen(_pinoControle);
   AcaoBox               acaoBox         = AcaoBox();
 
-  void iniciarBoxCar();
+  void iniciarBoxCar(int BrilhoInicial = 50);
+  void showSaudacao();
   bool acaoSolicitada();
   void identificarExecutarAcao();
   void executarAcao(eAcao CodigoAcao);

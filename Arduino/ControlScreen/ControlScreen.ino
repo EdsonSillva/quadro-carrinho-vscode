@@ -49,7 +49,8 @@ void loop() { }
 void setup();
 void loop();
 
-ScreenBoxCar    screen = ScreenBoxCar();
+ScreenBoxCar    screen                  = ScreenBoxCar();
+byte            ScreenIndisponivel      = 0;
 
 void setup() {
 
@@ -66,14 +67,28 @@ void loop() {
         delay(1000);
         screen.atualizaDadosMemoriaOnScreen();
 
-    } else if (StandBy == 1) {
-        
-        delay(1000);
-        // Mudar depois para Serial.available() e ficar em um loop até ela ficar disponível 
+    } else if (StandBy > 0) {
+
+        if (StandBy == 255) {
+            // Problemas na leitura do valor da variável (tela indisponível)
+            
+            ScreenIndisponivel++;                           // Necessário porque o timeout da serial é afetado pelo processamento na tela
     
+            if(ScreenIndisponivel > 100) {
+                screen.som.beepBuzzer(16000, 300),   delay(500);
+                ScreenIndisponivel--;                  // Decrementa 1 para não estourar o contador
+                delay(1000);
+            }
+
+        } else {
+            ScreenIndisponivel = 0;                     // Zera o contador
+            while (!screen.DadosRecebidoTela());        // aguarda até a tela acordar (sair do stand by)
+            delay(100);                                 // necessário para processamrento na tela
+        }
+
     } else {
 
-        screen.gerenciarAcao();
+        screen.avaliarAcao();
     
     }    
 }

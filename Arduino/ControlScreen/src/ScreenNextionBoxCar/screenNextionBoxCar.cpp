@@ -15,6 +15,10 @@ bool screenNextionBoxCar::iniciarNextion() {
 
 }
 
+bool screenNextionBoxCar::existeDadoNoNextion() {
+    return nexSerial.available() > 0 ? true : false;
+}
+
 void screenNextionBoxCar::DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS) {
 
     uint32_t    value =   -1;
@@ -65,12 +69,14 @@ byte screenNextionBoxCar::getAcaoOnScreen() {
 
 byte screenNextionBoxCar::getStandByOnScreen() {
 
-    uint32_t value = 0;     //Se não retorna nada mantem em stand by
+    uint32_t value = 0;     //Se não retorna nada informa que teve problemas em obter o valor da variável stand by na tela
 
     NexVariable StandBy = NexVariable(_tela.VarGlobais, _objeto.IDStandBy, "");  
-    StandBy.getValueByID(&value);
-    
-    return (byte)value;    
+    if ((bool)StandBy.getValueByID(&value) == true) {
+        return (byte)value;    
+    }
+
+    return (byte)255;    
 
 }
 

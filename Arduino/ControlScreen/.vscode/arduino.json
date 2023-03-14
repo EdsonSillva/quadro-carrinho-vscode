@@ -1,8 +1,8 @@
 {
-    "configuration": "cpu=atmega328old",
     "sketch": "ControlScreen.ino",
+    "configuration": "cpu=atmega328old",
     "board": "arduino:avr:nano",
-    "programmer": "arduino:avrisp",
     "output": "../build",
-    "port": "COM7"
+    "port": "COM13"
+
 }

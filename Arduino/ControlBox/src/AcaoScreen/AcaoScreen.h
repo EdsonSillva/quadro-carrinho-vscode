@@ -33,11 +33,13 @@
 #include "../enum/enumAcao.h"
 #endif
 
+#define   _pin_Controle_            12
+
 class AcaoScreen
 {
 private:
 
-    byte                    _pinoControle           = 0;
+    byte                    _pinoControle           = _pin_Controle_;
     AcaoBox                 _box                    = AcaoBox();
     BoxEEPROM               _eeprom                 = BoxEEPROM();    // Usando pinagem pré definida
     long                    _tmpWaitRotina          = 0x00;
@@ -47,6 +49,7 @@ private:
     void randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer);
 
 public:
+    AcaoScreen();                       // Usa o pino de controle default
     AcaoScreen(byte PinoControle);
     ~AcaoScreen();
 

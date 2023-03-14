@@ -17,6 +17,8 @@ public:
     MascaraLetra();
     ~MascaraLetra();
     void montarMascara(char Letra, char LetraMascarada[], byte *pFimBitMascara);
+    void montarMascaraSaudacao(word MapaBox[]);
+
 };
 
 

@@ -3,8 +3,54 @@
 #include "AcaoBox.h"
 
 
-AcaoBox::AcaoBox() { }
+AcaoBox::AcaoBox() {        // Construtor usando pinos default
+
+    /* Inicialização do Objeto de controle dos Led */
+    _Leds = Adafruit_NeoPixel(_totalLeds, 
+                              _pinLed,
+                              NEO_GRB + NEO_KHZ800);
+
+}       
+
+AcaoBox::AcaoBox(byte pinoControle) : _pinLed(_pin_Led_), _pinoControle(pinoControle) {
+    AcaoBox();
+ }
+
+AcaoBox::AcaoBox(byte pinoDados, byte pinoControle) : _pinLed(pinoDados), _pinoControle(pinoControle) { 
+    AcaoBox();
+}
+
 AcaoBox::~AcaoBox() { }
+
+void AcaoBox::inicializarCascata() {
+
+    for (int Posicao = 0; Posicao < _qtdColunas; Posicao++)
+    {
+        _cascata[Posicao].Linha = 0;
+        _cascata[Posicao].Coluna = 0;
+        _cascata[Posicao].Arrasto = 0;
+        _cascata[Posicao].Percentual = 0;
+        _cascata[Posicao].Finalizado = false;
+    
+    }
+
+}
+
+
+cascata_t *AcaoBox::getItemCascata(byte Item) {
+    return &_cascata[Item];
+}
+
+/* 
+    @brief Verifica se o pino de controle está em HIGH or LOW. Quando
+          estiver em HIGH é porque existe uma ação para ser executada
+    
+    @return True quado o pino estiver em HIGH, False quando o pino estiver em LOW
+*/
+bool AcaoBox::acaoAtiva(){
+    if(_emSaudacao) return true;                // Usado para mostar saudação
+    return digitalRead(_pinoControle);
+}
 
 void AcaoBox::iniciarLeds(int IntensidadeBrilho) {
 
@@ -16,7 +62,20 @@ void AcaoBox::iniciarLeds(int IntensidadeBrilho) {
 }
 
 void AcaoBox::setBrilho(uint8_t Intensidade) {
-    _Leds.setBrightness(Intensidade);
+    _intensidadeBrilho = Intensidade;
+    _Leds.setBrightness(_intensidadeBrilho);
+}
+
+void AcaoBox::showSaudacaoBox(BoxDadosAcao *DadosAcao, byte LuzFundo, int Aguarda = 2000) {
+
+    montarMascaraSaudacao(_MapaBox);            // Monta a imagem
+    _emSaudacao = true;                         // Desliga a leitura do pino de controle de ação
+    showMapaBoxes(DadosAcao, LuzFundo);         // Mostra a imagem
+    _emSaudacao = false;                        // Liga a leitura do pino de controle de ação
+    iniciarMapaBox();                           // Limpa o MapaBox
+    delay(Aguarda);                             // Tempo que a imagem fica aparecendo
+    todosLedsApagados();                        // Limpa a imagem 
+
 }
 
 void AcaoBox::iniciarMapaBox() {
@@ -28,22 +87,22 @@ void AcaoBox::iniciarMapaBox() {
 #pragma region Funções de controle da posição de cada box no quadro de carrinho
 
 int AcaoBox::PosicaoBoxTop(int PosicaoDada) {
-    return PosicaoBox(PosicaoDada, BoxTop);
+    return PosicaoBox(PosicaoDada, eBoxPosicao::boxTop);
 }
 
 int AcaoBox::PosicaoBoxBotton(int PosicaoDada) {
-    return PosicaoBox(PosicaoDada, BoxBottom);
+    return PosicaoBox(PosicaoDada, eBoxPosicao::boxBottom);
 }
 
 int AcaoBox::PosicaoBoxLeft(int PosicaoDada) {
-    return PosicaoBox(PosicaoDada, BoxLeft);
+    return PosicaoBox(PosicaoDada, eBoxPosicao::boxLeft);
 }
 
 int AcaoBox::PosicaoBoxRight(int PosicaoDada) {
-    return PosicaoBox(PosicaoDada, BoxRight);
+    return PosicaoBox(PosicaoDada, eBoxPosicao::boxRight);
 }
 
-int AcaoBox::PosicaoBox(int PosicaoDada, int PosicaoSolicitada) {
+int AcaoBox::PosicaoBox(int PosicaoDada, eBoxPosicao PosicaoSolicitada) {
 
     int LinhaCalculada                = PosicaoDada / (int)qtd_Colunas;
     int LinhaPosicao                  = LinhaCalculada + 1;
@@ -86,32 +145,18 @@ int AcaoBox::PosicaoBox(int PosicaoDada, int PosicaoSolicitada) {
 // ROTINA PARA RETORNAR A POSICAO DADO A LINHA E COLUNA
 // ****************************************************
 int AcaoBox::PosicaoBoxCell(int Linha, int Coluna) {
-    return (int)(qtd_Colunas * (Linha - 1)) + ((Linha % 2) == 0 ? 
-                                                qtd_Colunas - Coluna :
+    return (int)(_qtdColunas * (Linha - 1)) + ((Linha % 2) == 0 ? 
+                                                _qtdColunas - Coluna :
                                                 Coluna - 1);
 }
 
 int AcaoBox::PosicaoBoxCellInvertido(int Linha, int Coluna) {
-    return (int)(qtd_Colunas * (Linha - 1)) + ( (Linha % 2) == 0 ? 
+    return (int)(_qtdColunas * (Linha - 1)) + ( (Linha % 2) == 0 ? 
                                                  Coluna - 1   : 
-                                                 qtd_Colunas - Coluna);
+                                                 _qtdColunas - Coluna);
 }
 
 #pragma endregion
-
-// void AcaoBox::VitrineBoxLedsRGBB(byte Start, byte End, BoxDadosAcao *DadosAcao) {
-
-//     uint8_t Brilho  = (uint8_t)DadosAcao->getBrilho(),
-//             R       = (uint8_t)DadosAcao->getGammaR(),
-//             G       = (uint8_t)DadosAcao->getGammaG(),
-//             B       = (uint8_t)DadosAcao->getGammaB();
-
-//     if (_Leds.getBrightness() != Brilho) { setBrilho((int)Brilho); }
-    
-//     for(int Led = Start; Led < End; Led++){
-//         _Leds.setPixelColor(Led, _Leds.Color(R, G, B));
-//     }
-// }
 
 void AcaoBox::setCorLedsRGBBB(byte Start, byte End, BoxDadosAcao *DadosAcao) {
 
@@ -123,12 +168,12 @@ void AcaoBox::setCorLedsRGBBB(byte Start, byte End, BoxDadosAcao *DadosAcao) {
     if (_Leds.getBrightness() != Brilho) { setBrilho((int)Brilho); }
     
     for(int Led = Start; Led < End; Led++){
-        _Leds.setPixelColor(Led, _Leds.Color(R, G, B));
+        _Leds.setPixelColor(Led, _Leds.Color(G, R, B));
     }
 }
 
 void AcaoBox::setCorBoxFade(int Inicio, int R, int G, int B) {
-    for(int i = Inicio; i < Total_Leds; i++){
+    for(int i = Inicio; i < _totalLeds; i++){
         //Configura a cor do Led
         _Leds.setPixelColor(i, _Leds.Color(R, G, B));
         i++; // Necessário para pular um Led e formar o efeito de grid
@@ -142,11 +187,11 @@ void inline AcaoBox::showLeds(int Wait) {
 }
 
 void AcaoBox::vitrineLedsRGBB(BoxDadosAcao *DadosAcao) {
-    setCorLedsRGBBB(Start_Led_Vitrine, Total_Leds, DadosAcao);
+    setCorLedsRGBBB(_startLedVitrine, _totalLeds, DadosAcao);
 }
 
 void AcaoBox::boxLedsRGBB(BoxDadosAcao *DadosAcao) {
-    setCorLedsRGBBB(0, Total_Leds, DadosAcao);
+    setCorLedsRGBBB(0, _totalLeds, DadosAcao);
     showLeds(500);
 }
 
@@ -170,9 +215,9 @@ void AcaoBox::boxAcaoXadrezFade(bool IniciarImpar, BoxDadosAcao *DadosAcao, int 
     if(IniciarImpar){ RShow = RHigh,  GShow = GHigh,  BShow = BHigh; }
     else            { RShow = RLow,   GShow = GLow,   BShow = BLow; }
     
-    for(int Led = 0; Led < qtd_Boxes; Led++){
+    for(int Led = 0; Led < _qtdBoxes; Led++){
       
-        _Leds.setPixelColor(Led, _Leds.Color(RShow, GShow, BShow));
+        _Leds.setPixelColor(Led, _Leds.Color(GShow, RShow, BShow));
         
         RShow = RShow == RHigh  ?   RLow : RHigh;
         GShow = GShow == GHigh  ?   GLow : GHigh;
@@ -187,23 +232,28 @@ void AcaoBox::boxAcaoXadrezFade(bool IniciarImpar, BoxDadosAcao *DadosAcao, int 
 
 void AcaoBox::boxAcaoColuna(bool IniciarImpar, BoxDadosAcao *DadosAcao) {
 
-    byte Rb = 20,  Gb = 20,  Bb = 20;
-    byte Rd = 0,  Gd = 0,  Bd = 0;
+    byte    Rb = 20,  
+            Gb = 20,  
+            Bb = 20;
+
+    byte    Rd = 0,  
+            Gd = 0,  
+            Bd = 0;
 
     uint8_t Brilho  = (uint8_t)DadosAcao->getBrilho(),
-            R       = (uint8_t)DadosAcao->getR(),
-            G       = (uint8_t)DadosAcao->getG(),
-            B       = (uint8_t)DadosAcao->getB();
+            R       = (uint8_t)DadosAcao->getGammaR(),
+            G       = (uint8_t)DadosAcao->getGammaG(),
+            B       = (uint8_t)DadosAcao->getGammaB();
 
     if (_Leds.getBrightness() != (uint8_t)Brilho) { setBrilho((int)Brilho); }
 
-    for(byte L = 1; L <= qtd_Linhas; L++){
+    for(byte L = 1; L <= _qtdLinhas; L++){
 
       if(IniciarImpar){ Rd = R, Gd = G, Bd = B; }
       else { Rd = Rb, Gd = Gb, Bd = Bb; }
 
-      for(byte C = 1; C <= qtd_Colunas; C++){
-        _Leds.setPixelColor(PosicaoBoxCellInvertido(L, C), _Leds.Color(Rd, Gd, Bd));
+      for(byte C = 1; C <= _qtdColunas; C++){
+        _Leds.setPixelColor(PosicaoBoxCellInvertido(L, C), _Leds.Color(Gd, Rd, Bd));
         Rd = Rd == R ? Rb : R;
         Gd = Gd == G ? Gb : G;
         Bd = Bd == B ? Bb : B;
@@ -217,23 +267,28 @@ void AcaoBox::boxAcaoColuna(bool IniciarImpar, BoxDadosAcao *DadosAcao) {
 
 void AcaoBox::boxAcaoLinha(bool IniciarImpar, BoxDadosAcao *DadosAcao) {
 
-    byte Rb = 20,  Gb = 20,  Bb = 20;
-    byte Rd = 0,  Gd = 0,  Bd = 0;
+    byte    Rb = 20,
+            Gb = 20,  
+            Bb = 20;
+
+    byte    Rd = 0,  
+            Gd = 0,  
+            Bd = 0;
 
     uint8_t Brilho  = (uint8_t)DadosAcao->getBrilho(),
-            R       = (uint8_t)DadosAcao->getR(),
-            G       = (uint8_t)DadosAcao->getG(),
-            B       = (uint8_t)DadosAcao->getB();
+            R       = (uint8_t)DadosAcao->getGammaR(),
+            G       = (uint8_t)DadosAcao->getGammaG(),
+            B       = (uint8_t)DadosAcao->getGammaB();
 
     if (_Leds.getBrightness() != (uint8_t)Brilho) { setBrilho((int)Brilho); }
 
-    for(byte C = 1; C <= qtd_Colunas; C++){
+    for(byte C = 1; C <= _qtdColunas; C++){
 
       if(IniciarImpar){ Rd = R, Gd = G, Bd = B; }
       else { Rd = Rb, Gd = Gb, Bd = Bb; }
 
-      for(byte L = 1; L <= qtd_Linhas; L++){
-        _Leds.setPixelColor(PosicaoBoxCellInvertido(L, C), _Leds.Color(Rd, Gd, Bd));
+      for(byte L = 1; L <= _qtdLinhas; L++){
+        _Leds.setPixelColor(PosicaoBoxCellInvertido(L, C), _Leds.Color(Gd, Rd, Bd));
         Rd = Rd == R ? Rb : R;
         Gd = Gd == G ? Gb : G;
         Bd = Bd == B ? Bb : B;
@@ -249,10 +304,15 @@ void AcaoBox::boxAcaoLinha(bool IniciarImpar, BoxDadosAcao *DadosAcao) {
 
 void AcaoBox::boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao) {
 
-   uint8_t Brilho   = (uint8_t)DadosAcao->getBrilho(),
-            R       = (uint8_t)DadosAcao->getR(),
-            G       = (uint8_t)DadosAcao->getG(),
-            B       = (uint8_t)DadosAcao->getB();
+    iniciarMapaBox();                   // Limpa
+
+    MontaMapaBoxTematico(Tema);         // Carrega tema
+
+    showMapaBoxes(DadosAcao, 50);       // Mostra Tema no quadro
+
+}
+
+void AcaoBox::MontaMapaBoxTematico(eBoxTematico Tema) {
 
     switch (Tema)
     {
@@ -391,8 +451,6 @@ void AcaoBox::boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao) {
         break;
     }
 
-    showMapaBoxes(DadosAcao, 50);
-
 }
 
 void AcaoBox::showMapaBoxes(BoxDadosAcao *DadosAcao, byte LuzFundo) {
@@ -412,33 +470,34 @@ void AcaoBox::showMapaBoxes(BoxDadosAcao *DadosAcao, byte LuzFundo) {
                 BL = 0;
 
     uint8_t     Brilho  = (uint8_t)DadosAcao->getBrilho(),
-                R       = (uint8_t)DadosAcao->getR(),
-                G       = (uint8_t)DadosAcao->getG(),
-                B       = (uint8_t)DadosAcao->getB();
+                R       = (uint8_t)DadosAcao->getGammaR(),
+                G       = (uint8_t)DadosAcao->getGammaG(),
+                B       = (uint8_t)DadosAcao->getGammaB();
     
     
     if (_Leds.getBrightness() != Brilho) { setBrilho((int)Brilho); }
 
-    for(byte L = 1; L <= qtd_Linhas; L++){
+    for(byte L = 1; L <= _qtdLinhas; L++){
 
       MapaBoxLinha = _MapaBox[L - 1];
       
-      for(byte C = 1; C <= qtd_Colunas; C++){
+      for(byte C = 1; C <= _qtdColunas; C++){
 
         if(bitRead(MapaBoxLinha, 16 - C)){
 
-            if(bitRead(_MapaBox[15],16 - C)) {
-                Rd = R, Gd = G, Bd = B;     // É label usa a cor diferente
+            if(bitRead(_MapaBox[15], 16 - C)) {
+                Rd = RL, Gd = GL, Bd = BL;   // É label usa a cor diferente
             } else { 
-                Rd = 255, Gd = 0, Bd = 0;   // É informação (dado) usa cor informado da tela
+                Rd = R, Gd = G, Bd = B;     // É informação (dado) usa cor informado da tela
             }
 
         } else { Rd = RF, Gd = GF, Bd = BF; }
 
         _Leds.setPixelColor(PosicaoBoxCellInvertido(L, C), _Leds.Color(Gd, Rd, Bd));
+
       }
 
-    //   if(!getValorPinAcao()) return;
+    if (!acaoAtiva()) return;
     
     }
     vitrineLedsRGBB(DadosAcao);
@@ -456,9 +515,9 @@ void AcaoBox::showMsgBox(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAcao, b
     byte LinhaBox       = LinhaShow;
 
     uint8_t     Brilho  = (uint8_t)DadosAcao->getBrilho(),
-                R       = (uint8_t)DadosAcao->getR(),
-                G       = (uint8_t)DadosAcao->getG(),
-                B       = (uint8_t)DadosAcao->getB();
+                R       = (uint8_t)DadosAcao->getGammaR(),
+                G       = (uint8_t)DadosAcao->getGammaG(),
+                B       = (uint8_t)DadosAcao->getGammaB();
 
     iniciarMapaBox();
 
@@ -495,13 +554,12 @@ void AcaoBox::showMsgBox(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAcao, b
             delay(60);
         }
         
-        //********************  REVER COMO FAREI O CONTROLE  *****************
-        // if(!getValorPinAcao()){Letra = TamanhoMsg+1;}    //Abandona o Loop
-    
+        if (!acaoAtiva()) {Letra = TamanhoMsg + 1;}                                             // Abandona o Loop
+
     }
 
     for(byte ColunasBranco = 1; ColunasBranco <= 15; ColunasBranco++ ){
-       shifEsquerdaMapaBox(LinhaShow, LinhaShow + 4, 1);                                         // Shift para espaço entre letras
+       shifEsquerdaMapaBox(LinhaShow, LinhaShow + 4, 1);                                   // Shift para espaço entre letras
        showMapaBoxes(DadosAcao, 40);                                                       // ShowMapaBoxes
        delay(60);
     }
@@ -514,9 +572,9 @@ void AcaoBox::showMsgBoxDebug(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAc
     byte LinhaBox   = LinhaShow;
 
     uint8_t     Brilho  = (uint8_t)DadosAcao->getBrilho(),
-                R       = (uint8_t)DadosAcao->getR(),
-                G       = (uint8_t)DadosAcao->getG(),
-                B       = (uint8_t)DadosAcao->getB();
+                R       = (uint8_t)DadosAcao->getGammaR(),
+                G       = (uint8_t)DadosAcao->getGammaG(),
+                B       = (uint8_t)DadosAcao->getGammaB();
 
     iniciarMapaBox();
 
@@ -560,8 +618,8 @@ void AcaoBox::showMsgBoxDebug(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAc
           }
        }
 
-        //********************  REVER COMO FAREI O CONTROLE  *****************
-        // if(!getValorPinAcao()){Letra = TamanhoMsg+1;}    //Abandona o Loop
+        if (!acaoAtiva()) {Letra = TamanhoMsg + 1;}     //Abandona o Loop
+
     }
 
     for(byte ColunasBranco = 1; ColunasBranco <= 15; ColunasBranco++ ){
@@ -583,7 +641,7 @@ void AcaoBox::shifEsquerdaMapaBox(byte PrimeiraLinha, byte UltimaLinha, byte Qtd
 
 void AcaoBox::AcendeOuApagaLeds(uint8_t r, uint8_t g, uint8_t b) {
     for(int Led = 0; Led < Total_Leds; Led++){
-      _Leds.setPixelColor(Led, _Leds.Color(g, r, b));
+      _Leds.setPixelColor(Led, _Leds.Color(r, g, b));
     }
     _Leds.show();
     delay(500);
@@ -595,6 +653,7 @@ void AcaoBox::todosLedsAcesos(uint8_t r, uint8_t g, uint8_t b) {
 
 void AcaoBox::todosLedsApagados(){
     AcendeOuApagaLeds(0, 0, 0);           // Apaga os Leds mandando o RGB para 0 (zero) boas práticas
+    // _Leds.clear();       // não funcionou bem
 }
 
 void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t cascata[], uint8_t coluna) {
@@ -607,9 +666,9 @@ void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t cascata[], uint8
                         BShow           = 0;
 
     uint8_t             Brilho          = (uint8_t)DadosAcao->getBrilho(),
-                        R               = (uint8_t)DadosAcao->getR(),
-                        G               = (uint8_t)DadosAcao->getG(),
-                        B               = (uint8_t)DadosAcao->getB();
+                        R               = (uint8_t)DadosAcao->getGammaR(),
+                        G               = (uint8_t)DadosAcao->getGammaG(),
+                        B               = (uint8_t)DadosAcao->getGammaB();
 
 
     float               CabecaLinha    = 100.0;                        // 100% do brilho do led
@@ -637,6 +696,7 @@ void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t cascata[], uint8
 
         // Vai diminuindo o brilho
         CabecaLinha = CabecaLinha - cascata[coluna].Percentual;
+        if (CabecaLinha < 8) {CabecaLinha = 8;}
         RShow = (byte)(R * CabecaLinha);
         GShow = (byte)(G * CabecaLinha);
         BShow = (byte)(B * CabecaLinha);

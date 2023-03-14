@@ -7,6 +7,28 @@
 MascaraLetra::MascaraLetra() { }
 MascaraLetra::~MascaraLetra() { }
 
+void MascaraLetra::montarMascaraSaudacao(word MapaBox[]) {
+	
+    MapaBox[0]  =  0b0000000000000000;    // Linha  1 do quadro e cada bit representa a coluna
+    MapaBox[1]  =  0b0111001100011100;    // Linha  1 do quadro e cada bit representa a coluna
+    MapaBox[2]  =  0b0100001010010000;    // Linha  2 do quadro e cada bit representa a coluna
+    MapaBox[3]  =  0b0110001010011100;    // Linha  3 do quadro e cada bit representa a coluna
+    MapaBox[4]  =  0b0100001010000100;    // Linha  4 do quadro e cada bit representa a coluna
+    MapaBox[5]  =  0b0111001100011100;    // Linha  5 do quadro e cada bit representa a coluna
+    MapaBox[6]  =  0b0000000000000000;    // Linha  6 do quadro e cada bit representa a coluna
+    MapaBox[7]  =  0b0000111111100000;    // Linha  7 do quadro e cada bit representa a coluna
+    MapaBox[8]  =  0b0001000000010000;    // Linha  8 do quadro e cada bit representa a coluna
+    MapaBox[9]  =  0b0010010001001000;    // Linha  9 do quadro e cada bit representa a coluna
+    MapaBox[10] =  0b0100000100000100;    // Linha 1  do quadro e cada bit representa a coluna
+    MapaBox[11] =  0b0100000100000100;    // Linha 11 do quadro e cada bit representa a coluna
+    MapaBox[12] =  0b0010011111001000;    // Linha 12 do quadro e cada bit representa a coluna
+    MapaBox[13] =  0b0000100000100000;    // Linha 13 do quadro e cada bit representa a coluna
+    MapaBox[14] =  0b0000011111000000;    // Linha 14 do quadro e cada bit representa a coluna
+    MapaBox[15] =  0b0000000000000000;    // Linha 15 de controle da cor para Label
+
+}
+
+
 void MascaraLetra::montarMascara(char Letra, char LetraMascarada[], byte *pFimBitMascara) {
 
     switch (Letra){

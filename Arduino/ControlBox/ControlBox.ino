@@ -61,14 +61,23 @@ BoxCar box   = BoxCar();
 
 void setup() {
 	
-    box.iniciarBoxCar();
+    Serial.begin(9600);
+    while(!Serial);
+    delay(2000);
+
+    box.iniciarBoxCar(50);
+
+    box.showSaudacao();
 
 }
 
 void loop() {
 	
     if (box.acaoSolicitada()) {
+        
         box.identificarExecutarAcao();
+        delay(2000);
+    
     }
 
 }
