@@ -124,17 +124,17 @@ private:
     void AcendeOuApagaLeds(uint8_t r, uint8_t g, uint8_t b);
     void MontaMapaBoxTematico(eBoxTematico Tema);
 
+
 public:
     AcaoBox();
     AcaoBox(byte pinoControle);
     AcaoBox(byte pinoDados, byte pinoControle);
     ~AcaoBox();
 
-
-
     void inicializarCascata();
 
     cascata_t *getItemCascata(byte item);
+    byte size_Cascata();
 
     void iniciarLeds(int IntensidadeBrilho);
     void setBrilho(uint8_t Intensidade);
@@ -149,13 +149,19 @@ public:
     void boxAcaoColuna(bool IniciarImpar, BoxDadosAcao *DadosAcao);
     void boxAcaoLinha(bool IniciarImpar, BoxDadosAcao *DadosAcao);
     void boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao);
-    void boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t cascata[], uint8_t coluna);
+    
+    // void boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t cascata[], uint8_t coluna);
+    void boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t *itemCascata, byte luzFundo);
+    
     void showMapaBoxes(BoxDadosAcao *DadosAcao, byte LuzFundo);
     void todosLedsAcesos(uint8_t r, uint8_t g, uint8_t b);
     void todosLedsApagados();
     void showMsgBox(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAcao, byte LinhaShow);
     void showMsgBoxDebug(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAcao, byte LinhaShow);
     void shifEsquerdaMapaBox(byte PrimeiraLinha, byte UltimaLinha, byte QtdeBit);
+    byte converteLinhaColuna(byte Linha, byte Coluna);
+    byte numLinha(byte LinhaColuna);
+    byte numColuna(byte LinhaColuna);
 
 };
 

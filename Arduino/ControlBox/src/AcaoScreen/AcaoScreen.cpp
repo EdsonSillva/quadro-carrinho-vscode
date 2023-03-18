@@ -128,129 +128,143 @@ void AcaoScreen::ledsTematico(BoxDadosAcao *DadosAcao, eBoxTematico Tema) {
 void AcaoScreen::ledsAcaoCascata(BoxDadosAcao *DadosAcao) {
 
     _tmpWaitRotina                      = 11000;
-    uint8_t sizeCascata                 = 15;
     uint8_t colunasFeitas               = 0;
-    cascata_t cascata[sizeCascata];
+    cascata_t *itemCascata              = NULL;
+    byte luzFundo                       = 20;
 
     // Mantem a vitrine acesa
-    _box.todosLedsAcesos(20, 20, 20);       // Luz de fundo bem fraca
+    _box.todosLedsAcesos(luzFundo, luzFundo, luzFundo);       // Luz de fundo bem fraca
     _box.vitrineLedsRGBB(DadosAcao);
+
+    inicializaCascata();                    // Inicializa uma única vez e depois somente reset a linha
 
     while(acaoAtiva()) {
 
-        if(_tmpWaitRotina > 10000){
+        if(_tmpWaitRotina > 3000){
 
-            inicializaCascata(cascata, sizeCascata);
             colunasFeitas = 0;
 
-            delay(5000);
             if(!acaoAtiva()) return;
 
-            // while(acaoAtiva() && colunasFeitas < 14) {
+            Serial.print(F("\n Inicializando While da CASCATA no objeto AcaoScreen:: ........"));
+
+            while(acaoAtiva() && colunasFeitas < 14) {
         
-            //     for(uint8_t coluna = 0; coluna <= 14 && acaoAtiva(); coluna++) {
+                for(uint8_t item = 0; item <= 14 && acaoAtiva(); item++) {
 
-            //         if(cascata[coluna].Linha > 0 && (!cascata[coluna].Finalizado)) {
-            //             _box.boxAcaoCascata(DadosAcao, cascata, coluna);
-            //         }
+                    Serial.print(F("\nColunaFeita:\t")), Serial.print(colunasFeitas);
 
-            //         if((cascata[coluna].Linha - cascata[coluna].Arrasto) > 14) {
-            //             colunasFeitas++;
-            //             cascata[coluna].Finalizado = true;
-            //         }
+                    itemCascata = _box.getItemCascata(item);
 
-            //         cascata[coluna].Linha++;
-            //     }
+                    if(itemCascata->Linha > 0 && (!itemCascata->Finalizado)) {
 
-            // }
+                        Serial.print(F("\tExec (boxAcaoCascata) do Item (")), Serial.print(item);
+                        Serial.print(F(") Coluna:\t")), Serial.print(itemCascata->Coluna);
+                        Serial.print(F("\t Linha:\t")), Serial.print(itemCascata->Linha);
+
+                        _box.boxAcaoCascata(DadosAcao, itemCascata, luzFundo);
+
+                    }
+
+                    if((itemCascata->Linha - itemCascata->Arrasto) > 14) {
+
+                        Serial.print(F(" - Ok"));
+
+                        colunasFeitas++;
+                        itemCascata->Finalizado = true;
+                    }
+
+                    itemCascata->Linha++;           // Anda com a linha da coluna
+
+                    if( item == 14) Serial.print(F("\n"));
+
+                }
+
+            }
         
-            _tmpWaitRotina = 0;
+            if (acaoAtiva()) { 
+                _tmpWaitRotina = 0;
+                resetCascata(); 
+            }
         
         } else { _tmpWaitRotina++; delayMicroseconds(100);}
     }
 }
 
-void AcaoScreen::inicializaCascata(cascata_t cascata[], uint8_t SizeCascata) {
+void AcaoScreen::inicializaCascata() {
 
-    uint8_t qtdColunasShow          = SizeCascata - 1;
-    uint8_t colunas[SizeCascata]    = {0};
+    uint8_t     sizeCascata                         = _box.size_Cascata();
+    uint8_t     colunas[sizeCascata]                = {0};
+    cascata_t   *pItemCascata                       = NULL;
 
-
-    Serial.print(F("\n Inicializando CASCATA no objeto BoxAcao:: ........"));
+    // Serial.print(F("\n Inicializando CASCATA no objeto BoxAcao:: ........"));
     _box.inicializarCascata();
 
-    cascata_t *pItemCascata = _box.getItemCascata(3);
+    randomUnico(colunas, sizeCascata);
 
-    pItemCascata->Arrasto = 9;
-    pItemCascata->Linha = 10;
-    pItemCascata->Coluna = 3;
-    pItemCascata->Percentual = .80F;
-    pItemCascata->Finalizado = true;
+    // for(int x = 0; x < sizeCascata; x++) {
+    //     Serial.print(F("\nPosicao: ")), Serial.print(x);
+    //     Serial.print(F("\t| Coluna: ")), Serial.print(colunas[x]);
+    // }
 
+    // Serial.print(F("\n Montando Dados CASCATA ........"));
 
-        Serial.print(F("\n\n\nItemCascata->Arrasto: ")), Serial.print(pItemCascata->Arrasto);
-        Serial.print(F("\n\n\n"));
+    // delay(2000);
 
+    for(uint8_t item = 0; item < sizeCascata && acaoAtiva(); item++) {
 
-    randomUnico(colunas, SizeCascata);
+        pItemCascata = _box.getItemCascata(item);
 
-    for(int x = 0; x <= SizeCascata - 1; x++) {
+        pItemCascata->Coluna        = colunas[item];
+        pItemCascata->Linha         = random(-3, 2);
+        pItemCascata->LinhaInicial  = pItemCascata->Linha;
+        pItemCascata->Arrasto       = random(5,  8);
+        pItemCascata->Percentual    = 100 / pItemCascata->Arrasto;      // percentual usado para fazer o arrasto
+        pItemCascata->Finalizado    = false;
 
-        Serial.print(F("\nPosicao: ")), Serial.print(x);
-        Serial.print(F("\t| Coluna: ")), Serial.print(colunas[x]);
+        // Serial.print(F("\n\n\nItemCascata->Linha:\t\t")), Serial.print(pItemCascata->Linha);
+        // Serial.print(F("\nItemCascata->Coluna:\t\t")), Serial.print(pItemCascata->Coluna);
+        // Serial.print(F("\nItemCascata->Arrasto:\t\t")), Serial.print(pItemCascata->Arrasto);
+        // Serial.print(F("\nItemCascata->Percentual:\t")), Serial.print(pItemCascata->Percentual);
+        // Serial.print(F("\nItemCascata->Finalizado:\t")), Serial.print(pItemCascata->Finalizado);
+        // Serial.print(F("\n\n\n"));
+
+        // delay(250);
 
     }
 
-    Serial.print(F("\n Montando Dados CASCATA ........"));
+}
 
-delay(2000);
+void AcaoScreen::resetCascata() {
 
-    for(uint8_t indice = 0; indice <= qtdColunasShow; indice++) {
+    uint8_t     sizeCascata                         = _box.size_Cascata();
+    cascata_t   *pItemCascata                       = NULL;
 
+    Serial.print(F("\n Resetando CASCATA no objeto BoxAcao:: ........"));
 
-        Serial.print(F("\n\n\nItemCascata->Arrasto:\t\t")), Serial.print(pItemCascata->Arrasto);
-        Serial.print(F("\nnItemCascata->Linha:\t\t")), Serial.print(pItemCascata->Linha);
-        Serial.print(F("\nnItemCascata->Coluna:\t\t")), Serial.print(pItemCascata->Coluna);
-        Serial.print(F("\nnItemCascata->Percentual:\t")), Serial.print(pItemCascata->Percentual);
-        Serial.print(F("\nnItemCascata->Finalizado:\t")), Serial.print(pItemCascata->Finalizado);
+    for(uint8_t item = 0; item < sizeCascata && acaoAtiva(); item++) {
+
+        pItemCascata = _box.getItemCascata(item);
+
+        Serial.print(F("\n\n\nAntes-ItemCascata->Linha:\t\t")), Serial.print(pItemCascata->Linha);
+
+        pItemCascata->Linha         = pItemCascata->LinhaInicial;
+        pItemCascata->Finalizado    = false;
+
+        Serial.print(F("\n\nDepois-ItemCascata->Linha:\t\t")), Serial.print(pItemCascata->Linha);
+        Serial.print(F("\nItemCascata->Coluna:\t\t")), Serial.print(pItemCascata->Coluna);
+        Serial.print(F("\nItemCascata->Arrasto:\t\t")), Serial.print(pItemCascata->Arrasto);
+        Serial.print(F("\nItemCascata->Percentual:\t")), Serial.print(pItemCascata->Percentual);
+        Serial.print(F("\nItemCascata->Finalizado:\t")), Serial.print(pItemCascata->Finalizado);
         Serial.print(F("\n\n\n"));
-
-        // cascata[indice].Coluna       = colunas[indice];
-        // cascata[indice].Linha        = random(-3, 2);
-        // cascata[indice].Arrasto      = random(3,  6);
-        // cascata[indice].Percentual   = 100 / cascata[indice].Arrasto;      // percentual usado para fazer o arrasto
-        // cascata[indice].Finalizado   = false;
 
         delay(250);
 
-
-        // Serial.print(F("\n"));
-
-        // Serial.print(F("\n.......... [")), Serial.print(i), Serial.print(F("] ..........\n"));
-
-        // Serial.print(F("\ncascata[")), Serial.print(i), Serial.print(F("].Coluna = "));
-        // Serial.print(cascata[i].Coluna);
-
-        // Serial.print(F("\ncascata[")), Serial.print(i), Serial.print(F("].Linha = "));
-        // Serial.print(cascata[i].Linha);
-
-        // Serial.print(F("\ncascata[")), Serial.print(i), Serial.print(F("].Arrasto = "));
-        // Serial.print(cascata[i].Arrasto);
-
-        // Serial.print(F("\ncascata[")), Serial.print(i), Serial.print(F("].Percentual = "));
-        // Serial.print(cascata[i].Percentual);
-
-        // Serial.print(F("\ncascata[")), Serial.print(i), Serial.print(F("].Finalizado = "));
-        // Serial.print(cascata[i].Finalizado);
-
-
-
     }
 
-
-
-
 }
+
+
 
 void AcaoScreen::randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer) {
 
@@ -261,6 +275,13 @@ void AcaoScreen::randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer) {
     uint8_t   valor         = 0;
 
 
+    // Necessário inicializar os valores porque estava dando problema intermitente com sujeira
+    // for (int posicao = 0; posicao < SizeBuffer; posicao++)
+    // {
+    //     bufferValores[posicao] = 0;
+    // }
+    
+
     Serial.print(F("\nAcaoScreen::randomUnico:coluna = ")), Serial.print(coluna);
     Serial.print(F(" Qtde Colunas a processar = ")), Serial.print(SizeBuffer);
     valor = random();
@@ -270,19 +291,20 @@ void AcaoScreen::randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer) {
     // randomSeed(random());                               // Necessário para indicar um ponto de inicialização aleatório
     randomSeed(valor);                               // Necessário para indicar um ponto de inicialização aleatório
 
-    while(coluna < SizeBuffer){
+    while(coluna < SizeBuffer && acaoAtiva()){
 
         valor = random(minimo, maximo);
-        // Serial.print(F("\nValor randomico = ")), Serial.print(valor);
-        // Serial.print(F(" \t( Min = ")), Serial.print(minimo);
-        // Serial.print(F(" | Max = ")), Serial.print(maximo), Serial.print(F(" )"));
+
+        Serial.print(F("\nValor randomico = ")), Serial.print(valor);
+        Serial.print(F(" \t( Min = ")), Serial.print(minimo);
+        Serial.print(F(" | Max = ")), Serial.print(maximo), Serial.print(F(" )"));
 
         valorExiste = false;
-        for( int i = 0; i <= SizeBuffer; i++ ){
+        for( int i = 0; i < SizeBuffer; i++ ){
             if(valor == bufferValores[i]){
                 valorExiste = true;
         
-                    // Serial.print(F(" - Nao usado"));
+                    Serial.print(F(" - ja usado"));
 
                 break;
             }
@@ -290,16 +312,17 @@ void AcaoScreen::randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer) {
 
         if(!valorExiste){
 
-            // Serial.print(F(" - Usado como coluna"));
-            // Serial.print(F(" | qtde coluna proc = ")), Serial.print(coluna);
+            Serial.print(F(" - Usado como coluna"));
+            Serial.print(F(" | qtde coluna proc = ")), Serial.print(coluna);
 
             bufferValores[coluna] = valor;
             coluna++;
         }
     }
-        Serial.print(F("\n "));
 
-    for(int x = 0; x <= SizeBuffer; x++) {
+    Serial.print(F("\n"));
+
+    for(int x = 0; x < SizeBuffer; x++) {
 
         Serial.print(F("\nPosicao: ")), Serial.print(x);
         Serial.print(F("\t| Coluna: ")), Serial.print(bufferValores[x]);

@@ -36,9 +36,12 @@ void AcaoBox::inicializarCascata() {
 
 }
 
-
 cascata_t *AcaoBox::getItemCascata(byte Item) {
     return &_cascata[Item];
+}
+
+byte AcaoBox::size_Cascata() {
+    return _qtdColunas;
 }
 
 /* 
@@ -656,10 +659,62 @@ void AcaoBox::todosLedsApagados(){
     // _Leds.clear();       // não funcionou bem
 }
 
-void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t cascata[], uint8_t coluna) {
+/* @deprecated metodo antigo */
+// void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t cascata[], uint8_t coluna) {
 
-    const uint8_t       _MIN_LINHA      =  1;
-    const uint8_t       _MAX_LINHA      = 14;
+//     const uint8_t       _MIN_LINHA      =  1;
+//     const uint8_t       _MAX_LINHA      = 14;
+
+//     byte                RShow           = 0,
+//                         GShow           = 0,
+//                         BShow           = 0;
+
+//     uint8_t             Brilho          = (uint8_t)DadosAcao->getBrilho(),
+//                         R               = (uint8_t)DadosAcao->getGammaR(),
+//                         G               = (uint8_t)DadosAcao->getGammaG(),
+//                         B               = (uint8_t)DadosAcao->getGammaB();
+
+
+//     float               CabecaLinha    = 100.0;                        // 100% do brilho do led
+//     int8_t              linhaBase      = cascata[coluna].Linha;
+//     int8_t              fimArrasto     = cascata[coluna].Linha - cascata[coluna].Arrasto;
+    
+//     fimArrasto = fimArrasto > _MIN_LINHA ? fimArrasto : _MIN_LINHA;
+
+//     if(linhaBase > _MAX_LINHA){
+
+//         CabecaLinha = CabecaLinha - (cascata[coluna].Percentual * (linhaBase - _MAX_LINHA));
+//         linhaBase = _MAX_LINHA;         // Estabelece no máximo de linhas
+
+//     }
+
+//     RShow = (byte)(R * CabecaLinha);
+//     GShow = (byte)(G * CabecaLinha);
+//     BShow = (byte)(B * CabecaLinha);
+
+//     if (_Leds.getBrightness() != (uint8_t)Brilho) { setBrilho((int)Brilho); }
+
+//     for(int8_t linha = linhaBase; linha >= fimArrasto; linha--){
+
+//         _Leds.setPixelColor(PosicaoBoxCellInvertido(linha, (int)cascata[coluna].Coluna), _Leds.Color(GShow, RShow, BShow));
+
+//         // Vai diminuindo o brilho
+//         CabecaLinha = CabecaLinha - cascata[coluna].Percentual;
+//         if (CabecaLinha < 8) {CabecaLinha = 8;}
+//         RShow = (byte)(R * CabecaLinha);
+//         GShow = (byte)(G * CabecaLinha);
+//         BShow = (byte)(B * CabecaLinha);
+
+//     }
+
+//     showLeds(150);
+
+// }
+
+void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t *itemCascata, byte luzFundo) {
+
+    const uint8_t       MIN_LINHA      =  1;
+    const uint8_t       MAX_LINHA      = 14;
 
     byte                RShow           = 0,
                         GShow           = 0,
@@ -672,40 +727,131 @@ void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t cascata[], uint8
 
 
     float               CabecaLinha    = 100.0;                        // 100% do brilho do led
-    int8_t              linhaBase      = cascata[coluna].Linha;
-    int8_t              fimArrasto     = cascata[coluna].Linha - cascata[coluna].Arrasto;
+    int8_t              linhaBase      = itemCascata->Linha;
+    int8_t              fimArrasto     = itemCascata->Linha - itemCascata->Arrasto;
     
-    fimArrasto = fimArrasto > _MIN_LINHA ? fimArrasto : _MIN_LINHA;
+    fimArrasto = fimArrasto > MIN_LINHA ? fimArrasto : MIN_LINHA;
 
-    if(linhaBase > _MAX_LINHA){
+    Serial.print(F("\n\n\tCabecaLinha\t")), Serial.print(CabecaLinha);
 
-        CabecaLinha = CabecaLinha - (cascata[coluna].Percentual * (linhaBase - _MAX_LINHA));
-        linhaBase = _MAX_LINHA;         // Estabelece no máximo de linhas
+    if(linhaBase > MAX_LINHA){
+
+        CabecaLinha = CabecaLinha - (itemCascata->Percentual * (linhaBase - MAX_LINHA));
+        linhaBase = MAX_LINHA;         // Estabelece no máximo de linhas
+
+        Serial.print(F("\tCabecaLinha - (itemCascata->Percentual * (linhaBase - MAX_LINHA))\t")), Serial.print(CabecaLinha - (itemCascata->Percentual * (linhaBase - MAX_LINHA)));
+        Serial.print(F("\tCabecaLinha\t")), Serial.print(CabecaLinha);
+        Serial.print(F("\n\titemCascata->Percentual\t")), Serial.print(itemCascata->Percentual);
+        Serial.print(F("\n\tlinhaBase\t")), Serial.print(linhaBase);
+        Serial.print(F("\n\t_MAX_LINHA\t")), Serial.print(CabecaLinha);
 
     }
 
-    RShow = (byte)(R * CabecaLinha);
-    GShow = (byte)(G * CabecaLinha);
-    BShow = (byte)(B * CabecaLinha);
+    Serial.print(F("\n\n\tlinhaBase\t")), Serial.print(linhaBase);
+
+
+    Serial.print(F("\n\n\tR\t")), Serial.print(R);
+    Serial.print(F("\t(R * CabecaLinha)\t")), Serial.print(R * (float)(CabecaLinha / 100));
+
+    Serial.print(F("\n\tG\t")), Serial.print(G);
+    Serial.print(F("\t(G * CabecaLinha)\t")), Serial.print(G * (float)(CabecaLinha / 100));
+
+    Serial.print(F("\n\tB\t")), Serial.print(B);
+    Serial.print(F("\t(B * CabecaLinha)\t")), Serial.print(B * (float)(CabecaLinha / 100));
+
+    RShow = (byte)(R * (float)(CabecaLinha / 100));
+    GShow = (byte)(G * (float)(CabecaLinha / 100));
+    BShow = (byte)(B * (float)(CabecaLinha / 100));
+
+    Serial.print(F("\n\n\tRShow\t")), Serial.print(RShow);
+    Serial.print(F("\n\tGShow\t")), Serial.print(GShow);
+    Serial.print(F("\n\tBShow\t")), Serial.print(BShow);
+
 
     if (_Leds.getBrightness() != (uint8_t)Brilho) { setBrilho((int)Brilho); }
 
     for(int8_t linha = linhaBase; linha >= fimArrasto; linha--){
 
-        _Leds.setPixelColor(PosicaoBoxCellInvertido(linha, (int)cascata[coluna].Coluna), _Leds.Color(GShow, RShow, BShow));
+        Serial.print(F("\n\n\t>>> Leds em\t")), Serial.print(CabecaLinha);
+        Serial.print(F("\t na linha\t")), Serial.print(linha);
+        Serial.print(F("\tfimArrasto\t")), Serial.print(fimArrasto);
+
+        _Leds.setPixelColor(PosicaoBoxCellInvertido(linha, (int)itemCascata->Coluna), _Leds.Color(GShow, RShow, BShow));
+
+        Serial.print(F("\n\n\tlinhaBase\t")), Serial.print(linhaBase);
+        Serial.print(F("\tLinha\t")), Serial.print(linha);
+        Serial.print(F("\tCabecaLinha\t")), Serial.print(CabecaLinha);
 
         // Vai diminuindo o brilho
-        CabecaLinha = CabecaLinha - cascata[coluna].Percentual;
-        if (CabecaLinha < 8) {CabecaLinha = 8;}
-        RShow = (byte)(R * CabecaLinha);
-        GShow = (byte)(G * CabecaLinha);
-        BShow = (byte)(B * CabecaLinha);
+        CabecaLinha = CabecaLinha - itemCascata->Percentual;
+
+        Serial.print(F("\tNova CabecaLinha\t")), Serial.print(CabecaLinha);
+        Serial.print(F("\n\titemCascata->Percentual\t")), Serial.print(itemCascata->Percentual);
+        Serial.print(F("\titemCascata->Arrasto\t")), Serial.print(itemCascata->Arrasto);
+        Serial.print(F("\tfimArrasto\t")), Serial.print(fimArrasto);
+
+        Serial.print(F("\n\n\tR\t")), Serial.print(R);
+        Serial.print(F("\t(R * CabecaLinha)\t")), Serial.print(R * (float)(CabecaLinha / 100));
+
+        Serial.print(F("\n\tG\t")), Serial.print(G);
+        Serial.print(F("\t(G * CabecaLinha)\t")), Serial.print(G * (float)(CabecaLinha / 100));
+
+        Serial.print(F("\n\tB\t")), Serial.print(B);
+        Serial.print(F("\t(B * CabecaLinha)\t")), Serial.print(B * (float)(CabecaLinha / 100));
+
+        if (CabecaLinha > 4) {              // Usado 4 porque existe arrasto de até 6 linhas
+
+            RShow = (byte)(R * (float)(CabecaLinha / 100));
+            GShow = (byte)(G * (float)(CabecaLinha / 100));
+            BShow = (byte)(B * (float)(CabecaLinha / 100));
+
+        } else {        // Arrasto finalizado
+
+            RShow = luzFundo;
+            GShow = luzFundo;
+            BShow = luzFundo;
+
+        }
+
+        Serial.print(F("\n\n\tRShow\t")), Serial.print(RShow);
+        Serial.print(F("\n\tGShow\t")), Serial.print(GShow);
+        Serial.print(F("\n\tBShow\t")), Serial.print(BShow);
+        Serial.print(F("\n"));
+
 
     }
 
     showLeds(150);
 
 }
+
+
+
+#pragma region Metodos de conversão de Linha, Coluna e LinhaColuna
+
+
+byte AcaoBox::converteLinhaColuna(byte Linha, byte Coluna) {
+
+    byte linhaColuna = Coluna;
+
+    bitWrite(linhaColuna, 4, bitRead(Linha, 0));
+    bitWrite(linhaColuna, 5, bitRead(Linha, 1));
+    bitWrite(linhaColuna, 6, bitRead(Linha, 2));
+    bitWrite(linhaColuna, 7, bitRead(Linha, 3));
+
+    return linhaColuna;
+
+}
+
+byte AcaoBox::numLinha(byte LinhaColuna) {
+    return (byte)LinhaColuna >> 4;
+}
+
+byte AcaoBox::numColuna(byte LinhaColuna) {
+    return 0b00001111 & LinhaColuna;
+}
+
+#pragma endregion
 
 
 

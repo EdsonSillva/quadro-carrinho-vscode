@@ -22,8 +22,8 @@ void MascaraLetra::montarMascaraSaudacao(word MapaBox[]) {
     MapaBox[10] =  0b0100000100000100;    // Linha 1  do quadro e cada bit representa a coluna
     MapaBox[11] =  0b0100000100000100;    // Linha 11 do quadro e cada bit representa a coluna
     MapaBox[12] =  0b0010011111001000;    // Linha 12 do quadro e cada bit representa a coluna
-    MapaBox[13] =  0b0000100000100000;    // Linha 13 do quadro e cada bit representa a coluna
-    MapaBox[14] =  0b0000011111000000;    // Linha 14 do quadro e cada bit representa a coluna
+    MapaBox[13] =  0b0001100000110000;    // Linha 13 do quadro e cada bit representa a coluna
+    MapaBox[14] =  0b0000011111000000;    // Linha 14 controle
     MapaBox[15] =  0b0000000000000000;    // Linha 15 de controle da cor para Label
 
 }

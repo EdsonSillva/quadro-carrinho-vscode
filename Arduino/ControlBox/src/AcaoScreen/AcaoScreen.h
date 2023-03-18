@@ -45,7 +45,8 @@ private:
     long                    _tmpWaitRotina          = 0x00;
 
     void setLeds(BoxDadosAcao *DadosAcao);
-    void inicializaCascata(cascata_t cascata[], uint8_t SizeCascata);
+    void inicializaCascata();
+    void resetCascata();
     void randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer);
 
 public:

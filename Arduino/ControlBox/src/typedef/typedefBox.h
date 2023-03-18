@@ -25,11 +25,14 @@ typedef void (*FuncAcaoVoid)(bool, byte, byte, byte, byte);
 typedef void (*FuncAcao)(bool, BoxDadosAcao);
 
 typedef struct {
-    uint8_t   Coluna;
-    int8_t    Linha;
-    uint8_t   Arrasto;
-    float     Percentual;
-    bool      Finalizado;
+    uint8_t     Coluna;
+    int8_t      Linha;
+    int8_t      LinhaInicial;
+    uint8_t     Arrasto;
+    uint8_t     Percentual;
+    bool        Finalizado;
 } cascata_t;
+
+
 
 #endif  // __TYPEDEFBOX_H__
