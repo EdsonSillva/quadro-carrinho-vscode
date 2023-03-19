@@ -144,31 +144,37 @@ void AcaoScreen::ledsAcaoCascata(BoxDadosAcao *DadosAcao) {
 
             colunasFeitas = 0;
 
-            if(!acaoAtiva()) return;
+            // if(!acaoAtiva()) return;
 
-            Serial.print(F("\n Inicializando While da CASCATA no objeto AcaoScreen:: ........"));
+            // Serial.print(F("\n Inicializando While da CASCATA no objeto AcaoScreen:: ........"));
 
             while(acaoAtiva() && colunasFeitas < 14) {
         
                 for(uint8_t item = 0; item <= 14 && acaoAtiva(); item++) {
 
-                    Serial.print(F("\nColunaFeita:\t")), Serial.print(colunasFeitas);
+                    // Serial.print(F("\nColunaFeita:\t")), Serial.print(colunasFeitas);
 
                     itemCascata = _box.getItemCascata(item);
 
                     if(itemCascata->Linha > 0 && (!itemCascata->Finalizado)) {
 
-                        Serial.print(F("\tExec (boxAcaoCascata) do Item (")), Serial.print(item);
-                        Serial.print(F(") Coluna:\t")), Serial.print(itemCascata->Coluna);
-                        Serial.print(F("\t Linha:\t")), Serial.print(itemCascata->Linha);
+                        // if (itemCascata->Coluna == 7)
+                        // {
+                            
+                            // Serial.print(F("\tExec (boxAcaoCascata) do Item (")), Serial.print(item);
+                            // Serial.print(F(") Coluna:\t")), Serial.print(itemCascata->Coluna);
+                            // Serial.print(F("\t Linha:\t")), Serial.print(itemCascata->Linha);
 
-                        _box.boxAcaoCascata(DadosAcao, itemCascata, luzFundo);
+                            _box.boxAcaoCascata(DadosAcao, itemCascata, luzFundo);
+
+                        // }
 
                     }
 
-                    if((itemCascata->Linha - itemCascata->Arrasto) > 14) {
+                    if((itemCascata->Linha - itemCascata->Arrasto) > 14 && !itemCascata->Finalizado) {
 
-                        Serial.print(F(" - Ok"));
+                        // Serial.print(F("\nColunaFeita:\t")), Serial.print(colunasFeitas);
+                        // Serial.print(F(" - Ok"));
 
                         colunasFeitas++;
                         itemCascata->Finalizado = true;
@@ -176,14 +182,19 @@ void AcaoScreen::ledsAcaoCascata(BoxDadosAcao *DadosAcao) {
 
                     itemCascata->Linha++;           // Anda com a linha da coluna
 
-                    if( item == 14) Serial.print(F("\n"));
+                    // if( item == 14) Serial.print(F("\n"));
 
                 }
 
             }
         
+            Serial.print(F("\n\n >>> ------------------------ <<<"));
+            Serial.print(F("\n >>> Finalizado Ciclo Cascata <<<"));
+            Serial.print(F("\n >>> ------------------------ <<<\n\n"));
+
             if (acaoAtiva()) { 
                 _tmpWaitRotina = 0;
+                // inicializaCascata();                    // Inicializa uma única vez e depois somente reset a linha
                 resetCascata(); 
             }
         
@@ -218,7 +229,7 @@ void AcaoScreen::inicializaCascata() {
         pItemCascata->Coluna        = colunas[item];
         pItemCascata->Linha         = random(-3, 2);
         pItemCascata->LinhaInicial  = pItemCascata->Linha;
-        pItemCascata->Arrasto       = random(5,  8);
+        pItemCascata->Arrasto       = random(7,  10);
         pItemCascata->Percentual    = 100 / pItemCascata->Arrasto;      // percentual usado para fazer o arrasto
         pItemCascata->Finalizado    = false;
 
@@ -240,31 +251,29 @@ void AcaoScreen::resetCascata() {
     uint8_t     sizeCascata                         = _box.size_Cascata();
     cascata_t   *pItemCascata                       = NULL;
 
-    Serial.print(F("\n Resetando CASCATA no objeto BoxAcao:: ........"));
+    // Serial.print(F("\n Resetando CASCATA no objeto BoxAcao:: ........"));
 
     for(uint8_t item = 0; item < sizeCascata && acaoAtiva(); item++) {
 
         pItemCascata = _box.getItemCascata(item);
 
-        Serial.print(F("\n\n\nAntes-ItemCascata->Linha:\t\t")), Serial.print(pItemCascata->Linha);
+        // Serial.print(F("\n\n\nAntes-ItemCascata->Linha:\t\t")), Serial.print(pItemCascata->Linha);
 
         pItemCascata->Linha         = pItemCascata->LinhaInicial;
         pItemCascata->Finalizado    = false;
 
-        Serial.print(F("\n\nDepois-ItemCascata->Linha:\t\t")), Serial.print(pItemCascata->Linha);
-        Serial.print(F("\nItemCascata->Coluna:\t\t")), Serial.print(pItemCascata->Coluna);
-        Serial.print(F("\nItemCascata->Arrasto:\t\t")), Serial.print(pItemCascata->Arrasto);
-        Serial.print(F("\nItemCascata->Percentual:\t")), Serial.print(pItemCascata->Percentual);
-        Serial.print(F("\nItemCascata->Finalizado:\t")), Serial.print(pItemCascata->Finalizado);
-        Serial.print(F("\n\n\n"));
+        // Serial.print(F("\n\nDepois-ItemCascata->Linha:\t\t")), Serial.print(pItemCascata->Linha);
+        // Serial.print(F("\nItemCascata->Coluna:\t\t")), Serial.print(pItemCascata->Coluna);
+        // Serial.print(F("\nItemCascata->Arrasto:\t\t")), Serial.print(pItemCascata->Arrasto);
+        // Serial.print(F("\nItemCascata->Percentual:\t")), Serial.print(pItemCascata->Percentual);
+        // Serial.print(F("\nItemCascata->Finalizado:\t")), Serial.print(pItemCascata->Finalizado);
+        // Serial.print(F("\n\n\n"));
 
-        delay(250);
+        // delay(250);
 
     }
 
 }
-
-
 
 void AcaoScreen::randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer) {
 
@@ -282,11 +291,11 @@ void AcaoScreen::randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer) {
     // }
     
 
-    Serial.print(F("\nAcaoScreen::randomUnico:coluna = ")), Serial.print(coluna);
-    Serial.print(F(" Qtde Colunas a processar = ")), Serial.print(SizeBuffer);
+    // Serial.print(F("\nAcaoScreen::randomUnico:coluna = ")), Serial.print(coluna);
+    // Serial.print(F(" Qtde Colunas a processar = ")), Serial.print(SizeBuffer);
     valor = random();
-    Serial.print(F(" | ponto de inicializacao = ")), Serial.print(valor);
-    delay(100);
+    // Serial.print(F(" | ponto de inicializacao = ")), Serial.print(valor);
+    // delay(100);
 
     // randomSeed(random());                               // Necessário para indicar um ponto de inicialização aleatório
     randomSeed(valor);                               // Necessário para indicar um ponto de inicialização aleatório
@@ -295,16 +304,16 @@ void AcaoScreen::randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer) {
 
         valor = random(minimo, maximo);
 
-        Serial.print(F("\nValor randomico = ")), Serial.print(valor);
-        Serial.print(F(" \t( Min = ")), Serial.print(minimo);
-        Serial.print(F(" | Max = ")), Serial.print(maximo), Serial.print(F(" )"));
+        // Serial.print(F("\nValor randomico = ")), Serial.print(valor);
+        // Serial.print(F(" \t( Min = ")), Serial.print(minimo);
+        // Serial.print(F(" | Max = ")), Serial.print(maximo), Serial.print(F(" )"));
 
         valorExiste = false;
         for( int i = 0; i < SizeBuffer; i++ ){
             if(valor == bufferValores[i]){
                 valorExiste = true;
         
-                    Serial.print(F(" - ja usado"));
+                    // Serial.print(F(" - ja usado"));
 
                 break;
             }
@@ -312,24 +321,24 @@ void AcaoScreen::randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer) {
 
         if(!valorExiste){
 
-            Serial.print(F(" - Usado como coluna"));
-            Serial.print(F(" | qtde coluna proc = ")), Serial.print(coluna);
+            // Serial.print(F(" - Usado como coluna"));
+            // Serial.print(F(" | qtde coluna proc = ")), Serial.print(coluna);
 
             bufferValores[coluna] = valor;
             coluna++;
         }
     }
 
-    Serial.print(F("\n"));
+    // Serial.print(F("\n"));
 
-    for(int x = 0; x < SizeBuffer; x++) {
+    // for(int x = 0; x < SizeBuffer; x++) {
 
-        Serial.print(F("\nPosicao: ")), Serial.print(x);
-        Serial.print(F("\t| Coluna: ")), Serial.print(bufferValores[x]);
+    //     Serial.print(F("\nPosicao: ")), Serial.print(x);
+    //     Serial.print(F("\t| Coluna: ")), Serial.print(bufferValores[x]);
 
-    }
+    // }
 
-    Serial.print(F("\n\nAcaoScreen::randomUnico: [SAINDO] "));
+    // Serial.print(F("\n\nAcaoScreen::randomUnico: [SAINDO] "));
 
 }
 
