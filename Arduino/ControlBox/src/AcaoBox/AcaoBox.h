@@ -163,6 +163,21 @@ public:
     byte numLinha(byte LinhaColuna);
     byte numColuna(byte LinhaColuna);
 
+    // Ação Cobrinha
+    /* Montar um arry de 16 posições
+       
+       fazer um loop ate a primeira posição
+       a posição zero fica fora e reseta pa a aluz de fundo
+       fazer o loop a primeira posição até o final
+       colocar um controle de arrasto e acresentar um arrasto a mais quando a 
+       cobrinha bater no ponto aleatório e se o ponto estiver com cor diferente da 
+       cobrinha mudar para a cor da cobrinha com a cor do ponto  
+
+
+
+
+    */
+
 };
 
 #endif  // __ACAOBOX_H__

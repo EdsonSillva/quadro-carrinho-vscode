@@ -188,9 +188,9 @@ void AcaoScreen::ledsAcaoCascata(BoxDadosAcao *DadosAcao) {
 
             }
         
-            Serial.print(F("\n\n >>> ------------------------ <<<"));
-            Serial.print(F("\n >>> Finalizado Ciclo Cascata <<<"));
-            Serial.print(F("\n >>> ------------------------ <<<\n\n"));
+            // Serial.print(F("\n\n >>> ------------------------ <<<"));
+            // Serial.print(F("\n >>> Finalizado Ciclo Cascata <<<"));
+            // Serial.print(F("\n >>> ------------------------ <<<\n\n"));
 
             if (acaoAtiva()) { 
                 _tmpWaitRotina = 0;

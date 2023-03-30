@@ -155,6 +155,10 @@ void ScreenBoxCar::executaAcao() {
                 _Beep = tela.getBeepOnScreen();
                 tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
                 break;
+            case 5:                                                             // Ação Salvar Dados Tema
+                break;
+            case 6:                                                             // Ação Ler Dados Tema
+                break;
         }
 
     }

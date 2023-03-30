@@ -834,16 +834,7 @@ void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t *itemCascata, by
             para extarir a informação correta
 */
 byte AcaoBox::converteLinhaColuna(byte Linha, byte Coluna) {
-
-    byte linhaColuna = Coluna;
-
-    bitWrite(linhaColuna, 4, bitRead(Linha, 0));
-    bitWrite(linhaColuna, 5, bitRead(Linha, 1));
-    bitWrite(linhaColuna, 6, bitRead(Linha, 2));
-    bitWrite(linhaColuna, 7, bitRead(Linha, 3));
-
-    return linhaColuna;
-
+    return (Linha << 4) | Coluna;
 }
 
 byte AcaoBox::numLinha(byte LinhaColuna) {
@@ -851,7 +842,8 @@ byte AcaoBox::numLinha(byte LinhaColuna) {
 }
 
 byte AcaoBox::numColuna(byte LinhaColuna) {
-    return 0b00001111 & LinhaColuna;
+    //return 0b00001111 & LinhaColuna;
+    return 0x0f & LinhaColuna;
 }
 
 #pragma endregion

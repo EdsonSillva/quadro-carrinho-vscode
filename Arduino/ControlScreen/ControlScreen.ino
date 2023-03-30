@@ -40,6 +40,7 @@ void loop() { }
 #include <dht.h>
 #include <DS3231.h>
 #include <Arduino.h>
+#include <EEPROM.h>
 #include "src/ScreenBoxCar.h"
 
 /**

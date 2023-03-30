@@ -21,7 +21,7 @@ void BoxCar::showSaudacao() {
 
     acaoBox.todosLedsAcesos(255, 255, 255),     delay(500);         // Acender todos os Leds do quadro
     dadosAcao.setRGBGamma(0, 0, 255);                               // Indica a cor Azul para a imagem da saudação
-    acaoBox.showSaudacaoBox(&dadosAcao, 20, 10000);                        // Mostra saudação
+    acaoBox.showSaudacaoBox(&dadosAcao, 20, 10000);                 // Mostra saudação e aguarda 10 segunbdos
 
 }
 
