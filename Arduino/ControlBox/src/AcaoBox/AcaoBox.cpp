@@ -821,32 +821,4 @@ void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t *itemCascata, by
 
 
 
-#pragma region Metodos de conversão de Linha, Coluna e LinhaColuna
-
-/*
-    @brief Conversão de dois bytes em um, onde os primeiros 4 bits é a represetação das 14 linhas no quadro
-           e os outros 4 bits representa as 15 colunas no quadro.
-
-           Ex. 0b11110000, onde 1111: as 14 linhas do quadro, 
-                                0000: as 15 colunas do quadro.
-
-    @return Um número onde representa a linha e coluna do quadro. Utilizar os metodos numLimha() e numColuna()
-            para extarir a informação correta
-*/
-byte AcaoBox::converteLinhaColuna(byte Linha, byte Coluna) {
-    return (Linha << 4) | Coluna;
-}
-
-byte AcaoBox::numLinha(byte LinhaColuna) {
-    return (byte)LinhaColuna >> 4;
-}
-
-byte AcaoBox::numColuna(byte LinhaColuna) {
-    //return 0b00001111 & LinhaColuna;
-    return 0x0f & LinhaColuna;
-}
-
-#pragma endregion
-
-
 

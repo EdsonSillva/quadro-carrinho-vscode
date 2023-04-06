@@ -18,13 +18,16 @@
 class screenNextionObjeto
 {
 private:
-    /* data */
+    
 public:
-    screenNextionObjeto(/* args */);
+    screenNextionObjeto();
     ~screenNextionObjeto();
 
-   /* Declaração dos ID's dos Objetos Nextion
-    * --------------------------------------- */
+   /*
+    @brief  Relação dos objetos da tela Nextion para serem usados nas 
+            chamadas dos métodos. O número representa o ID do objeto na 
+            tela do Nextion.
+   */
     uint8_t const   IDAcaoArduino             =  1,
                     IDStandBy                 = 29,
                     IDArduinoExec             =  3,
@@ -51,7 +54,11 @@ public:
                     IDHumidade                = 18,
                     IDDH                      = 11,
                     IDMM                      = 12,
-                    IDAS                      = 13;
+                    IDAS                      = 13,
+                    IDAcaoTema                = 59,
+                    IDBoxes                   = 22,
+                    IDBoxesLinCol             = 53,
+                    IDSizeBoxesLC             = 58;
 
 };
 

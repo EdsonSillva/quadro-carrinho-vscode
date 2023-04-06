@@ -159,9 +159,7 @@ public:
     void showMsgBox(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAcao, byte LinhaShow);
     void showMsgBoxDebug(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAcao, byte LinhaShow);
     void shifEsquerdaMapaBox(byte PrimeiraLinha, byte UltimaLinha, byte QtdeBit);
-    byte converteLinhaColuna(byte Linha, byte Coluna);
-    byte numLinha(byte LinhaColuna);
-    byte numColuna(byte LinhaColuna);
+    
 
     // Ação Cobrinha
     /* Montar um arry de 16 posições

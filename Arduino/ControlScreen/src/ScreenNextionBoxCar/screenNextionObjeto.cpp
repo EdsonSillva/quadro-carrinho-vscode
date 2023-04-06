@@ -1,6 +1,6 @@
 
 #include "ScreenNextionObjeto.h"
 
-screenNextionObjeto::screenNextionObjeto(/* args */) { }
+screenNextionObjeto::screenNextionObjeto() { }
 
 screenNextionObjeto::~screenNextionObjeto() { }

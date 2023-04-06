@@ -50,8 +50,14 @@ private:
   long    _MaxWait                = millis();
   bool    _telaOnLine             = false;
 
-  void configuraDataNoDevice();
-  void configuraHoraNoDevice();
+  void configurarDataNoDevice();
+  void configurarHoraNoDevice();
+  void carregarBoxesTema();
+  bool lerEEPROMIno(byte Boxes[]);
+  void atualizarBoxesOnScreen(byte Boxes[], byte sizeBoxes);
+  void salvarBoxesTema();
+  void buscarBoxesOnScreen(char Boxes[], byte sizeBoxes);
+  void gravarDadosEEPROMIno(char Boxes[], byte sizeBoxes, int PosicaoTema);
   void inicializacaoDaTela();
 
 public:
@@ -68,18 +74,18 @@ public:
 
   void iniciar();
   void avaliarAcao();
-  void executaAcao();
-  void executaConfig();
+  void executarAcao();
+  // void executaConfig();
   bool acaoSelecionada();
   bool acaoExecutando();
   void stopAcao();
-  void atualizaDadosNaTela();
-  void atualizaLDROnScreen();
-  void atualizaDataHoraOnScreen();
-  void atualizaTemperaturaSysOnScreen();
-  void atualizaTemperaturaOnScreen();
-  void atualizaHumidadeOnScreen();
-  void atualizaDadosMemoriaOnScreen();
+  void atualizarDadosNaTela();
+  void atualizarLDROnScreen();
+  void atualizarDataHoraOnScreen();
+  void atualizarTemperaturaSysOnScreen();
+  void atualizarTemperaturaOnScreen();
+  void atualizarHumidadeOnScreen();
+  void atualizarDadosMemoriaOnScreen();
   bool DadosRecebidoTela();
 
 };

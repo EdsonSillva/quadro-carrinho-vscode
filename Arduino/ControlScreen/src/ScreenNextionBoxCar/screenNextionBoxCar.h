@@ -50,28 +50,31 @@ public:
     int getMilenio();
     void setVarNextion(char VarGlobal[], int TestoLEngth, String NomeVar);
     byte getAcaoOnScreen();
+    byte getAcaoTemaOnScreen();
     byte getStandByOnScreen();
     bool existeDadoNoNextion();
     void setAcaoOnScreen(uint32_t Acao);
     void setExecArduinoOnScreen(eCodeExec CodeExec);
     void setLDROnScreen(uint32_t ValorSensor);
-    void getRGBBrilhoOnScreen(byte *R, byte *G, byte *B, byte *Brilho);
+    // void getRGBBrilhoOnScreen(byte *R, byte *G, byte *B, byte *Brilho);
     void getRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao);
-    
-    void setCodeRGBBrilhoOnScreen(byte CodeAcao, byte R, byte G, byte B, byte Brilho);
-
+    // void setCodeRGBBrilhoOnScreen(byte CodeAcao, byte R, byte G, byte B, byte Brilho);
     void setCodeRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao);
-
     byte getDoWOnScreen();
     void getDataOnScreen(byte *pDia, byte *pMes, byte *pAno, byte *DoW);
     void getHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);
     void getTextoOnScreen(char Texto[], byte *pQtdeChar);
-    void ShowDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW);
-    void ShowHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);
+    void showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW);
+    void showHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);
     bool getBeepOnScreen();
-    void ShowTempSysOnScreen(int TemperaturaSys);
-    void ShowTemperaturaOnScreen(double TemperaturaAmbiente);
-    void ShowHumidadeOnScreen(double HumidadeAmbiente);
+    void showTempSysOnScreen(int TemperaturaSys);
+    void showTemperaturaOnScreen(double TemperaturaAmbiente);
+    void showHumidadeOnScreen(double HumidadeAmbiente);
+
+    void setBoxesOnScreen(const char Boxes[]);
+    byte getSizeBoxesOnScreen();
+    void getBoxesOnScreen(char Boxes[], byte sizeBoxes);
+
 
 };
 

@@ -3,10 +3,6 @@
 #include "screenNextionJanela.h"
 
 
-screenNextionJanela::screenNextionJanela(/* args */)
-{
-}
+screenNextionJanela::screenNextionJanela() { }
 
-screenNextionJanela::~screenNextionJanela()
-{
-}
+screenNextionJanela::~screenNextionJanela() { }

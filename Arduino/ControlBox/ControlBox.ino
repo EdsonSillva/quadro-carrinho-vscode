@@ -3,8 +3,7 @@
     Módulo: >> CONTROLADOR QUADRO LED (BOX) <<
     Descrição: Projeto para controlar os leds de cada box no quadro de carrinhos
 
-    Este projeto tera uma tela como inteface das ações 
-    que serão executadas no quadro.
+    Este projeto tera uma tela como inteface das ações que serão executadas no quadro.
 
     Função deste sketch: Interagir com os leds do quadro de carrinhos executando as ações 
                          selecionadas na tela do Nextion, lendo estes comandos na memória EEPROM.

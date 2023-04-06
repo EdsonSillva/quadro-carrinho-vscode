@@ -100,6 +100,9 @@ void BoxCar::executarAcao(eAcao CodigoAcao) {
         acaoScreen.mensagem(&dadosAcao, _Linha_Show_);
         break;
 
+
+
+
     case eAcao::acaoBatman:
 
         acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxBatman);

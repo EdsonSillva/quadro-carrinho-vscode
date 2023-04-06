@@ -26,6 +26,11 @@
   },
   {
     "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",
+    "Include": "EEPROM.h",
+    "Includepath": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\EEPROM\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",
     "Include": "BoxBuzzerCar.h",
     "Includepath": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxBuzzerCar\\src"
   },
@@ -43,11 +48,6 @@
     "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",
     "Include": "DS3231.h",
     "Includepath": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\DS3231"
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",
-    "Include": "EEPROM.h",
-    "Includepath": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\EEPROM\\src"
   },
   {
     "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",

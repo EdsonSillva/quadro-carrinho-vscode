@@ -18,9 +18,9 @@
 class screenNextionJanela
 {
 private:
-    /* data */
+    
 public:
-    screenNextionJanela(/* args */);
+    screenNextionJanela();
     ~screenNextionJanela();
 
    /* Declaração dos ID's das Janelas do Nextion
@@ -30,9 +30,10 @@ public:
                     Selecao             =  2,
                     ConfigMain          =  3,
                     ConfigDataHora      =  4,
-                    VarGlobais          =  8,     // Contêm o id de controle da tela do device Nextion
-                    Creditos            =  9,
-                    ConfigArduino       = 12;
+                    ConfigArduino       =  9,
+                    ConfigBoxFixo       = 10, 
+                    Creditos            = 11,
+                    Global              = 12;     // Contêm o id de controle da tela do device Nextion
 };
 
 

@@ -66,17 +66,17 @@ void loop() {
     if (!screen.eeprom.disponivel()) {
         
         delay(1000);
-        screen.atualizaDadosMemoriaOnScreen();
+        screen.atualizarDadosMemoriaOnScreen();
 
     } else if (StandBy > 0) {
 
         if (StandBy == 255) {
             // Problemas na leitura do valor da variável (tela indisponível)
             
-            ScreenIndisponivel++;                           // Necessário porque o timeout da serial é afetado pelo processamento na tela
+            ScreenIndisponivel++;                       // Necessário porque o timeout da serial é afetado pelo processamento na tela
     
             if(ScreenIndisponivel > 100) {
-                screen.som.beepBuzzer(16000, 300),   delay(500);
+                // screen.som.beepBuzzer(16000, 300),   delay(500);
                 ScreenIndisponivel--;                  // Decrementa 1 para não estourar o contador
                 delay(1000);
             }
