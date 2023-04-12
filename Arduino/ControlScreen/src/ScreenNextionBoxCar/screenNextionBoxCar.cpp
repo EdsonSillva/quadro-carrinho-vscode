@@ -338,16 +338,28 @@ void screenNextionBoxCar::setBoxesOnScreen(const char Boxes[]) {
 
 byte screenNextionBoxCar::getSizeBoxesOnScreen() {
 
-  uint32_t    value =   -1;
+    uint32_t    value =   -1;
 
-  NexVariable txtBoxesSize  = NexVariable(_tela.ConfigBoxFixo, _objeto.IDSizeBoxesLC,   "");
+    NexVariable BoxesSize  = NexVariable(_tela.ConfigBoxFixo, _objeto.IDSizeBoxesLC,   "");
 
-  txtBoxesSize.getValueByID(&value);
-  return (byte)value;
+    BoxesSize.getValueByID(&value);
+    return (byte)value;
 
 }
 
-void screenNextionBoxCar::getBoxesOnScreen(char Boxes[], byte sizeBoxes) {
+byte screenNextionBoxCar::getQtdeItensBoxesOnScreen() {
+
+    uint32_t    value =   -1;
+
+    NexVariable QtdeItensBoxes  = NexVariable(_tela.ConfigBoxFixo, _objeto.IDQtdeItensBox,   "");
+
+    QtdeItensBoxes.getValueByID(&value);
+    return (byte)value;
+
+}
+
+
+byte screenNextionBoxCar::getBoxesOnScreen(char Boxes[], byte sizeBoxes) {
 
     uint32_t    value =   sizeBoxes;
 
@@ -361,7 +373,7 @@ void screenNextionBoxCar::getBoxesOnScreen(char Boxes[], byte sizeBoxes) {
     // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
 
     memset(Boxes, 0, sizeof(Boxes));      // Inicializa o array de char
-    txtBoxes.getTextByID(Boxes, value);
+    return (byte)txtBoxes.getTextByID(Boxes, value);
 
     // nexSerial.print(F("screenNextionBoxCar::getTextByID:::"));
     // nexSerial.print(F("Boxxes={{")), nexSerial.print(Boxes);
@@ -372,8 +384,23 @@ void screenNextionBoxCar::getBoxesOnScreen(char Boxes[], byte sizeBoxes) {
 
 }
 
+byte screenNextionBoxCar::getItemBoxesOnScreen(byte IDItemBox) {
 
+    uint32_t    value =   -1;
 
+    NexVariable itemBox  = NexVariable(_tela.ConfigBoxFixo, IDItemBox,   "");
+
+    itemBox.getValueByID(&value);
+    return (byte)value;
+
+}
+
+// int  screenNextionBoxCar::setLenRestanteBoxes(byte QtdeBytes) {
+
+//     NexVariable nTempSys = NexVariable(_tela.ConfigBoxFixo, _objeto.IDLenRestante, "");
+//     nTempSys.setValueByID((uint32_t)QtdeBytes);
+
+// }
 
 
 

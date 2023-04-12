@@ -25,6 +25,10 @@
 #include <BoxDadosAcao.h>
 #endif
 
+#ifndef __BOXENUMACAO_H__
+#include <BoxEnumAcao.h>
+#endif
+
 #ifndef __BOXBUZZERCAR_H__
 #include <BoxBuzzerCar.h>
 #endif
@@ -33,9 +37,9 @@
 #include "AcaoScreen/AcaoScreen.h"
 #endif
 
-#ifndef __ENUMACAO_H__
-#include "src/enum/enumAcao.h"
-#endif
+// #ifndef __ENUMACAO_H__
+// #include "src/enum/enumAcao.h"
+// #endif
 
 #define   _pin_Controle_          12
 #define   _pino_eeprom_usado_     11
@@ -59,12 +63,13 @@ public:
   BoxDadosAcao          dadosAcao       = BoxDadosAcao();
   AcaoScreen            acaoScreen      = AcaoScreen(_pinoControle);
   AcaoBox               acaoBox         = AcaoBox();
+  
 
   void iniciarBoxCar(int BrilhoInicial = 50);
   void showSaudacao();
   bool acaoSolicitada();
   void identificarExecutarAcao();
-  void executarAcao(eAcao CodigoAcao);
+  void executarAcao(eAcaoBox CodigoAcao);
 
 };
 

@@ -33,6 +33,20 @@ typedef struct {
     bool        Finalizado;
 } cascata_t;
 
+typedef struct {
+    byte        R;
+    byte        G;
+    byte        B;
+} BoxRGB;
+
+typedef struct {
+    byte        Linha;
+    byte        Coluna;
+} Box;
+
+
+
+
 
 
 #endif  // __TYPEDEFBOX_H__

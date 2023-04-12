@@ -86,7 +86,7 @@ void AcaoScreen::mensagem(BoxDadosAcao *DadosAcao, byte LinhaShow) {
     
 }
 
-void AcaoScreen::ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcao Acao = eAcao::acaoLinha) {
+void AcaoScreen::ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcaoBox Acao = eAcaoBox::acaoLinha) {
 
     bool IniciarImpar = true;
     _tmpWaitRotina = 11000;
@@ -97,10 +97,10 @@ void AcaoScreen::ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcao Acao = eAcao
         
             switch (Acao)
             {
-            case eAcao::acaoLinha:
+            case eAcaoBox::acaoLinha:
                 _box.boxAcaoLinha(IniciarImpar, DadosAcao);
                 break;
-            case eAcao::acaoColuna:
+            case eAcaoBox::acaoColuna:
                 _box.boxAcaoColuna(IniciarImpar, DadosAcao);
                 break;
             }
@@ -115,6 +115,7 @@ void AcaoScreen::ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcao Acao = eAcao
     }
 }
 
+/* @deprecated modo antigo */
 void AcaoScreen::ledsTematico(BoxDadosAcao *DadosAcao, eBoxTematico Tema) {
 
     _box.iniciarMapaBox();
@@ -122,6 +123,15 @@ void AcaoScreen::ledsTematico(BoxDadosAcao *DadosAcao, eBoxTematico Tema) {
     while(acaoAtiva());
 
 }
+
+void AcaoScreen::ledsTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte sizeBoxes) {
+
+    _box.boxAcaoTematicoByItem(DadosAcao, Boxes, sizeBoxes);
+
+    while(acaoAtiva());
+
+}
+
 
 #pragma region Rotinas para a ação Cascata
 

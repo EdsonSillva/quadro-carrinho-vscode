@@ -305,6 +305,31 @@ void AcaoBox::boxAcaoLinha(bool IniciarImpar, BoxDadosAcao *DadosAcao) {
 
 #pragma region Rotinas de posição fixa dos carros em cada box
 
+void AcaoBox::boxAcaoTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte sizeBoxes) {
+
+    byte Linha                      = 0;
+    byte Coluna                     = 0;
+
+    iniciarMapaBox();                   // Limpa
+
+    for (byte item = 0; item < sizeBoxes; item++)
+    {
+        Linha = DadosAcao->numLinha(Boxes[item]);
+        Coluna = DadosAcao->numColuna(Boxes[item]);
+
+        Linha--;                                                // Adequando por conta do array do _MapaBox
+        Coluna = (byte)((Coluna - DeslocamentoColuna) * -1);    // Invertendo a posiçao para posição do bit
+
+        bitSet(_MapaBox[Linha], Coluna);
+        bitSet(_MapaBox[Linha], 16 );           // Necessário manter 1 na 16* posição do bit
+
+    }
+
+    showMapaBoxes(DadosAcao, 50);       // Mostra Tema no quadro
+
+}
+
+/* @deprecated modo antigo */
 void AcaoBox::boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao) {
 
     iniciarMapaBox();                   // Limpa
@@ -315,6 +340,7 @@ void AcaoBox::boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao) {
 
 }
 
+/* @deprecated modo antigo */
 void AcaoBox::MontaMapaBoxTematico(eBoxTematico Tema) {
 
     switch (Tema)

@@ -53,12 +53,18 @@ private:
   void configurarDataNoDevice();
   void configurarHoraNoDevice();
   void carregarBoxesTema();
+  void carregarBoxesTemaEEPROMCompartilhada(eAcaoBox CodeAcao);
   bool lerEEPROMIno(byte Boxes[]);
   void atualizarBoxesOnScreen(byte Boxes[], byte sizeBoxes);
   void salvarBoxesTema();
+  void salvarBoxesTemaByItem();
   void buscarBoxesOnScreen(char Boxes[], byte sizeBoxes);
+  void buscarBoxesOnScreenByItem(byte Boxes[], byte sizeBoxes);
   void gravarDadosEEPROMIno(char Boxes[], byte sizeBoxes, int PosicaoTema);
+  void gravarDadosEEPROMInoByItem(byte Boxes[], byte sizeBoxes, int PosicaoTema);
   void inicializacaoDaTela();
+
+  
 
 public:
 

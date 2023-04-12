@@ -38,10 +38,11 @@ void loop() { }
 #include <Adafruit_NeoPixel.h>
 #include <BoxEEPROM.h>
 #include <BoxDadosAcao.h>
+#include <BoxEnumAcao.h>
 #include <BoxBuzzerCar.h>
 #include "src/BoxCar.h"
 #include "src/enum/enumBoxTematico.h"
-#include "src/enum/enumAcao.h"
+// #include "src/enum/enumAcao.h"
 
 #ifdef __AVR__
   #include <avr/power.h>

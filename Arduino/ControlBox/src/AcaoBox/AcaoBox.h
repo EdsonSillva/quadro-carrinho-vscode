@@ -74,6 +74,7 @@
 #define BoxRight            04
 #define LinhaPosicaoDada    05
 #define ColunaPosicaoDada   06
+#define DeslocamentoColuna  16
 
 class AcaoBox : public MascaraLetra
 {
@@ -126,6 +127,7 @@ private:
 
 
 public:
+
     AcaoBox();
     AcaoBox(byte pinoControle);
     AcaoBox(byte pinoDados, byte pinoControle);
@@ -149,7 +151,9 @@ public:
     void boxAcaoColuna(bool IniciarImpar, BoxDadosAcao *DadosAcao);
     void boxAcaoLinha(bool IniciarImpar, BoxDadosAcao *DadosAcao);
     void boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao);
-    
+
+    void boxAcaoTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte sizeBoxes);
+
     // void boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t cascata[], uint8_t coluna);
     void boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t *itemCascata, byte luzFundo);
     

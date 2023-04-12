@@ -58,7 +58,10 @@ public:
                     IDAcaoTema                = 59,
                     IDBoxes                   = 22,
                     IDBoxesLinCol             = 53,
-                    IDSizeBoxesLC             = 58;
+                    IDSizeBoxesLC             = 58,
+                    IDItemBoxIni              = 61,
+                    IDItemBoxFim              = 80,
+                    IDQtdeItensBox            = 81;
 
 };
 

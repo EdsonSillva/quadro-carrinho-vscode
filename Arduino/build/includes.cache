@@ -10,217 +10,77 @@
     "Includepath": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs"
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",
-    "Include": "Nextion.h",
-    "Includepath": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master"
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlBox.ino.cpp",
+    "Include": "Adafruit_NeoPixel.h",
+    "Includepath": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\Adafruit_NeoPixel"
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlBox.ino.cpp",
     "Include": "BoxEEPROM.h",
     "Includepath": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxEEPROM\\src"
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlBox.ino.cpp",
     "Include": "BoxDadosAcao.h",
     "Includepath": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxDadosAcao\\src"
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlBox.ino.cpp",
     "Include": "EEPROM.h",
     "Includepath": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\EEPROM\\src"
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlBox.ino.cpp",
     "Include": "BoxBuzzerCar.h",
     "Includepath": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxBuzzerCar\\src"
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlBox.ino.cpp",
     "Include": "Wire.h",
     "Includepath": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src"
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",
-    "Include": "dht.h",
-    "Includepath": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\DHT"
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",
-    "Include": "DS3231.h",
-    "Includepath": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\DS3231"
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlScreen.ino.cpp",
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\ControlBox.ino.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\Ambiente\\Ambiente.cpp",
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\AcaoBox.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\Ambiente\\SensorLDRBoxCar\\SensorLDRBoxCar.cpp",
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoScreen\\AcaoScreen.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\Ambiente\\TemperaturaHumidadeBoxCar\\TemperaturaHumidadeBoxCar.cpp",
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\BoxCar.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\DateTimeBoxCar\\DateTimeBoxCar.cpp",
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\MascaraLetra\\MascaraLetra.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\ScreenBoxCar.cpp",
+    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\Adafruit_NeoPixel\\Adafruit_NeoPixel.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\ScreenNextionBoxCar\\screenNextionBoxCar.cpp",
+    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\Adafruit_NeoPixel\\esp.c",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\ScreenNextionBoxCar\\screenNextionJanela.cpp",
+    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\Adafruit_NeoPixel\\esp8266.c",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\ScreenNextionBoxCar\\screenNextionObjeto.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexButton.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexCheckbox.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexCrop.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexDualStateButton.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexGauge.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexGpio.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexHardware.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexHotspot.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexNumber.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexObject.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexPage.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexPicture.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexProgressBar.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexRadio.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexRtc.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexScrolltext.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexSlider.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexText.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexTimer.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexTouch.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexUpload.cpp",
-    "Include": "SPI.h",
-    "Includepath": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SPI\\src"
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexUpload.cpp",
-    "Include": "SD.h",
-    "Includepath": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\SD\\src"
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexUpload.cpp",
-    "Include": "SoftwareSerial.h",
-    "Includepath": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SoftwareSerial\\src"
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexUpload.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexVariable.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\ITEADLIB_Arduino_Nextion-master\\NexWaveform.cpp",
+    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\Adafruit_NeoPixel\\kendyte_k210.c",
     "Include": "",
     "Includepath": null
   },
@@ -256,51 +116,6 @@
   },
   {
     "Sourcefile": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src\\utility\\twi.c",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\DHT\\dht.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\DS3231\\DS3231.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SPI\\src\\SPI.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\SD\\src\\File.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\SD\\src\\SD.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\SD\\src\\utility\\Sd2Card.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\SD\\src\\utility\\SdFile.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\SD\\src\\utility\\SdVolume.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SoftwareSerial\\src\\SoftwareSerial.cpp",
     "Include": "",
     "Includepath": null
   }

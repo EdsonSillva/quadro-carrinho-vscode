@@ -1,9 +1,9 @@
-# 1 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino"
+# 1 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
 /*
 
     Projeto Quadro de carrinhos
 
-    Módulo: >> CONTROLADOR PARA TELA <<
+    Módulo: >> CONTROLADOR QUADRO LED (BOX) <<
 
     Descrição: Projeto para controlar os leds de cada box no quadro de carrinhos
 
@@ -13,11 +13,11 @@
 
 
 
-    Função deste sketch: Interagir com a tela e passar os comandos para a memória EEPROM,
+    Função deste sketch: Interagir com os leds do quadro de carrinhos executando as ações 
 
-                         onde o outro arduino irá interpretar e executar a função de 
+                         selecionadas na tela do Nextion, lendo estes comandos na memória EEPROM.
 
-                         interação com os leds do quadro de carrinho
+
 
 
 
@@ -30,7 +30,7 @@
     Release:        jun/22
 
 */
-# 18 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino"
+# 18 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
 /*
 
     Define para direcionar a compilação do sketch
@@ -42,72 +42,55 @@
 
 
 */
+# 37 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
+# 38 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 39 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 40 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 41 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 42 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 43 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 44 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 45 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+// #include "src/enum/enumAcao.h"
+
+
+# 49 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
 
 
 
 
-
-
-
-# 37 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 2
-# 38 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 2
-# 39 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 2
-# 40 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 2
-# 41 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 2
-# 42 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 2
-# 43 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 2
-# 44 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 2
-# 45 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 2
-
+# 52 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
 /**
 
  * Definição das funções utilizadas no projeto
 
  */
-# 50 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino"
+# 56 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
 void setup();
 void loop();
 
-ScreenBoxCar screen = ScreenBoxCar();
-byte ScreenIndisponivel = 0;
+
+BoxCar box = BoxCar();
 
 void setup() {
 
-    screen.iniciar();
+    Serial.begin(9600);
+    while(!Serial);
+    delay(2000);
+
+    box.iniciarBoxCar(50);
+
+    box.showSaudacao();
 
 }
 
 void loop() {
 
-    byte StandBy = screen.tela.getStandByOnScreen();
+    if (box.acaoSolicitada()) {
 
-    if (!screen.eeprom.disponivel()) {
-
-        delay(1000);
-        screen.atualizarDadosMemoriaOnScreen();
-
-    } else if (StandBy > 0) {
-
-        if (StandBy == 255) {
-            // Problemas na leitura do valor da variável (tela indisponível)
-
-            ScreenIndisponivel++; // Necessário porque o timeout da serial é afetado pelo processamento na tela
-
-            if(ScreenIndisponivel > 100) {
-                // screen.som.beepBuzzer(16000, 300),   delay(500);
-                ScreenIndisponivel--; // Decrementa 1 para não estourar o contador
-                delay(1000);
-            }
-
-        } else {
-            ScreenIndisponivel = 0; // Zera o contador
-            while (!screen.DadosRecebidoTela()); // aguarda até a tela acordar (sair do stand by)
-            delay(100); // necessário para processamrento na tela
-        }
-
-    } else {
-
-        screen.avaliarAcao();
+        box.identificarExecutarAcao();
+        delay(2000);
 
     }
+
 }

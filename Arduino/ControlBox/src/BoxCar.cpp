@@ -54,197 +54,208 @@ void BoxCar::identificarExecutarAcao() {
     Serial.print(F("] B: [")), Serial.print(dadosAcao.getGammaB());
     Serial.print(F("] "));
 
-    executarAcao((eAcao)dadosAcao.getCodeAcao());
+    executarAcao((eAcaoBox)dadosAcao.getCodeAcao());
 
     // Efetuar o reset no quadro de carrinhos após a ação
-    executarAcao(eAcao::semAcao);
+    executarAcao(eAcaoBox::semAcao);
 
 }
 
-void BoxCar::executarAcao(eAcao CodigoAcao) {
+void BoxCar::executarAcao(eAcaoBox CodigoAcao) {
 
     switch (CodigoAcao)
     {
-    case eAcao::semAcao:
+    case eAcaoBox::semAcao:
 
         acaoBox.todosLedsApagados();
         break;
 
-    case eAcao::acaoAceso:
+    case eAcaoBox::acaoAceso:
 
         acaoScreen.ledsAcesos(&dadosAcao);
         break;
 
-    case eAcao::acaoXadrez:
+    case eAcaoBox::acaoXadrez:
 
         acaoScreen.ledsXadrezFade(&dadosAcao);
         break;
 
-    case eAcao::acaoLinha:
+    case eAcaoBox::acaoLinha:
 
-        acaoScreen.ledsAcaoLinhaColuna(&dadosAcao, eAcao::acaoLinha);
+        acaoScreen.ledsAcaoLinhaColuna(&dadosAcao, eAcaoBox::acaoLinha);
         break;
 
-    case eAcao::acaoColuna:
+    case eAcaoBox::acaoColuna:
 
-        acaoScreen.ledsAcaoLinhaColuna(&dadosAcao, eAcao::acaoColuna);
+        acaoScreen.ledsAcaoLinhaColuna(&dadosAcao, eAcaoBox::acaoColuna);
         break;
 
-    case eAcao::acaoCascata:
+    case eAcaoBox::acaoCascata:
 
         acaoScreen.ledsAcaoCascata(&dadosAcao);
         break;
 
-    case eAcao::acaoMsg:
+    case eAcaoBox::acaoMsg:
 
         acaoScreen.mensagem(&dadosAcao, _Linha_Show_);
         break;
 
-
-
-
-    case eAcao::acaoBatman:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxBatman);
-        break;
-
-    case eAcao::acaoStarWar:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxStarWars);
-        break;
-
-    case eAcao::acaoVelozFurioso:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxVelozesFurosos);
-        break;
-
-    case eAcao::acaoMoto:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxMotos);
-        break;
-
-    case eAcao::acaoPorche:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxPorche);
-        break;
-
-    case eAcao::acaoFerrari:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxFerrari);
-        break;
-
-    case eAcao::acaoPagani:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxPagani);
-        break;
-
-    case eAcao::acaoMCLaren:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxMacLaren);
-        break;
-
-    case eAcao::acaoChevrolet:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxChevolet);
-        break;
-
-    case eAcao::acaoAstomMart:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxAstonMartin);
-        break;
-
-    case eAcao::acaoJaguar:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxJaguar);
-        break;
-
-    case eAcao::acaoAudi:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxAudi);
-        break;
-
-    case eAcao::acaoBMW:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxBMW);
-        break;
-
-    case eAcao::acaoMercedes:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxMercedes);
-        break;
-
-    case eAcao::acaoTesla:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxTesla);
-        break;
-
-    case eAcao::acaoLamborghini:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxLamborghini);
-        break;
-
-    case eAcao::acaoNissan:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxNissan);
-        break;
-
-    case eAcao::acaoDodge:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxDodge);
-        break;
-
-    case eAcao::acaoBuick:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxBuick);
-        break;
-
-    case eAcao::acaoVolks:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxVolks);
-        break;
-
-    case eAcao::acaoFord:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxFord);
-        break;
-
-    case eAcao::acaoFiat:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxFiat);
-        break;
-
-    case eAcao::acaoCadillac:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxCadiLac);
-        break;
-
-    case eAcao::acaoHonda:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxHonda);
-        break;
-
-    case eAcao::acaoAcura:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxAcura);
-        break;
-
-    case eAcao::acaoBentley:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxBentley);
-        break;
-
-    case eAcao::acaoMazda:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxMazda);
-        break;
-
-    case eAcao::acaoBugatti:
-
-        acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxBugatti);
-        break;
-
     default:
+
+        //acaoScreen.ledsTematicoByItem();
+
+        byte sizeBoxes          = dadosAcao.getSizeTemaBat();
+        byte Boxes[sizeBoxes];
+
+        byte QtdeItens = eeprom.getTemaOnMemory(Boxes, sizeBoxes);
+
+        acaoScreen.ledsTematicoByItem(&dadosAcao, Boxes, QtdeItens);
+
         break;
+
+    // case eAcaoBox::acaoBatman:
+
+        
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxBatman);
+    //     break;
+
+    // case eAcaoBox::acaoStarWar:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxStarWars);
+    //     break;
+
+    // case eAcaoBox::acaoVelozFurioso:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxVelozesFurosos);
+    //     break;
+
+    // case eAcaoBox::acaoMoto:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxMotos);
+    //     break;
+
+    // case eAcaoBox::acaoPorche:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxPorche);
+    //     break;
+
+    // case eAcaoBox::acaoFerrari:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxFerrari);
+    //     break;
+
+    // case eAcaoBox::acaoPagani:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxPagani);
+    //     break;
+
+    // case eAcaoBox::acaoMCLaren:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxMacLaren);
+    //     break;
+
+    // case eAcaoBox::acaoChevrolet:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxChevolet);
+    //     break;
+
+    // case eAcaoBox::acaoAstomMart:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxAstonMartin);
+    //     break;
+
+    // case eAcaoBox::acaoJaguar:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxJaguar);
+    //     break;
+
+    // case eAcaoBox::acaoAudi:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxAudi);
+    //     break;
+
+    // case eAcaoBox::acaoBMW:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxBMW);
+    //     break;
+
+    // case eAcaoBox::acaoMercedes:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxMercedes);
+    //     break;
+
+    // case eAcaoBox::acaoTesla:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxTesla);
+    //     break;
+
+    // case eAcaoBox::acaoLamborghini:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxLamborghini);
+    //     break;
+
+    // case eAcaoBox::acaoNissan:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxNissan);
+    //     break;
+
+    // case eAcaoBox::acaoDodge:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxDodge);
+    //     break;
+
+    // case eAcaoBox::acaoBuick:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxBuick);
+    //     break;
+
+    // case eAcaoBox::acaoVolks:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxVolks);
+    //     break;
+
+    // case eAcaoBox::acaoFord:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxFord);
+    //     break;
+
+    // case eAcaoBox::acaoFiat:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxFiat);
+    //     break;
+
+    // case eAcaoBox::acaoCadillac:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxCadiLac);
+    //     break;
+
+    // case eAcaoBox::acaoHonda:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxHonda);
+    //     break;
+
+    // case eAcaoBox::acaoAcura:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxAcura);
+    //     break;
+
+    // case eAcaoBox::acaoBentley:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxBentley);
+    //     break;
+
+    // case eAcaoBox::acaoMazda:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxMazda);
+    //     break;
+
+    // case eAcaoBox::acaoBugatti:
+
+    //     acaoScreen.ledsTematico(&dadosAcao, eBoxTematico::boxBugatti);
+    //     break;
+
+    // default:
+    //     break;
     }
 
 }

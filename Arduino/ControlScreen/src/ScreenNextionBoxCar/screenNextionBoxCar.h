@@ -73,7 +73,12 @@ public:
 
     void setBoxesOnScreen(const char Boxes[]);
     byte getSizeBoxesOnScreen();
-    void getBoxesOnScreen(char Boxes[], byte sizeBoxes);
+    byte getQtdeItensBoxesOnScreen();
+    byte getBoxesOnScreen(char Boxes[], byte sizeBoxes);
+    byte getItemBoxesOnScreen(byte IDItemBox);
+
+    // int setLenRestanteBoxes(byte QtdeBytes);
+
 
 
 };

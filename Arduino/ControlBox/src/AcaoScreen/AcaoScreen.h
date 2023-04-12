@@ -59,8 +59,13 @@ public:
     void ledsAcesos(BoxDadosAcao *DadosAcao);
     void ledsXadrezFade(BoxDadosAcao *DadosAcao);
     void mensagem(BoxDadosAcao *DadosAcao, byte LinhaShow);
-    void ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcao Acao);
-    void ledsTematico(BoxDadosAcao *Dadosacao, eBoxTematico Tema);
+    void ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcaoBox Acao);
+
+    void ledsTematico(BoxDadosAcao *DadosAcao, eBoxTematico Tema);
+    
+    void ledsTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte sizeBoxes);
+    
+    
     void ledsAcaoCascata(BoxDadosAcao *DadosAcao);
 
 };
