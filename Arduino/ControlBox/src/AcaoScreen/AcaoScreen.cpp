@@ -354,7 +354,90 @@ void AcaoScreen::randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer) {
 
 #pragma endregion
 
+void AcaoScreen::ledsHunter(BoxDadosAcao *DadosAcao) {
+
+    byte    CorpoSnakeMax   = _CorpoSnakeMax_;
+
+    alvo_t  alvo            = {0, {0,0,0}};
+    snake_t snake;
+    box_t   BoxNovo         = {0, {0,0,0}};
+
+    snake.Arrasto                       = 1;
+    snake.Corpo[snake.Arrasto].Posicao  = DadosAcao->converteLinhaColuna(7, 8);
+    snake.Corpo[snake.Arrasto].RGB.R    = DadosAcao->getGammaR();
+    snake.Corpo[snake.Arrasto].RGB.G    = DadosAcao->getGammaG();
+    snake.Corpo[snake.Arrasto].RGB.B    = DadosAcao->getGammaB();
+
+    alvo = _box.getAlvoBox(DadosAcao, snake.Corpo[snake.Arrasto].Posicao);
+
+    while (acaoAtiva())
+    {
+
+        _box.moveSnake(DadosAcao, snake);
+    
+        BoxNovo = _box.getPosicaoBoxByAlvo(DadosAcao, 
+                                           snake.Corpo[snake.Arrasto], 
+                                           _box.deslocamentoBox(DadosAcao, 
+                                                                alvo.Posicao,
+                                                                snake.Corpo[snake.Arrasto].Posicao
+                                            )
+                   );
 
 
+        if(BoxNovo.Posicao == alvo.Posicao) {
+            // Acertou o alvo
+            // Gerara novo alvo
+            alvo = _box.getAlvoBox(DadosAcao, snake.Corpo[snake.Arrasto].Posicao);
+            
+            // Aumenta o arrasto
+            if(snake.Arrasto <= CorpoSnakeMax) {
+                snake.Arrasto++;
+            } else {
+                // Shift posicao -1 no Snake
+                descerPosicaoSnake(&snake);
+            }
+
+        } else {
+            // Não acertou o alvo
+
+            descerPosicaoSnake(&snake);
+        }
+
+        snake.Corpo[snake.Arrasto] = BoxNovo;
+
+    }
+    
+
+
+
+
+
+
+}
+
+void AcaoScreen::descerPosicaoSnake(snake_t *snake) {
+
+    // Posição anterior recebe posição acima
+    for (int posicao = 0; posicao < snake->Arrasto; posicao++)
+    {
+        snake->Corpo[posicao].Posicao   = snake->Corpo[posicao + 1].Posicao;
+        snake->Corpo[posicao].RGB       = snake->Corpo[posicao + 1].RGB;
+
+        // snake->Corpo[posicao].RGB.R     = snake->Corpo[posicao + 1].RGB.R;
+        // snake->Corpo[posicao].RGB.G     = snake->Corpo[posicao + 1].RGB.G;
+        // snake->Corpo[posicao].RGB.B     = snake->Corpo[posicao + 1].RGB.B;
+    }
+
+    // Limpa a posição cabeça
+    snake->Corpo[snake->Arrasto].Posicao    = 0;
+    snake->Corpo[snake->Arrasto].RGB        = {0, 0, 0};
+
+
+    // snake->Corpo[snake->Arrasto].RGB.R     = 0;
+    // snake->Corpo[snake->Arrasto].RGB.G     = 0;
+    // snake->Corpo[snake->Arrasto].RGB.B     = 0;
+
+
+}
 
 

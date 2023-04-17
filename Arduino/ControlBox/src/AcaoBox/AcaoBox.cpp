@@ -303,6 +303,25 @@ void AcaoBox::boxAcaoLinha(bool IniciarImpar, BoxDadosAcao *DadosAcao) {
 
 }
 
+
+boxRGB_t AcaoBox::getBoxRGB(BoxDadosAcao *DadosAcao, linCol PosicaoBox) {
+
+    byte        Linha           = DadosAcao->numLinha(PosicaoBox);
+    byte        Coluna          = DadosAcao->numColuna(PosicaoBox);
+    boxRGB_t    RGBBox          = {0, 0, 0};
+
+    int BoxAddress = PosicaoBoxCellInvertido(Linha, Coluna);
+
+    uint32_t RGB32 = _Leds.getPixelColor(BoxAddress);
+
+    RGBBox.R = (byte)(RGB32 >> 16);
+    RGBBox.G = (byte)(RGB32 >> 8);
+    RGBBox.B = (byte)RGB32;
+
+    return RGBBox;
+
+}
+
 #pragma region Rotinas de posição fixa dos carros em cada box
 
 void AcaoBox::boxAcaoTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte sizeBoxes) {
@@ -845,6 +864,151 @@ void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t *itemCascata, by
 
 }
 
+#pragma region Snake Target
 
+alvo_t AcaoBox::getAlvoBox(BoxDadosAcao *DadosAcao, linCol PosicaoBox) {
+
+    long        valor       = random();
+
+    byte        AlvoLinha       = 1;
+    byte        AlvoColuna      = 1;
+    linCol      AlvoLinCol      = 0;
+    alvo_t      BoxAlvo         = {0, {0, 0, 0}};
+
+    randomSeed(valor);                               // Necessário para indicar um ponto de inicialização aleatório
+
+    while (AlvoLinCol == PosicaoBox)
+    {
+        AlvoLinha   = (byte)random(1, _qtdLinhas);
+        AlvoColuna  = (byte)random(1, _qtdColunas);
+        
+        AlvoLinCol = DadosAcao->converteLinhaColuna(AlvoLinha, AlvoColuna);
+
+    }
+
+    BoxAlvo.Posicao = AlvoLinCol;
+    BoxAlvo.RGB = getBoxRGB(DadosAcao, AlvoLinCol);
+
+    return BoxAlvo;
+}
+
+eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, linCol Alvo, linCol PosicaoBox) {
+
+    if(Alvo == PosicaoBox) {
+
+        return eBoxPosicao::boxNoAlvo;
+
+    } else {
+
+        byte AlvoLinha      = DadosAcao->numLinha(Alvo);
+        byte AlvoColuna     = DadosAcao->numColuna(Alvo);
+
+        byte BoxLinha       = DadosAcao->numLinha(PosicaoBox);
+        byte BoxColuna      = DadosAcao->numColuna(PosicaoBox);
+
+        if( AlvoColuna < BoxColuna ) {
+            //Alvo a esquerda
+            return eBoxPosicao::boxLeft;
+        } else if( AlvoColuna > BoxColuna ) {
+            // Alvo a Direita
+            return eBoxPosicao::boxRight;
+        } else if( AlvoLinha  < BoxLinha ) {
+            // Alvo a Baixo
+            return eBoxPosicao::boxBottom;
+        } 
+
+        return eBoxPosicao::boxTop;
+
+    }
+
+}
+
+box_t AcaoBox::getPosicaoBoxByAlvo(BoxDadosAcao *DadosAcao, box_t BoxAtual, eBoxPosicao DeslocamentoAlvo) {
+
+    switch (DeslocamentoAlvo)
+    {
+    case eBoxPosicao::boxNoAlvo:
+
+        return BoxAtual;
+        break;
+
+    default:
+
+        byte    BoxLinha        = DadosAcao->numLinha(BoxAtual.Posicao);
+        byte    BoxColuna       = DadosAcao->numColuna(BoxAtual.Posicao);
+        box_t   BoxNovo         = {0, {0, 0, 0}};
+
+        switch (DeslocamentoAlvo)
+        {
+        case eBoxPosicao::boxLeft:
+
+            BoxColuna--;
+            break;
+
+        case eBoxPosicao::boxRight:
+
+            BoxColuna++;
+            break;
+
+        case eBoxPosicao::boxBottom:
+
+            BoxLinha++;
+            break;
+
+        default:        //Top
+
+            BoxLinha--;
+            break;
+        }
+
+        BoxNovo.Posicao =   (linCol)DadosAcao->converteLinhaColuna(BoxLinha, BoxColuna);
+        BoxNovo.RGB     =   getBoxRGB(DadosAcao, BoxNovo.Posicao);
+
+        return BoxNovo;
+
+        break;
+    }
+
+}
+
+
+void AcaoBox::moveSnake(BoxDadosAcao *DadosAcao, snake_t snake)  {
+
+    byte    Linha                   = 0;
+    byte    Coluna                  = 0;
+    byte    R                       = DadosAcao->getGammaR();
+    byte    G                       = DadosAcao->getGammaG();
+    byte    B                       = DadosAcao->getGammaB();
+
+    float   PercentualCalibrador    = (100 / (snake.Arrasto + 1)) / 100;
+    float   Percentual              = 0.0L;
+
+    float  RShow           = 0;
+    float  GShow           = 0;
+    float  BShow           = 0;
+
+    for (byte posicao = 0; posicao < snake.Arrasto; posicao++)
+    {
+
+        RShow = R * Percentual;
+        GShow = G * Percentual;
+        BShow = B * Percentual;
+
+        Linha = DadosAcao->numLinha(snake.Corpo[posicao].Posicao);
+        Coluna = DadosAcao->numColuna(snake.Corpo[posicao].Posicao);
+
+        _Leds.setPixelColor(PosicaoBoxCellInvertido(Linha, Coluna), _Leds.Color(GShow, RShow, BShow));
+
+        Percentual = Percentual + PercentualCalibrador;
+
+    }
+    
+    _Leds.setPixelColor(PosicaoBoxCellInvertido(Linha, Coluna), _Leds.Color(G, R, B));
+    
+    showLeds(150);
+
+}
+
+#pragma endregion
 
 

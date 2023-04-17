@@ -37,12 +37,28 @@ typedef struct {
     byte        R;
     byte        G;
     byte        B;
-} BoxRGB;
+} boxRGB_t;
+
+// union COLORUnion_t
+// {
+//     boxRGB_t RGBBox;
+//     unsigned int value;
+// } ColorBox_t;
+
+typedef byte linCol;
 
 typedef struct {
-    byte        Linha;
-    byte        Coluna;
-} Box;
+    linCol      Posicao;
+    boxRGB_t    RGB;
+} box_t;
+
+typedef struct {
+    byte        Arrasto;
+    box_t       Corpo[11];
+} snake_t;
+
+typedef box_t alvo_t;
+
 
 
 

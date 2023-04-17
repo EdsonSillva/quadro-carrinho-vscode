@@ -164,6 +164,18 @@ public:
     void showMsgBoxDebug(char Msg[], byte TamanhoMsg, BoxDadosAcao *DadosAcao, byte LinhaShow);
     void shifEsquerdaMapaBox(byte PrimeiraLinha, byte UltimaLinha, byte QtdeBit);
     
+    #pragma region Snake Target
+
+    boxRGB_t getBoxRGB(BoxDadosAcao *DadosAcao, linCol PosicaoBox);
+    alvo_t getAlvoBox(BoxDadosAcao *DadosAcao, linCol PosicaoBox);
+    eBoxPosicao deslocamentoBox(BoxDadosAcao *DadosAcao, linCol Alvo, linCol PosicaoBox);
+    box_t getPosicaoBoxByAlvo(BoxDadosAcao *DadosAcao, box_t Box, eBoxPosicao DeslocamentoAlvo);
+    void alvoAtingido(BoxDadosAcao *DadosAcao, linCol Alvo, linCol PosicaoBox);
+    void alvoNaoAtingido(BoxDadosAcao *DadosAcao, linCol Alvo, linCol PosicaoBox);
+    void moveSnake(BoxDadosAcao *DadosAcao, snake_t snake);
+
+
+    #pragma endregion
 
     // Ação Cobrinha
     /* Montar um arry de 16 posições

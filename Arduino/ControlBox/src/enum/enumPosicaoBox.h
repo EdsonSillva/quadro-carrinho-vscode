@@ -15,8 +15,9 @@ enum eBoxPosicao {
     boxBottom               = 2,
     boxLeft                 = 3,
     boxRight                = 4,
-    PosicaoDadaLinha        = 5,
-    PosicaoDadaColuna       = 6
+    boxNoAlvo               = 5,
+    PosicaoDadaLinha        = 6,
+    PosicaoDadaColuna       = 7
 
 };
 

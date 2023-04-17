@@ -13,8 +13,8 @@ public:
     Box_old();
     ~Box_old();
 
-    byte Linha;
-    byte Coluna;
+    int Linha;
+    int Coluna;
 
 
 };
