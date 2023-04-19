@@ -406,12 +406,6 @@ void AcaoScreen::ledsHunter(BoxDadosAcao *DadosAcao) {
         snake.Corpo[snake.Arrasto] = BoxNovo;
 
     }
-    
-
-
-
-
-
 
 }
 
