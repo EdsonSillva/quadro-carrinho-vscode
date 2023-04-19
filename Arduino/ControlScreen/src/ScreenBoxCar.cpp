@@ -124,10 +124,12 @@ void ScreenBoxCar::executarAcao() {
                     carregarBoxesTemaEEPROMCompartilhada((eAcaoBox)CodeAcao);
 
                 } else if(acao.chaveAcaoAtualIsMsg()) {                              // Mensagem na Tela
+                    
                     char Texto[50] = {0};
                     byte QtdeChar = 0;
                     tela.getTextoOnScreen(Texto, &QtdeChar);
                     eeprom.setTextoOnMemory(Texto, QtdeChar);
+                
                 }
 
                 eeprom.setDadosOnMemory(&acao);

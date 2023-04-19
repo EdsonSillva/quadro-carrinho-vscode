@@ -65,6 +65,12 @@ void BoxCar::executarAcao(eAcaoBox CodigoAcao) {
 
     switch (CodigoAcao)
     {
+
+    case 154:
+
+        acaoScreen.ledsHunter(&dadosAcao);
+        break;
+
     case eAcaoBox::semAcao:
 
         acaoBox.todosLedsApagados();
