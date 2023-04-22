@@ -16,20 +16,20 @@
 */
 BoxEEPROM::BoxEEPROM() {
     _som = BoxBuzzerCar();
+    _psom = &_som;
  }
 
-BoxEEPROM::BoxEEPROM(BoxBuzzerCar som) {
-    _som = som;
+BoxEEPROM::BoxEEPROM(BoxBuzzerCar *som) {
+    _psom = som;
  }
 
-BoxEEPROM::BoxEEPROM(int pinoUsando, int pinoAlerta)
-{
-    _som = BoxBuzzerCar();
+BoxEEPROM::BoxEEPROM(int pinoUsando, int pinoAlerta, BoxBuzzerCar *som) {
+    _psom = som;
     _pinos.setPinos(pinoUsando, pinoAlerta);
 }
 
-BoxEEPROM::BoxEEPROM(Device device, int pinoUsando, int pinoAlerta) { 
-    _som = BoxBuzzerCar();
+BoxEEPROM::BoxEEPROM(int pinoUsando, int pinoAlerta, Device device, BoxBuzzerCar *som) { 
+    _psom = som;
     _device = device;
     _pinos.setPinos(pinoUsando, pinoAlerta);
 }
@@ -42,7 +42,10 @@ void BoxEEPROM::inicializar() {
     delay(10);                              // Aguarda a inicialização do Wire
     _pinos.inicializar();                   // Inicializa os pinos de uso e leitura da EEPROM
     delayMicroseconds(1000);                // Necessário para aguardar a inicialização do componente anterior.
-    _som.iniciarBuzzer();                   // Inicializar a saida de som
+    
+    if (!_psom->EstaInicializado()) {
+        _psom->iniciarBuzzer();             // Inicializar a saida de som
+    }
 
 }
 
@@ -105,13 +108,48 @@ void BoxEEPROM::setDadosOnMemory(BoxDadosAcao *DadosAcao) {
 
 }
 
+void BoxEEPROM::setTemaOnMemory(byte Boxes[], byte sizeBoxes) {
+
+    int Address         = _device.AddressBoxInicio;                     // Pega o endereço inicial da area do tema
+    int AddressFim      = _device.AddressBoxFim;                        // Pega o endereço final da area do tema
+
+    for(byte item = 0; item < sizeBoxes; item++) {
+        
+        gravarEEPROM(Address, Boxes[item]);
+        Address++;
+        if(Address > AddressFim) return;                                // Abandona a carga dos temas por ultrapassar os limites da área do Tema
+    }
+    if(Address < AddressFim) {
+        gravarEEPROM(Address, 0x00);                                    // Marca final do dado se não usar todas as posições
+    }
+
+}
+
+byte BoxEEPROM::getTemaOnMemory(byte Boxes[], byte sizeBoxes) {
+
+    int Address         = _device.AddressBoxInicio;                     // Pega o endereço inicial da area do tema
+    int AddressFim      = _device.AddressBoxFim;                        // Pega o endereço Final da area do tema
+    byte item           = 0;
+
+    for(item = 0; item < sizeBoxes; item++) {
+        Boxes[item] = lerEEPROM(Address);
+        Address++;
+        if(Boxes[item] == 0x00) {
+            return item;
+        }
+        if(Address > AddressFim) return item;                           // Abandona a carga dos temas por ultrapassar os limites da área do Tema
+    }
+    return item;
+}
+
+
 void BoxEEPROM::setTextoOnMemory(char Texto[], byte QtdeChar) {
 
     int Address   = _device.AddressIniTexto;                      // Pega o endereço inicial da mensagem
 
     gravarEEPROM((int)_device.AddressQtdeChar, QtdeChar);         // Grava o tamanho da Mensagem
     for(byte P = 0; P <= QtdeChar; P++) {
-        gravarEEPROM((int)Address, Texto[P]);
+        gravarEEPROM(Address, Texto[P]);
         Address++;
     }
 

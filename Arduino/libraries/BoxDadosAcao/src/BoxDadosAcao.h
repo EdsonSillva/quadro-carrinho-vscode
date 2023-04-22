@@ -13,7 +13,21 @@
 #include <Arduino.h>
 #endif
 
-#define   _IDAcaoMsg_             64            // ID Ação de mensagem. Mudar este código se houver mudanças no id de mensagem na tela Nextion Screen
+#ifndef EEPROM_h
+#include <EEPROM.h>
+#endif
+
+#ifndef __BOXENUMACAO_H__
+#include "BoxEnumAcao.h"
+#endif
+
+#define     _IDAcaoMsg_                     64              // ID Ação de mensagem. Mudar este código se houver mudanças no id de mensagem na tela Nextion Screen
+#define     _BrilhoDefault_                 75              // Padrão para brilho do led
+#define     _AddessInicioEEPROMIno_          1              // Endereço inicial da EEPROM interna do Arduino
+#define     _sizeEEPROMIno_               1024              // Tamanho da EEPROM interna do Arduino
+#define     _sizeBat_                       50              // Tamanho da tabela de alocação dos Boxs
+#define     _sizeTemaBat_                   20              // Tamanho de cada tema na alocação dos Boxs
+
 
 /*
     Classe de controle dos metodos de tratamento das ações e dados selecionados na tela Nextion.
@@ -22,18 +36,32 @@ class BoxDadosAcao
 {
 private:
 
-    bool    _Executando             = false;
-    byte    _IDAcaoMsg              = _IDAcaoMsg_;
-    byte    _CodeAcao               = 0;
-    byte    _R                      = 0;
-    byte    _G                      = 0;
-    byte    _B                      = 0;
-    byte    _GammaR                 = 0;
-    byte    _GammaG                 = 0;
-    byte    _GammaB                 = 0;
-    byte    _Brilho                 = 0;
-    String  _ChaveAcaoAtual         = "";
-    String  _ChaveAcaoAnterior      = "";
+    bool    _Executando                 = false;
+    byte    _IDAcaoMsg                  = _IDAcaoMsg_;
+    byte    _CodeAcao                   = 0;
+    byte    _R                          = 0;
+    byte    _G                          = 0;
+    byte    _B                          = 0;
+    byte    _GammaR                     = 0;
+    byte    _GammaG                     = 0;
+    byte    _GammaB                     = 0;
+    byte    _Brilho                     = _BrilhoDefault_;
+
+    String  _ChaveAcaoAtual             = "";
+    String  _ChaveAcaoAnterior          = "";
+
+    // Controle dos acessos a memória EEPROM do Arduino
+    int     _addressInicioEEPROMIno     = _AddessInicioEEPROMIno_;
+    int     _sizeEEPROMIno              = _sizeEEPROMIno_;
+
+    int     _batAddressIni              = _addressInicioEEPROMIno;          // Endereço inicial da Bat (Box Alocation Table)
+    byte    _sizeBat                    = _sizeBat_;                        // Tamanho da Bat (Box Alocation Table)
+    int     _addressIniBoxes            = _batAddressIni + _sizeBat;        // Endereço inicial da área de dados dos Boxes (Cada byte indica Linha e Coluna).
+    byte    _sizeTemaBat                = _sizeTemaBat_;                    // Tamanho de cada segmento de dados para cada tema
+
+     byte getPosicaoTemaBatByDado(byte const *DadoPesquisa);
+    // int getDadoTemaBat(int Inicio, int Fim, byte DadoPesquisa);
+
 
 public:
     BoxDadosAcao();
@@ -46,6 +74,7 @@ public:
     void setRGBB(byte R, byte G, byte B, byte Brilho);
     void setRGBGamma(byte GammaR, byte GammaG, byte GammaB);
     void setCodeAcaoRGBB(byte CodeAcao, byte R, byte G, byte B, byte Brilho);
+    void setBrilho(byte Brilho);
     String gerarChaveAcao();
     String getChaveAcao();
     String getChaveAcaoAnterior();
@@ -60,6 +89,22 @@ public:
     byte getIDAcaoMsg();
     bool chaveAcaoAnteriorAtualIgual();
     bool chaveAcaoAtualIsMsg();
+
+    int posicaoInicialDadoTema(byte PosicaoTemaBat);
+    int posicaoFinalDadoTema(byte PosicaoTemaBat);
+    void setDadoEEPROMIno(int Inicio, int Fim, byte Dado = 0x00);
+    void inicializaEEPROMIno();
+    void inicializaTemaBat();
+    void limpaDadosTemaBat(byte PosicaoTema);
+    byte getSizeTemaBat();
+    byte getPosicaoTemaBat(byte CodigoTema);
+    byte getPosicaoLivreTemaBat();
+    byte setPosicaoLivreTemaBat(byte CodigoTema);
+    void lerDadosTemaBat(byte Boxes[], byte PosicaoTema);
+
+    byte converteLinhaColuna(byte Linha, byte Coluna);
+    byte numLinha(byte LinhaColuna);
+    byte numColuna(byte LinhaColuna);
 
 };
 

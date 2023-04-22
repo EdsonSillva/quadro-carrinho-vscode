@@ -12,9 +12,9 @@ Device::Device() { }
 Device::~Device() { }
 
 void Device::setAddress(unsigned int Address) {
-    _deviceEEPRON = Address;
+    _deviceEEPROM = Address;
   }
 
 unsigned int Device::getAddress() {
-    return _deviceEEPRON;
+    return _deviceEEPROM;
 }

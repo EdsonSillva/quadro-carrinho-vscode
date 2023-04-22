@@ -25,13 +25,17 @@
 #include "../AcaoBox/AcaoBox.h"
 #endif
 
-#ifndef __ENUMBOXTEMATICO_H__
-#include "../enum/enumBoxTematico.h"
+#ifndef __ENUMSCREEN_H__
+#include "../enum/enumScreen.h"
 #endif
 
-#ifndef __ENUMACAOLINHACOLUNA_H__
-#include "../enum/enumAcao.h"
-#endif
+// #ifndef __ENUMBOXTEMATICO_H__
+// #include "../enum/enumBoxTematico.h"
+// #endif
+
+// #ifndef __ENUMACAOLINHACOLUNA_H__
+// #include "../enum/enumAcao.h"
+// #endif
 
 #define     _pin_Controle_              12
 #define     _CorpoSnakeMax_             10
@@ -51,6 +55,7 @@ private:
     void randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer);
 
 public:
+
     AcaoScreen();                       // Usa o pino de controle default
     AcaoScreen(byte PinoControle);
     ~AcaoScreen();
@@ -61,12 +66,17 @@ public:
     void ledsXadrezFade(BoxDadosAcao *DadosAcao);
     void mensagem(BoxDadosAcao *DadosAcao, byte LinhaShow);
     void ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcaoBox Acao);
-    void ledsTematico(BoxDadosAcao *DadosAcao, eBoxTematico Tema);
+    // void ledsTematico(BoxDadosAcao *DadosAcao, eBoxTematico Tema);
     void ledsTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte sizeBoxes);
     void ledsAcaoCascata(BoxDadosAcao *DadosAcao);
 
+    void inicializarSnake(BoxDadosAcao *DadosAcao, snake_t *snake);
     void ledsHunter(BoxDadosAcao *DadosAcao);
     void descerPosicaoSnake(snake_t *snake);
+
+    box_t buscarNovaPosicao(BoxDadosAcao *DadosAcao, snake_t *snake, alvo_t *alvo);
+    alvo_t buscarNovoAlvo(BoxDadosAcao *DadosAcao, snake_t *snake);
+    byte procurarCorpoSnake(box_t *Box, snake_t *snake);
 
 };
 

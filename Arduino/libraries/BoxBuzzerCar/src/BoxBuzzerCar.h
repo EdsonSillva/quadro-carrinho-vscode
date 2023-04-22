@@ -21,6 +21,7 @@ class BoxBuzzerCar
 private:
 
     byte    _pinoConexao        = _pin_Buzzer_;
+    bool    _inicializado       = false;
 
 public:
     BoxBuzzerCar();
@@ -28,6 +29,7 @@ public:
 
     void setPinoConexao(byte Pino);         // Usar pinos analógicos
     void iniciarBuzzer();
+    bool EstaInicializado();
     void beepBuzzer(unsigned int frequencia = 14000, unsigned long duracao = 6);
 
 };

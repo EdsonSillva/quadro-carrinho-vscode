@@ -33,13 +33,17 @@
   #include <avr/power.h>
 #endif
 
-#ifndef __ENUMBOXTEMATICO_H__
-#include "../enum/enumBoxTematico.h"
+#ifndef __ENUMSCREEN_H__
+#include "../enum/enumScreen.h"
 #endif
 
-#ifndef __ENUMPOSICAOBOX_H__
-#include "../enum/enumPosicaoBox.h"
-#endif
+// #ifndef __ENUMBOXTEMATICO_H__
+// #include "../enum/enumBoxTematico.h"
+// #endif
+
+// #ifndef __ENUMPOSICAOBOX_H__
+// #include "../enum/enumPosicaoBox.h"
+// #endif
 
 
 /***********************************************
@@ -123,7 +127,9 @@ private:
     int PosicaoBoxCell(int Linha, int Coluna);
     int PosicaoBoxCellInvertido(int Linha, int Coluna);
     void AcendeOuApagaLeds(uint8_t r, uint8_t g, uint8_t b);
-    void MontaMapaBoxTematico(eBoxTematico Tema);
+    // void MontaMapaBoxTematico(eBoxTematico Tema);
+
+    void showBox(byte Linha, byte Coluna, boxRGB_t RGB);
 
 
 public:
@@ -150,7 +156,7 @@ public:
     void boxAcaoXadrezFade(bool IniciarImpar, BoxDadosAcao *DadosAcao, int PercentualRecebido);
     void boxAcaoColuna(bool IniciarImpar, BoxDadosAcao *DadosAcao);
     void boxAcaoLinha(bool IniciarImpar, BoxDadosAcao *DadosAcao);
-    void boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao);
+    // void boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao);
 
     void boxAcaoTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte sizeBoxes);
 
@@ -169,9 +175,11 @@ public:
     boxRGB_t getBoxRGB(BoxDadosAcao *DadosAcao, linCol PosicaoBox);
     alvo_t getAlvoBox(BoxDadosAcao *DadosAcao, linCol PosicaoBox);
     eBoxPosicao deslocamentoBox(BoxDadosAcao *DadosAcao, linCol Alvo, linCol PosicaoBox);
-    box_t getPosicaoBoxByAlvo(BoxDadosAcao *DadosAcao, box_t Box, eBoxPosicao DeslocamentoAlvo);
-    void alvoAtingido(BoxDadosAcao *DadosAcao, linCol Alvo, linCol PosicaoBox);
-    void alvoNaoAtingido(BoxDadosAcao *DadosAcao, linCol Alvo, linCol PosicaoBox);
+    eBoxPosicao deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snake_t *snake);
+    eBoxPosicao deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snake_t *snake, eBoxMovimentoSnake movimento);
+    box_t getPosicaoBoxByAlvo(BoxDadosAcao *DadosAcao, box_t *Box, eBoxPosicao DeslocamentoAlvo);
+    void showAlvo(BoxDadosAcao *DadosAcao, alvo_t Alvo, boxRGB_t RGB);
+    void showCabecaSnake(BoxDadosAcao *DadosAcao, snake_t *Snake);
     void moveSnake(BoxDadosAcao *DadosAcao, snake_t snake);
 
 

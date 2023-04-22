@@ -1,9 +1,9 @@
 
 #include "BoxCar.h"
 
-#ifndef __ENUMACAO_H__
-#include "src/enum/enumAcao.h"
-#endif
+// #ifndef __ENUMACAO_H__
+// #include "src/enum/enumAcao.h"
+// #endif
 
 
 BoxCar::BoxCar() { }

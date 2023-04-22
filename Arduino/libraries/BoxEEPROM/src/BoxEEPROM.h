@@ -40,6 +40,7 @@ private:
     unsigned int    _frequencia             = 0;
     unsigned long   _duracao                = 0;
     bool            _eepromDisponivel       = false;
+    BoxBuzzerCar    *_psom;
     BoxBuzzerCar    _som;
 
     /* method */
@@ -50,9 +51,9 @@ private:
 public:
 
     BoxEEPROM();
-    BoxEEPROM(BoxBuzzerCar som);
-    BoxEEPROM(int pinoUsando, int pinoAlerta);
-    BoxEEPROM(Device device, int pinoUsando, int pinoAlerta);
+    BoxEEPROM(BoxBuzzerCar *som);
+    BoxEEPROM(int pinoUsando, int pinoAlerta, BoxBuzzerCar *som);
+    BoxEEPROM(int pinoUsando, int pinoAlerta, Device device, BoxBuzzerCar *som);
     ~BoxEEPROM();
 
     void inicializar();
@@ -61,6 +62,8 @@ public:
     void alertaSonoroNaoResponde();
     void getDadosOnMemory(BoxDadosAcao *DadosAcao);
     void setDadosOnMemory(BoxDadosAcao *DadosAcao);
+    void setTemaOnMemory(byte Boxes[], byte sizeBoxes);
+    byte getTemaOnMemory(byte Boxes[], byte sizeBoxes);
     void setTextoOnMemory(char Texto[], byte QtdeChar);
     void getTextoOnMemory(char Texto[], byte *pQtdeChar);
 

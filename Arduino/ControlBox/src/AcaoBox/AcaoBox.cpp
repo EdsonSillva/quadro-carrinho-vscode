@@ -349,157 +349,157 @@ void AcaoBox::boxAcaoTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte 
 }
 
 /* @deprecated modo antigo */
-void AcaoBox::boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao) {
+// void AcaoBox::boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao) {
 
-    iniciarMapaBox();                   // Limpa
+//     iniciarMapaBox();                   // Limpa
 
-    MontaMapaBoxTematico(Tema);         // Carrega tema
+//     MontaMapaBoxTematico(Tema);         // Carrega tema
 
-    showMapaBoxes(DadosAcao, 50);       // Mostra Tema no quadro
+//     showMapaBoxes(DadosAcao, 50);       // Mostra Tema no quadro
 
-}
+// }
 
 /* @deprecated modo antigo */
-void AcaoBox::MontaMapaBoxTematico(eBoxTematico Tema) {
+// void AcaoBox::MontaMapaBoxTematico(eBoxTematico Tema) {
 
-    switch (Tema)
-    {
-    case eBoxTematico::boxBatman:
-        _MapaBox[2] = 0b1110000000000001;      // Linha 03 do quadro
-        _MapaBox[3] = 0b1110000000000001;      // Linha 04 do quadro
-        _MapaBox[4] = 0b1110000000000001;      // Linha 05 do quadro
-        break;
+//     switch (Tema)
+//     {
+//     case eBoxTematico::boxBatman:
+//         _MapaBox[2] = 0b1110000000000001;      // Linha 03 do quadro
+//         _MapaBox[3] = 0b1110000000000001;      // Linha 04 do quadro
+//         _MapaBox[4] = 0b1110000000000001;      // Linha 05 do quadro
+//         break;
 
-    case eBoxTematico::boxMotos:
-        _MapaBox[2] = 0b0000000001111111;      // Linha 03 do quadro
-        _MapaBox[3] = 0b0000000000000011;      // Linha 04 do quadro
-        break;
+//     case eBoxTematico::boxMotos:
+//         _MapaBox[2] = 0b0000000001111111;      // Linha 03 do quadro
+//         _MapaBox[3] = 0b0000000000000011;      // Linha 04 do quadro
+//         break;
 
-    case eBoxTematico::boxStarWars:
-        _MapaBox[5] = 0b1110000000000001;      // Linha 06 do quadro
-        _MapaBox[6] = 0b1110000000000001;      // Linha 07 do quadro
-        _MapaBox[7] = 0b1100000000000001;      // Linha 08 do quadro
-        _MapaBox[8] = 0b1100000000000001;      // Linha 09 do quadro
-        break;
+//     case eBoxTematico::boxStarWars:
+//         _MapaBox[5] = 0b1110000000000001;      // Linha 06 do quadro
+//         _MapaBox[6] = 0b1110000000000001;      // Linha 07 do quadro
+//         _MapaBox[7] = 0b1100000000000001;      // Linha 08 do quadro
+//         _MapaBox[8] = 0b1100000000000001;      // Linha 09 do quadro
+//         break;
 
-    case eBoxTematico::boxLamborghini:
-        _MapaBox[8] = 0b0000000000000111;      // Linha 09 do quadro
-        _MapaBox[9] = 0b0000000000001111;      // Linha 10 do quadro
-        break;
+//     case eBoxTematico::boxLamborghini:
+//         _MapaBox[8] = 0b0000000000000111;      // Linha 09 do quadro
+//         _MapaBox[9] = 0b0000000000001111;      // Linha 10 do quadro
+//         break;
 
-    case eBoxTematico::boxPorche:
-        _MapaBox[10] = 0b0000000000001111;      // Linha 11 do quadro
-        _MapaBox[11] = 0b0000000000001111;      // Linha 12 do quadro
-        _MapaBox[12] = 0b0000000000001111;      // Linha 13 do quadro
-        break;
+//     case eBoxTematico::boxPorche:
+//         _MapaBox[10] = 0b0000000000001111;      // Linha 11 do quadro
+//         _MapaBox[11] = 0b0000000000001111;      // Linha 12 do quadro
+//         _MapaBox[12] = 0b0000000000001111;      // Linha 13 do quadro
+//         break;
 
-    case eBoxTematico::boxTesla:
-        _MapaBox[13] = 0b0000000000111001;      // Linha 14 do quadro
-        break;
+//     case eBoxTematico::boxTesla:
+//         _MapaBox[13] = 0b0000000000111001;      // Linha 14 do quadro
+//         break;
 
-    case eBoxTematico::boxBMW:
-        _MapaBox[13] = 0b0000000111000001;      // Linha 14 do quadro
-        break;
+//     case eBoxTematico::boxBMW:
+//         _MapaBox[13] = 0b0000000111000001;      // Linha 14 do quadro
+//         break;
 
-    case eBoxTematico::boxFord:
-        _MapaBox[8]  = 0b0000001110000001;      // Linha 09 do quadro
-        _MapaBox[9]  = 0b0000111110000001;      // Linha 10 do quadro
-        _MapaBox[10] = 0b0000111100000001;      // Linha 11 do quadro
-        break;
+//     case eBoxTematico::boxFord:
+//         _MapaBox[8]  = 0b0000001110000001;      // Linha 09 do quadro
+//         _MapaBox[9]  = 0b0000111110000001;      // Linha 10 do quadro
+//         _MapaBox[10] = 0b0000111100000001;      // Linha 11 do quadro
+//         break;
 
-    case eBoxTematico::boxAstonMartin:
-        _MapaBox[10] = 0b0000000011110001;      // Linha 11 do quadro
-        break;
+//     case eBoxTematico::boxAstonMartin:
+//         _MapaBox[10] = 0b0000000011110001;      // Linha 11 do quadro
+//         break;
 
-    case eBoxTematico::boxPagani:
-        _MapaBox[8]  = 0b0000000000011001;      // Linha 09 do quadro
-        break;
+//     case eBoxTematico::boxPagani:
+//         _MapaBox[8]  = 0b0000000000011001;      // Linha 09 do quadro
+//         break;
 
-    case eBoxTematico::boxMacLaren:
-        _MapaBox[9]  = 0b0000000001110001;      // Linha 10 do quadro
-        break;
+//     case eBoxTematico::boxMacLaren:
+//         _MapaBox[9]  = 0b0000000001110001;      // Linha 10 do quadro
+//         break;
 
-    case eBoxTematico::boxAudi:
-        _MapaBox[6]  = 0b0000000010000001;      // Linha 07 do quadro
-        break;
+//     case eBoxTematico::boxAudi:
+//         _MapaBox[6]  = 0b0000000010000001;      // Linha 07 do quadro
+//         break;
 
-    case eBoxTematico::boxCorvette:
-        _MapaBox[11]  = 0b0000011111110001;      // Linha 12 do quadro
-        _MapaBox[12]  = 0b0000011111110001;      // Linha 13 do quadro
-        break;
+//     case eBoxTematico::boxCorvette:
+//         _MapaBox[11]  = 0b0000011111110001;      // Linha 12 do quadro
+//         _MapaBox[12]  = 0b0000011111110001;      // Linha 13 do quadro
+//         break;
 
-    case eBoxTematico::boxNissan:
-        _MapaBox[5]  = 0b0000000000011111;      // Linha 06 do quadro
-        break;
+//     case eBoxTematico::boxNissan:
+//         _MapaBox[5]  = 0b0000000000011111;      // Linha 06 do quadro
+//         break;
 
-    case eBoxTematico::boxFerrari:
-        _MapaBox[4]  = 0b0000001000000001;      // Linha 05 do quadro
-        _MapaBox[7]  = 0b0000000000001111;      // Linha 08 do quadro
-        break;
+//     case eBoxTematico::boxFerrari:
+//         _MapaBox[4]  = 0b0000001000000001;      // Linha 05 do quadro
+//         _MapaBox[7]  = 0b0000000000001111;      // Linha 08 do quadro
+//         break;
     
-    case eBoxTematico::boxMercedes:
-        _MapaBox[6]  = 0b0000000000000111;      // Linha 07 do quadro
-        break;
+//     case eBoxTematico::boxMercedes:
+//         _MapaBox[6]  = 0b0000000000000111;      // Linha 07 do quadro
+//         break;
 
-    case eBoxTematico::boxHonda:
-        _MapaBox[6]   = 0b0000000000111001;      // Linha 07 do quadro
-        break;
+//     case eBoxTematico::boxHonda:
+//         _MapaBox[6]   = 0b0000000000111001;      // Linha 07 do quadro
+//         break;
 
-    case eBoxTematico::boxAcura:
-        _MapaBox[13]  = 0b0000000000000111;      // Linha 14 do quadro
-        break;
+//     case eBoxTematico::boxAcura:
+//         _MapaBox[13]  = 0b0000000000000111;      // Linha 14 do quadro
+//         break;
 
-    case eBoxTematico::boxJaguar:
-        _MapaBox[7]  = 0b0000000000110001;      // Linha 08 do quadro
-        break;
+//     case eBoxTematico::boxJaguar:
+//         _MapaBox[7]  = 0b0000000000110001;      // Linha 08 do quadro
+//         break;
 
-    case eBoxTematico::boxVelozesFurosos:
-        _MapaBox[2]  = 0b0000111100000001;      // Linha 03 do quadro
-        _MapaBox[3]  = 0b0001110000000001;      // Linha 04 do quadro
-        break;
+//     case eBoxTematico::boxVelozesFurosos:
+//         _MapaBox[2]  = 0b0000111100000001;      // Linha 03 do quadro
+//         _MapaBox[3]  = 0b0001110000000001;      // Linha 04 do quadro
+//         break;
 
-    case eBoxTematico::boxDodge:
-        _MapaBox[7]  = 0b0000000111000001;      // Linha 08 do quadro
-        _MapaBox[8]  = 0b0000000001100001;      // Linha 09 do quadro
-        break;
+//     case eBoxTematico::boxDodge:
+//         _MapaBox[7]  = 0b0000000111000001;      // Linha 08 do quadro
+//         _MapaBox[8]  = 0b0000000001100001;      // Linha 09 do quadro
+//         break;
 
-    case eBoxTematico::boxVolks:
-        _MapaBox[6]  = 0b0000001000000001;      // Linha 07 do quadro
-        _MapaBox[7]  = 0b0000111000000001;      // Linha 08 do quadro
-        _MapaBox[8]  = 0b0000110000000001;      // Linha 09 do quadro
-        _MapaBox[9]  = 0b0000100000000001;      // Linha 10 do quadro
-        break;
+//     case eBoxTematico::boxVolks:
+//         _MapaBox[6]  = 0b0000001000000001;      // Linha 07 do quadro
+//         _MapaBox[7]  = 0b0000111000000001;      // Linha 08 do quadro
+//         _MapaBox[8]  = 0b0000110000000001;      // Linha 09 do quadro
+//         _MapaBox[9]  = 0b0000100000000001;      // Linha 10 do quadro
+//         break;
 
-    case eBoxTematico::boxFiat:
-        _MapaBox[6]  = 0b0000000100000001;      // Linha 07 do quadro
-        break;
+//     case eBoxTematico::boxFiat:
+//         _MapaBox[6]  = 0b0000000100000001;      // Linha 07 do quadro
+//         break;
 
-    case eBoxTematico::boxCadiLac:
-        _MapaBox[5]  = 0b0000000000100001;      // Linha 06 do quadro
-        _MapaBox[8]  = 0b0010000000000001;      // Linha 09 do quadro
-        break;
+//     case eBoxTematico::boxCadiLac:
+//         _MapaBox[5]  = 0b0000000000100001;      // Linha 06 do quadro
+//         _MapaBox[8]  = 0b0010000000000001;      // Linha 09 do quadro
+//         break;
 
-    case eBoxTematico::boxBentley:
-        _MapaBox[3]  = 0b0000000000000101;      // Linha 04 do quadro
-        break;
+//     case eBoxTematico::boxBentley:
+//         _MapaBox[3]  = 0b0000000000000101;      // Linha 04 do quadro
+//         break;
 
-    case eBoxTematico::boxMazda:
-        _MapaBox[4]  = 0b0000000001100001;      // Linha 05 do quadro
-        break;
+//     case eBoxTematico::boxMazda:
+//         _MapaBox[4]  = 0b0000000001100001;      // Linha 05 do quadro
+//         break;
 
-    case eBoxTematico::boxBugatti:
-        _MapaBox[3]  = 0b0000000100000001;      // Linha 04 do quadro
-        break;
+//     case eBoxTematico::boxBugatti:
+//         _MapaBox[3]  = 0b0000000100000001;      // Linha 04 do quadro
+//         break;
     
-    case eBoxTematico::boxBuick:
-        _MapaBox[5]  = 0b0000000001000001;      // Linha 06 do quadro
-        break;
+//     case eBoxTematico::boxBuick:
+//         _MapaBox[5]  = 0b0000000001000001;      // Linha 06 do quadro
+//         break;
 
-    default:
-        break;
-    }
+//     default:
+//         break;
+//     }
 
-}
+// }
 
 void AcaoBox::showMapaBoxes(BoxDadosAcao *DadosAcao, byte LuzFundo) {
 
@@ -864,25 +864,77 @@ void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t *itemCascata, by
 
 }
 
+
+
+void AcaoBox::showBox(byte Linha, byte Coluna, boxRGB_t RGB) {
+
+    _Leds.setPixelColor(PosicaoBoxCellInvertido(Linha, Coluna), 
+                        _Leds.Color(RGB.R, RGB.G, RGB.B)
+    );
+
+    showLeds(150);
+
+}
+
 #pragma region Snake Target
 
+void AcaoBox::showAlvo(BoxDadosAcao *DadosAcao, alvo_t Alvo, boxRGB_t RGB) {
+
+    byte    Linha       = DadosAcao->numLinha(Alvo.Posicao);
+    byte    Coluna      = DadosAcao->numColuna(Alvo.Posicao);
+
+    showBox(Linha, Coluna, RGB);
+
+}
+
+void AcaoBox::showCabecaSnake(BoxDadosAcao *DadosAcao, snake_t *Snake) {
+
+    byte    Linha       = DadosAcao->numLinha(Snake->Corpo[Snake->Arrasto].Posicao);
+    byte    Coluna      = DadosAcao->numColuna(Snake->Corpo[Snake->Arrasto].Posicao);
+
+    showBox(Linha, Coluna, Snake->Corpo[Snake->Arrasto].RGB);
+
+}
+
 alvo_t AcaoBox::getAlvoBox(BoxDadosAcao *DadosAcao, linCol PosicaoBox) {
+
+    Serial.print(F("\nAcaoBox::getAlvoBox()"));
+
 
     long        valor       = random();
 
     byte        AlvoLinha       = 1;
     byte        AlvoColuna      = 1;
-    linCol      AlvoLinCol      = 0;
+    linCol      AlvoLinCol      = PosicaoBox;
     alvo_t      BoxAlvo         = {0, {0, 0, 0}};
 
     randomSeed(valor);                               // Necessário para indicar um ponto de inicialização aleatório
+
+
+    Serial.print(F("\nvalor para randomSeed\t|")),     Serial.print(valor),   Serial.print(F("|"));
+
+    Serial.print(F("\n_qtdLinhas\t|")),     Serial.print(_qtdLinhas),   Serial.print(F("|"));
+    Serial.print(F("\n_qtdColunas\t|")),     Serial.print(_qtdColunas),   Serial.print(F("|"));
+
+    // Serial.print(F("\nalvo.Posicao\t|")),   Serial.print(alvo.Posicao), Serial.print(F("|"));
+    // Serial.print(F("\nalvo.RGB.R\t|")),     Serial.print(alvo.RGB.R),   Serial.print(F("|"));
+    // Serial.print(F("\nalvo.RGB.B\t|")),     Serial.print(alvo.RGB.G),   Serial.print(F("|"));
+    // Serial.print(F("\nalvo.RGB.B\t|")),     Serial.print(alvo.RGB.B),   Serial.print(F("|"));
+
+
+    Serial.print(F("\nAlvoLinCol == PosicaoBox\t|")),     Serial.print(AlvoLinCol == PosicaoBox),   Serial.print(F("|"));
 
     while (AlvoLinCol == PosicaoBox)
     {
         AlvoLinha   = (byte)random(1, _qtdLinhas);
         AlvoColuna  = (byte)random(1, _qtdColunas);
-        
+
+        Serial.print(F("\nAlvoLinha\t|")),      Serial.print(AlvoLinha),   Serial.print(F("|"));
+        Serial.print(F("\nAlvoColuna\t|")),     Serial.print(AlvoColuna),   Serial.print(F("|"));
+
         AlvoLinCol = DadosAcao->converteLinhaColuna(AlvoLinha, AlvoColuna);
+
+        Serial.print(F("\nAlvoLinCol\t|")),     Serial.print(AlvoLinCol),   Serial.print(F("|"));
 
     }
 
@@ -914,28 +966,167 @@ eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, linCol Alvo, linCo
             return eBoxPosicao::boxRight;
         } else if( AlvoLinha  < BoxLinha ) {
             // Alvo a Baixo
-            return eBoxPosicao::boxBottom;
+            return eBoxPosicao::boxTop;
         } 
 
-        return eBoxPosicao::boxTop;
+        return eBoxPosicao::boxBottom;
 
     }
 
 }
 
-box_t AcaoBox::getPosicaoBoxByAlvo(BoxDadosAcao *DadosAcao, box_t BoxAtual, eBoxPosicao DeslocamentoAlvo) {
+/* @deprecated metodo antigo */
+eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snake_t *snake) {
+
+    Serial.print(F("\nAcaoBox::deslocamentoBox()"));
+
+
+    if(Alvo->Posicao == snake->Corpo[snake->Arrasto].Posicao) {
+
+        return eBoxPosicao::boxNoAlvo;
+
+    } else {
+
+        byte AlvoLinha      = DadosAcao->numLinha(Alvo->Posicao);
+        byte AlvoColuna     = DadosAcao->numColuna(Alvo->Posicao);
+
+        byte BoxLinha       = DadosAcao->numLinha(snake->Corpo[snake->Arrasto].Posicao);
+        byte BoxColuna      = DadosAcao->numColuna(snake->Corpo[snake->Arrasto].Posicao);
+
+        Serial.print(F("\nVerificando o deslocamento..."));
+
+
+        if( AlvoColuna < BoxColuna ) {
+            //Alvo a esquerda
+
+            if(DadosAcao->numColuna(snake->Corpo[snake->Arrasto - 1].Posicao) == (BoxColuna  - 1)) {
+                Serial.print(F("\n(Left) Linha Ante == Atual"));
+
+
+                if(AlvoLinha < BoxLinha) {
+                    Serial.print(F("\nMove para cima"));
+                    return eBoxPosicao::boxTop;
+
+                } 
+                Serial.print(F("\nMove para baixo"));
+                return eBoxPosicao::boxBottom;
+            }
+
+            return eBoxPosicao::boxLeft;
+
+        } else if( AlvoColuna > BoxColuna ) {
+            // Alvo a Direita
+
+            if(DadosAcao->numColuna(snake->Corpo[snake->Arrasto - 1].Posicao) == (BoxColuna + 1)) {
+                Serial.print(F("\n(Left) Linha Ante == Atual"));
+
+
+                if(AlvoLinha < BoxLinha) {
+                    Serial.print(F("\nMove para cima"));
+                    return eBoxPosicao::boxTop;
+
+                } 
+                Serial.print(F("\nMove para baixo"));
+                return eBoxPosicao::boxBottom;
+            }
+
+            return eBoxPosicao::boxRight;
+
+
+        } else if( AlvoLinha  < BoxLinha ) {
+            // Alvo a Baixo
+            return eBoxPosicao::boxTop;
+        } 
+
+        return eBoxPosicao::boxBottom;
+
+    }
+
+}
+
+eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snake_t *snake, eBoxMovimentoSnake movimento) {
+
+    Serial.print(F("\nAcaoBox::deslocamentoBox() New"));
+
+    if(Alvo->Posicao == snake->Corpo[snake->Arrasto].Posicao) {
+
+        return eBoxPosicao::boxNoAlvo;
+
+    } else {
+
+        byte AlvoLinha      = DadosAcao->numLinha(Alvo->Posicao);
+        byte AlvoColuna     = DadosAcao->numColuna(Alvo->Posicao);
+
+        byte BoxLinha       = DadosAcao->numLinha(snake->Corpo[snake->Arrasto].Posicao);
+        byte BoxColuna      = DadosAcao->numColuna(snake->Corpo[snake->Arrasto].Posicao);
+
+        if(movimento == eBoxMovimentoSnake::boxColuna) {
+
+            // Movimentação baseado em Coluna
+
+            Serial.print(F("\nMovimento em Coluna..."));
+
+            if( AlvoColuna < BoxColuna ) {
+
+                //Alvo a esquerda
+                return eBoxPosicao::boxLeft;
+
+            } else if( AlvoColuna > BoxColuna ) {
+
+                // Alvo a Direita
+                return eBoxPosicao::boxRight;
+
+            } else if( AlvoLinha  < BoxLinha ) {
+                // Alvo a Baixo
+                return eBoxPosicao::boxTop;
+            } 
+
+            return eBoxPosicao::boxBottom;
+
+        } else {
+
+
+            Serial.print(F("\nMovimento em Linha..."));
+
+            // Movimentação baseado em linha
+
+            if( AlvoLinha < BoxLinha ) {
+
+                //Alvo acima
+                return eBoxPosicao::boxTop;
+
+            } else if( AlvoLinha > BoxLinha ) {
+
+                // Alvo abaixo
+                return eBoxPosicao::boxBottom;
+
+            } else if( AlvoColuna < BoxColuna ) {
+
+                // Alvo a esquerda
+                return eBoxPosicao::boxLeft;
+            } 
+
+            return eBoxPosicao::boxRight;
+
+        }
+
+    }
+
+}
+
+box_t AcaoBox::getPosicaoBoxByAlvo(BoxDadosAcao *DadosAcao, box_t *BoxAtual, eBoxPosicao DeslocamentoAlvo) {
 
     switch (DeslocamentoAlvo)
     {
     case eBoxPosicao::boxNoAlvo:
 
-        return BoxAtual;
+        return *BoxAtual;
         break;
 
     default:
 
-        byte    BoxLinha        = DadosAcao->numLinha(BoxAtual.Posicao);
-        byte    BoxColuna       = DadosAcao->numColuna(BoxAtual.Posicao);
+        byte    BoxLinha        = DadosAcao->numLinha(BoxAtual->Posicao);
+        byte    BoxColuna       = DadosAcao->numColuna(BoxAtual->Posicao);
         box_t   BoxNovo         = {0, {0, 0, 0}};
 
         switch (DeslocamentoAlvo)
@@ -971,7 +1162,6 @@ box_t AcaoBox::getPosicaoBoxByAlvo(BoxDadosAcao *DadosAcao, box_t BoxAtual, eBox
 
 }
 
-
 void AcaoBox::moveSnake(BoxDadosAcao *DadosAcao, snake_t snake)  {
 
     byte    Linha                   = 0;
@@ -983,26 +1173,29 @@ void AcaoBox::moveSnake(BoxDadosAcao *DadosAcao, snake_t snake)  {
     float   PercentualCalibrador    = (100 / (snake.Arrasto + 1)) / 100;
     float   Percentual              = 0.0L;
 
-    float  RShow           = 0;
-    float  GShow           = 0;
-    float  BShow           = 0;
+    float  RShow           = snake.Corpo[0].RGB.R;
+    float  GShow           = snake.Corpo[0].RGB.G;
+    float  BShow           = snake.Corpo[0].RGB.B;
 
     for (byte posicao = 0; posicao < snake.Arrasto; posicao++)
     {
-
-        RShow = R * Percentual;
-        GShow = G * Percentual;
-        BShow = B * Percentual;
 
         Linha = DadosAcao->numLinha(snake.Corpo[posicao].Posicao);
         Coluna = DadosAcao->numColuna(snake.Corpo[posicao].Posicao);
 
         _Leds.setPixelColor(PosicaoBoxCellInvertido(Linha, Coluna), _Leds.Color(GShow, RShow, BShow));
 
+        RShow = R * Percentual;
+        GShow = G * Percentual;
+        BShow = B * Percentual;
+
         Percentual = Percentual + PercentualCalibrador;
 
     }
     
+    Linha = DadosAcao->numLinha(snake.Corpo[snake.Arrasto].Posicao);
+    Coluna = DadosAcao->numColuna(snake.Corpo[snake.Arrasto].Posicao);
+
     _Leds.setPixelColor(PosicaoBoxCellInvertido(Linha, Coluna), _Leds.Color(G, R, B));
     
     showLeds(150);

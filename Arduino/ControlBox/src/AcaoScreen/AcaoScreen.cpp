@@ -116,13 +116,13 @@ void AcaoScreen::ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcaoBox Acao = eA
 }
 
 /* @deprecated modo antigo */
-void AcaoScreen::ledsTematico(BoxDadosAcao *DadosAcao, eBoxTematico Tema) {
+// void AcaoScreen::ledsTematico(BoxDadosAcao *DadosAcao, eBoxTematico Tema) {
 
-    _box.iniciarMapaBox();
-    _box.boxAcaoTematico(Tema, DadosAcao);
-    while(acaoAtiva());
+//     _box.iniciarMapaBox();
+//     _box.boxAcaoTematico(Tema, DadosAcao);
+//     while(acaoAtiva());
 
-}
+// }
 
 void AcaoScreen::ledsTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte sizeBoxes) {
 
@@ -131,7 +131,6 @@ void AcaoScreen::ledsTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte 
     while(acaoAtiva());
 
 }
-
 
 #pragma region Rotinas para a ação Cascata
 
@@ -354,56 +353,217 @@ void AcaoScreen::randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer) {
 
 #pragma endregion
 
+#pragma region Rotinas para ação Snake
+
+void AcaoScreen::inicializarSnake(BoxDadosAcao *DadosAcao, snake_t *snake) {
+
+    byte incremento     = 0;
+
+    boxRGB_t BoxRGB     = _box.getBoxRGB(DadosAcao, DadosAcao->converteLinhaColuna(6, 8));
+
+    snake->Arrasto      = 1;
+
+    for (byte posicao = 0; posicao < 2; posicao++)
+    {
+        snake->Corpo[posicao].Posicao  = DadosAcao->converteLinhaColuna(6 + incremento, 8);
+        snake->Corpo[posicao].RGB = BoxRGB;    
+
+        // BoxRGB.R    = DadosAcao->getGammaR();
+        // BoxRGB.G    = DadosAcao->getGammaG();
+        // BoxRGB.B    = DadosAcao->getGammaB();
+        incremento++;
+    }
+
+}
+
 void AcaoScreen::ledsHunter(BoxDadosAcao *DadosAcao) {
 
-    byte    CorpoSnakeMax   = _CorpoSnakeMax_;
 
-    alvo_t  alvo            = {0, {0,0,0}};
-    snake_t snake;
-    box_t   BoxNovo         = {0, {0,0,0}};
+    Serial.print(F("\nAcaoScreen::ledsHunter"));
 
-    snake.Arrasto                       = 1;
-    snake.Corpo[snake.Arrasto].Posicao  = DadosAcao->converteLinhaColuna(7, 8);
-    snake.Corpo[snake.Arrasto].RGB.R    = DadosAcao->getGammaR();
-    snake.Corpo[snake.Arrasto].RGB.G    = DadosAcao->getGammaG();
-    snake.Corpo[snake.Arrasto].RGB.B    = DadosAcao->getGammaB();
+    _box.todosLedsAcesos(20, 20, 20);
 
-    alvo = _box.getAlvoBox(DadosAcao, snake.Corpo[snake.Arrasto].Posicao);
+    byte        CorpoSnakeMax   = _CorpoSnakeMax_;
+
+    alvo_t      alvo            = {0, {0,0,0}};
+    box_t       BoxNovo         = {0, {0,0,0}};
+    boxRGB_t    RGBAlvo         = {255, 20, 50};
+    snake_t     snake;
+    bool        deslocaArrasto  = true;
+
+    inicializarSnake(DadosAcao, &snake);
+
+    Serial.print(F("\nsnake.Corpo[snake.Arrasto].Posicao\t|")), Serial.print(snake.Corpo[snake.Arrasto].Posicao);
+    Serial.print(F("\nsnake.Corpo[snake.Arrasto].RGB.R\t|")), Serial.print(snake.Corpo[snake.Arrasto].RGB.R);
+    Serial.print(F("\nsnake.Corpo[snake.Arrasto].RGB.B\t|")), Serial.print(snake.Corpo[snake.Arrasto].RGB.G);
+    Serial.print(F("\nsnake.Corpo[snake.Arrasto].RGB.B\t|")), Serial.print(snake.Corpo[snake.Arrasto].RGB.B);
+
+    // alvo = _box.getAlvoBox(DadosAcao, snake.Corpo[snake.Arrasto].Posicao);
+    alvo = buscarNovoAlvo(DadosAcao, &snake);
+
+    _box.showAlvo(DadosAcao, alvo, RGBAlvo);
+    // _box.showCabecaSnake(DadosAcao, &snake);
+
+
+
+    Serial.print(F("\nalvo.Posicao\t|")),   Serial.print(alvo.Posicao), Serial.print(F("|"));
+    Serial.print(F("\nalvo.RGB.R\t|")),     Serial.print(alvo.RGB.R),   Serial.print(F("|"));
+    Serial.print(F("\nalvo.RGB.B\t|")),     Serial.print(alvo.RGB.G),   Serial.print(F("|"));
+    Serial.print(F("\nalvo.RGB.B\t|")),     Serial.print(alvo.RGB.B),   Serial.print(F("|"));
+    
+    Serial.print(F("\n\n-------INICIANDO LOOP -----------------\n\n"));
+
 
     while (acaoAtiva())
     {
 
-        _box.moveSnake(DadosAcao, snake);
-    
-        BoxNovo = _box.getPosicaoBoxByAlvo(DadosAcao, 
-                                           snake.Corpo[snake.Arrasto], 
-                                           _box.deslocamentoBox(DadosAcao, 
-                                                                alvo.Posicao,
-                                                                snake.Corpo[snake.Arrasto].Posicao
-                                            )
-                   );
+  
+        BoxNovo = buscarNovaPosicao(DadosAcao, &snake, &alvo);
+
+        Serial.print(F("\nsnake.Arrasto\t|")),     Serial.print(snake.Arrasto),   Serial.print(F("|"));
+
+        Serial.print(F("\nBoxNovo.Posicao.Linha\t|")),     Serial.print(DadosAcao->numLinha(BoxNovo.Posicao)),   Serial.print(F("|"));
+        Serial.print(F("\nBoxNovo.Posicao.Coluna\t|")),     Serial.print(DadosAcao->numColuna(BoxNovo.Posicao)),   Serial.print(F("|"));
+
+        Serial.print(F("\ndeslocaArrasto\t|")),     Serial.print(deslocaArrasto),   Serial.print(F("|"));
+        Serial.print(F("\n\n------------------------\n\n"));
+
+        // Serial.print(F("-- Descarregando Corpo Snake (Antes Deslocamento) --"));
+
+        // Serial.print(F("\nsnake.Arrasto\t|")),     Serial.print(snake.Arrasto),   Serial.print(F("|"));
+        // for (byte posicao = 0; posicao <= snake.Arrasto; posicao++)
+        // {
+        //     Serial.print(F("\nsnake.Corpo[")),
+        //     Serial.print(posicao),
+        //     Serial.print(F("].Posicao.Linha\t|")),
+        //     Serial.print(DadosAcao->numLinha(snake.Corpo[posicao].Posicao)),
+        //     Serial.print(F("|"));
+
+        //     Serial.print(F("\nsnake.Corpo[")),
+        //     Serial.print(posicao),
+        //     Serial.print(F("].Posicao.Coluna\t|")),
+        //     Serial.print(DadosAcao->numColuna(snake.Corpo[posicao].Posicao)),
+        //     Serial.print(F("|"));
+
+        // }
+        
+        // Serial.print(F("\n\n-------- FIM -----------\n\n"));
 
 
-        if(BoxNovo.Posicao == alvo.Posicao) {
-            // Acertou o alvo
-            // Gerara novo alvo
-            alvo = _box.getAlvoBox(DadosAcao, snake.Corpo[snake.Arrasto].Posicao);
-            
-            // Aumenta o arrasto
-            if(snake.Arrasto <= CorpoSnakeMax) {
-                snake.Arrasto++;
-            } else {
-                // Shift posicao -1 no Snake
-                descerPosicaoSnake(&snake);
-            }
+        if(deslocaArrasto) descerPosicaoSnake(&snake);
 
-        } else {
-            // Não acertou o alvo
 
-            descerPosicaoSnake(&snake);
-        }
+        // Serial.print(F("-- Descarregando Corpo Snake (Apos Deslocamento) --"));
+
+        // Serial.print(F("\nsnake.Arrasto\t|")),     Serial.print(snake.Arrasto),   Serial.print(F("|"));
+        // for (byte posicao = 0; posicao <= snake.Arrasto; posicao++)
+        // {
+        //     Serial.print(F("\nsnake.Corpo[")),
+        //     Serial.print(posicao),
+        //     Serial.print(F("].Posicao.Linha\t|")),
+        //     Serial.print(DadosAcao->numLinha(snake.Corpo[posicao].Posicao)),
+        //     Serial.print(F("|"));
+
+        //     Serial.print(F("\nsnake.Corpo[")),
+        //     Serial.print(posicao),
+        //     Serial.print(F("].Posicao.Coluna\t|")),
+        //     Serial.print(DadosAcao->numColuna(snake.Corpo[posicao].Posicao)),
+        //     Serial.print(F("|"));
+
+        // }
+        
+        // Serial.print(F("\n\n-------- FIM -----------\n\n"));
+
 
         snake.Corpo[snake.Arrasto] = BoxNovo;
+
+
+        // Serial.print(F("-- Descarregando Corpo Snake (Apos Deslocamento e NovoBox) --"));
+
+        // Serial.print(F("\nsnake.Arrasto\t|")),     Serial.print(snake.Arrasto),   Serial.print(F("|"));
+        // for (byte posicao = 0; posicao <= snake.Arrasto; posicao++)
+        // {
+        //     Serial.print(F("\nsnake.Corpo[")),
+        //     Serial.print(posicao),
+        //     Serial.print(F("].Posicao.Linha\t|")),
+        //     Serial.print(DadosAcao->numLinha(snake.Corpo[posicao].Posicao)),
+        //     Serial.print(F("|"));
+
+        //     Serial.print(F("\nsnake.Corpo[")),
+        //     Serial.print(posicao),
+        //     Serial.print(F("].Posicao.Coluna\t|")),
+        //     Serial.print(DadosAcao->numColuna(snake.Corpo[posicao].Posicao)),
+        //     Serial.print(F("|"));
+
+        // }
+        
+        // Serial.print(F("\n\n-------- FIM -----------\n\n"));
+
+
+        Serial.print(F("\n\n-------- Movendo Snake -----------\n\n"));
+
+        _box.moveSnake(DadosAcao, snake);
+
+        // Serial.print(F("\n\n-------- Snake Movido -----------\n\n"));
+
+        deslocaArrasto = true;          // Desloca sempre que não acertar o alvo
+
+
+        // delay(500);
+
+        if(BoxNovo.Posicao == alvo.Posicao) {
+
+            Serial.print(F("\n\n-------- Alvo Encontrado -----------\n\n"));
+
+            // Acertou o alvo
+            // Gerara novo alvo
+
+            // Antes de gerar um novo alvo, o alvo deve passar o RGB original
+            // Guarda o RGB original do quadro
+            snake.Corpo[snake.Arrasto].RGB = alvo.RGB;
+
+            // alvo = _box.getAlvoBox(DadosAcao, snake.Corpo[snake.Arrasto].Posicao);
+            alvo = buscarNovoAlvo(DadosAcao, &snake);
+
+            _box.showAlvo(DadosAcao, alvo, RGBAlvo);
+
+            // Aumenta o arrasto
+            if(snake.Arrasto <= CorpoSnakeMax) {
+                deslocaArrasto = false;
+                snake.Arrasto++;
+                snake.Corpo[snake.Arrasto] = BoxNovo;       // Garantir q a nova posição tenha o valor do último box
+
+            }
+
+        } 
+
+        // Serial.print(F("\n\n -- Aguardando comando --\n\n"));
+        // while(!Serial.available());
+        // byte dado = (byte)Serial.parseInt();
+
+
+        // if(BoxNovo.Posicao == alvo.Posicao) {
+        //     // Acertou o alvo
+        //     // Gerara novo alvo
+        //     alvo = _box.getAlvoBox(DadosAcao, snake.Corpo[snake.Arrasto].Posicao);
+
+        //     _box.showAlvo(DadosAcao, alvo, RGBAlvo);
+
+        //     // Aumenta o arrasto
+        //     if(snake.Arrasto <= CorpoSnakeMax) {
+        //         snake.Arrasto++;
+        //     } else {
+        //         // Shift posicao -1 no Snake
+        //         descerPosicaoSnake(&snake);
+        //     }
+
+        // } else {
+        //     // Não acertou o alvo
+
+        //     descerPosicaoSnake(&snake);
+        // }
+
+        // snake.Corpo[snake.Arrasto] = BoxNovo;
 
     }
 
@@ -416,22 +576,141 @@ void AcaoScreen::descerPosicaoSnake(snake_t *snake) {
     {
         snake->Corpo[posicao].Posicao   = snake->Corpo[posicao + 1].Posicao;
         snake->Corpo[posicao].RGB       = snake->Corpo[posicao + 1].RGB;
-
-        // snake->Corpo[posicao].RGB.R     = snake->Corpo[posicao + 1].RGB.R;
-        // snake->Corpo[posicao].RGB.G     = snake->Corpo[posicao + 1].RGB.G;
-        // snake->Corpo[posicao].RGB.B     = snake->Corpo[posicao + 1].RGB.B;
     }
 
     // Limpa a posição cabeça
     snake->Corpo[snake->Arrasto].Posicao    = 0;
     snake->Corpo[snake->Arrasto].RGB        = {0, 0, 0};
 
+}
 
-    // snake->Corpo[snake->Arrasto].RGB.R     = 0;
-    // snake->Corpo[snake->Arrasto].RGB.G     = 0;
-    // snake->Corpo[snake->Arrasto].RGB.B     = 0;
+box_t AcaoScreen::buscarNovaPosicao(BoxDadosAcao *DadosAcao, snake_t *snake, alvo_t *alvo) {
 
+    box_t                       BoxNovo         = {0, {0,0,0}};
+    static eBoxMovimentoSnake   movimento;
+    static byte                 qtdeChamada;          
+
+    Serial.print(F("\nAcaoScreen::buscarNovaPosicao(movimento:"));
+    if(movimento == eBoxMovimentoSnake::semMovimento)   Serial.print(F("Sem Movimento"));
+    if(movimento == eBoxMovimentoSnake::boxColuna)      Serial.print(F("Movimento Coluna"));
+    if(movimento == eBoxMovimentoSnake::boxLinha)       Serial.print(F("Movimento Linha"));
+    Serial.print(F(")\n"));
+
+    if(movimento == eBoxMovimentoSnake::semMovimento) {
+        movimento = eBoxMovimentoSnake::boxColuna;
+        qtdeChamada = 0;
+    }
+
+    Serial.print(F("\nAcaoScreen::buscarNovaPosicao(movimento:"));
+    if(movimento == eBoxMovimentoSnake::semMovimento)   Serial.print(F("Sem Movimento"));
+    if(movimento == eBoxMovimentoSnake::boxColuna)      Serial.print(F("Movimento Coluna"));
+    if(movimento == eBoxMovimentoSnake::boxLinha)       Serial.print(F("Movimento Linha"));
+    Serial.print(F(")\n"));
+
+    Serial.print(F("\nsnake.Corpo[snake.Arrasto].Posicao\t|")), Serial.print(snake->Corpo[snake->Arrasto].Posicao);
+
+
+    BoxNovo = _box.getPosicaoBoxByAlvo(DadosAcao, 
+                                        &snake->Corpo[snake->Arrasto], 
+                                        _box.deslocamentoBox(DadosAcao, 
+                                                            alvo,
+                                                            snake,
+                                                            movimento
+                                        )
+                );
+    
+    if(BoxNovo.Posicao == snake->Corpo[snake->Arrasto - 2].Posicao) {
+
+        // qtdeChamada++;
+
+        Serial.print(F("\nNovaPosicao == pescoco Snake ("));
+        Serial.print(F("BoxNovo.Posicao:|")), Serial.print(BoxNovo.Posicao);
+        Serial.print(F("|)\n")), Serial.print(BoxNovo.Posicao);
+        Serial.print(F("\nsnake.Corpo[snake.Arrasto - 2].Posicao\t|")), Serial.print(snake->Corpo[snake->Arrasto - 2].Posicao);
+
+        if(movimento == eBoxMovimentoSnake::boxColuna)
+            movimento = eBoxMovimentoSnake::boxLinha;
+        else
+            movimento = eBoxMovimentoSnake::boxColuna;
+
+        // if(qtdeChamada < 3) {
+    
+        //     buscarNovaPosicao(DadosAcao, snake, alvo);
+
+        // } else {
+
+        //     snake_t newSnake    = *snake;
+        //     byte Linha          = DadosAcao->numLinha(newSnake.Corpo[newSnake.Arrasto].Posicao);
+        //     byte Coluna         = DadosAcao->numColuna(newSnake.Corpo[newSnake.Arrasto].Posicao);
+
+        //     if(movimento == eBoxMovimentoSnake::boxColuna) {
+
+        //         if(((Linha + 1) <= 14) || ((Linha - 1) == 0)) {
+        //             Linha++;
+        //         } else if((Linha - 1) > 1) {
+        //             Linha--;
+        //         }
+        //         movimento = eBoxMovimentoSnake::boxLinha;
+
+        //     } else {
+
+        //         if(((Coluna + 1) <= 15) || ((Coluna - 1) == 0)) {
+        //             Coluna++;
+        //         } else if((Coluna - 1) > 1) {
+        //             Coluna--;
+        //         }
+        //         movimento = eBoxMovimentoSnake::boxColuna;
+
+        //     }
+
+        //     newSnake.Corpo[newSnake.Arrasto].Posicao = DadosAcao->converteLinhaColuna(Linha, Coluna);
+
+        //     buscarNovaPosicao(DadosAcao, &newSnake, alvo);
+
+        // }
+
+    } // else {
+    //     qtdeChamada = 0;
+    // }
+
+    Serial.print(F("\nsnake.Corpo[snake.Arrasto].Posicao\t|")), Serial.print(snake->Corpo[snake->Arrasto].Posicao);
+
+    byte parteDoCorpo = procurarCorpoSnake(&BoxNovo, snake);
+
+    if(parteDoCorpo > 0) 
+        BoxNovo.RGB = snake->Corpo[parteDoCorpo].RGB;
+
+    return BoxNovo;
 
 }
 
+alvo_t AcaoScreen::buscarNovoAlvo(BoxDadosAcao *DadosAcao, snake_t *snake) {
+
+    alvo_t      alvo            = {0, {0,0,0}};
+
+    alvo = _box.getAlvoBox(DadosAcao, snake->Corpo[snake->Arrasto].Posicao);
+
+    byte alvoNoCorpo = procurarCorpoSnake(&alvo, snake);
+
+    if(alvoNoCorpo) 
+        alvo = buscarNovoAlvo(DadosAcao, snake);
+
+    return alvo;
+
+}
+
+byte AcaoScreen::procurarCorpoSnake(box_t *Box, snake_t *snake) {
+
+    for (byte posicao = 1; posicao < snake->Arrasto; posicao++)
+    {
+        
+        if(Box->Posicao == snake->Corpo[posicao].Posicao)
+            return posicao;
+    }
+    return 0;
+
+}
+
+
+#pragma endregion
 
