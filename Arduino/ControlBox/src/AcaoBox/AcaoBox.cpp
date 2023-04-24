@@ -329,7 +329,7 @@ void AcaoBox::boxAcaoTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte 
     byte Linha                      = 0;
     byte Coluna                     = 0;
 
-    iniciarMapaBox();                   // Limpa
+    iniciarMapaBox();                                           // Limpa
 
     for (byte item = 0; item < sizeBoxes; item++)
     {
@@ -898,7 +898,7 @@ void AcaoBox::showCabecaSnake(BoxDadosAcao *DadosAcao, snake_t *Snake) {
 
 alvo_t AcaoBox::getAlvoBox(BoxDadosAcao *DadosAcao, linCol PosicaoBox) {
 
-    Serial.print(F("\nAcaoBox::getAlvoBox()"));
+    // Serial.print(F("\nAcaoBox::getAlvoBox()"));
 
 
     long        valor       = random();
@@ -910,11 +910,10 @@ alvo_t AcaoBox::getAlvoBox(BoxDadosAcao *DadosAcao, linCol PosicaoBox) {
 
     randomSeed(valor);                               // Necessário para indicar um ponto de inicialização aleatório
 
+    // Serial.print(F("\nvalor para randomSeed\t|")),     Serial.print(valor),   Serial.print(F("|"));
 
-    Serial.print(F("\nvalor para randomSeed\t|")),     Serial.print(valor),   Serial.print(F("|"));
-
-    Serial.print(F("\n_qtdLinhas\t|")),     Serial.print(_qtdLinhas),   Serial.print(F("|"));
-    Serial.print(F("\n_qtdColunas\t|")),     Serial.print(_qtdColunas),   Serial.print(F("|"));
+    // Serial.print(F("\n_qtdLinhas\t|")),     Serial.print(_qtdLinhas),   Serial.print(F("|"));
+    // Serial.print(F("\n_qtdColunas\t|")),     Serial.print(_qtdColunas),   Serial.print(F("|"));
 
     // Serial.print(F("\nalvo.Posicao\t|")),   Serial.print(alvo.Posicao), Serial.print(F("|"));
     // Serial.print(F("\nalvo.RGB.R\t|")),     Serial.print(alvo.RGB.R),   Serial.print(F("|"));
@@ -922,19 +921,19 @@ alvo_t AcaoBox::getAlvoBox(BoxDadosAcao *DadosAcao, linCol PosicaoBox) {
     // Serial.print(F("\nalvo.RGB.B\t|")),     Serial.print(alvo.RGB.B),   Serial.print(F("|"));
 
 
-    Serial.print(F("\nAlvoLinCol == PosicaoBox\t|")),     Serial.print(AlvoLinCol == PosicaoBox),   Serial.print(F("|"));
+    // Serial.print(F("\nAlvoLinCol == PosicaoBox\t|")),     Serial.print(AlvoLinCol == PosicaoBox),   Serial.print(F("|"));
 
     while (AlvoLinCol == PosicaoBox)
     {
         AlvoLinha   = (byte)random(1, _qtdLinhas);
         AlvoColuna  = (byte)random(1, _qtdColunas);
 
-        Serial.print(F("\nAlvoLinha\t|")),      Serial.print(AlvoLinha),   Serial.print(F("|"));
-        Serial.print(F("\nAlvoColuna\t|")),     Serial.print(AlvoColuna),   Serial.print(F("|"));
+        // Serial.print(F("\nAlvoLinha\t|")),      Serial.print(AlvoLinha),   Serial.print(F("|"));
+        // Serial.print(F("\nAlvoColuna\t|")),     Serial.print(AlvoColuna),   Serial.print(F("|"));
 
         AlvoLinCol = DadosAcao->converteLinhaColuna(AlvoLinha, AlvoColuna);
 
-        Serial.print(F("\nAlvoLinCol\t|")),     Serial.print(AlvoLinCol),   Serial.print(F("|"));
+        // Serial.print(F("\nAlvoLinCol\t|")),     Serial.print(AlvoLinCol),   Serial.print(F("|"));
 
     }
 
@@ -978,7 +977,7 @@ eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, linCol Alvo, linCo
 /* @deprecated metodo antigo */
 eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snake_t *snake) {
 
-    Serial.print(F("\nAcaoBox::deslocamentoBox()"));
+    // Serial.print(F("\nAcaoBox::deslocamentoBox()"));
 
 
     if(Alvo->Posicao == snake->Corpo[snake->Arrasto].Posicao) {
@@ -993,22 +992,22 @@ eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snak
         byte BoxLinha       = DadosAcao->numLinha(snake->Corpo[snake->Arrasto].Posicao);
         byte BoxColuna      = DadosAcao->numColuna(snake->Corpo[snake->Arrasto].Posicao);
 
-        Serial.print(F("\nVerificando o deslocamento..."));
+        // Serial.print(F("\nVerificando o deslocamento..."));
 
 
         if( AlvoColuna < BoxColuna ) {
             //Alvo a esquerda
 
             if(DadosAcao->numColuna(snake->Corpo[snake->Arrasto - 1].Posicao) == (BoxColuna  - 1)) {
-                Serial.print(F("\n(Left) Linha Ante == Atual"));
+                // Serial.print(F("\n(Left) Linha Ante == Atual"));
 
 
                 if(AlvoLinha < BoxLinha) {
-                    Serial.print(F("\nMove para cima"));
+                    // Serial.print(F("\nMove para cima"));
                     return eBoxPosicao::boxTop;
 
                 } 
-                Serial.print(F("\nMove para baixo"));
+                // Serial.print(F("\nMove para baixo"));
                 return eBoxPosicao::boxBottom;
             }
 
@@ -1018,15 +1017,15 @@ eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snak
             // Alvo a Direita
 
             if(DadosAcao->numColuna(snake->Corpo[snake->Arrasto - 1].Posicao) == (BoxColuna + 1)) {
-                Serial.print(F("\n(Left) Linha Ante == Atual"));
+                // Serial.print(F("\n(Left) Linha Ante == Atual"));
 
 
                 if(AlvoLinha < BoxLinha) {
-                    Serial.print(F("\nMove para cima"));
+                    // Serial.print(F("\nMove para cima"));
                     return eBoxPosicao::boxTop;
 
                 } 
-                Serial.print(F("\nMove para baixo"));
+                // Serial.print(F("\nMove para baixo"));
                 return eBoxPosicao::boxBottom;
             }
 
@@ -1046,7 +1045,7 @@ eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snak
 
 eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snake_t *snake, eBoxMovimentoSnake movimento) {
 
-    Serial.print(F("\nAcaoBox::deslocamentoBox() New"));
+    // Serial.print(F("\nAcaoBox::deslocamentoBox() New"));
 
     if(Alvo->Posicao == snake->Corpo[snake->Arrasto].Posicao) {
 
@@ -1064,7 +1063,7 @@ eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snak
 
             // Movimentação baseado em Coluna
 
-            Serial.print(F("\nMovimento em Coluna..."));
+            // Serial.print(F("\nMovimento em Coluna..."));
 
             if( AlvoColuna < BoxColuna ) {
 
@@ -1086,7 +1085,7 @@ eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snak
         } else {
 
 
-            Serial.print(F("\nMovimento em Linha..."));
+            // Serial.print(F("\nMovimento em Linha..."));
 
             // Movimentação baseado em linha
 
@@ -1164,18 +1163,33 @@ box_t AcaoBox::getPosicaoBoxByAlvo(BoxDadosAcao *DadosAcao, box_t *BoxAtual, eBo
 
 void AcaoBox::moveSnake(BoxDadosAcao *DadosAcao, snake_t snake)  {
 
+    // Serial.print(F("\nAcaoBox::moveSnake()\n"));
+
     byte    Linha                   = 0;
     byte    Coluna                  = 0;
     byte    R                       = DadosAcao->getGammaR();
     byte    G                       = DadosAcao->getGammaG();
     byte    B                       = DadosAcao->getGammaB();
 
-    float   PercentualCalibrador    = (100 / (snake.Arrasto + 1)) / 100;
-    float   Percentual              = 0.0L;
+    float   PercentualCalibrador    = ((float)(100.0 / (snake.Arrasto + 1)) / 100.0);
+    float   Percentual              = 0.05L;
 
+    // Serial.print(F("\nsnake.Arrasto + 1\t|")),     Serial.print(snake.Arrasto + 1),   Serial.print(F("|"));
+    // Serial.print(F("\nPercentualCalibrador\t|")),     Serial.print(PercentualCalibrador),   Serial.print(F("|"));
+    // Serial.print(F("\nPercentual\t|")),     Serial.print(Percentual),   Serial.print(F("|"));
+
+    // Serial.print(F("\n\n------------------------\n\n"));
+
+    //Efeito cobra
     float  RShow           = snake.Corpo[0].RGB.R;
     float  GShow           = snake.Corpo[0].RGB.G;
     float  BShow           = snake.Corpo[0].RGB.B;
+
+
+    //Efeito lesma deixa rastro
+    // float  RShow           = R * Percentual;
+    // float  GShow           = G * Percentual;
+    // float  BShow           = B * Percentual;
 
     for (byte posicao = 0; posicao < snake.Arrasto; posicao++)
     {
@@ -1185,11 +1199,32 @@ void AcaoBox::moveSnake(BoxDadosAcao *DadosAcao, snake_t snake)  {
 
         _Leds.setPixelColor(PosicaoBoxCellInvertido(Linha, Coluna), _Leds.Color(GShow, RShow, BShow));
 
+        // Serial.print(F("\nRShow\t|")),     Serial.print(RShow),   Serial.print(F("|"));
+        // Serial.print(F("\nGShow\t|")),     Serial.print(GShow),   Serial.print(F("|"));
+        // Serial.print(F("\nBShow\t|")),     Serial.print(BShow),   Serial.print(F("|"));
+
+        // Serial.print(F("\n\n------------------------\n\n"));
+
         RShow = R * Percentual;
         GShow = G * Percentual;
         BShow = B * Percentual;
 
+        // Serial.print(F("\nsnake.Corpo[")),     Serial.print(posicao);
+        // Serial.print(F("].RGB.R\t|")),     Serial.print(snake.Corpo[0].RGB.R),   Serial.print(F("|"));
+
+        // Serial.print(F("\nsnake.Corpo[")),     Serial.print(posicao);
+        // Serial.print(F("].RGB.G\t|")),     Serial.print(snake.Corpo[0].RGB.G),   Serial.print(F("|"));
+
+        // Serial.print(F("\nsnake.Corpo[")),     Serial.print(posicao);
+        // Serial.print(F("].RGB.B\t|")),     Serial.print(snake.Corpo[0].RGB.B),   Serial.print(F("|"));
+
         Percentual = Percentual + PercentualCalibrador;
+
+        // Serial.print(F("\nPercentualCalibrador\t|")),     Serial.print(PercentualCalibrador),   Serial.print(F("|"));
+        // Serial.print(F("\nPercentual\t|")),     Serial.print(Percentual),   Serial.print(F("|"));
+
+        // Serial.print(F("\n\n------------------------\n\n"));
+
 
     }
     

@@ -305,12 +305,15 @@ void ScreenBoxCar::carregarBoxesTemaEEPROMCompartilhada(eAcaoBox CodeAcao) {
         // nexSerial.print(F("ScreenBoxCar::lerEEPROMIno"));
         // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
 
-        acao.lerDadosTemaBat(Boxes, posicaoTema);
+        byte QtdeBoxTema = acao.lerDadosTemaBat(Boxes, posicaoTema);
 
-        eeprom.setTemaOnMemory(Boxes, sizeBoxes);
+        eeprom.setTemaOnMemory(Boxes, sizeBoxes, QtdeBoxTema);
+
+    } else {
+
+        eeprom.limparQtdeTema();                      // limpa o endereço de quantidade por não existir tema
 
     }
-
 
 }
 
