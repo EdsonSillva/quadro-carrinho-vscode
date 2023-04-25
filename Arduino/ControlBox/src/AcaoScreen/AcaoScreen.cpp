@@ -234,7 +234,8 @@ void AcaoScreen::inicializaCascata() {
         pItemCascata->Coluna        = colunas[item];
         pItemCascata->Linha         = random(-3, 2);
         pItemCascata->LinhaInicial  = pItemCascata->Linha;
-        pItemCascata->Arrasto       = random(7,  10);
+        pItemCascata->Arrasto       = random(7,  14);
+        // pItemCascata->Arrasto       = random(7,  10);
         pItemCascata->Percentual    = 100 / pItemCascata->Arrasto;      // percentual usado para fazer o arrasto
         pItemCascata->Finalizado    = false;
 

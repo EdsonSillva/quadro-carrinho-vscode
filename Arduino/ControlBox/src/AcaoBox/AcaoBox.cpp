@@ -925,8 +925,11 @@ alvo_t AcaoBox::getAlvoBox(BoxDadosAcao *DadosAcao, linCol PosicaoBox) {
 
     while (AlvoLinCol == PosicaoBox)
     {
-        AlvoLinha   = (byte)random(1, _qtdLinhas);
-        AlvoColuna  = (byte)random(1, _qtdColunas);
+        AlvoLinha   = (byte)random(1, _qtdLinhas + 1);
+        AlvoColuna  = (byte)random(1, _qtdColunas + 1);
+
+        AlvoLinha   = AlvoLinha  > 14 ? 14 : AlvoLinha;
+        AlvoColuna  = AlvoColuna > 15 ? 15 : AlvoColuna;
 
         // Serial.print(F("\nAlvoLinha\t|")),      Serial.print(AlvoLinha),   Serial.print(F("|"));
         // Serial.print(F("\nAlvoColuna\t|")),     Serial.print(AlvoColuna),   Serial.print(F("|"));

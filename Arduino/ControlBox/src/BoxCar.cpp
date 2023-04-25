@@ -66,11 +66,6 @@ void BoxCar::executarAcao(eAcaoBox CodigoAcao) {
     switch (CodigoAcao)
     {
 
-    case 154:
-
-        acaoScreen.ledsHunter(&dadosAcao);
-        break;
-
     case eAcaoBox::semAcao:
 
         acaoBox.todosLedsApagados();
@@ -99,6 +94,11 @@ void BoxCar::executarAcao(eAcaoBox CodigoAcao) {
     case eAcaoBox::acaoCascata:
 
         acaoScreen.ledsAcaoCascata(&dadosAcao);
+        break;
+
+    case eAcaoBox::acaoSnake:
+
+        acaoScreen.ledsHunter(&dadosAcao);
         break;
 
     case eAcaoBox::acaoMsg:
