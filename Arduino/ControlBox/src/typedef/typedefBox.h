@@ -55,6 +55,7 @@ typedef struct {
 typedef struct {
     byte        Arrasto;
     box_t       Corpo[12];
+    boxRGB_t    CorFundo;
 } snake_t;
 
 typedef box_t alvo_t;

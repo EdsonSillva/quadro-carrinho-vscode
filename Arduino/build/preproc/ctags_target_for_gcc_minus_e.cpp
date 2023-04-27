@@ -69,6 +69,7 @@
 void setup();
 void loop();
 
+void (*Reset)() = 0; // Função de Reset apontando para o endereço 0 do microcontrolador
 
 BoxCar box = BoxCar();
 

@@ -356,7 +356,8 @@ void AcaoScreen::inicializarSnake(BoxDadosAcao *DadosAcao, snake_t *snake) {
 
     byte incremento     = 0;
 
-    boxRGB_t BoxRGB     = _box.getBoxRGB(DadosAcao, DadosAcao->converteLinhaColuna(6, 8));
+    // boxRGB_t BoxRGB     = _box.getBoxRGB(DadosAcao, DadosAcao->converteLinhaColuna(6, 8));
+    boxRGB_t BoxRGB     = snake->CorFundo;
 
     snake->Arrasto      = 1;
 
@@ -373,8 +374,6 @@ void AcaoScreen::ledsHunter(BoxDadosAcao *DadosAcao) {
 
     // Serial.print(F("\nAcaoScreen::ledsHunter"));
 
-    _box.todosLedsAcesos(20, 20, 20);
-
     byte        CorpoSnakeMax   = _CorpoSnakeMax_;
 
     alvo_t      alvo            = {0, {0,0,0}};
@@ -382,6 +381,9 @@ void AcaoScreen::ledsHunter(BoxDadosAcao *DadosAcao) {
     boxRGB_t    RGBAlvo         = {255, 20, 50};
     snake_t     snake;
     bool        deslocaArrasto  = true;
+    snake.CorFundo              = {20, 20, 20};
+
+    _box.todosLedsAcesos(snake.CorFundo.R, snake.CorFundo.G, snake.CorFundo.B);
 
     inicializarSnake(DadosAcao, &snake);
 
@@ -517,6 +519,7 @@ void AcaoScreen::ledsHunter(BoxDadosAcao *DadosAcao) {
 
             // Aumenta o arrasto
             if(snake.Arrasto <= CorpoSnakeMax) {
+                
                 deslocaArrasto = false;
                 snake.Arrasto++;
                 snake.Corpo[snake.Arrasto] = BoxNovo;       // Garantir q a nova posição tenha o valor do último box
@@ -576,7 +579,7 @@ box_t AcaoScreen::buscarNovaPosicao(BoxDadosAcao *DadosAcao, snake_t *snake, alv
 
     box_t                       BoxNovo         = {0, {0,0,0}};
     static eBoxMovimentoSnake   movimento;
-    static byte                 qtdeChamada;          
+    // static byte                 qtdeChamada;          
 
     // Serial.print(F("\nAcaoScreen::buscarNovaPosicao(movimento:"));
     // if(movimento == eBoxMovimentoSnake::semMovimento)   Serial.print(F("Sem Movimento"));
@@ -586,7 +589,7 @@ box_t AcaoScreen::buscarNovaPosicao(BoxDadosAcao *DadosAcao, snake_t *snake, alv
 
     if(movimento == eBoxMovimentoSnake::semMovimento) {
         movimento = eBoxMovimentoSnake::boxColuna;
-        qtdeChamada = 0;
+        // qtdeChamada = 0;
     }
 
     // Serial.print(F("\nAcaoScreen::buscarNovaPosicao(movimento:"));

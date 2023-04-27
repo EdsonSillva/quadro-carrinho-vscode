@@ -1183,11 +1183,14 @@ void AcaoBox::moveSnake(BoxDadosAcao *DadosAcao, snake_t snake)  {
 
     // Serial.print(F("\n\n------------------------\n\n"));
 
-    //Efeito cobra
-    float  RShow           = snake.Corpo[0].RGB.R;
-    float  GShow           = snake.Corpo[0].RGB.G;
-    float  BShow           = snake.Corpo[0].RGB.B;
+    //Efeito cobra (Este trecho de código está dando erro intermitente de apagar o fundo do quadro)
+    // float  RShow           = snake.Corpo[0].RGB.R;
+    // float  GShow           = snake.Corpo[0].RGB.G;
+    // float  BShow           = snake.Corpo[0].RGB.B;
 
+    float  RShow           = snake.CorFundo.R;
+    float  GShow           = snake.CorFundo.G;
+    float  BShow           = snake.CorFundo.B;
 
     //Efeito lesma deixa rastro
     // float  RShow           = R * Percentual;
