@@ -33,15 +33,16 @@ void loop() { }
 
 #else
 
+#include <Arduino.h>
 #include <Nextion.h>
 #include <BoxEEPROM.h>
 #include <BoxDadosAcao.h>
 #include <BoxBuzzerCar.h>
 #include <dht.h>
 #include <DS3231.h>
-#include <Arduino.h>
 #include <EEPROM.h>
 #include "src/ScreenBoxCar.h"
+#include <SD.h>
 
 /**
  * Definição das funções utilizadas no projeto

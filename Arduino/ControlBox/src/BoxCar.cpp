@@ -98,7 +98,7 @@ void BoxCar::executarAcao(eAcaoBox CodigoAcao) {
 
     case eAcaoBox::acaoSnake:
 
-        acaoScreen.ledsHunter(&dadosAcao);
+        acaoScreen.ledsAcaoSnake(&dadosAcao);
         break;
 
     case eAcaoBox::acaoMsg:

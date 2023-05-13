@@ -20,6 +20,8 @@
 #endif
 
 
+#define _CorpoSnake_    22      // Era 12
+
 typedef void (*funcAcaoClass_t)(bool, byte, BoxDadosAcao);
 typedef void (*FuncAcaoVoid)(bool, byte, byte, byte, byte);
 typedef void (*FuncAcao)(bool, BoxDadosAcao);
@@ -54,7 +56,7 @@ typedef struct {
 
 typedef struct {
     byte        Arrasto;
-    box_t       Corpo[12];
+    box_t       Corpo[_CorpoSnake_];
     boxRGB_t    CorFundo;
 } snake_t;
 

@@ -1,6 +1,6 @@
 /*
     Módulo para configurar e ler a data, hora, humidade e temperatura do DS3231
-    Pino I2C: SDA(4) e SCL(5) 
+    Pino I2C: SDA(A4) e SCL(A5) 
     
     Desenvolvido por Edson Silva
     Date: 13/05/18

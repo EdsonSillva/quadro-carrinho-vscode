@@ -28,7 +28,7 @@ void AcaoScreen::ledsAcesos(BoxDadosAcao *DadosAcao) {
 
     bool EmAcao  = true;
 
-    Serial.print(F(" [Entrei na Funcao | "));
+    // Serial.print(F(" [Entrei na Funcao | "));
 
     setLeds(DadosAcao);
     while(EmAcao) {                     // Aguarda o cancelamento da ação 
@@ -36,7 +36,7 @@ void AcaoScreen::ledsAcesos(BoxDadosAcao *DadosAcao) {
         EmAcao = acaoAtiva();
     }
 
-    Serial.print(F("Saindo da Funcao] "));
+    // Serial.print(F("Saindo da Funcao] "));
 
 }
 
@@ -48,7 +48,7 @@ void AcaoScreen::ledsXadrezFade(BoxDadosAcao *DadosAcao) {
 
     _tmpWaitRotina = 11000;
 
-    Serial.print(F(" [Entrei na Funcao | "));
+    // Serial.print(F(" [Entrei na Funcao | "));
 
     while(acaoAtiva()) {                     // Aguarda o cancelamento da ação 
 
@@ -69,7 +69,7 @@ void AcaoScreen::ledsXadrezFade(BoxDadosAcao *DadosAcao) {
 
     }
 
-    Serial.print(F("Saindo da Funcao] "));
+    // Serial.print(F("Saindo da Funcao] "));
 }
 
 void AcaoScreen::mensagem(BoxDadosAcao *DadosAcao, byte LinhaShow) {
@@ -116,9 +116,9 @@ void AcaoScreen::ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcaoBox Acao = eA
 
 void AcaoScreen::ledsTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte sizeBoxes) {
 
-    Serial.print(F("\nAcaoScreen::ledsTematicoByItem()"));
+    // Serial.print(F("\nAcaoScreen::ledsTematicoByItem()"));
 
-    Serial.print(F("\nsizeBoxes:|")), Serial.print(sizeBoxes), Serial.print(F("|\n"));
+    // Serial.print(F("\nsizeBoxes:|")), Serial.print(sizeBoxes), Serial.print(F("|\n"));
 
     if (sizeBoxes > 0) {
         _box.boxAcaoTematicoByItem(DadosAcao, Boxes, sizeBoxes);
@@ -370,7 +370,7 @@ void AcaoScreen::inicializarSnake(BoxDadosAcao *DadosAcao, snake_t *snake) {
 
 }
 
-void AcaoScreen::ledsHunter(BoxDadosAcao *DadosAcao) {
+void AcaoScreen::ledsAcaoSnake(BoxDadosAcao *DadosAcao) {
 
     // Serial.print(F("\nAcaoScreen::ledsHunter"));
 
@@ -701,6 +701,20 @@ byte AcaoScreen::procurarCorpoSnake(box_t *Box, snake_t *snake) {
             return posicao;
     }
     return 0;
+
+}
+
+void AcaoScreen::entrarNaToca(BoxDadosAcao *DadosAcao, snake_t *snake) {
+
+    for (byte fimArrasto = 0; fimArrasto > snake->Arrasto; fimArrasto++)
+    {
+        
+        _box.moveSnakeToca(DadosAcao, snake, fimArrasto);
+
+        
+    }
+    
+
 
 }
 

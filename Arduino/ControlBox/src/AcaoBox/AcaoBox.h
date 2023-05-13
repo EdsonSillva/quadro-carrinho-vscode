@@ -181,24 +181,10 @@ public:
     void showAlvo(BoxDadosAcao *DadosAcao, alvo_t Alvo, boxRGB_t RGB);
     void showCabecaSnake(BoxDadosAcao *DadosAcao, snake_t *Snake);
     void moveSnake(BoxDadosAcao *DadosAcao, snake_t snake);
-
+    void moveSnakeToca(BoxDadosAcao *DadosAcao, snake_t *snake, byte FimArrasto);
 
     #pragma endregion
 
-    // Ação Cobrinha
-    /* Montar um arry de 16 posições
-       
-       fazer um loop ate a primeira posição
-       a posição zero fica fora e reseta pa a aluz de fundo
-       fazer o loop a primeira posição até o final
-       colocar um controle de arrasto e acresentar um arrasto a mais quando a 
-       cobrinha bater no ponto aleatório e se o ponto estiver com cor diferente da 
-       cobrinha mudar para a cor da cobrinha com a cor do ponto  
-
-
-
-
-    */
 
 };
 

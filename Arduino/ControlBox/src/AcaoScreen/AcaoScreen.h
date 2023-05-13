@@ -29,16 +29,12 @@
 #include "../enum/enumScreen.h"
 #endif
 
-// #ifndef __ENUMBOXTEMATICO_H__
-// #include "../enum/enumBoxTematico.h"
-// #endif
-
-// #ifndef __ENUMACAOLINHACOLUNA_H__
-// #include "../enum/enumAcao.h"
-// #endif
-
 #define     _pin_Controle_              12
+#ifdef _CorpoSnake_ 
+#define     _CorpoSnakeMax_             _CorpoSnake_ - 2
+#else
 #define     _CorpoSnakeMax_             10
+#endif
 
 class AcaoScreen
 {
@@ -70,12 +66,13 @@ public:
     void ledsAcaoCascata(BoxDadosAcao *DadosAcao);
 
     void inicializarSnake(BoxDadosAcao *DadosAcao, snake_t *snake);
-    void ledsHunter(BoxDadosAcao *DadosAcao);
+    void ledsAcaoSnake(BoxDadosAcao *DadosAcao);
     void descerPosicaoSnake(snake_t *snake);
 
     box_t buscarNovaPosicao(BoxDadosAcao *DadosAcao, snake_t *snake, alvo_t *alvo);
     alvo_t buscarNovoAlvo(BoxDadosAcao *DadosAcao, snake_t *snake);
     byte procurarCorpoSnake(box_t *Box, snake_t *snake);
+    void entrarNaToca(BoxDadosAcao *DadosAcao, snake_t *snake);
 
 };
 

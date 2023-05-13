@@ -829,9 +829,13 @@ void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t *itemCascata, by
 
         } else {        // Arrasto finalizado
 
-            RShow = luzFundo;
-            GShow = luzFundo;
-            BShow = luzFundo;
+            // RShow = luzFundo;
+            // GShow = luzFundo;
+            // BShow = luzFundo;
+
+            RShow = (byte)(R * 0.15);
+            GShow = (byte)(G * 0.15);
+            BShow = (byte)(B * 0.15);
 
         }
 
@@ -1238,6 +1242,47 @@ void AcaoBox::moveSnake(BoxDadosAcao *DadosAcao, snake_t snake)  {
     Coluna = DadosAcao->numColuna(snake.Corpo[snake.Arrasto].Posicao);
 
     _Leds.setPixelColor(PosicaoBoxCellInvertido(Linha, Coluna), _Leds.Color(G, R, B));
+    
+    showLeds(150);
+
+}
+
+void AcaoBox::moveSnakeToca(BoxDadosAcao *DadosAcao, snake_t *snake, byte FimArrasto) {
+
+    byte    Linha                   = 0;
+    byte    Coluna                  = 0;
+
+    float   PercentualCalibrador    = ((float)(100.0 / (snake->Arrasto + 1)) / 100.0);
+    float   Percentual              = 100.0L - PercentualCalibrador * FimArrasto;
+
+    byte    R                       = DadosAcao->getGammaR();
+    byte    G                       = DadosAcao->getGammaG();
+    byte    B                       = DadosAcao->getGammaB();
+
+    float  RShow                    = R;
+    float  GShow                    = G;
+    float  BShow                    = B;
+
+    for (byte posicao = snake->Arrasto; posicao <= FimArrasto + 1; posicao++)
+    {
+
+        RShow = R * Percentual;
+        GShow = G * Percentual;
+        BShow = B * Percentual;
+
+        Linha = DadosAcao->numLinha(snake->Corpo[posicao].Posicao);
+        Coluna = DadosAcao->numColuna(snake->Corpo[posicao].Posicao);
+
+        _Leds.setPixelColor(PosicaoBoxCellInvertido(Linha, Coluna), _Leds.Color(GShow, RShow, BShow));
+
+        Percentual = Percentual - PercentualCalibrador;
+
+    }
+
+    Linha = DadosAcao->numLinha(snake->Corpo[FimArrasto].Posicao);
+    Coluna = DadosAcao->numColuna(snake->Corpo[FimArrasto].Posicao);
+
+    _Leds.setPixelColor(PosicaoBoxCellInvertido(Linha, Coluna), _Leds.Color(snake->CorFundo.G, snake->CorFundo.R, snake->CorFundo.B));
     
     showLeds(150);
 
