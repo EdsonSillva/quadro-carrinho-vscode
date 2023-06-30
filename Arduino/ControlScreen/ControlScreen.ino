@@ -51,6 +51,8 @@ void loop() { }
 void setup();
 void loop();
 
+void (*ResetScreen)() = 0;            // Função de Reset apontando para o endereço 0 do microcontrolador
+
 ScreenBoxCar    screen                  = ScreenBoxCar();
 byte            ScreenIndisponivel      = 0;
 
@@ -66,8 +68,12 @@ void loop() {
 
     if (!screen.eeprom.disponivel()) {
         
+        // nexSerial.print(F("EEPROM indisponivel"));
+        // nexSerial.write(0xFF),         nexSerial.write(0xFF),         nexSerial.write(0xFF);
+
+        // Aguarda um tempo e tenta novamente o acesso e buscar das informações
         delay(1000);
-        screen.atualizarDadosMemoriaOnScreen();
+        screen.tentarAcessarEAtualizarOnScreen();     // Se conseguir acessar e buscar as informações seta EEPROM disponível no objeto
 
     } else if (StandBy > 0) {
 
@@ -83,6 +89,7 @@ void loop() {
             }
 
         } else {
+            
             ScreenIndisponivel = 0;                     // Zera o contador
             while (!screen.DadosRecebidoTela());        // aguarda até a tela acordar (sair do stand by)
             delay(100);                                 // necessário para processamrento na tela

@@ -37,7 +37,7 @@ public:
                     IDB                       = 22,
                     IDBrilho                  = 23,
                     IDCorRGB                  = 19,
-                    IDCode                    = 25,
+                    IDEEPROMDisp              = 25,
                     IDDoW                     = 26,
                     IDTexto                   = 26,
                     IDTextoQtde               = 27,

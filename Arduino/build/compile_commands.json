@@ -65,11 +65,11 @@
    "-IC:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\EEPROM\\src",
    "-IC:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxBuzzerCar\\src",
    "-IC:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src",
-   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\AcaoBox.cpp",
+   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\Box.cpp",
    "-o",
-   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\AcaoBox.cpp.o"
+   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\Box.cpp.o"
   ],
-  "file": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\AcaoBox.cpp"
+  "file": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\Box.cpp"
  },
  {
   "directory": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox",
@@ -101,11 +101,11 @@
    "-IC:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\EEPROM\\src",
    "-IC:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxBuzzerCar\\src",
    "-IC:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src",
-   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\Box.cpp",
+   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\AcaoBox.cpp",
    "-o",
-   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\Box.cpp.o"
+   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\AcaoBox.cpp.o"
   ],
-  "file": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\Box.cpp"
+  "file": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\AcaoBox.cpp"
  },
  {
   "directory": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox",
@@ -416,11 +416,11 @@
    "-IC:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\EEPROM\\src",
    "-IC:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxBuzzerCar\\src",
    "-IC:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src",
-   "C:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxEEPROM\\src\\Pinos.cpp",
+   "C:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxEEPROM\\src\\Device.cpp",
    "-o",
-   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\libraries\\BoxEEPROM\\Pinos.cpp.o"
+   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\libraries\\BoxEEPROM\\Device.cpp.o"
   ],
-  "file": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxEEPROM\\src\\Pinos.cpp"
+  "file": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxEEPROM\\src\\Device.cpp"
  },
  {
   "directory": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox",
@@ -452,11 +452,11 @@
    "-IC:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\EEPROM\\src",
    "-IC:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxBuzzerCar\\src",
    "-IC:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src",
-   "C:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxEEPROM\\src\\Device.cpp",
+   "C:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxEEPROM\\src\\Pinos.cpp",
    "-o",
-   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\libraries\\BoxEEPROM\\Device.cpp.o"
+   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\libraries\\BoxEEPROM\\Pinos.cpp.o"
   ],
-  "file": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxEEPROM\\src\\Device.cpp"
+  "file": "C:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxEEPROM\\src\\Pinos.cpp"
  },
  {
   "directory": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox",

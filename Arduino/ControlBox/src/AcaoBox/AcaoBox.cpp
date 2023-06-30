@@ -348,159 +348,6 @@ void AcaoBox::boxAcaoTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte 
 
 }
 
-/* @deprecated modo antigo */
-// void AcaoBox::boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao) {
-
-//     iniciarMapaBox();                   // Limpa
-
-//     MontaMapaBoxTematico(Tema);         // Carrega tema
-
-//     showMapaBoxes(DadosAcao, 50);       // Mostra Tema no quadro
-
-// }
-
-/* @deprecated modo antigo */
-// void AcaoBox::MontaMapaBoxTematico(eBoxTematico Tema) {
-
-//     switch (Tema)
-//     {
-//     case eBoxTematico::boxBatman:
-//         _MapaBox[2] = 0b1110000000000001;      // Linha 03 do quadro
-//         _MapaBox[3] = 0b1110000000000001;      // Linha 04 do quadro
-//         _MapaBox[4] = 0b1110000000000001;      // Linha 05 do quadro
-//         break;
-
-//     case eBoxTematico::boxMotos:
-//         _MapaBox[2] = 0b0000000001111111;      // Linha 03 do quadro
-//         _MapaBox[3] = 0b0000000000000011;      // Linha 04 do quadro
-//         break;
-
-//     case eBoxTematico::boxStarWars:
-//         _MapaBox[5] = 0b1110000000000001;      // Linha 06 do quadro
-//         _MapaBox[6] = 0b1110000000000001;      // Linha 07 do quadro
-//         _MapaBox[7] = 0b1100000000000001;      // Linha 08 do quadro
-//         _MapaBox[8] = 0b1100000000000001;      // Linha 09 do quadro
-//         break;
-
-//     case eBoxTematico::boxLamborghini:
-//         _MapaBox[8] = 0b0000000000000111;      // Linha 09 do quadro
-//         _MapaBox[9] = 0b0000000000001111;      // Linha 10 do quadro
-//         break;
-
-//     case eBoxTematico::boxPorche:
-//         _MapaBox[10] = 0b0000000000001111;      // Linha 11 do quadro
-//         _MapaBox[11] = 0b0000000000001111;      // Linha 12 do quadro
-//         _MapaBox[12] = 0b0000000000001111;      // Linha 13 do quadro
-//         break;
-
-//     case eBoxTematico::boxTesla:
-//         _MapaBox[13] = 0b0000000000111001;      // Linha 14 do quadro
-//         break;
-
-//     case eBoxTematico::boxBMW:
-//         _MapaBox[13] = 0b0000000111000001;      // Linha 14 do quadro
-//         break;
-
-//     case eBoxTematico::boxFord:
-//         _MapaBox[8]  = 0b0000001110000001;      // Linha 09 do quadro
-//         _MapaBox[9]  = 0b0000111110000001;      // Linha 10 do quadro
-//         _MapaBox[10] = 0b0000111100000001;      // Linha 11 do quadro
-//         break;
-
-//     case eBoxTematico::boxAstonMartin:
-//         _MapaBox[10] = 0b0000000011110001;      // Linha 11 do quadro
-//         break;
-
-//     case eBoxTematico::boxPagani:
-//         _MapaBox[8]  = 0b0000000000011001;      // Linha 09 do quadro
-//         break;
-
-//     case eBoxTematico::boxMacLaren:
-//         _MapaBox[9]  = 0b0000000001110001;      // Linha 10 do quadro
-//         break;
-
-//     case eBoxTematico::boxAudi:
-//         _MapaBox[6]  = 0b0000000010000001;      // Linha 07 do quadro
-//         break;
-
-//     case eBoxTematico::boxCorvette:
-//         _MapaBox[11]  = 0b0000011111110001;      // Linha 12 do quadro
-//         _MapaBox[12]  = 0b0000011111110001;      // Linha 13 do quadro
-//         break;
-
-//     case eBoxTematico::boxNissan:
-//         _MapaBox[5]  = 0b0000000000011111;      // Linha 06 do quadro
-//         break;
-
-//     case eBoxTematico::boxFerrari:
-//         _MapaBox[4]  = 0b0000001000000001;      // Linha 05 do quadro
-//         _MapaBox[7]  = 0b0000000000001111;      // Linha 08 do quadro
-//         break;
-    
-//     case eBoxTematico::boxMercedes:
-//         _MapaBox[6]  = 0b0000000000000111;      // Linha 07 do quadro
-//         break;
-
-//     case eBoxTematico::boxHonda:
-//         _MapaBox[6]   = 0b0000000000111001;      // Linha 07 do quadro
-//         break;
-
-//     case eBoxTematico::boxAcura:
-//         _MapaBox[13]  = 0b0000000000000111;      // Linha 14 do quadro
-//         break;
-
-//     case eBoxTematico::boxJaguar:
-//         _MapaBox[7]  = 0b0000000000110001;      // Linha 08 do quadro
-//         break;
-
-//     case eBoxTematico::boxVelozesFurosos:
-//         _MapaBox[2]  = 0b0000111100000001;      // Linha 03 do quadro
-//         _MapaBox[3]  = 0b0001110000000001;      // Linha 04 do quadro
-//         break;
-
-//     case eBoxTematico::boxDodge:
-//         _MapaBox[7]  = 0b0000000111000001;      // Linha 08 do quadro
-//         _MapaBox[8]  = 0b0000000001100001;      // Linha 09 do quadro
-//         break;
-
-//     case eBoxTematico::boxVolks:
-//         _MapaBox[6]  = 0b0000001000000001;      // Linha 07 do quadro
-//         _MapaBox[7]  = 0b0000111000000001;      // Linha 08 do quadro
-//         _MapaBox[8]  = 0b0000110000000001;      // Linha 09 do quadro
-//         _MapaBox[9]  = 0b0000100000000001;      // Linha 10 do quadro
-//         break;
-
-//     case eBoxTematico::boxFiat:
-//         _MapaBox[6]  = 0b0000000100000001;      // Linha 07 do quadro
-//         break;
-
-//     case eBoxTematico::boxCadiLac:
-//         _MapaBox[5]  = 0b0000000000100001;      // Linha 06 do quadro
-//         _MapaBox[8]  = 0b0010000000000001;      // Linha 09 do quadro
-//         break;
-
-//     case eBoxTematico::boxBentley:
-//         _MapaBox[3]  = 0b0000000000000101;      // Linha 04 do quadro
-//         break;
-
-//     case eBoxTematico::boxMazda:
-//         _MapaBox[4]  = 0b0000000001100001;      // Linha 05 do quadro
-//         break;
-
-//     case eBoxTematico::boxBugatti:
-//         _MapaBox[3]  = 0b0000000100000001;      // Linha 04 do quadro
-//         break;
-    
-//     case eBoxTematico::boxBuick:
-//         _MapaBox[5]  = 0b0000000001000001;      // Linha 06 do quadro
-//         break;
-
-//     default:
-//         break;
-//     }
-
-// }
-
 void AcaoBox::showMapaBoxes(BoxDadosAcao *DadosAcao, byte LuzFundo) {
 
     word        MapaBoxLinha = 0x00;
@@ -704,58 +551,6 @@ void AcaoBox::todosLedsApagados(){
     // _Leds.clear();       // não funcionou bem
 }
 
-/* @deprecated metodo antigo */
-// void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t cascata[], uint8_t coluna) {
-
-//     const uint8_t       _MIN_LINHA      =  1;
-//     const uint8_t       _MAX_LINHA      = 14;
-
-//     byte                RShow           = 0,
-//                         GShow           = 0,
-//                         BShow           = 0;
-
-//     uint8_t             Brilho          = (uint8_t)DadosAcao->getBrilho(),
-//                         R               = (uint8_t)DadosAcao->getGammaR(),
-//                         G               = (uint8_t)DadosAcao->getGammaG(),
-//                         B               = (uint8_t)DadosAcao->getGammaB();
-
-
-//     float               CabecaLinha    = 100.0;                        // 100% do brilho do led
-//     int8_t              linhaBase      = cascata[coluna].Linha;
-//     int8_t              fimArrasto     = cascata[coluna].Linha - cascata[coluna].Arrasto;
-    
-//     fimArrasto = fimArrasto > _MIN_LINHA ? fimArrasto : _MIN_LINHA;
-
-//     if(linhaBase > _MAX_LINHA){
-
-//         CabecaLinha = CabecaLinha - (cascata[coluna].Percentual * (linhaBase - _MAX_LINHA));
-//         linhaBase = _MAX_LINHA;         // Estabelece no máximo de linhas
-
-//     }
-
-//     RShow = (byte)(R * CabecaLinha);
-//     GShow = (byte)(G * CabecaLinha);
-//     BShow = (byte)(B * CabecaLinha);
-
-//     if (_Leds.getBrightness() != (uint8_t)Brilho) { setBrilho((int)Brilho); }
-
-//     for(int8_t linha = linhaBase; linha >= fimArrasto; linha--){
-
-//         _Leds.setPixelColor(PosicaoBoxCellInvertido(linha, (int)cascata[coluna].Coluna), _Leds.Color(GShow, RShow, BShow));
-
-//         // Vai diminuindo o brilho
-//         CabecaLinha = CabecaLinha - cascata[coluna].Percentual;
-//         if (CabecaLinha < 8) {CabecaLinha = 8;}
-//         RShow = (byte)(R * CabecaLinha);
-//         GShow = (byte)(G * CabecaLinha);
-//         BShow = (byte)(B * CabecaLinha);
-
-//     }
-
-//     showLeds(150);
-
-// }
-
 void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t *itemCascata, byte luzFundo) {
 
     const uint8_t       MIN_LINHA      =  1;
@@ -777,36 +572,14 @@ void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t *itemCascata, by
     
     fimArrasto = fimArrasto > MIN_LINHA ? fimArrasto : MIN_LINHA;
 
-    // Serial.print(F("\n\n\tCabecaLinha\t")), Serial.print(CabecaLinha);
 
     if(linhaBase > MAX_LINHA){
 
-        // Serial.print(F("\n\t--> LinhaBase > MAX_Linha ....."));
-        // Serial.print(F("\n\tCabecaLinha\t")), Serial.print(CabecaLinha);
-
-        // Serial.print(F("\tCabecaLinha - (itemCascata->Percentual * (linhaBase - MAX_LINHA))\t")), Serial.print(CabecaLinha - (itemCascata->Percentual * (linhaBase - MAX_LINHA)));
-
         CabecaLinha = CabecaLinha - (itemCascata->Percentual * (linhaBase - MAX_LINHA));
-
-        // Serial.print(F("\n\n\tCabecaLinha\t")), Serial.print(CabecaLinha);
-        // Serial.print(F("\n\titemCascata->Percentual\t")), Serial.print(itemCascata->Percentual);
-        // Serial.print(F("\n\tlinhaBase\t")), Serial.print(linhaBase);
-        // Serial.print(F("\n\t_MAX_LINHA\t")), Serial.print(MAX_LINHA);
 
         linhaBase = MAX_LINHA;         // Estabelece no máximo de linhas
 
     }
-
-    // Serial.print(F("\n\n\tlinhaBase\t")), Serial.print(linhaBase);
-
-    // Serial.print(F("\n\n\tR\t")), Serial.print(R);
-    // Serial.print(F("\t(R * CabecaLinha)\t")), Serial.print(R * (float)(CabecaLinha / 100));
-
-    // Serial.print(F("\n\tG\t")), Serial.print(G);
-    // Serial.print(F("\t(G * CabecaLinha)\t")), Serial.print(G * (float)(CabecaLinha / 100));
-
-    // Serial.print(F("\n\tB\t")), Serial.print(B);
-    // Serial.print(F("\t(B * CabecaLinha)\t")), Serial.print(B * (float)(CabecaLinha / 100));
 
     if (_Leds.getBrightness() != (uint8_t)Brilho) { setBrilho((int)Brilho); }
 
@@ -814,24 +587,11 @@ void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t *itemCascata, by
 
         if (CabecaLinha > 4) {              // Usado 4 porque existe arrasto de até 6 linhas
 
-            // Serial.print(F("\n\n\tR\t")), Serial.print(R);
-            // Serial.print(F("\t(R * CabecaLinha)\t")), Serial.print(R * (float)(CabecaLinha / 100));
-
-            // Serial.print(F("\n\tG\t")), Serial.print(G);
-            // Serial.print(F("\t(G * CabecaLinha)\t")), Serial.print(G * (float)(CabecaLinha / 100));
-
-            // Serial.print(F("\n\tB\t")), Serial.print(B);
-            // Serial.print(F("\t(B * CabecaLinha)\t")), Serial.print(B * (float)(CabecaLinha / 100));
-
             RShow = (byte)(R * (float)(CabecaLinha / 100));
             GShow = (byte)(G * (float)(CabecaLinha / 100));
             BShow = (byte)(B * (float)(CabecaLinha / 100));
 
         } else {        // Arrasto finalizado
-
-            // RShow = luzFundo;
-            // GShow = luzFundo;
-            // BShow = luzFundo;
 
             RShow = (byte)(R * 0.15);
             GShow = (byte)(G * 0.15);
@@ -839,36 +599,16 @@ void AcaoBox::boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t *itemCascata, by
 
         }
 
-        // Serial.print(F("\n\n\tRShow\t")), Serial.print(RShow);
-        // Serial.print(F("\n\tGShow\t")), Serial.print(GShow);
-        // Serial.print(F("\n\tBShow\t")), Serial.print(BShow);
-        // Serial.print(F("\n"));
-
-        // Serial.print(F("\n\n\t>>> Leds em\t")), Serial.print(CabecaLinha);
-        // Serial.print(F("\t na linha\t")), Serial.print(linha);
-        // Serial.print(F("\tfimArrasto\t")), Serial.print(fimArrasto);
-
         _Leds.setPixelColor(PosicaoBoxCellInvertido(linha, (int)itemCascata->Coluna), _Leds.Color(GShow, RShow, BShow));
-
-        // Serial.print(F("\n\n\tlinhaBase\t")), Serial.print(linhaBase);
-        // Serial.print(F("\tLinha\t")), Serial.print(linha);
-        // Serial.print(F("\tCabecaLinha\t")), Serial.print(CabecaLinha);
 
         // Vai diminuindo o brilho
         CabecaLinha = CabecaLinha - itemCascata->Percentual;
-
-        // Serial.print(F("\tNova CabecaLinha\t")), Serial.print(CabecaLinha);
-        // Serial.print(F("\n\titemCascata->Percentual\t")), Serial.print(itemCascata->Percentual);
-        // Serial.print(F("\titemCascata->Arrasto\t")), Serial.print(itemCascata->Arrasto);
-        // Serial.print(F("\tfimArrasto\t")), Serial.print(fimArrasto);
 
     }
 
     showLeds(50);
 
 }
-
-
 
 void AcaoBox::showBox(byte Linha, byte Coluna, boxRGB_t RGB) {
 
@@ -902,9 +642,6 @@ void AcaoBox::showCabecaSnake(BoxDadosAcao *DadosAcao, snake_t *Snake) {
 
 alvo_t AcaoBox::getAlvoBox(BoxDadosAcao *DadosAcao, linCol PosicaoBox) {
 
-    // Serial.print(F("\nAcaoBox::getAlvoBox()"));
-
-
     long        valor       = random();
 
     byte        AlvoLinha       = 1;
@@ -914,19 +651,6 @@ alvo_t AcaoBox::getAlvoBox(BoxDadosAcao *DadosAcao, linCol PosicaoBox) {
 
     randomSeed(valor);                               // Necessário para indicar um ponto de inicialização aleatório
 
-    // Serial.print(F("\nvalor para randomSeed\t|")),     Serial.print(valor),   Serial.print(F("|"));
-
-    // Serial.print(F("\n_qtdLinhas\t|")),     Serial.print(_qtdLinhas),   Serial.print(F("|"));
-    // Serial.print(F("\n_qtdColunas\t|")),     Serial.print(_qtdColunas),   Serial.print(F("|"));
-
-    // Serial.print(F("\nalvo.Posicao\t|")),   Serial.print(alvo.Posicao), Serial.print(F("|"));
-    // Serial.print(F("\nalvo.RGB.R\t|")),     Serial.print(alvo.RGB.R),   Serial.print(F("|"));
-    // Serial.print(F("\nalvo.RGB.B\t|")),     Serial.print(alvo.RGB.G),   Serial.print(F("|"));
-    // Serial.print(F("\nalvo.RGB.B\t|")),     Serial.print(alvo.RGB.B),   Serial.print(F("|"));
-
-
-    // Serial.print(F("\nAlvoLinCol == PosicaoBox\t|")),     Serial.print(AlvoLinCol == PosicaoBox),   Serial.print(F("|"));
-
     while (AlvoLinCol == PosicaoBox)
     {
         AlvoLinha   = (byte)random(1, _qtdLinhas + 1);
@@ -935,12 +659,7 @@ alvo_t AcaoBox::getAlvoBox(BoxDadosAcao *DadosAcao, linCol PosicaoBox) {
         AlvoLinha   = AlvoLinha  > 14 ? 14 : AlvoLinha;
         AlvoColuna  = AlvoColuna > 15 ? 15 : AlvoColuna;
 
-        // Serial.print(F("\nAlvoLinha\t|")),      Serial.print(AlvoLinha),   Serial.print(F("|"));
-        // Serial.print(F("\nAlvoColuna\t|")),     Serial.print(AlvoColuna),   Serial.print(F("|"));
-
         AlvoLinCol = DadosAcao->converteLinhaColuna(AlvoLinha, AlvoColuna);
-
-        // Serial.print(F("\nAlvoLinCol\t|")),     Serial.print(AlvoLinCol),   Serial.print(F("|"));
 
     }
 
@@ -984,9 +703,6 @@ eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, linCol Alvo, linCo
 /* @deprecated metodo antigo */
 eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snake_t *snake) {
 
-    // Serial.print(F("\nAcaoBox::deslocamentoBox()"));
-
-
     if(Alvo->Posicao == snake->Corpo[snake->Arrasto].Posicao) {
 
         return eBoxPosicao::boxNoAlvo;
@@ -999,22 +715,14 @@ eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snak
         byte BoxLinha       = DadosAcao->numLinha(snake->Corpo[snake->Arrasto].Posicao);
         byte BoxColuna      = DadosAcao->numColuna(snake->Corpo[snake->Arrasto].Posicao);
 
-        // Serial.print(F("\nVerificando o deslocamento..."));
-
-
         if( AlvoColuna < BoxColuna ) {
             //Alvo a esquerda
 
             if(DadosAcao->numColuna(snake->Corpo[snake->Arrasto - 1].Posicao) == (BoxColuna  - 1)) {
-                // Serial.print(F("\n(Left) Linha Ante == Atual"));
-
 
                 if(AlvoLinha < BoxLinha) {
-                    // Serial.print(F("\nMove para cima"));
                     return eBoxPosicao::boxTop;
-
                 } 
-                // Serial.print(F("\nMove para baixo"));
                 return eBoxPosicao::boxBottom;
             }
 
@@ -1024,15 +732,10 @@ eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snak
             // Alvo a Direita
 
             if(DadosAcao->numColuna(snake->Corpo[snake->Arrasto - 1].Posicao) == (BoxColuna + 1)) {
-                // Serial.print(F("\n(Left) Linha Ante == Atual"));
-
 
                 if(AlvoLinha < BoxLinha) {
-                    // Serial.print(F("\nMove para cima"));
                     return eBoxPosicao::boxTop;
-
                 } 
-                // Serial.print(F("\nMove para baixo"));
                 return eBoxPosicao::boxBottom;
             }
 
@@ -1052,8 +755,6 @@ eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snak
 
 eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snake_t *snake, eBoxMovimentoSnake movimento) {
 
-    // Serial.print(F("\nAcaoBox::deslocamentoBox() New"));
-
     if(Alvo->Posicao == snake->Corpo[snake->Arrasto].Posicao) {
 
         return eBoxPosicao::boxNoAlvo;
@@ -1069,8 +770,6 @@ eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snak
         if(movimento == eBoxMovimentoSnake::boxColuna) {
 
             // Movimentação baseado em Coluna
-
-            // Serial.print(F("\nMovimento em Coluna..."));
 
             if( AlvoColuna < BoxColuna ) {
 
@@ -1090,9 +789,6 @@ eBoxPosicao AcaoBox::deslocamentoBox(BoxDadosAcao *DadosAcao, alvo_t *Alvo, snak
             return eBoxPosicao::boxBottom;
 
         } else {
-
-
-            // Serial.print(F("\nMovimento em Linha..."));
 
             // Movimentação baseado em linha
 
@@ -1170,8 +866,6 @@ box_t AcaoBox::getPosicaoBoxByAlvo(BoxDadosAcao *DadosAcao, box_t *BoxAtual, eBo
 
 void AcaoBox::moveSnake(BoxDadosAcao *DadosAcao, snake_t snake)  {
 
-    // Serial.print(F("\nAcaoBox::moveSnake()\n"));
-
     byte    Linha                   = 0;
     byte    Coluna                  = 0;
     byte    R                       = DadosAcao->getGammaR();
@@ -1180,17 +874,6 @@ void AcaoBox::moveSnake(BoxDadosAcao *DadosAcao, snake_t snake)  {
 
     float   PercentualCalibrador    = ((float)(100.0 / (snake.Arrasto + 1)) / 100.0);
     float   Percentual              = 0.05L;
-
-    // Serial.print(F("\nsnake.Arrasto + 1\t|")),     Serial.print(snake.Arrasto + 1),   Serial.print(F("|"));
-    // Serial.print(F("\nPercentualCalibrador\t|")),     Serial.print(PercentualCalibrador),   Serial.print(F("|"));
-    // Serial.print(F("\nPercentual\t|")),     Serial.print(Percentual),   Serial.print(F("|"));
-
-    // Serial.print(F("\n\n------------------------\n\n"));
-
-    //Efeito cobra (Este trecho de código está dando erro intermitente de apagar o fundo do quadro)
-    // float  RShow           = snake.Corpo[0].RGB.R;
-    // float  GShow           = snake.Corpo[0].RGB.G;
-    // float  BShow           = snake.Corpo[0].RGB.B;
 
     float  RShow           = snake.CorFundo.R;
     float  GShow           = snake.CorFundo.G;
@@ -1209,32 +892,12 @@ void AcaoBox::moveSnake(BoxDadosAcao *DadosAcao, snake_t snake)  {
 
         _Leds.setPixelColor(PosicaoBoxCellInvertido(Linha, Coluna), _Leds.Color(GShow, RShow, BShow));
 
-        // Serial.print(F("\nRShow\t|")),     Serial.print(RShow),   Serial.print(F("|"));
-        // Serial.print(F("\nGShow\t|")),     Serial.print(GShow),   Serial.print(F("|"));
-        // Serial.print(F("\nBShow\t|")),     Serial.print(BShow),   Serial.print(F("|"));
-
-        // Serial.print(F("\n\n------------------------\n\n"));
 
         RShow = R * Percentual;
         GShow = G * Percentual;
         BShow = B * Percentual;
 
-        // Serial.print(F("\nsnake.Corpo[")),     Serial.print(posicao);
-        // Serial.print(F("].RGB.R\t|")),     Serial.print(snake.Corpo[0].RGB.R),   Serial.print(F("|"));
-
-        // Serial.print(F("\nsnake.Corpo[")),     Serial.print(posicao);
-        // Serial.print(F("].RGB.G\t|")),     Serial.print(snake.Corpo[0].RGB.G),   Serial.print(F("|"));
-
-        // Serial.print(F("\nsnake.Corpo[")),     Serial.print(posicao);
-        // Serial.print(F("].RGB.B\t|")),     Serial.print(snake.Corpo[0].RGB.B),   Serial.print(F("|"));
-
         Percentual = Percentual + PercentualCalibrador;
-
-        // Serial.print(F("\nPercentualCalibrador\t|")),     Serial.print(PercentualCalibrador),   Serial.print(F("|"));
-        // Serial.print(F("\nPercentual\t|")),     Serial.print(Percentual),   Serial.print(F("|"));
-
-        // Serial.print(F("\n\n------------------------\n\n"));
-
 
     }
     

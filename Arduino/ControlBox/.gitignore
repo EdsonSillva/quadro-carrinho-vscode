@@ -1,0 +1,6 @@
+# Arquivos que não serão versionados
+
+# Colocar nesta pastas possíveis novas features que serão implementadas mais tarde
+src/.News
+
+# Arquivos de compilação

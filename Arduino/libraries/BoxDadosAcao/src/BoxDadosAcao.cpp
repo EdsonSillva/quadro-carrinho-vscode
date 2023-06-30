@@ -210,7 +210,7 @@ byte BoxDadosAcao::setPosicaoLivreTemaBat(byte CodigoTema) {
 
 }
 
-void BoxDadosAcao::lerDadosTemaBat(byte Boxes[], byte PosicaoTema) {
+byte BoxDadosAcao::lerDadosTemaBat(byte Boxes[], byte PosicaoTema) {
 
     int posicaoInicialTema  = posicaoInicialDadoTema(PosicaoTema);
     int posicaoFinalTema    = posicaoFinalDadoTema(PosicaoTema);
@@ -238,10 +238,12 @@ void BoxDadosAcao::lerDadosTemaBat(byte Boxes[], byte PosicaoTema) {
 
         Boxes[posicaoBoxes] =  (byte)EEPROM.read(posicao);
         if(Boxes[posicaoBoxes] == 0x00) {
-            return;         // Abandona o metodo por não ter mais dados
+            break;         // Abandona o metodo por não ter mais dados
         }
         posicaoBoxes++;
     }
+
+    return posicaoBoxes;
 
 }
 

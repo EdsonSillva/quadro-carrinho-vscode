@@ -42,7 +42,6 @@ void loop() { }
 #include <BoxBuzzerCar.h>
 #include "src/BoxCar.h"
 #include "src/enum/enumBoxTematico.h"
-// #include "src/enum/enumAcao.h"
 
 #ifdef __AVR__
   #include <avr/power.h>
@@ -56,7 +55,7 @@ void loop() { }
 void setup();
 void loop();
 
-void (*Reset)() = 0;            // Função de Reset apontando para o endereço 0 do microcontrolador
+void (*ResetControl)() = 0;            // Função de Reset apontando para o endereço 0 do microcontrolador
 
 BoxCar box   = BoxCar();
 
@@ -82,6 +81,5 @@ void loop() {
     }
 
 }
-
 
 #endif  //Fim da diretiva do código de controle de qual sketch será compilado. Sketch em branco ou o sketch com os código

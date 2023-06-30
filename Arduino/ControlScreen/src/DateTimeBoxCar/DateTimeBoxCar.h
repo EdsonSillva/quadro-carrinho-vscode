@@ -28,7 +28,7 @@ private:
 
 public:
 
-    DateTimeBoxCar(/* args */);
+    DateTimeBoxCar();
     ~DateTimeBoxCar();
 
     void iniciarDS3231(bool Clock24hs);

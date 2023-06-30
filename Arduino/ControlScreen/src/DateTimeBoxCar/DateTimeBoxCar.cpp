@@ -15,9 +15,6 @@ DateTimeBoxCar::~DateTimeBoxCar() { }
 */
 void DateTimeBoxCar::iniciarDS3231(bool Clock24hs) {
 
-    // Serial.println(F("... DateTimeBoxCar::iniciarDS3231(bool Clock24hs)"));
-    // delay(100);
-
     Wire.begin();                           // Entra no barramento I2c
     delay(10);                              // Aguarda a inicialização do Wire
     _RTC.setClockMode(!Clock24hs);          // set  true=12hs false=24hs format
@@ -70,7 +67,7 @@ void DateTimeBoxCar::getDataOnDS3231(byte *Dia, byte *Mes, byte *Ano, byte *DoW,
   *Dia=_RTC.getDate();
   *Mes=_RTC.getMonth(Century);
   *Ano=_RTC.getYear();
-  // *DoW=RTC.getDoW();
+  // *DoW=RTC.getDoW();   // Não funciona
   *DoW = getDoWork(Dia, Mes, Ano, Milenio);
 }
 

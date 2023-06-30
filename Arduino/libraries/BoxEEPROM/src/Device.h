@@ -36,8 +36,9 @@ public:
 
     // Controle do segmento do tema 
     unsigned int AddressDataSegBox      = 70;
-    unsigned int AddressBoxInicio       = AddressDataSegBox + 0x00;
-    unsigned int AddressBoxFim          = AddressBoxInicio  + 0x14;         // 20 posições
+    unsigned int AddressQtdeTemaBox     = AddressDataSegBox;
+    unsigned int AddressBoxInicio       = AddressQtdeTemaBox    + 0x01;
+    unsigned int AddressBoxFim          = AddressBoxInicio      + 0x14;         // 20 posições
 
 
     Device();

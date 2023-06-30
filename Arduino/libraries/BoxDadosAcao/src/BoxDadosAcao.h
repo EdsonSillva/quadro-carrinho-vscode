@@ -21,12 +21,12 @@
 #include "BoxEnumAcao.h"
 #endif
 
-#define     _IDAcaoMsg_                     64              // ID Ação de mensagem. Mudar este código se houver mudanças no id de mensagem na tela Nextion Screen
+#define     _IDAcaoMsg_                     67              // ID Ação de mensagem. Mudar este código se houver mudanças no id de mensagem na tela Nextion Screen
 #define     _BrilhoDefault_                 75              // Padrão para brilho do led
 #define     _AddessInicioEEPROMIno_          1              // Endereço inicial da EEPROM interna do Arduino
 #define     _sizeEEPROMIno_               1024              // Tamanho da EEPROM interna do Arduino
-#define     _sizeBat_                       50              // Tamanho da tabela de alocação dos Boxs
-#define     _sizeTemaBat_                   20              // Tamanho de cada tema na alocação dos Boxs
+#define     _sizeBat_                       50              // Tamanho da tabela de alocação dos Boxes
+#define     _sizeTemaBat_                   20              // Tamanho de cada tema na alocação dos Boxes
 
 
 /*
@@ -100,7 +100,7 @@ public:
     byte getPosicaoTemaBat(byte CodigoTema);
     byte getPosicaoLivreTemaBat();
     byte setPosicaoLivreTemaBat(byte CodigoTema);
-    void lerDadosTemaBat(byte Boxes[], byte PosicaoTema);
+    byte lerDadosTemaBat(byte Boxes[], byte PosicaoTema);
 
     byte converteLinhaColuna(byte Linha, byte Coluna);
     byte numLinha(byte LinhaColuna);

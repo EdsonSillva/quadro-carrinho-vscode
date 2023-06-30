@@ -57,9 +57,9 @@ void screenNextionBoxCar::setVarNextion(char VarGlobal[], int TextoLength, Strin
 
 byte screenNextionBoxCar::getAcaoOnScreen() {
 
-    uint32_t value = 0;
-
+    uint32_t    value       = 0;
     NexVariable AcaoArduino = NexVariable(_tela.Global, _objeto.IDAcaoArduino, "");
+
     AcaoArduino.getValueByID(&value);
     
     return (byte)value;
@@ -67,9 +67,9 @@ byte screenNextionBoxCar::getAcaoOnScreen() {
 
 byte screenNextionBoxCar::getAcaoTemaOnScreen() {
 
-    uint32_t value = 0;
-
+    uint32_t    value           = 0;
     NexVariable AcaoTemaArduino = NexVariable(_tela.ConfigBoxFixo, _objeto.IDAcaoTema, "");
+
     AcaoTemaArduino.getValueByID(&value);
     
     return (byte)value;
@@ -77,9 +77,9 @@ byte screenNextionBoxCar::getAcaoTemaOnScreen() {
 
 byte screenNextionBoxCar::getStandByOnScreen() {
 
-    uint32_t value = 0;     //Se não retorna nada informa que teve problemas em obter o valor da variável stand by na tela
+    uint32_t    value   = 0;     //Se não retorna nada informa que teve problemas em obter o valor da variável stand by na tela
+    NexVariable StandBy = NexVariable(_tela.Global, _objeto.IDStandBy, "");
 
-    NexVariable StandBy = NexVariable(_tela.Global, _objeto.IDStandBy, "");  
     if ((bool)StandBy.getValueByID(&value) == true) {
         return (byte)value;    
     }
@@ -110,25 +110,6 @@ void screenNextionBoxCar::setLDROnScreen(uint32_t ValorSensor) {
       
 }
 
-/* 
- * @deprecated Antiga
-*/
-// void screenNextionBoxCar::getRGBBrilhoOnScreen(byte *R, byte *G, byte *B, byte *Brilho) {
-
-//     uint32_t  value     = -1;
-
-//     NexVariable nR      = NexVariable(_tela.Global,  _objeto.IDR,       "");
-//     NexVariable nG      = NexVariable(_tela.Global,  _objeto.IDG,       "");
-//     NexVariable nB      = NexVariable(_tela.Global,  _objeto.IDB,       "");
-//     NexVariable nBrilho = NexVariable(_tela.Global,  _objeto.IDBrilho,  "");
-
-//     nR.getValueByID(&value),        *R      = (byte)value;
-//     nG.getValueByID(&value),        *G      = (byte)value;
-//     nB.getValueByID(&value),        *B      = (byte)value;
-//     nBrilho.getValueByID(&value),   *Brilho = (byte)value;      
-
-// }
-
 void screenNextionBoxCar::getRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao) {
 
     uint32_t    value       = -1;
@@ -137,10 +118,10 @@ void screenNextionBoxCar::getRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao) {
     byte        B           =  0;
     byte        Brilho      =  0;
 
-    NexVariable nR      = NexVariable(_tela.Global,  _objeto.IDR,       "");
-    NexVariable nG      = NexVariable(_tela.Global,  _objeto.IDG,       "");
-    NexVariable nB      = NexVariable(_tela.Global,  _objeto.IDB,       "");
-    NexVariable nBrilho = NexVariable(_tela.Global,  _objeto.IDBrilho,  "");
+    NexVariable nR          = NexVariable(_tela.Global,  _objeto.IDR,       "");
+    NexVariable nG          = NexVariable(_tela.Global,  _objeto.IDG,       "");
+    NexVariable nB          = NexVariable(_tela.Global,  _objeto.IDB,       "");
+    NexVariable nBrilho     = NexVariable(_tela.Global,  _objeto.IDBrilho,  "");
 
     nR.getValueByID(&value),        R      = (byte)value;
     nG.getValueByID(&value),        G      = (byte)value;
@@ -151,41 +132,15 @@ void screenNextionBoxCar::getRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao) {
 
 }
 
-/* 
-    @deprecated Antigo 
-*/
-// void screenNextionBoxCar::setCodeRGBBrilhoOnScreen(byte CodeAcao, byte R, byte G, byte B, byte Brilho) {
-  
-//     NexVariable vaCode = NexVariable(_tela.Global, _objeto.IDCode, "");
-//     vaCode.setValueByID((uint32_t)CodeAcao);
-
-//     NexVariable vaR = NexVariable(_tela.Global, _objeto.IDR, "");
-//     vaR.setValueByID((uint32_t)R);
-
-//     NexVariable vaG = NexVariable(_tela.Global, _objeto.IDG, "");
-//     vaG.setValueByID((uint32_t)G);
-
-//     NexVariable vaB = NexVariable(_tela.Global, _objeto.IDB, "");
-//     vaB.setValueByID((uint32_t)B);
-
-//     NexVariable vaBrilho = NexVariable(_tela.Global, _objeto.IDBrilho, "");
-//     vaBrilho.setValueByID((uint32_t)Brilho);
-
-//     NexVariable vaRGBNextion = NexVariable(_tela.Global, _objeto.IDCorRGB, "");
-
-//     uint32_t RGBNextion = (R / 8 * 2048) + (G / 4 *32) + (B / 8);   // Cálculo necessário porque o Nextion trata a cor RGB diferente
-//     vaRGBNextion.setValueByID(RGBNextion);
-
-// }
-
-void screenNextionBoxCar::setCodeRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao) {
+void screenNextionBoxCar::setDadosRGBBOnScreen(BoxDadosAcao *DadosAcao, bool EEPROMDisp) {
 
     byte R      = DadosAcao->getR();
     byte G      = DadosAcao->getG();
     byte B      = DadosAcao->getB();
+    byte Disp   = EEPROMDisp = true ? 1 : 0;
 
-    NexVariable vaCode = NexVariable(_tela.Global, _objeto.IDCode, "");
-    vaCode.setValueByID((uint32_t)DadosAcao->getCodeAcao());
+    NexVariable eepromDisp = NexVariable(_tela.Global, _objeto.IDEEPROMDisp, "");
+    eepromDisp.setValueByID((uint32_t)Disp);
 
     NexVariable vaR = NexVariable(_tela.Global, _objeto.IDR, "");
     vaR.setValueByID((uint32_t)R);
@@ -208,9 +163,8 @@ void screenNextionBoxCar::setCodeRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao) {
 
 byte screenNextionBoxCar::getDoWOnScreen(){
 
-    uint32_t    value =   0;
-
-    NexSlider   sDoW   =   NexSlider(_tela.ConfigDataHora, _objeto.IDDoW, "sDoW");
+    uint32_t    value   = 0;
+    NexSlider   sDoW    = NexSlider(_tela.ConfigDataHora, _objeto.IDDoW, "sDoW");
 
     sDoW.getValue(&value);
     return (byte)value;
@@ -243,8 +197,7 @@ void screenNextionBoxCar::getHoraOnScreen(byte *Hora, byte *Minuto, byte *Segund
 
 void screenNextionBoxCar::getTextoOnScreen(char Texto[], byte *pQtdeChar) {
 
-  uint32_t    value =   -1;
-
+  uint32_t    value         = -1;
   NexVariable txtTexto      = NexVariable(_tela.Global, _objeto.IDTexto,      "");
   NexVariable txtTextoQtde  = NexVariable(_tela.Global, _objeto.IDTextoQtde,  "");
 
@@ -288,9 +241,8 @@ void screenNextionBoxCar::showHoraOnScreen(byte *Hora, byte *Minuto, byte *Segun
  *********************************************************************/
 bool screenNextionBoxCar::getBeepOnScreen() {
 
-    uint32_t      value   =   0;
-
-    NexVariable   nBeep   =   NexVariable(_tela.Global, _objeto.IDBeep, "");
+    uint32_t      value   = 0;
+    NexVariable   nBeep   = NexVariable(_tela.Global, _objeto.IDBeep, "");
 
     nBeep.getValueByID(&value);
     if((bool)value == 1)
@@ -338,9 +290,8 @@ void screenNextionBoxCar::setBoxesOnScreen(const char Boxes[]) {
 
 byte screenNextionBoxCar::getSizeBoxesOnScreen() {
 
-    uint32_t    value =   -1;
-
-    NexVariable BoxesSize  = NexVariable(_tela.ConfigBoxFixo, _objeto.IDSizeBoxesLC,   "");
+    uint32_t    value       = -1;
+    NexVariable BoxesSize   = NexVariable(_tela.ConfigBoxFixo, _objeto.IDSizeBoxesLC,   "");
 
     BoxesSize.getValueByID(&value);
     return (byte)value;
@@ -349,8 +300,7 @@ byte screenNextionBoxCar::getSizeBoxesOnScreen() {
 
 byte screenNextionBoxCar::getQtdeItensBoxesOnScreen() {
 
-    uint32_t    value =   -1;
-
+    uint32_t    value           = -1;
     NexVariable QtdeItensBoxes  = NexVariable(_tela.ConfigBoxFixo, _objeto.IDQtdeItensBox,   "");
 
     QtdeItensBoxes.getValueByID(&value);
@@ -361,46 +311,23 @@ byte screenNextionBoxCar::getQtdeItensBoxesOnScreen() {
 
 byte screenNextionBoxCar::getBoxesOnScreen(char Boxes[], byte sizeBoxes) {
 
-    uint32_t    value =   sizeBoxes;
-
-    NexVariable txtBoxes      = NexVariable(_tela.ConfigBoxFixo, _objeto.IDBoxesLinCol,   "");
-
-    // nexSerial.print(F("screenNextionBoxCar::getBoxesOnScreen:::"));
-    // nexSerial.print(F("Boxxes={{")), nexSerial.print(Boxes);
-    // nexSerial.print(F("}}"));
-    // nexSerial.print(F("sizeBoxes={{")), nexSerial.print(sizeBoxes);
-    // nexSerial.print(F("}}"));
-    // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
+    uint32_t    value       = sizeBoxes;
+    NexVariable txtBoxes    = NexVariable(_tela.ConfigBoxFixo, _objeto.IDBoxesLinCol,   "");
 
     memset(Boxes, 0, sizeof(Boxes));      // Inicializa o array de char
     return (byte)txtBoxes.getTextByID(Boxes, value);
-
-    // nexSerial.print(F("screenNextionBoxCar::getTextByID:::"));
-    // nexSerial.print(F("Boxxes={{")), nexSerial.print(Boxes);
-    // nexSerial.print(F("}}"));
-    // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
-
 
 }
 
 byte screenNextionBoxCar::getItemBoxesOnScreen(byte IDItemBox) {
 
-    uint32_t    value =   -1;
-
-    NexVariable itemBox  = NexVariable(_tela.ConfigBoxFixo, IDItemBox,   "");
+    uint32_t    value       = -1;
+    NexVariable itemBox     = NexVariable(_tela.ConfigBoxFixo, IDItemBox,   "");
 
     itemBox.getValueByID(&value);
     return (byte)value;
 
 }
-
-// int  screenNextionBoxCar::setLenRestanteBoxes(byte QtdeBytes) {
-
-//     NexVariable nTempSys = NexVariable(_tela.ConfigBoxFixo, _objeto.IDLenRestante, "");
-//     nTempSys.setValueByID((uint32_t)QtdeBytes);
-
-// }
 
 
 

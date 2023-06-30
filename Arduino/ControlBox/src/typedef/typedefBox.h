@@ -41,12 +41,6 @@ typedef struct {
     byte        B;
 } boxRGB_t;
 
-// union COLORUnion_t
-// {
-//     boxRGB_t RGBBox;
-//     unsigned int value;
-// } ColorBox_t;
-
 typedef byte linCol;
 
 typedef struct {
@@ -61,7 +55,6 @@ typedef struct {
 } snake_t;
 
 typedef box_t alvo_t;
-
 
 
 #endif  // __TYPEDEFBOX_H__

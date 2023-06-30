@@ -92,6 +92,7 @@ public:
   void atualizarTemperaturaOnScreen();
   void atualizarHumidadeOnScreen();
   void atualizarDadosMemoriaOnScreen();
+  void tentarAcessarEAtualizarOnScreen();
   bool DadosRecebidoTela();
 
 };

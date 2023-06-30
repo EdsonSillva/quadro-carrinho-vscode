@@ -37,10 +37,6 @@
 #include "AcaoScreen/AcaoScreen.h"
 #endif
 
-// #ifndef __ENUMACAO_H__
-// #include "src/enum/enumAcao.h"
-// #endif
-
 #define   _pin_Controle_          12
 #define   _pino_eeprom_usado_     11
 #define   _pino_eeprom_alerta_    13
@@ -66,7 +62,7 @@ public:
   
 
   void iniciarBoxCar(int BrilhoInicial = 50);
-  void showSaudacao();
+  void showSaudacao(int Duracao = 10000);
   bool acaoSolicitada();
   void identificarExecutarAcao();
   void executarAcao(eAcaoBox CodigoAcao);

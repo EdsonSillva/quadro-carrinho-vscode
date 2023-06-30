@@ -21,7 +21,7 @@
 class SensorLDRBoxCar
 {
 private:
-    /* data */
+    
     byte    _pinoConexao        = _pin_LDR_;
     byte    _Min                = _Min_;
     byte    _Max                = _Max_;
@@ -29,7 +29,7 @@ private:
     int lerSensor();
 
 public:
-    SensorLDRBoxCar(/* args */);
+    SensorLDRBoxCar();
     ~SensorLDRBoxCar();
 
     void iniciarSensorLDR();

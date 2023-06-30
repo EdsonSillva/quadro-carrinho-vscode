@@ -56,10 +56,8 @@ public:
     void setAcaoOnScreen(uint32_t Acao);
     void setExecArduinoOnScreen(eCodeExec CodeExec);
     void setLDROnScreen(uint32_t ValorSensor);
-    // void getRGBBrilhoOnScreen(byte *R, byte *G, byte *B, byte *Brilho);
     void getRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao);
-    // void setCodeRGBBrilhoOnScreen(byte CodeAcao, byte R, byte G, byte B, byte Brilho);
-    void setCodeRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao);
+    void setDadosRGBBOnScreen(BoxDadosAcao *DadosAcao, bool EEPROMDisp);
     byte getDoWOnScreen();
     void getDataOnScreen(byte *pDia, byte *pMes, byte *pAno, byte *DoW);
     void getHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);
@@ -70,19 +68,13 @@ public:
     void showTempSysOnScreen(int TemperaturaSys);
     void showTemperaturaOnScreen(double TemperaturaAmbiente);
     void showHumidadeOnScreen(double HumidadeAmbiente);
-
     void setBoxesOnScreen(const char Boxes[]);
     byte getSizeBoxesOnScreen();
     byte getQtdeItensBoxesOnScreen();
     byte getBoxesOnScreen(char Boxes[], byte sizeBoxes);
     byte getItemBoxesOnScreen(byte IDItemBox);
 
-    // int setLenRestanteBoxes(byte QtdeBytes);
-
-
-
 };
-
 
 
 #endif  // __SCREENNEXTIONBOXCAR_H__

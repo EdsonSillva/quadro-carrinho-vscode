@@ -5,5 +5,5 @@
     "board": "arduino:avr:nano",
     "programmer": "arduino:avrisp",
     "output": "../build",
-    "port": "COM3"
+    "port": "COM21"
 }

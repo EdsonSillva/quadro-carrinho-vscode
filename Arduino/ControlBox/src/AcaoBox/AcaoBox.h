@@ -37,14 +37,6 @@
 #include "../enum/enumScreen.h"
 #endif
 
-// #ifndef __ENUMBOXTEMATICO_H__
-// #include "../enum/enumBoxTematico.h"
-// #endif
-
-// #ifndef __ENUMPOSICAOBOX_H__
-// #include "../enum/enumPosicaoBox.h"
-// #endif
-
 
 /***********************************************
  * Declaração das variáveis Globais de controle
@@ -127,7 +119,6 @@ private:
     int PosicaoBoxCell(int Linha, int Coluna);
     int PosicaoBoxCellInvertido(int Linha, int Coluna);
     void AcendeOuApagaLeds(uint8_t r, uint8_t g, uint8_t b);
-    // void MontaMapaBoxTematico(eBoxTematico Tema);
 
     void showBox(byte Linha, byte Coluna, boxRGB_t RGB);
 
@@ -156,13 +147,8 @@ public:
     void boxAcaoXadrezFade(bool IniciarImpar, BoxDadosAcao *DadosAcao, int PercentualRecebido);
     void boxAcaoColuna(bool IniciarImpar, BoxDadosAcao *DadosAcao);
     void boxAcaoLinha(bool IniciarImpar, BoxDadosAcao *DadosAcao);
-    // void boxAcaoTematico(eBoxTematico Tema, BoxDadosAcao *DadosAcao);
-
     void boxAcaoTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte sizeBoxes);
-
-    // void boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t cascata[], uint8_t coluna);
     void boxAcaoCascata(BoxDadosAcao *DadosAcao, cascata_t *itemCascata, byte luzFundo);
-    
     void showMapaBoxes(BoxDadosAcao *DadosAcao, byte LuzFundo);
     void todosLedsAcesos(uint8_t r, uint8_t g, uint8_t b);
     void todosLedsApagados();

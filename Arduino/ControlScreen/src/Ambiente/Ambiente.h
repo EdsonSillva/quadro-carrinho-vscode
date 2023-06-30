@@ -17,9 +17,9 @@
 class Ambiente : public SensorLDRBoxCar, public TemperaturaHumidadeBoxCar
 {
 private:
-    /* data */
+    
 public:
-    Ambiente(/* args */);
+    Ambiente();
     ~Ambiente();
 
 };

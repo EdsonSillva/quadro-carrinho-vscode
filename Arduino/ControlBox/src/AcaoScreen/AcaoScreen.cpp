@@ -708,13 +708,11 @@ void AcaoScreen::entrarNaToca(BoxDadosAcao *DadosAcao, snake_t *snake) {
 
     for (byte fimArrasto = 0; fimArrasto > snake->Arrasto; fimArrasto++)
     {
-        
+        // Em construção
         _box.moveSnakeToca(DadosAcao, snake, fimArrasto);
-
         
     }
     
-
 
 }
 

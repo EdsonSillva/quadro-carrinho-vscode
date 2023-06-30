@@ -8,9 +8,9 @@ TemperaturaHumidadeBoxCar::TemperaturaHumidadeBoxCar() { }
 TemperaturaHumidadeBoxCar::~TemperaturaHumidadeBoxCar() { }
 
 /**
- * Metodo para indicar o pino analogico a ser usado pelo DHT
+ * Metodo para indicar o pino analógico a ser usado pelo DHT
  * 
- * @param Pino Indicar um pino analogico a ser usado pelo DHT
+ * @param Pino Indicar um pino analógico a ser usado pelo DHT
  * 
  */
 void TemperaturaHumidadeBoxCar::setPinoConexao(byte Pino){
@@ -24,7 +24,6 @@ void inline TemperaturaHumidadeBoxCar::readDHT() {
 double TemperaturaHumidadeBoxCar::getTemperaturaOnDHT() {
     readDHT();
     return _dht.temperature;
-
 }
 
 double TemperaturaHumidadeBoxCar::getHumidadeOnDHT() {

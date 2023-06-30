@@ -4,7 +4,7 @@
 
 
 
-Ambiente::Ambiente(/* args */) { }
+Ambiente::Ambiente() { }
 
 Ambiente::~Ambiente() { }
 

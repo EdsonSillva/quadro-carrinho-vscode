@@ -17,7 +17,7 @@
 
 // Definição do pino do DHT
 // ------------------------
-#define pin_dht             A1              // Pino para recedber o sinal do DHT11
+#define pin_dht             A1              // Pino para receber o sinal do DHT11
 
 class TemperaturaHumidadeBoxCar
 {

@@ -64,11 +64,9 @@ public:
     void ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcaoBox Acao);
     void ledsTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte sizeBoxes);
     void ledsAcaoCascata(BoxDadosAcao *DadosAcao);
-
     void inicializarSnake(BoxDadosAcao *DadosAcao, snake_t *snake);
     void ledsAcaoSnake(BoxDadosAcao *DadosAcao);
     void descerPosicaoSnake(snake_t *snake);
-
     box_t buscarNovaPosicao(BoxDadosAcao *DadosAcao, snake_t *snake, alvo_t *alvo);
     alvo_t buscarNovoAlvo(BoxDadosAcao *DadosAcao, snake_t *snake);
     byte procurarCorpoSnake(box_t *Box, snake_t *snake);

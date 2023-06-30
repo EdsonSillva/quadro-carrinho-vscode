@@ -9,15 +9,13 @@ SensorLDRBoxCar::~SensorLDRBoxCar() { }
 
 void SensorLDRBoxCar::iniciarSensorLDR() {
     
-    // Serial.println(F("... SensorLDRBoxCar::iniciarSensorLDR()"));
-
     pinMode(_pinoConexao, INPUT);    // Habilita o pino para utilização do sensor 
 }
 
 /**
- * Metodo para indicar o pino analogico a ser usado pelo LDR
+ * Metodo para indicar o pino analógico a ser usado pelo LDR
  * 
- * @param Pino Indicar um pino analogico a ser usado pelo LDR
+ * @param Pino Indicar um pino analógico a ser usado pelo LDR
  * 
  */
 void SensorLDRBoxCar::setPinoConexao(byte Pino){

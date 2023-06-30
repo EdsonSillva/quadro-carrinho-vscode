@@ -50,7 +50,9 @@ void BoxEEPROM::inicializar() {
 }
 
 bool BoxEEPROM::disponivel() {
+
     return _eepromDisponivel;
+
 }
 
 byte BoxEEPROM::getPinLedUso(){
@@ -108,10 +110,21 @@ void BoxEEPROM::setDadosOnMemory(BoxDadosAcao *DadosAcao) {
 
 }
 
-void BoxEEPROM::setTemaOnMemory(byte Boxes[], byte sizeBoxes) {
+void BoxEEPROM::limparQtdeTema() {
 
-    int Address         = _device.AddressBoxInicio;                     // Pega o endereço inicial da area do tema
-    int AddressFim      = _device.AddressBoxFim;                        // Pega o endereço final da area do tema
+    int AddressQtdeBoxTema      = _device.AddressQtdeTemaBox;           // Pega o endereço da quantidade de temas dentro do espaço indicado para tema
+
+    gravarEEPROM(AddressQtdeBoxTema, 0);                                // Guarda a quantidade de temas cadastrados (o máxiomo é 20)
+
+}
+
+void BoxEEPROM::setTemaOnMemory(byte Boxes[], byte sizeBoxes, byte QtdeBoxTema) {
+
+    int AddressQtdeBoxTema      = _device.AddressQtdeTemaBox;           // Pega o endereço da quantidade de temas dentro do espaço indicado para tema
+    int Address                 = _device.AddressBoxInicio;             // Pega o endereço inicial da area do tema
+    int AddressFim              = _device.AddressBoxFim;                // Pega o endereço final da area do tema
+
+    gravarEEPROM(AddressQtdeBoxTema, QtdeBoxTema);                      // Guarda a quantidade de temas cadastrados (o máxiomo é 20)
 
     for(byte item = 0; item < sizeBoxes; item++) {
         
@@ -127,19 +140,28 @@ void BoxEEPROM::setTemaOnMemory(byte Boxes[], byte sizeBoxes) {
 
 byte BoxEEPROM::getTemaOnMemory(byte Boxes[], byte sizeBoxes) {
 
-    int Address         = _device.AddressBoxInicio;                     // Pega o endereço inicial da area do tema
-    int AddressFim      = _device.AddressBoxFim;                        // Pega o endereço Final da area do tema
-    byte item           = 0;
+    int AddressQtdeBoxTema      = _device.AddressQtdeTemaBox;           // Pega o endereço da quantidade de temas dentro do espaço indicado para tema
+    byte QtdeBoxTema            = 0;
 
-    for(item = 0; item < sizeBoxes; item++) {
-        Boxes[item] = lerEEPROM(Address);
-        Address++;
-        if(Boxes[item] == 0x00) {
-            return item;
+    QtdeBoxTema                 = lerEEPROM(AddressQtdeBoxTema);
+
+    // if (QtdeBoxTema > 0 && QtdeBoxTema != __CODE_EEPROM_NOT_AVAILABLE__) {       //Old
+    if (QtdeBoxTema > 0) {
+
+        int Address                 = _device.AddressBoxInicio;             // Pega o endereço inicial da area do tema
+        int AddressFim              = _device.AddressBoxFim;                // Pega o endereço Final da area do tema
+        byte item                   = 0;
+
+        for(item = 0; item < sizeBoxes; item++) {
+            Boxes[item] = lerEEPROM(Address);
+            Address++;
+            if((Boxes[item] == 0x00) || (Address > AddressFim)) break;                           // Abandona a carga dos temas por ultrapassar os limites da área do Tema
         }
-        if(Address > AddressFim) return item;                           // Abandona a carga dos temas por ultrapassar os limites da área do Tema
-    }
-    return item;
+
+    } 
+
+    return QtdeBoxTema;
+
 }
 
 
@@ -170,7 +192,7 @@ void BoxEEPROM::getTextoOnMemory(char Texto[], byte *pQtdeChar) {
 
 byte BoxEEPROM::lerEEPROM(int offSet) {
 
-    byte            Dado          = 0xFF;
+    byte            Dado          = 0x00;
     unsigned long   MaxWait       = millis() + 10000;        // Seta o tempo máximo de 10 segundos aguardando a resposta do device EEPROM
     bool            IsMaxWait     = false;
     
@@ -185,7 +207,9 @@ byte BoxEEPROM::lerEEPROM(int offSet) {
 
             if(MaxWait < millis()){
                 IsMaxWait = true;
-                Dado = __CODE_EEPROM_NOT_AVAILABLE__;
+                // Dado = __CODE_EEPROM_NOT_AVAILABLE__;    // @deprecated
+                alertaSonoroNaoResponde();
+
                 _eepromDisponivel = false;
                 break; // Sai do loop
             }

@@ -31,7 +31,7 @@ class BoxEEPROM
 {
 private:
 
-    const unsigned int __CODE_EEPROM_NOT_AVAILABLE__ = 254;
+    // const unsigned int __CODE_EEPROM_NOT_AVAILABLE__ = 254;  @deprecated
 
     Device          _device                 = Device();
     Pinos           _pinos                  = Pinos();
@@ -62,7 +62,8 @@ public:
     void alertaSonoroNaoResponde();
     void getDadosOnMemory(BoxDadosAcao *DadosAcao);
     void setDadosOnMemory(BoxDadosAcao *DadosAcao);
-    void setTemaOnMemory(byte Boxes[], byte sizeBoxes);
+    void limparQtdeTema();
+    void setTemaOnMemory(byte Boxes[], byte sizeBoxes, byte QtdeBoxTema);
     byte getTemaOnMemory(byte Boxes[], byte sizeBoxes);
     void setTextoOnMemory(char Texto[], byte QtdeChar);
     void getTextoOnMemory(char Texto[], byte *pQtdeChar);

@@ -72,19 +72,25 @@ void ScreenBoxCar::avaliarAcao() {
 }
 
 bool ScreenBoxCar::acaoSelecionada() {
+
     acao.setCodeAcao(tela.getAcaoOnScreen());
     if (acao.getCodeAcao() > 0) return true;
     return false;
+
 }
 
 bool ScreenBoxCar::acaoExecutando() {
+
     return acao.getExecutando();
+
 }
 
 void ScreenBoxCar::stopAcao() {
+
     digitalWrite(_pinoControle, LOW);               // Sinaliza ação cancelada para o outro Arduino
     acao.setExecutando(false);
     delay(50);
+
 }
 
 void ScreenBoxCar::executarAcao() {
@@ -197,6 +203,12 @@ void ScreenBoxCar::executarAcao() {
 
 }
 
+void ScreenBoxCar::tentarAcessarEAtualizarOnScreen(){
+    
+    atualizarDadosMemoriaOnScreen();
+
+}
+
 void ScreenBoxCar::atualizarDadosMemoriaOnScreen() {
 
     // nexSerial.print(F("Chamando: eeprom.getDadosOnMemory(&acao)"));
@@ -205,9 +217,9 @@ void ScreenBoxCar::atualizarDadosMemoriaOnScreen() {
 
     if (eeprom.disponivel()) {
         
-        tela.setCodeRGBBrilhoOnScreen(&acao);
+        tela.setDadosRGBBOnScreen(&acao, true);
 
-    } else {        // Fica beepando se a memória EEPROM não estiver disponível 
+    } else {        // beep se a memória EEPROM não estiver disponível 
         som.beepBuzzer(),   delay(500);
         som.beepBuzzer(),   delay(500);
         som.beepBuzzer(),   delay(500);
