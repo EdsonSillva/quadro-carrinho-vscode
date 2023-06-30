@@ -74,10 +74,6 @@ BoxCar box = BoxCar();
 
 void setup() {
 
-    Serial.begin(9600);
-    while(!Serial);
-    delay(2000);
-
     box.iniciarBoxCar(50);
 
     box.showSaudacao();

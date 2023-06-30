@@ -28,15 +28,12 @@ void AcaoScreen::ledsAcesos(BoxDadosAcao *DadosAcao) {
 
     bool EmAcao  = true;
 
-    // Serial.print(F(" [Entrei na Funcao | "));
-
     setLeds(DadosAcao);
+
     while(EmAcao) {                     // Aguarda o cancelamento da ação 
         delayMicroseconds(50000);       // Aguarda 0,5 segundos antes de ler se a ação foi cancelada (otimizando energia)
         EmAcao = acaoAtiva();
     }
-
-    // Serial.print(F("Saindo da Funcao] "));
 
 }
 
@@ -47,8 +44,6 @@ void AcaoScreen::ledsXadrezFade(BoxDadosAcao *DadosAcao) {
     int   Intervalo    = 10;
 
     _tmpWaitRotina = 11000;
-
-    // Serial.print(F(" [Entrei na Funcao | "));
 
     while(acaoAtiva()) {                     // Aguarda o cancelamento da ação 
 
@@ -69,7 +64,6 @@ void AcaoScreen::ledsXadrezFade(BoxDadosAcao *DadosAcao) {
 
     }
 
-    // Serial.print(F("Saindo da Funcao] "));
 }
 
 void AcaoScreen::mensagem(BoxDadosAcao *DadosAcao, byte LinhaShow) {
@@ -116,10 +110,6 @@ void AcaoScreen::ledsAcaoLinhaColuna(BoxDadosAcao *DadosAcao, eAcaoBox Acao = eA
 
 void AcaoScreen::ledsTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte sizeBoxes) {
 
-    // Serial.print(F("\nAcaoScreen::ledsTematicoByItem()"));
-
-    // Serial.print(F("\nsizeBoxes:|")), Serial.print(sizeBoxes), Serial.print(F("|\n"));
-
     if (sizeBoxes > 0) {
         _box.boxAcaoTematicoByItem(DadosAcao, Boxes, sizeBoxes);
     }
@@ -149,54 +139,31 @@ void AcaoScreen::ledsAcaoCascata(BoxDadosAcao *DadosAcao) {
 
             colunasFeitas = 0;
 
-            // if(!acaoAtiva()) return;
-
-            // Serial.print(F("\n Inicializando While da CASCATA no objeto AcaoScreen:: ........"));
-
             while(acaoAtiva() && colunasFeitas < 14) {
         
                 for(uint8_t item = 0; item <= 14 && acaoAtiva(); item++) {
-
-                    // Serial.print(F("\nColunaFeita:\t")), Serial.print(colunasFeitas);
 
                     itemCascata = _box.getItemCascata(item);
 
                     if(itemCascata->Linha > 0 && (!itemCascata->Finalizado)) {
 
-                        // if (itemCascata->Coluna == 7)
-                        // {
-                            
-                            // Serial.print(F("\tExec (boxAcaoCascata) do Item (")), Serial.print(item);
-                            // Serial.print(F(") Coluna:\t")), Serial.print(itemCascata->Coluna);
-                            // Serial.print(F("\t Linha:\t")), Serial.print(itemCascata->Linha);
-
-                            _box.boxAcaoCascata(DadosAcao, itemCascata, luzFundo);
-
-                        // }
+                        _box.boxAcaoCascata(DadosAcao, itemCascata, luzFundo);
 
                     }
 
                     if((itemCascata->Linha - itemCascata->Arrasto) > 14 && !itemCascata->Finalizado) {
 
-                        // Serial.print(F("\nColunaFeita:\t")), Serial.print(colunasFeitas);
-                        // Serial.print(F(" - Ok"));
-
                         colunasFeitas++;
                         itemCascata->Finalizado = true;
+
                     }
 
                     itemCascata->Linha++;           // Anda com a linha da coluna
-
-                    // if( item == 14) Serial.print(F("\n"));
 
                 }
 
             }
         
-            // Serial.print(F("\n\n >>> ------------------------ <<<"));
-            // Serial.print(F("\n >>> Finalizado Ciclo Cascata <<<"));
-            // Serial.print(F("\n >>> ------------------------ <<<\n\n"));
-
             if (acaoAtiva()) { 
                 _tmpWaitRotina = 0;
                 // inicializaCascata();                    // Inicializa uma única vez e depois somente reset a linha
@@ -213,19 +180,9 @@ void AcaoScreen::inicializaCascata() {
     uint8_t     colunas[sizeCascata]                = {0};
     cascata_t   *pItemCascata                       = NULL;
 
-    // Serial.print(F("\n Inicializando CASCATA no objeto BoxAcao:: ........"));
     _box.inicializarCascata();
 
     randomUnico(colunas, sizeCascata);
-
-    // for(int x = 0; x < sizeCascata; x++) {
-    //     Serial.print(F("\nPosicao: ")), Serial.print(x);
-    //     Serial.print(F("\t| Coluna: ")), Serial.print(colunas[x]);
-    // }
-
-    // Serial.print(F("\n Montando Dados CASCATA ........"));
-
-    // delay(2000);
 
     for(uint8_t item = 0; item < sizeCascata && acaoAtiva(); item++) {
 
@@ -235,18 +192,8 @@ void AcaoScreen::inicializaCascata() {
         pItemCascata->Linha         = random(-3, 2);
         pItemCascata->LinhaInicial  = pItemCascata->Linha;
         pItemCascata->Arrasto       = random(7,  14);
-        // pItemCascata->Arrasto       = random(7,  10);
         pItemCascata->Percentual    = 100 / pItemCascata->Arrasto;      // percentual usado para fazer o arrasto
         pItemCascata->Finalizado    = false;
-
-        // Serial.print(F("\n\n\nItemCascata->Linha:\t\t")), Serial.print(pItemCascata->Linha);
-        // Serial.print(F("\nItemCascata->Coluna:\t\t")), Serial.print(pItemCascata->Coluna);
-        // Serial.print(F("\nItemCascata->Arrasto:\t\t")), Serial.print(pItemCascata->Arrasto);
-        // Serial.print(F("\nItemCascata->Percentual:\t")), Serial.print(pItemCascata->Percentual);
-        // Serial.print(F("\nItemCascata->Finalizado:\t")), Serial.print(pItemCascata->Finalizado);
-        // Serial.print(F("\n\n\n"));
-
-        // delay(250);
 
     }
 
@@ -257,25 +204,11 @@ void AcaoScreen::resetCascata() {
     uint8_t     sizeCascata                         = _box.size_Cascata();
     cascata_t   *pItemCascata                       = NULL;
 
-    // Serial.print(F("\n Resetando CASCATA no objeto BoxAcao:: ........"));
-
     for(uint8_t item = 0; item < sizeCascata && acaoAtiva(); item++) {
 
-        pItemCascata = _box.getItemCascata(item);
-
-        // Serial.print(F("\n\n\nAntes-ItemCascata->Linha:\t\t")), Serial.print(pItemCascata->Linha);
-
+        pItemCascata                = _box.getItemCascata(item);
         pItemCascata->Linha         = pItemCascata->LinhaInicial;
         pItemCascata->Finalizado    = false;
-
-        // Serial.print(F("\n\nDepois-ItemCascata->Linha:\t\t")), Serial.print(pItemCascata->Linha);
-        // Serial.print(F("\nItemCascata->Coluna:\t\t")), Serial.print(pItemCascata->Coluna);
-        // Serial.print(F("\nItemCascata->Arrasto:\t\t")), Serial.print(pItemCascata->Arrasto);
-        // Serial.print(F("\nItemCascata->Percentual:\t")), Serial.print(pItemCascata->Percentual);
-        // Serial.print(F("\nItemCascata->Finalizado:\t")), Serial.print(pItemCascata->Finalizado);
-        // Serial.print(F("\n\n\n"));
-
-        // delay(250);
 
     }
 
@@ -289,62 +222,34 @@ void AcaoScreen::randomUnico(uint8_t bufferValores[], uint8_t SizeBuffer) {
     uint8_t   maximo        = SizeBuffer + 1;
     uint8_t   valor         = 0;
 
-
-    // Necessário inicializar os valores porque estava dando problema intermitente com sujeira
-    // for (int posicao = 0; posicao < SizeBuffer; posicao++)
-    // {
-    //     bufferValores[posicao] = 0;
-    // }
-    
-
-    // Serial.print(F("\nAcaoScreen::randomUnico:coluna = ")), Serial.print(coluna);
-    // Serial.print(F(" Qtde Colunas a processar = ")), Serial.print(SizeBuffer);
     valor = random();
-    // Serial.print(F(" | ponto de inicializacao = ")), Serial.print(valor);
-    // delay(100);
 
-    // randomSeed(random());                               // Necessário para indicar um ponto de inicialização aleatório
     randomSeed(valor);                               // Necessário para indicar um ponto de inicialização aleatório
 
     while(coluna < SizeBuffer && acaoAtiva()){
 
         valor = random(minimo, maximo);
 
-        // Serial.print(F("\nValor randomico = ")), Serial.print(valor);
-        // Serial.print(F(" \t( Min = ")), Serial.print(minimo);
-        // Serial.print(F(" | Max = ")), Serial.print(maximo), Serial.print(F(" )"));
-
         valorExiste = false;
+
         for( int i = 0; i < SizeBuffer; i++ ){
             if(valor == bufferValores[i]){
-                valorExiste = true;
-        
-                    // Serial.print(F(" - ja usado"));
 
+                valorExiste = true;
                 break;
+
             }
+
         }
 
         if(!valorExiste){
 
-            // Serial.print(F(" - Usado como coluna"));
-            // Serial.print(F(" | qtde coluna proc = ")), Serial.print(coluna);
-
             bufferValores[coluna] = valor;
             coluna++;
+
         }
+
     }
-
-    // Serial.print(F("\n"));
-
-    // for(int x = 0; x < SizeBuffer; x++) {
-
-    //     Serial.print(F("\nPosicao: ")), Serial.print(x);
-    //     Serial.print(F("\t| Coluna: ")), Serial.print(bufferValores[x]);
-
-    // }
-
-    // Serial.print(F("\n\nAcaoScreen::randomUnico: [SAINDO] "));
 
 }
 
@@ -372,10 +277,7 @@ void AcaoScreen::inicializarSnake(BoxDadosAcao *DadosAcao, snake_t *snake) {
 
 void AcaoScreen::ledsAcaoSnake(BoxDadosAcao *DadosAcao) {
 
-    // Serial.print(F("\nAcaoScreen::ledsHunter"));
-
     byte        CorpoSnakeMax   = _CorpoSnakeMax_;
-
     alvo_t      alvo            = {0, {0,0,0}};
     box_t       BoxNovo         = {0, {0,0,0}};
     boxRGB_t    RGBAlvo         = {255, 20, 50};
@@ -387,126 +289,28 @@ void AcaoScreen::ledsAcaoSnake(BoxDadosAcao *DadosAcao) {
 
     inicializarSnake(DadosAcao, &snake);
 
-    // Serial.print(F("\nsnake.Corpo[snake.Arrasto].Posicao\t|")), Serial.print(snake.Corpo[snake.Arrasto].Posicao);
-    // Serial.print(F("\nsnake.Corpo[snake.Arrasto].RGB.R\t|")), Serial.print(snake.Corpo[snake.Arrasto].RGB.R);
-    // Serial.print(F("\nsnake.Corpo[snake.Arrasto].RGB.B\t|")), Serial.print(snake.Corpo[snake.Arrasto].RGB.G);
-    // Serial.print(F("\nsnake.Corpo[snake.Arrasto].RGB.B\t|")), Serial.print(snake.Corpo[snake.Arrasto].RGB.B);
-
     // alvo = _box.getAlvoBox(DadosAcao, snake.Corpo[snake.Arrasto].Posicao);
     alvo = buscarNovoAlvo(DadosAcao, &snake);
 
     _box.showAlvo(DadosAcao, alvo, RGBAlvo);
     // _box.showCabecaSnake(DadosAcao, &snake);
 
-    // Serial.print(F("\nalvo.Posicao\t|")),   Serial.print(alvo.Posicao), Serial.print(F("|"));
-    // Serial.print(F("\nalvo.RGB.R\t|")),     Serial.print(alvo.RGB.R),   Serial.print(F("|"));
-    // Serial.print(F("\nalvo.RGB.B\t|")),     Serial.print(alvo.RGB.G),   Serial.print(F("|"));
-    // Serial.print(F("\nalvo.RGB.B\t|")),     Serial.print(alvo.RGB.B),   Serial.print(F("|"));
-    
-    // Serial.print(F("\n\n-------INICIANDO LOOP -----------------\n\n"));
-
     while (acaoAtiva())
     {
   
         BoxNovo = buscarNovaPosicao(DadosAcao, &snake, &alvo);
 
-        // Serial.print(F("\nsnake.Arrasto\t|")),     Serial.print(snake.Arrasto),   Serial.print(F("|"));
-
-        // Serial.print(F("\nBoxNovo.Posicao.Linha\t|")),     Serial.print(DadosAcao->numLinha(BoxNovo.Posicao)),   Serial.print(F("|"));
-        // Serial.print(F("\nBoxNovo.Posicao.Coluna\t|")),     Serial.print(DadosAcao->numColuna(BoxNovo.Posicao)),   Serial.print(F("|"));
-
-        // Serial.print(F("\ndeslocaArrasto\t|")),     Serial.print(deslocaArrasto),   Serial.print(F("|"));
-        // Serial.print(F("\n\n------------------------\n\n"));
-
-        // Serial.print(F("-- Descarregando Corpo Snake (Antes Deslocamento) --"));
-
-        // Serial.print(F("\nsnake.Arrasto\t|")),     Serial.print(snake.Arrasto),   Serial.print(F("|"));
-        // for (byte posicao = 0; posicao <= snake.Arrasto; posicao++)
-        // {
-        //     Serial.print(F("\nsnake.Corpo[")),
-        //     Serial.print(posicao),
-        //     Serial.print(F("].Posicao.Linha\t|")),
-        //     Serial.print(DadosAcao->numLinha(snake.Corpo[posicao].Posicao)),
-        //     Serial.print(F("|"));
-
-        //     Serial.print(F("\nsnake.Corpo[")),
-        //     Serial.print(posicao),
-        //     Serial.print(F("].Posicao.Coluna\t|")),
-        //     Serial.print(DadosAcao->numColuna(snake.Corpo[posicao].Posicao)),
-        //     Serial.print(F("|"));
-
-        // }
-        
-        // Serial.print(F("\n\n-------- FIM -----------\n\n"));
-
-
         if(deslocaArrasto) descerPosicaoSnake(&snake);
-
-
-        // Serial.print(F("-- Descarregando Corpo Snake (Apos Deslocamento) --"));
-
-        // Serial.print(F("\nsnake.Arrasto\t|")),     Serial.print(snake.Arrasto),   Serial.print(F("|"));
-        // for (byte posicao = 0; posicao <= snake.Arrasto; posicao++)
-        // {
-        //     Serial.print(F("\nsnake.Corpo[")),
-        //     Serial.print(posicao),
-        //     Serial.print(F("].Posicao.Linha\t|")),
-        //     Serial.print(DadosAcao->numLinha(snake.Corpo[posicao].Posicao)),
-        //     Serial.print(F("|"));
-
-        //     Serial.print(F("\nsnake.Corpo[")),
-        //     Serial.print(posicao),
-        //     Serial.print(F("].Posicao.Coluna\t|")),
-        //     Serial.print(DadosAcao->numColuna(snake.Corpo[posicao].Posicao)),
-        //     Serial.print(F("|"));
-
-        // }
-        
-        // Serial.print(F("\n\n-------- FIM -----------\n\n"));
-
 
         snake.Corpo[snake.Arrasto] = BoxNovo;
 
-
-        // Serial.print(F("-- Descarregando Corpo Snake (Apos Deslocamento e NovoBox) --"));
-
-        // Serial.print(F("\nsnake.Arrasto\t|")),     Serial.print(snake.Arrasto),   Serial.print(F("|"));
-        // for (byte posicao = 0; posicao <= snake.Arrasto; posicao++)
-        // {
-        //     Serial.print(F("\nsnake.Corpo[")),
-        //     Serial.print(posicao),
-        //     Serial.print(F("].Posicao.Linha\t|")),
-        //     Serial.print(DadosAcao->numLinha(snake.Corpo[posicao].Posicao)),
-        //     Serial.print(F("|"));
-
-        //     Serial.print(F("\nsnake.Corpo[")),
-        //     Serial.print(posicao),
-        //     Serial.print(F("].Posicao.Coluna\t|")),
-        //     Serial.print(DadosAcao->numColuna(snake.Corpo[posicao].Posicao)),
-        //     Serial.print(F("|"));
-
-        // }
-        
-        // Serial.print(F("\n\n-------- FIM -----------\n\n"));
-
-
-        // Serial.print(F("\n\n-------- Movendo Snake -----------\n\n"));
-
         _box.moveSnake(DadosAcao, snake);
-
-        // Serial.print(F("\n\n-------- Snake Movido -----------\n\n"));
 
         deslocaArrasto = true;          // Desloca sempre que não acertar o alvo
 
-
-        // delay(500);
-
         if(BoxNovo.Posicao == alvo.Posicao) {
 
-            // Serial.print(F("\n\n-------- Alvo Encontrado -----------\n\n"));
-
-            // Acertou o alvo
-            // Gerara novo alvo
+            // Acertou o alvo, onde sera gerado novo alvo
 
             // Antes de gerar um novo alvo, o alvo deve passar o RGB original
             // Guarda o RGB original do quadro
@@ -527,34 +331,6 @@ void AcaoScreen::ledsAcaoSnake(BoxDadosAcao *DadosAcao) {
             }
 
         } 
-
-        // Serial.print(F("\n\n -- Aguardando comando --\n\n"));
-        // while(!Serial.available());
-        // byte dado = (byte)Serial.parseInt();
-
-
-        // if(BoxNovo.Posicao == alvo.Posicao) {
-        //     // Acertou o alvo
-        //     // Gerara novo alvo
-        //     alvo = _box.getAlvoBox(DadosAcao, snake.Corpo[snake.Arrasto].Posicao);
-
-        //     _box.showAlvo(DadosAcao, alvo, RGBAlvo);
-
-        //     // Aumenta o arrasto
-        //     if(snake.Arrasto <= CorpoSnakeMax) {
-        //         snake.Arrasto++;
-        //     } else {
-        //         // Shift posicao -1 no Snake
-        //         descerPosicaoSnake(&snake);
-        //     }
-
-        // } else {
-        //     // Não acertou o alvo
-
-        //     descerPosicaoSnake(&snake);
-        // }
-
-        // snake.Corpo[snake.Arrasto] = BoxNovo;
 
     }
 
@@ -579,26 +355,12 @@ box_t AcaoScreen::buscarNovaPosicao(BoxDadosAcao *DadosAcao, snake_t *snake, alv
 
     box_t                       BoxNovo         = {0, {0,0,0}};
     static eBoxMovimentoSnake   movimento;
-    // static byte                 qtdeChamada;          
-
-    // Serial.print(F("\nAcaoScreen::buscarNovaPosicao(movimento:"));
-    // if(movimento == eBoxMovimentoSnake::semMovimento)   Serial.print(F("Sem Movimento"));
-    // if(movimento == eBoxMovimentoSnake::boxColuna)      Serial.print(F("Movimento Coluna"));
-    // if(movimento == eBoxMovimentoSnake::boxLinha)       Serial.print(F("Movimento Linha"));
-    // Serial.print(F(")\n"));
 
     if(movimento == eBoxMovimentoSnake::semMovimento) {
+
         movimento = eBoxMovimentoSnake::boxColuna;
-        // qtdeChamada = 0;
+
     }
-
-    // Serial.print(F("\nAcaoScreen::buscarNovaPosicao(movimento:"));
-    // if(movimento == eBoxMovimentoSnake::semMovimento)   Serial.print(F("Sem Movimento"));
-    // if(movimento == eBoxMovimentoSnake::boxColuna)      Serial.print(F("Movimento Coluna"));
-    // if(movimento == eBoxMovimentoSnake::boxLinha)       Serial.print(F("Movimento Linha"));
-    // Serial.print(F(")\n"));
-
-    // Serial.print(F("\nsnake.Corpo[snake.Arrasto].Posicao\t|")), Serial.print(snake->Corpo[snake->Arrasto].Posicao);
 
     BoxNovo = _box.getPosicaoBoxByAlvo(DadosAcao, 
                                         &snake->Corpo[snake->Arrasto], 
@@ -611,59 +373,12 @@ box_t AcaoScreen::buscarNovaPosicao(BoxDadosAcao *DadosAcao, snake_t *snake, alv
     
     if(BoxNovo.Posicao == snake->Corpo[snake->Arrasto - 2].Posicao) {
 
-        // qtdeChamada++;
-
-        // Serial.print(F("\nNovaPosicao == pescoco Snake ("));
-        // Serial.print(F("BoxNovo.Posicao:|")), Serial.print(BoxNovo.Posicao);
-        // Serial.print(F("|)\n")), Serial.print(BoxNovo.Posicao);
-        // Serial.print(F("\nsnake.Corpo[snake.Arrasto - 2].Posicao\t|")), Serial.print(snake->Corpo[snake->Arrasto - 2].Posicao);
-
         if(movimento == eBoxMovimentoSnake::boxColuna)
             movimento = eBoxMovimentoSnake::boxLinha;
         else
             movimento = eBoxMovimentoSnake::boxColuna;
 
-        // if(qtdeChamada < 3) {
-    
-        //     buscarNovaPosicao(DadosAcao, snake, alvo);
-
-        // } else {
-
-        //     snake_t newSnake    = *snake;
-        //     byte Linha          = DadosAcao->numLinha(newSnake.Corpo[newSnake.Arrasto].Posicao);
-        //     byte Coluna         = DadosAcao->numColuna(newSnake.Corpo[newSnake.Arrasto].Posicao);
-
-        //     if(movimento == eBoxMovimentoSnake::boxColuna) {
-
-        //         if(((Linha + 1) <= 14) || ((Linha - 1) == 0)) {
-        //             Linha++;
-        //         } else if((Linha - 1) > 1) {
-        //             Linha--;
-        //         }
-        //         movimento = eBoxMovimentoSnake::boxLinha;
-
-        //     } else {
-
-        //         if(((Coluna + 1) <= 15) || ((Coluna - 1) == 0)) {
-        //             Coluna++;
-        //         } else if((Coluna - 1) > 1) {
-        //             Coluna--;
-        //         }
-        //         movimento = eBoxMovimentoSnake::boxColuna;
-
-        //     }
-
-        //     newSnake.Corpo[newSnake.Arrasto].Posicao = DadosAcao->converteLinhaColuna(Linha, Coluna);
-
-        //     buscarNovaPosicao(DadosAcao, &newSnake, alvo);
-
-        // }
-
-    } // else {
-    //     qtdeChamada = 0;
-    // }
-
-    // Serial.print(F("\nsnake.Corpo[snake.Arrasto].Posicao\t|")), Serial.print(snake->Corpo[snake->Arrasto].Posicao);
+    }
 
     byte parteDoCorpo = procurarCorpoSnake(&BoxNovo, snake);
 
@@ -680,13 +395,14 @@ alvo_t AcaoScreen::buscarNovoAlvo(BoxDadosAcao *DadosAcao, snake_t *snake) {
     byte    LinhaSnake      = DadosAcao->numLinha(snake->Corpo[snake->Arrasto].Posicao);
     byte    ColunaSnake     = DadosAcao->numColuna(snake->Corpo[snake->Arrasto].Posicao);
 
-    alvo = _box.getAlvoBox(DadosAcao, snake->Corpo[snake->Arrasto].Posicao);
+    alvo                    = _box.getAlvoBox(DadosAcao, snake->Corpo[snake->Arrasto].Posicao);
 
     byte    LinhaAlvo       = DadosAcao->numLinha(alvo.Posicao);
     byte    ColunaAlvo      = DadosAcao->numColuna(alvo.Posicao);
     byte    alvoNoCorpo     = procurarCorpoSnake(&alvo, snake);
 
     if(alvoNoCorpo || LinhaAlvo == LinhaSnake || ColunaAlvo == ColunaSnake) 
+
         alvo = buscarNovoAlvo(DadosAcao, snake);
 
     return alvo;
@@ -712,7 +428,6 @@ void AcaoScreen::entrarNaToca(BoxDadosAcao *DadosAcao, snake_t *snake) {
         _box.moveSnakeToca(DadosAcao, snake, fimArrasto);
         
     }
-    
 
 }
 

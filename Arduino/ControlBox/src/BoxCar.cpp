@@ -31,23 +31,10 @@ void BoxCar::identificarExecutarAcao() {
 
     eeprom.getDadosOnMemory(&dadosAcao);
 
-    Serial.print(F("\nCodeAcao: ")), Serial.print(dadosAcao.getCodeAcao());
-    Serial.print(F(" R: [")), Serial.print(dadosAcao.getR());
-    Serial.print(F("] G: [")), Serial.print(dadosAcao.getG());
-    Serial.print(F("] B: [")), Serial.print(dadosAcao.getB());
-    Serial.print(F("] Brilho: ")), Serial.print(dadosAcao.getBrilho());
-
     /* Busca o gamma correlacionado a cada cor do RGB e guarda dentro do objeto */
     dadosAcao.setRGBGamma(pgm_read_byte(&_NeoPixelGammaTable[dadosAcao.getR()]),
                           pgm_read_byte(&_NeoPixelGammaTable[dadosAcao.getG()]),
                           pgm_read_byte(&_NeoPixelGammaTable[dadosAcao.getB()]));
-
-
-    Serial.print(F(" - Gama: "));
-    Serial.print(F(" R: [")), Serial.print(dadosAcao.getGammaR());
-    Serial.print(F("] G: [")), Serial.print(dadosAcao.getGammaG());
-    Serial.print(F("] B: [")), Serial.print(dadosAcao.getGammaB());
-    Serial.print(F("] "));
 
     executarAcao((eAcaoBox)dadosAcao.getCodeAcao());
 

@@ -99,23 +99,15 @@ void ScreenBoxCar::executarAcao() {
     
     if (CodeAcao > 20) {
 
-        // acao.setCodeAcao(tela.getAcaoOnScreen());
         tela.getRGBBrilhoOnScreen(&acao);
-        // acao.gerarChaveAcao();
 
         switch (CodeAcao) {
 
-            // case 0:                                             // Reset Ação 
-            //     digitalWrite(_pinoControle, LOW);               // Sinaliza ação  cancelada para o outro Arduino
-            //     delay(50);
-            //     break;
             case 254:                                               // Device EEPROM não disponível
             case 255:                                               // Reset Ação
                 
-                // if (!acao.chaveAcaoAnteriorAtualIgual()) {
-                    digitalWrite(_pinoControle, LOW);               // Sinaliza Off para o outro Arduino
-                    delay(50);
-                // }
+                digitalWrite(_pinoControle, LOW);               // Sinaliza Off para o outro Arduino
+                delay(50);
 
                 break;
 
@@ -211,9 +203,7 @@ void ScreenBoxCar::tentarAcessarEAtualizarOnScreen(){
 
 void ScreenBoxCar::atualizarDadosMemoriaOnScreen() {
 
-    // nexSerial.print(F("Chamando: eeprom.getDadosOnMemory(&acao)"));
     eeprom.getDadosOnMemory(&acao);
-    // nexSerial.print(F("Retornou de: eeprom.getDadosOnMemory(&acao)"));
 
     if (eeprom.disponivel()) {
         
@@ -314,9 +304,6 @@ void ScreenBoxCar::carregarBoxesTemaEEPROMCompartilhada(eAcaoBox CodeAcao) {
 
     if(posicaoTema > 0) {
 
-        // nexSerial.print(F("ScreenBoxCar::lerEEPROMIno"));
-        // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
         byte QtdeBoxTema = acao.lerDadosTemaBat(Boxes, posicaoTema);
 
         eeprom.setTemaOnMemory(Boxes, sizeBoxes, QtdeBoxTema);
@@ -346,9 +333,6 @@ bool ScreenBoxCar::lerEEPROMIno(byte Boxes[]) {
 
     if(posicaoTema > 0) {
 
-        // nexSerial.print(F("ScreenBoxCar::lerEEPROMIno"));
-        // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
         acao.lerDadosTemaBat(Boxes, posicaoTema);
         return true;
     }
@@ -362,17 +346,14 @@ void ScreenBoxCar::atualizarBoxesOnScreen(byte Boxes[], byte sizeBoxes) {
     String strBoxes         = "";
     String strValor         = "";
 
-    // nexSerial.print(F("ScreenBoxCar::atualizarBoxesOnScreen"));
-    // nexSerial.print(F("sizeof(Boxes)={{")), nexSerial.print(sizeBoxes);
-    // nexSerial.print(F("}}"));
-    // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
-
     for (byte posicao = 0; posicao < sizeBoxes; posicao++)
     {
         if(Boxes[posicao] == 0x00) {
+
             break;      // Não existe mais dados
+
         } else {
+
             Linha = acao.numLinha(Boxes[posicao]);
             Coluna = acao.numColuna(Boxes[posicao]);
 
@@ -390,10 +371,6 @@ void ScreenBoxCar::atualizarBoxesOnScreen(byte Boxes[], byte sizeBoxes) {
         }
     }
 
-    // nexSerial.print(F("sstrBoxes.c_str()={{")), nexSerial.print(strBoxes.c_str());
-    // nexSerial.print(F("}}"));
-    // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
     tela.setBoxesOnScreen(strBoxes.c_str());    
 }
 
@@ -406,25 +383,12 @@ void ScreenBoxCar::salvarBoxesTema() {
     byte acaoTema       = tela.getAcaoTemaOnScreen();
     byte posicaoTema    = acao.getPosicaoTemaBat(acaoTema);
     
-    // nexSerial.print(F("ScreenBoxCar::salvarBoxesTema:::"));
-    // nexSerial.print(F("acaoTema={{")), nexSerial.print(acaoTema);
-    // nexSerial.print(F("}}"));
-    // nexSerial.print(F("posicaoTema={{")), nexSerial.print(posicaoTema);
-    // nexSerial.print(F("}}"));
-    // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
-
     if(posicaoTema == 0) {
+
         // Não existe uma posicao cadastrada
         posicaoTema = acao.setPosicaoLivreTemaBat(acaoTema);
 
-        // nexSerial.print(F("(Nova)posicaoTema={{")), nexSerial.print(posicaoTema);
-        // nexSerial.print(F("}}"));
-        // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
     }
-
-    // memset(Boxes, 0, sizeof(Boxes));
 
     buscarBoxesOnScreen(Boxes, sizeBoxes);
     gravarDadosEEPROMIno(Boxes, sizeBoxes, posicaoTema);
@@ -440,12 +404,11 @@ void ScreenBoxCar::salvarBoxesTemaByItem() {
     byte posicaoTema    = acao.getPosicaoTemaBat(acaoTema);
     
     if(posicaoTema == 0) {
+
         // Não existe uma posicao cadastrada
         posicaoTema = acao.setPosicaoLivreTemaBat(acaoTema);
 
     }
-
-    // memset(Boxes, 0, sizeof(Boxes));
 
     buscarBoxesOnScreenByItem(Boxes, sizeBoxes);
     gravarDadosEEPROMInoByItem(Boxes, sizeBoxes, posicaoTema);
@@ -456,20 +419,6 @@ void ScreenBoxCar::salvarBoxesTemaByItem() {
 void ScreenBoxCar::buscarBoxesOnScreen(char Boxes[], byte sizeBoxes) {
 
     byte sizeRecebido = tela.getBoxesOnScreen(Boxes, sizeBoxes);
-
-    // nexSerial.print(F("ScreenBoxCar::buscarBoxesOnScreen:::"));
-    // nexSerial.print(F("sizeBoxes={{")), nexSerial.print(sizeBoxes);
-    // nexSerial.print(F("}}"));
-    // nexSerial.print(F("sizeRecebido={{")), nexSerial.print(sizeRecebido);
-    // nexSerial.print(F("}}"));
-    // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
-    // if(sizeRecebido < sizeBoxes) {
-    //     nexSerial.print(F("sizeRecebido <> sixeBoxes"));
-    //     nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
-    // }
-
 
 }
 
@@ -483,13 +432,6 @@ void ScreenBoxCar::buscarBoxesOnScreenByItem(byte Boxes[], byte sizeBoxes) {
     {
         itemBox = tela.getItemBoxesOnScreen(IDItem);
 
-        // nexSerial.print(F("ScreenBoxCar::buscarBoxesOnScreenByItem:::"));
-        // nexSerial.print(F("IDItem={{")), nexSerial.print(IDItem);
-        // nexSerial.print(F("}}"));
-        // nexSerial.print(F("itemBox={{")), nexSerial.print(itemBox);
-        // nexSerial.print(F("}}"));
-        // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
         Boxes[itemBoxes] = itemBox;
         itemBoxes++;
 
@@ -502,41 +444,14 @@ void ScreenBoxCar::gravarDadosEEPROMIno(char Boxes[], byte sizeBoxes, int Posica
 
     int posicaoInicialTema      = acao.posicaoInicialDadoTema(PosicaoTema);
     int posicaoFinalTema        = acao.posicaoFinalDadoTema(PosicaoTema);
-
-    // byte sizeTemaBat            = acao.getSizeTemaBat();
-    // int posicaoInicialTema      = PosicaoTema * sizeTemaBat;
-    // int posicaoFinalTema        = posicaoInicialTema + sizeTemaBat;
-
     byte posicaoEEPROMIno       = posicaoInicialTema;
     String strLinCol            = "";
     byte numLinCol              = 0;
 
-    // nexSerial.print(F("ScreenBoxCar::gravarDadosEEPROMIno:::"));
-    // nexSerial.print(F("Boxes={{")), nexSerial.print(Boxes);
-    // nexSerial.print(F("}}"));
-    // nexSerial.print(F("sizeBoxes={{")), nexSerial.print(sizeBoxes);
-    // nexSerial.print(F("}}"));
-    // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
-
     for (byte posicaoBoxes = 0; posicaoBoxes < sizeBoxes; posicaoBoxes++)
     {
 
-        // nexSerial.print(F("posicaoBoxes={{")), nexSerial.print(posicaoBoxes);
-        // nexSerial.print(F("}}"));
-        // nexSerial.print(F("Boxes[posicaoBoxes]={{")), nexSerial.print(Boxes[posicaoBoxes]);
-        // nexSerial.print(F("}}"));
-        // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
-
         if(Boxes[posicaoBoxes] == ';') {
-
-            // nexSerial.print(F("(e ;)strLinCol={{")), nexSerial.print(strLinCol);
-            // nexSerial.print(F("}}"));
-            // nexSerial.print(F("(e ;)posicaoEEPROMIno={{")), nexSerial.print(posicaoEEPROMIno);
-            // nexSerial.print(F("}}"));
-            // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
 
             numLinCol = (byte)strLinCol.toInt();
             EEPROM.write(posicaoEEPROMIno, numLinCol);
@@ -564,34 +479,12 @@ void ScreenBoxCar::gravarDadosEEPROMInoByItem(byte Boxes[], byte sizeBoxes, int 
 
     int posicaoInicialTema      = acao.posicaoInicialDadoTema(PosicaoTema);
     int posicaoFinalTema        = acao.posicaoFinalDadoTema(PosicaoTema);
-
     byte posicaoEEPROMIno       = posicaoInicialTema;
-
-    // nexSerial.print(F("ScreenBoxCar::gravarDadosEEPROMIno:::"));
-    // nexSerial.print(F("Boxes={{")), nexSerial.print(Boxes);
-    // nexSerial.print(F("}}"));
-    // nexSerial.print(F("sizeBoxes={{")), nexSerial.print(sizeBoxes);
-    // nexSerial.print(F("}}"));
-    // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
 
     for (byte posicaoBoxes = 0; posicaoBoxes < sizeBoxes; posicaoBoxes++)
     {
 
-        // nexSerial.print(F("posicaoBoxes={{")), nexSerial.print(posicaoBoxes);
-        // nexSerial.print(F("}}"));
-        // nexSerial.print(F("Boxes[posicaoBoxes]={{")), nexSerial.print(Boxes[posicaoBoxes]);
-        // nexSerial.print(F("}}"));
-        // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
-
         if(Boxes[posicaoBoxes] != 0) {
-
-            // nexSerial.print(F("(e ;)strLinCol={{")), nexSerial.print(strLinCol);
-            // nexSerial.print(F("}}"));
-            // nexSerial.print(F("(e ;)posicaoEEPROMIno={{")), nexSerial.print(posicaoEEPROMIno);
-            // nexSerial.print(F("}}"));
-            // nexSerial.write(0xFF), nexSerial.write(0xFF), nexSerial.write(0xFF);
-
 
             EEPROM.write(posicaoEEPROMIno, Boxes[posicaoBoxes]);
             posicaoEEPROMIno++;
