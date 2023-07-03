@@ -8,5 +8,3 @@ Este arduino é responsável em geranciar estas interações e manter as informa
 
 </br>
 </br>
-
-
