@@ -12,7 +12,7 @@ O projeto foi desenvolvido em 3 partes:
 
 - Tela;
 - Controle da tela e periféricos;
-- Controle do quadro;
+- Controle do quadro (box);
 
 ### Tela
 
@@ -55,9 +55,39 @@ Diretório contendo o projeto: */Arduino/ControlBox*
 - I2C;
 - UART;
 
+## Mapa dos pinos usados
+
+Nesta seção será descrito quais pinos foram utilizados em cada arduino nano e com quais periféricos/sensores.
+
+### Arduino nano - (tela)
+
+|Sensor/device|Pino|Observação|
+|-------------|----|----------|
+| Nextion| Tx e Rx | UART |
+| LDR|A0| Utilizado um resistor de 00 oms |
+| DHT11| A1 | Módulo |
+| DS3231| I2C - (A4) SDA    (A5) SCL | Módulo |
+| EEPROM| I2C - (A4) SDA    (A5) SCL | Módulo compartilhado entre arduinos |
+| Buzzer| 7 - digital | Comum |
+| Led (indicação de uso da eeprom) | 11 - digital|Utilizado um resistor de 00 oms |
+| Led (indicação de ação)| 12 - digital | Utilizado um resistor de 00 oms |
+| Led (indicação de alerta eeprom) | 08 - digital|  |
+
+</br>
+
+### Arduino Nano - (box)
+
+|Sensor/device|Pino|Observação|
+|-------------|----|----------|
+| EEPROM| I2C - (A4) SDA    (A5) SCL | Módulo compartilhado entre arduinos |
+| Buzzer| 7 - digital | Comum |
+| Fita de Leds | 13 - digital | Utilizado um resistor de 00 oms |
+| Led (indicação de uso da eeprom) | 11 - digital|Utilizado um resistor de 00 oms |
+| Led (indicação de ação) | 12 - digital|Utilizado um resistor de 00 oms |
+| Led (indicação de alerta eeprom) | 08 - digital|  |
+
 ## Desenho da solução em hardware
 
-## Pinos usados
 
 
 

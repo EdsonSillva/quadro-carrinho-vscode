@@ -173,11 +173,11 @@
    "-IC:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\EEPROM\\src",
    "-IC:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxBuzzerCar\\src",
    "-IC:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src",
-   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\AcaoBox.cpp",
+   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoScreen\\AcaoScreen.cpp",
    "-o",
-   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\AcaoBox.cpp.o"
+   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoScreen\\AcaoScreen.cpp.o"
   ],
-  "file": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\AcaoBox.cpp"
+  "file": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoScreen\\AcaoScreen.cpp"
  },
  {
   "directory": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox",
@@ -209,11 +209,11 @@
    "-IC:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\EEPROM\\src",
    "-IC:\\Users\\edson\\Documents\\Arduino\\libraries\\BoxBuzzerCar\\src",
    "-IC:\\Users\\edson\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src",
-   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoScreen\\AcaoScreen.cpp",
+   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\AcaoBox.cpp",
    "-o",
-   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoScreen\\AcaoScreen.cpp.o"
+   "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\AcaoBox.cpp.o"
   ],
-  "file": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoScreen\\AcaoScreen.cpp"
+  "file": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\AcaoBox\\AcaoBox.cpp"
  },
  {
   "directory": "c:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox",

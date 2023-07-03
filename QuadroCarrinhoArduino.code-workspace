@@ -25,11 +25,6 @@
 		},
 
 		{
-			"name": "# Arduino Geral",
-			"path": "Arduino//Geral",
-		},
-
-		{
 			"name": "# Projeto Todo",
 			"path": ".",
 		}

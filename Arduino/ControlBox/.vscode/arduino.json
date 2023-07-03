@@ -2,7 +2,7 @@
     "sketch": "ControlBox.ino",
     "configuration": "cpu=atmega328old",
     "board": "arduino:avr:nano",
-    "programmer": "arduino:avrisp",
+    "programmer": "avrisp",
     "output": "../build",
     "port": "COM21"
 }
