@@ -64,14 +64,14 @@ Nesta seção será descrito quais pinos foram utilizados em cada arduino nano e
 |Sensor/device|Pino|Observação|
 |-------------|----|----------|
 | Nextion| Tx e Rx | UART |
-| LDR|A0| Utilizado um resistor de 00 oms |
+| LDR|A0| Utilizado um resistor de 470 ohms |
 | DHT11| A1 | Módulo |
 | DS3231| I2C - (A4) SDA    (A5) SCL | Módulo |
 | EEPROM| I2C - (A4) SDA    (A5) SCL | Módulo compartilhado entre arduinos |
 | Buzzer| 7 - digital | Comum |
-| Led (indicação de uso da eeprom) | 11 - digital|Utilizado um resistor de 00 oms |
-| Led (indicação de ação)| 12 - digital | Utilizado um resistor de 00 oms |
-| Led (indicação de alerta eeprom) | 08 - digital|  |
+| Led (indicação de uso da eeprom) | 11 - digital|Utilizado um resistor de 470 ohms |
+| Led (indicação de ação)| 12 - digital | Utilizado um resistor de 470 ohms |
+| Led (indicação de alerta eeprom) | 08 - digital |Utilizado um resistor de 470 ohms | |
 
 </br>
 
@@ -81,10 +81,10 @@ Nesta seção será descrito quais pinos foram utilizados em cada arduino nano e
 |-------------|----|----------|
 | EEPROM| I2C - (A4) SDA    (A5) SCL | Módulo compartilhado entre arduinos |
 | Buzzer| 7 - digital | Comum |
-| Fita de Leds | 13 - digital | Utilizado um resistor de 00 oms |
-| Led (indicação de uso da eeprom) | 11 - digital|Utilizado um resistor de 00 oms |
-| Led (indicação de ação) | 12 - digital|Utilizado um resistor de 00 oms |
-| Led (indicação de alerta eeprom) | 08 - digital|  |
+| Fita de Leds | 13 - digital | Resistor interno |
+| Led (indicação de uso da eeprom) | 11 - digital | Utilizado um resistor de 470 ohms |
+| Led (indicação de ação) | 12 - digital|Utilizado um resistor de 470 ohms |
+| Led (indicação de alerta eeprom) | 08 - digital | Utilizado um resistor de 470 ohms |
 
 ## Desenho da solução em hardware
 
