@@ -39,7 +39,7 @@
 
 #define   _pin_Controle_          12
 #define   _pino_eeprom_usado_     11
-#define   _pino_eeprom_alerta_    13
+#define   _pino_eeprom_alerta_     8
 #define   _Linha_Show_            02
 
 class BoxCar

@@ -36,7 +36,7 @@
 
 #define   _pin_Controle_          12
 #define   _pino_eeprom_usado_     11
-#define   _pino_eeprom_alerta_    13
+#define   _pino_eeprom_alerta_     8
 
 class ScreenBoxCar
 {
@@ -63,8 +63,6 @@ private:
   void gravarDadosEEPROMIno(char Boxes[], byte sizeBoxes, int PosicaoTema);
   void gravarDadosEEPROMInoByItem(byte Boxes[], byte sizeBoxes, int PosicaoTema);
   void inicializacaoDaTela();
-
-  
 
 public:
 
