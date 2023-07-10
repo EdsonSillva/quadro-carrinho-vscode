@@ -5,6 +5,8 @@
   Date: 26/05/18
   Comunicação Rx e Tx padrão do microcontrolador (Serial: 9600)
 
+  Modificado em: 10/07/23
+
 */
 
 
@@ -29,6 +31,7 @@ public:
             tela do Nextion.
    */
     uint8_t const   IDAcaoArduino             =  1,
+                    IDAcaoEmExec              = 36,
                     IDStandBy                 = 29,
                     IDArduinoExec             =  3,
                     IDLDR                     = 24,

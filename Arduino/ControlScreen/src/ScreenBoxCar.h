@@ -33,6 +33,8 @@
 #include "ScreenNextionBoxCar/screenNextionBoxCar.h"
 #include "DateTimeBoxCar/DateTimeBoxCar.h"
 #include "Ambiente/Ambiente.h"
+#include "InfoScreen/InfoScreen.h"
+
 
 #define   _pin_Controle_          12
 #define   _pino_eeprom_usado_     11
@@ -75,6 +77,7 @@ public:
   Ambiente                    ambiente    = Ambiente();
   BoxEEPROM                   eeprom      = BoxEEPROM(&som);
   BoxDadosAcao                acao        = BoxDadosAcao();
+  InfoScreen                  info        = InfoScreen();
 
   void iniciar();
   void avaliarAcao();

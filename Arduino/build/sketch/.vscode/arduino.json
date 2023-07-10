@@ -1,9 +1,9 @@
-#line 1 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\.vscode\\arduino.json"
+#line 1 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\.vscode\\arduino.json"
 {
-    "sketch": "ControlBox.ino",
+    "sketch": "ControlScreen.ino",
     "configuration": "cpu=atmega328old",
     "board": "arduino:avr:nano",
-    "programmer": "avrisp",
     "output": "../build",
-    "port": "COM21"
+    "port": "COM21",
+    "programmer": "avrisp"
 }
