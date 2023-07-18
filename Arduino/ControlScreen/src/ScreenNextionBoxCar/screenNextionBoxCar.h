@@ -24,6 +24,10 @@
 #include <BoxDadosAcao.h>
 #endif
 
+#ifndef __INFOS_H__
+#include "../Infos/Infos.h"
+#endif
+
 #include "../enum/enumBox.h"
 #include "screenNextionJanela.h"
 #include "ScreenNextionObjeto.h"
@@ -41,6 +45,8 @@ private:
     int                     _Milenio    = 2000;
 
     void DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS);
+
+    void showInfoOnScreen(uint8_t *idScreen, uint8_t *idObjeto, byte *valor);
 
 public:
     screenNextionBoxCar();
@@ -62,12 +68,16 @@ public:
     void getDataOnScreen(byte *pDia, byte *pMes, byte *pAno, byte *DoW);
     void getHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);
     void getTextoOnScreen(char Texto[], byte *pQtdeChar);
-    void showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW);
+
+    void showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW);  // @deprecated
+
+    void showDataOnScreen(eTipoDataInfo tipoInfoData, Infos::InfoScreen *infoScreen);
+
     void showHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);
     bool getBeepOnScreen();
     void showTempSysOnScreen(int TemperaturaSys);
     void showTemperaturaOnScreen(double TemperaturaAmbiente);
-    void showHumidadeOnScreen(double HumidadeAmbiente);
+    void showUmidadeOnScreen(double UmidadeAmbiente);
     void setBoxesOnScreen(const char Boxes[]);
     byte getSizeBoxesOnScreen();
     byte getQtdeItensBoxesOnScreen();

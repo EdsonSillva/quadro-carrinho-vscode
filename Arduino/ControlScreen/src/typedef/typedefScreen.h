@@ -16,7 +16,7 @@
 #endif
 
 typedef struct {
-    byte    valor;
+    byte    valor;  // Controle de alteração no valor (no ultimo bit 0b10000000)
     bool    mudou;
 } valor_t;
 
@@ -39,50 +39,17 @@ typedef struct {
     valor_t    Luminosidade;
 } ambiente_t;
 
+// incluir uma variável do tipo uint16_t para controlar as mlterações nas variáveis (ganhar 7 bytes)
 typedef struct {
 
     dataScreen_t    Data;
     horaScreen_t    Tempo;
     ambiente_t      Ambiente;
     valor_t         TemperaturaSys;
+    uint8_t         Alterado;
     
 } dados_t,
   dadosSistema_t,
   dadosScreen_t;
-
-
-// Typedef do projeto Control Box
-// ##############################
-
-// typedef struct {
-//     uint8_t     Coluna;
-//     int8_t      Linha;
-//     int8_t      LinhaInicial;
-//     uint8_t     Arrasto;
-//     uint8_t     Percentual;
-//     bool        Finalizado;
-// } cascata_t;
-
-// typedef struct {
-//     byte        R;
-//     byte        G;
-//     byte        B;
-// } boxRGB_t;
-
-// typedef byte linCol;
-
-// typedef struct {
-//     linCol      Posicao;
-//     boxRGB_t    RGB;
-// } box_t;
-
-// typedef struct {
-//     byte        Arrasto;
-//     box_t       Corpo[_CorpoSnake_];
-//     boxRGB_t    CorFundo;
-// } snake_t;
-
-// typedef box_t alvo_t;
-
 
 #endif  // __TYPEDEFSCREEN_H__

@@ -17,5 +17,31 @@ enum eCodeExec {
 
 };
 
+enum eTipoDadoInfo {
+
+    DataInfo                    = 1,
+    TempoInfo                   = 2,
+    AmbienteInfo                = 3,
+    TempreraturaSysInfo         = 4
+
+};
+
+enum eTipoDataInfo {
+
+    DiaInfo                     = 1,
+    MesInfo                     = 2,
+    AnoInfo                     = 3,
+    DoWorkInfo                  = 4
+
+};
+
+enum eTipoTempoInfo {
+
+    HoraInfo                    = 1,
+    MinutoInfo                  = 2,
+    SegundoInfo                 = 3
+
+};
+
 
 #endif  // __ENUMBOX_H__

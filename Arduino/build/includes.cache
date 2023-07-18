@@ -70,7 +70,7 @@
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\Ambiente\\TemperaturaHumidadeBoxCar\\TemperaturaHumidadeBoxCar.cpp",
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\Ambiente\\TemperaturaUmidadeBoxCar\\TemperaturaUmidadeBoxCar.cpp",
     "Include": "",
     "Includepath": null
   },
@@ -80,7 +80,7 @@
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\InfoScreen\\InfoScreen.cpp",
+    "Sourcefile": "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\build\\sketch\\src\\Infos\\Infos.cpp",
     "Include": "",
     "Includepath": null
   },

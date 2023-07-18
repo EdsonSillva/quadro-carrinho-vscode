@@ -33,12 +33,13 @@
 #include "ScreenNextionBoxCar/screenNextionBoxCar.h"
 #include "DateTimeBoxCar/DateTimeBoxCar.h"
 #include "Ambiente/Ambiente.h"
-#include "InfoScreen/InfoScreen.h"
+#include "Infos/Infos.h"
 
 
 #define   _pin_Controle_          12
 #define   _pino_eeprom_usado_     11
 #define   _pino_eeprom_alerta_     8
+
 
 class ScreenBoxCar
 {
@@ -66,18 +67,19 @@ private:
   void gravarDadosEEPROMInoByItem(byte Boxes[], byte sizeBoxes, int PosicaoTema);
   void inicializacaoDaTela();
 
+
 public:
 
   ScreenBoxCar();
   ~ScreenBoxCar();
 
-  screenNextionBoxCar         tela        = screenNextionBoxCar();
-  BoxBuzzerCar                som         = BoxBuzzerCar();
-  DateTimeBoxCar              data        = DateTimeBoxCar();
-  Ambiente                    ambiente    = Ambiente();
-  BoxEEPROM                   eeprom      = BoxEEPROM(&som);
-  BoxDadosAcao                acao        = BoxDadosAcao();
-  InfoScreen                  info        = InfoScreen();
+  screenNextionBoxCar         tela          = screenNextionBoxCar();
+  BoxBuzzerCar                som           = BoxBuzzerCar();
+  DateTimeBoxCar              data          = DateTimeBoxCar();
+  Ambiente                    ambiente      = Ambiente();
+  BoxEEPROM                   eeprom        = BoxEEPROM(&som);
+  BoxDadosAcao                acao          = BoxDadosAcao();
+  Infos::InfoScreen           infoTela      = Infos::InfoScreen();
 
   void iniciar();
   void avaliarAcao();
@@ -86,12 +88,19 @@ public:
   bool acaoSelecionada();
   bool acaoExecutando();
   void stopAcao();
+  void obterInfosSistema(Infos::infoSys *infoSistema);
   void atualizarDadosNaTela();
   void atualizarLDROnScreen();
+  
   void atualizarDataHoraOnScreen();
+
+  void atualizarDataOnScreen();
+  void atualizarHoraOnScreen();
+
+
   void atualizarTemperaturaSysOnScreen();
   void atualizarTemperaturaOnScreen();
-  void atualizarHumidadeOnScreen();
+  void atualizarUmidadeOnScreen();
   void atualizarDadosMemoriaOnScreen();
   void tentarAcessarEAtualizarOnScreen();
   bool DadosRecebidoTela();

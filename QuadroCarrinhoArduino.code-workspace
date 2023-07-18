@@ -36,7 +36,8 @@
 			"cstddef": "cpp",
 			"initializer_list": "cpp"
 		},
-		"window.title": "${dirty}${activeEditorShort}${separator}${rootnamPath}${separator}${appName}"
+		"window.title": "${dirty}${activeEditorShort}${separator}${rootnamPath}${separator}${appName}",
+		"todo-tree.tree.scanMode": "workspace"
 	}
 
 }

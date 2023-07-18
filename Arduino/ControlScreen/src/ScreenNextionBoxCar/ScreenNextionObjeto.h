@@ -54,7 +54,7 @@ public:
                     IDBeep                    = 28,
                     IDTempSys                 = 17,
                     IDTemp                    = 16,
-                    IDHumidade                = 18,
+                    IDUmidade                 = 18,
                     IDDH                      = 11,
                     IDMM                      = 12,
                     IDAS                      = 13,

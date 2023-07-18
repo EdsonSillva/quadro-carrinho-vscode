@@ -1,5 +1,5 @@
 /*
-    Módulo para configurar e ler a data, hora, humidade e temperatura do DS3231
+    Módulo para configurar e ler a data, hora, umidade e temperatura do DS3231
     Pino I2C: SDA(A4) e SCL(A5) 
     
     Desenvolvido por Edson Silva
@@ -12,6 +12,10 @@
 
 #ifndef Arduino_h
 #include <Arduino.h>
+#endif
+
+#ifndef __INFOS_H__
+#include "../Infos/Infos.h"
 #endif
 
 #include <DS3231.h>
@@ -40,6 +44,12 @@ public:
     void getDataOnDS3231(byte *Dia, byte *Mes, byte *Ano, byte *DoW);
     void getDataOnDS3231(byte *Dia, byte *Mes, byte *Ano, byte *DoW, int *Milenio);
     int getTemperaturaSysOnDS3231();
+
+    // FIXME Mudar todas as funções
+
+    void getDataOnDS3231(Infos::infoSys *infosSys, int *Milenio);
+    void getHoraOnDS3231(Infos::infoSys *infosSys);
+
 
 };
 

@@ -36,6 +36,7 @@ bool DateTimeBoxCar::setHoraOnDS3231(byte Hora, byte Minuto, byte Segundo) {
   _RTC.setSecond(Segundo);
 }
 
+/* @deprecated */
 void DateTimeBoxCar::getHoraOnDS3231(byte *Hora, byte *Minuto, byte *Segundo) {
   bool h12, PM;
   *Hora=_RTC.getHour(h12,PM);
@@ -60,6 +61,7 @@ void DateTimeBoxCar::getDataOnDS3231(byte *Dia, byte *Mes, byte *Ano, byte *DoW)
   *DoW=_RTC.getDoW();
 }
 
+/* @deprecated */
 void DateTimeBoxCar::getDataOnDS3231(byte *Dia, byte *Mes, byte *Ano, byte *DoW, int *Milenio) {
   
   bool Century=false;
@@ -70,6 +72,43 @@ void DateTimeBoxCar::getDataOnDS3231(byte *Dia, byte *Mes, byte *Ano, byte *DoW,
   // *DoW=RTC.getDoW();   // Não funciona
   *DoW = getDoWork(Dia, Mes, Ano, Milenio);
 }
+
+
+#pragma region Funções com parâmetros Infos::infoSys
+
+/* @brief novo meio de chamar a função */
+void DateTimeBoxCar::getDataOnDS3231(Infos::infoSys *infosSys, int *Milenio) {
+  
+    // TODO: mudando esta função para trabalhar com a classe Infos
+
+    bool Century=false;
+    
+    infosSys->Data.Dia.valor = _RTC.getDate();
+    infosSys->Data.Mes.valor = _RTC.getMonth(Century);
+    infosSys->Data.Ano.valor = _RTC.getYear();
+
+    infosSys->Data.DoW.valor = getDoWork(&infosSys->Data.Dia.valor,
+                                         &infosSys->Data.Mes.valor,
+                                         &infosSys->Data.Ano.valor,
+                                         Milenio
+                                        );
+
+}
+
+/* @brief novo meio de chamar a função */
+void DateTimeBoxCar::getHoraOnDS3231(Infos::infoSys *infosSys) {
+
+    bool h12, PM;
+
+    infosSys->Tempo.Hora.valor = _RTC.getHour(h12, PM);
+    infosSys->Tempo.Min.valor = _RTC.getMinute();
+    infosSys->Tempo.Sec.valor = _RTC.getSecond();
+
+}
+
+
+#pragma endregion Funções com parâmetros Infos::infoSys
+
 
 int DateTimeBoxCar::getTemperaturaSysOnDS3231(){
   return _RTC.getTemperature();

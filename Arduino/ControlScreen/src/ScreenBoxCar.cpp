@@ -2,7 +2,7 @@
 #include "ScreenBoxCar.h"
 
 
-ScreenBoxCar::ScreenBoxCar() { }
+ScreenBoxCar::ScreenBoxCar() {  }
 
 ScreenBoxCar::~ScreenBoxCar() { }
 
@@ -67,7 +67,7 @@ void ScreenBoxCar::avaliarAcao() {
 
     // Não existe acao no screen e screen.AcaoExecutando() = false: não faz nada
     
-    atualizarDadosNaTela();        // Atualização das variáveis de Data, hora, tempertura e humidade
+    atualizarDadosNaTela();        // Atualização das variáveis de Data, hora, tempertura ambiente, temperatura sistema e Umidade
 
 }
 
@@ -223,19 +223,6 @@ void ScreenBoxCar::atualizarLDROnScreen() {
 
 }
 
-void ScreenBoxCar::atualizarDataHoraOnScreen() {
-
-    byte Dia,  Mes,     Ano,      DoW;
-    byte Hora, Minuto,  Segundo;
-    int Milenio      = tela.getMilenio();
-
-    data.getDataOnDS3231(&Dia, &Mes, &Ano, &DoW, &Milenio);
-    tela.showDataOnScreen(&Dia, &Mes, &Ano, &DoW);
-
-    data.getHoraOnDS3231(&Hora, &Minuto, &Segundo);
-    tela.showHoraOnScreen(&Hora, &Minuto, &Segundo);
-
-}
 
 void ScreenBoxCar::atualizarTemperaturaSysOnScreen() {
     
@@ -251,10 +238,10 @@ void ScreenBoxCar::atualizarTemperaturaOnScreen() {
 
 }
 
-void ScreenBoxCar::atualizarHumidadeOnScreen() {
+void ScreenBoxCar::atualizarUmidadeOnScreen() {
 
-    double ValorSensor = ambiente.getHumidadeOnDHT();
-    tela.showHumidadeOnScreen(ValorSensor);
+    double ValorSensor = ambiente.getUmidadeOnDHT();
+    tela.showUmidadeOnScreen(ValorSensor);
 
 }
 
@@ -276,14 +263,57 @@ void ScreenBoxCar::configurarHoraNoDevice() {
 
 void ScreenBoxCar::atualizarDadosNaTela() {
 
+
+    // TODO: 1) As mudanças iniciam por aqui
+
     if(_Beep) som.beepBuzzer();
 
     if(millis() >= _MaxWait) {
-        
+
+        // TODO Done - Primeiro pegar todos os dados do sistema: Data, Hora, etc
+        // TODO Done - Carrega as informação na classe InfoScreen (ela é responsável por analisar se houve mudança e fazer a guarda do novo valor indicando q houve mudança
+        // TODO Done - Se houver mudança chamar somente a função da informação que mudou
+
+        Infos::infoSys infoSistema = Infos::infoSys();
+
+        obterInfosSistema(&infoSistema);
+
+        infoTela.setInfoScreen(&infoSistema);
+
+        if (infoTela.existeAlteracao()) {
+
+            bool InfoMudou = false;
+
+            if(infoTela.foiAlterado(eTipoDadoInfo::DataInfo)) {
+                //TODOSub Em construção - chamar rotina de alteração de data 
+                atualizarDataOnScreen();
+                
+            }
+
+            if(infoTela.foiAlterado(eTipoDadoInfo::TempoInfo)) {
+                //TODOSub chamar rotina de alteração de tempo 
+            }
+
+            if(infoTela.foiAlterado(eTipoDadoInfo::AmbienteInfo)) {
+                //TODOSub chamar rotina de alteração de dados de ambiente
+            }
+
+            if(infoTela.foiAlterado(eTipoDadoInfo::TempreraturaSysInfo)) {
+                //TODOSub chamar rotina de alteração de temperatura do sistema
+            }
+
+        }
+
+
+
+
         atualizarDataHoraOnScreen();
+
+
+
         atualizarTemperaturaSysOnScreen();
         atualizarTemperaturaOnScreen();       
-        atualizarHumidadeOnScreen();
+        atualizarUmidadeOnScreen();
         atualizarLDROnScreen();
 
         _MaxWait = millis() + 10;                    // Acrescenta mais 0,5 segundo
@@ -500,4 +530,101 @@ void ScreenBoxCar::gravarDadosEEPROMInoByItem(byte Boxes[], byte sizeBoxes, int 
 
 }
 
+
+void ScreenBoxCar::obterInfosSistema(Infos::infoSys *infoSistema) {
+
+    // TODO 2) Obter as informações
+    
+    //Done Obter a data
+    int Milenio      = tela.getMilenio();
+    // data.getDataOnDS3231(&Dia, &Mes, &Ano, &DoW, &Milenio);
+    data.getDataOnDS3231(infoSistema, &Milenio);
+
+    //Done Obter a hora
+    byte Hora, Minuto, Segundo;
+
+    // data.getHoraOnDS3231(&Hora, &Minuto, &Segundo);
+    data.getHoraOnDS3231(infoSistema);
+
+
+    //TODO Obter a temperatura do ambiente
+    infoSistema->Ambiente.Temperatura.valor = (byte)ambiente.getTemperaturaOnDHT();
+
+
+    //TODO Obter a umidade do ambiente
+    infoSistema->Ambiente.Umidade.valor = (byte)ambiente.getUmidadeOnDHT();
+
+
+    //TODO Obter Luminosidade
+    // uint32_t ValorSensor = (uint32_t)ambiente.getValorMapInvertidoOnLDR();
+    infoSistema->Ambiente.Luminosidade.valor = (byte)ambiente.getValorMapInvertidoOnLDR();
+
+    //TODO Obter a temperatura do sistema
+    infoSistema->TemperaturaSys.valor = data.getTemperaturaSysOnDS3231();
+
+}
+
+#pragma region ### ATUALIZAÇÕES SISTEMA ###
+
+
+#pragma region Atualização de data e hora
+
+/* @deprecated */
+void ScreenBoxCar::atualizarDataHoraOnScreen() {
+
+    // TODO: Em construção
+    
+
+    // byte Dia,  Mes,     Ano,      DoW;
+    // byte Hora, Minuto,  Segundo;
+    // int Milenio      = tela.getMilenio();
+
+    // data.getDataOnDS3231(&Dia, &Mes, &Ano, &DoW, &Milenio);
+    // data.getHoraOnDS3231(&Hora, &Minuto, &Segundo);
+
+
+
+    atualizarDataOnScreen();
+    atualizarHoraOnScreen();
+
+    // byte Dia,  Mes,     Ano,      DoW;
+    // byte Hora, Minuto,  Segundo;
+    // int Milenio      = tela.getMilenio();
+
+    // data.getDataOnDS3231(&Dia, &Mes, &Ano, &DoW, &Milenio);
+    // tela.showDataOnScreen(&Dia, &Mes, &Ano, &DoW);
+
+    // data.getHoraOnDS3231(&Hora, &Minuto, &Segundo);
+    // tela.showHoraOnScreen(&Hora, &Minuto, &Segundo);
+
+}
+
+
+void ScreenBoxCar::atualizarDataOnScreen() {
+
+    // byte Dia,   Mes,    Ano,    DoW;
+    // int Milenio      = tela.getMilenio();
+    // data.getDataOnDS3231(&Dia, &Mes, &Ano, &DoW, &Milenio);
+    // tela.showDataOnScreen(&Dia, &Mes, &Ano, &DoW);
+
+    //Verificar se o dia, mês, ano e DoW foram alterados
+    tela.showDataOnScreen(eTipoDataInfo::DiaInfo, &infoTela);
+
+
+}
+
+void ScreenBoxCar::atualizarHoraOnScreen() {
+
+    byte Hora, Minuto, Segundo;
+
+    data.getHoraOnDS3231(&Hora, &Minuto, &Segundo);
+    tela.showHoraOnScreen(&Hora, &Minuto, &Segundo);
+
+}
+
+
+#pragma endregion Atualização de data e hora
+
+
+#pragma endregion ### ATUALIZAÇÕES SISTEMA ###
 

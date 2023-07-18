@@ -209,7 +209,10 @@ void screenNextionBoxCar::getTextoOnScreen(char Texto[], byte *pQtdeChar) {
 
 }
 
+/* @deprecated */
 void screenNextionBoxCar::showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW) {
+
+    // TODO Analisando mudanças...
 
     NexVariable nDia    = NexVariable(_tela.Global,  _objeto.IDDia,         "");
     NexVariable nMes    = NexVariable(_tela.Global,  _objeto.IDMes,         "");
@@ -223,6 +226,69 @@ void screenNextionBoxCar::showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte
     nDoW.setValueByID((uint32_t)*DoW);
 
 }
+
+#pragma region Show informações de data
+
+void screenNextionBoxCar::showDataOnScreen(eTipoDataInfo tipoInfoData, Infos::InfoScreen *infoScreen) {
+
+    // TODO  Fazendo as mudanças (achei um erro na classe infoScreen, onde não consigo recuperar as informações)
+
+    byte    idScreen    = _tela.Global;
+    byte    idObjeto    = 0;
+    byte    valor       = 0;
+
+    switch (tipoInfoData) {
+
+        case eTipoDataInfo::DiaInfo:
+            idObjeto = _objeto.IDDia;
+            // valor = infoScreen->
+        break;
+
+        case eTipoDataInfo::MesInfo:
+            idObjeto = _objeto.IDDia;
+            // valor = infoScreen->
+        break;
+
+        case eTipoDataInfo::AnoInfo:
+            idObjeto = _objeto.IDDia;
+            // valor = infoScreen->
+        break;
+
+        case eTipoDataInfo::DoWorkInfo:
+            idObjeto = _objeto.IDDia;
+            // valor = infoScreen->
+        break;
+
+    }
+
+    showInfoOnScreen(&idScreen, &idObjeto, &valor);
+
+
+    // NexVariable nDia    = NexVariable(_tela.Global,  _objeto.IDDia,         "");
+    // NexVariable nMes    = NexVariable(_tela.Global,  _objeto.IDMes,         "");
+    // NexVariable nAno    = NexVariable(_tela.Global,  _objeto.IDAno,         "");
+    // NexVariable nDoW    = NexVariable(_tela.Global,  _objeto.IDDoWGlobal,   "");
+    
+    // nDia.setValueByID((uint32_t)*Dia);
+    // nMes.setValueByID((uint32_t)*Mes);
+    // nAno.setValueByID((uint32_t)(_Milenio + *Ano));  
+    
+    // nDoW.setValueByID((uint32_t)*DoW);
+
+}
+
+/* @brief Este metodo trabalha com o objeto NexVariable */
+void screenNextionBoxCar::showInfoOnScreen(uint8_t *idScreen, uint8_t *idObjeto, byte *valor) {
+
+    NexVariable objNextion = NexVariable(*idScreen,  *idObjeto, "");
+
+    objNextion.setValueByID((uint32_t)*valor);
+
+}
+
+
+
+#pragma endregion Show informações de data
 
 void screenNextionBoxCar::showHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo) {
   
@@ -272,12 +338,12 @@ void screenNextionBoxCar::showTemperaturaOnScreen(double TemperaturaAmbiente) {
 }
 
  /********************************************************************** 
-  * Le a humidade do device DH11 e coloca o valor na variável  da Tela
+  * Le a umidade do device DH11 e coloca o valor na variável  da Tela
   **********************************************************************/
-void screenNextionBoxCar::showHumidadeOnScreen(double HumidadeAmbiente) {
+void screenNextionBoxCar::showUmidadeOnScreen(double UmidadeAmbiente) {
 
-    NexVariable nHumidade = NexVariable(_tela.Global, _objeto.IDHumidade, "");  
-    nHumidade.setValueByID((uint32_t)HumidadeAmbiente);
+    NexVariable nUmidade = NexVariable(_tela.Global, _objeto.IDUmidade, "");  
+    nUmidade.setValueByID((uint32_t)UmidadeAmbiente);
 
 }
 
