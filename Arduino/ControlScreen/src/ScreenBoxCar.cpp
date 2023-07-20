@@ -285,13 +285,15 @@ void ScreenBoxCar::atualizarDadosNaTela() {
             bool InfoMudou = false;
 
             if(infoTela.foiAlterado(eTipoDadoInfo::DataInfo)) {
-                //TODOSub Em construção - chamar rotina de alteração de data 
+                //TODOSub Done - chamar rotina de alteração de data 
                 atualizarDataOnScreen();
                 
             }
 
             if(infoTela.foiAlterado(eTipoDadoInfo::TempoInfo)) {
-                //TODOSub chamar rotina de alteração de tempo 
+                //TODOSub  Done - chamar rotina de alteração de tempo 
+                atualizarHoraOnScreen();
+
             }
 
             if(infoTela.foiAlterado(eTipoDadoInfo::AmbienteInfo)) {
@@ -602,23 +604,63 @@ void ScreenBoxCar::atualizarDataHoraOnScreen() {
 
 void ScreenBoxCar::atualizarDataOnScreen() {
 
+    bool mudouValor = false;
+    byte valor      = 0x00;
+
     // byte Dia,   Mes,    Ano,    DoW;
     // int Milenio      = tela.getMilenio();
     // data.getDataOnDS3231(&Dia, &Mes, &Ano, &DoW, &Milenio);
     // tela.showDataOnScreen(&Dia, &Mes, &Ano, &DoW);
 
-    //Verificar se o dia, mês, ano e DoW foram alterados
-    tela.showDataOnScreen(eTipoDataInfo::DiaInfo, &infoTela);
+    mudouValor = infoTela.valorAlterado(eTipoTodos::DiaInfo, &valor);
+    if (mudouValor) {
+        tela.showDataOnScreen(eTipoDataInfo::DiaInfo, &valor);
+    }
 
+    mudouValor = infoTela.valorAlterado(eTipoTodos::MesInfo, &valor);
+    if (mudouValor) {
+        tela.showDataOnScreen(eTipoDataInfo::MesInfo, &valor);
+    }
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::AnoInfo, &valor);
+    if (mudouValor) {
+        tela.showDataOnScreen(eTipoDataInfo::AnoInfo, &valor);
+    }
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::DoWorkInfo, &valor);
+    if (mudouValor) {
+        tela.showDataOnScreen(eTipoDataInfo::DoWorkInfo, &valor);
+    }
 
 }
 
 void ScreenBoxCar::atualizarHoraOnScreen() {
 
-    byte Hora, Minuto, Segundo;
+    bool mudouValor = false;
+    byte valor      = 0x00;
 
-    data.getHoraOnDS3231(&Hora, &Minuto, &Segundo);
-    tela.showHoraOnScreen(&Hora, &Minuto, &Segundo);
+    // byte Hora, Minuto, Segundo;
+
+    // data.getHoraOnDS3231(&Hora, &Minuto, &Segundo);
+    // tela.showHoraOnScreen(&Hora, &Minuto, &Segundo);
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::HoraInfo, &valor);
+    if (mudouValor) {
+        tela.showHoraOnScreen(eTipoTempoInfo::HoraInfo, &valor);
+    }
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::MesInfo, &valor);
+    if (mudouValor) {
+        tela.showHoraOnScreen(eTipoTempoInfo::MinutoInfo, &valor);
+    }
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::AnoInfo, &valor);
+    if (mudouValor) {
+        tela.showHoraOnScreen(eTipoTempoInfo::SegundoInfo, &valor);
+    }
+
+
+
 
 }
 

@@ -51,6 +51,7 @@ bool DateTimeBoxCar::setDataOnDS3231(byte Dia, byte Mes, byte Ano, byte DoW) {
   _RTC.setDoW(DoW);
 }
 
+/* @deprecated */
 void DateTimeBoxCar::getDataOnDS3231(byte *Dia, byte *Mes, byte *Ano, byte *DoW) {
   
   bool Century=false;
@@ -106,10 +107,9 @@ void DateTimeBoxCar::getHoraOnDS3231(Infos::infoSys *infosSys) {
 
 }
 
-
 #pragma endregion Funções com parâmetros Infos::infoSys
 
-
+/* @brief Esta função usa o sensor de temperatura do DS3231 para mediar a temperatura do sistema */
 int DateTimeBoxCar::getTemperaturaSysOnDS3231(){
   return _RTC.getTemperature();
 }

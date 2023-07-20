@@ -15,7 +15,7 @@ bool Infos::InfoScreen::existeAlteracao() {
 void Infos::InfoScreen::setInfoScreen(dados_t *info) {
 
     bool dataMudou      = setInfoData(info);
-    bool tempoMudou     = setInfoHora(info);
+    bool tempoMudou     = setInfoTempo(info);
     bool ambienteMudou  = setInfoAmbiente(info);
     bool tempSysMudou   = setInfoTemperaturaSys(info);
 
@@ -56,78 +56,88 @@ bool Infos::InfoScreen::foiAlterado(eTipoDadoInfo tipo) {
 
 bool Infos::InfoScreen::setInfoData(dados_t *info) {
 
-    bool DiaMudou = setInfoDia(info);
-    bool MesMudou = setInfoMes(info);
-    bool AnoMudou = setInfoAno(info);
-    bool DoWMudou = setInfoDoW(info);
+    bool DiaMudou = setValorInfo(&_infoScreen.Data.Dia.valor, &info->Data.Dia.valor);
+    bool MesMudou = setValorInfo(&_infoScreen.Data.Mes.valor, &info->Data.Mes.valor);
+    bool AnoMudou = setValorInfo(&_infoScreen.Data.Ano.valor, &info->Data.Ano.valor);
+    bool DoWMudou = setValorInfo(&_infoScreen.Data.DoW.valor, &info->Data.DoW.valor);
+
+    // @deprecated
+    // bool DiaMudou = setInfoDia(info);
+    // bool MesMudou = setInfoMes(info);
+    // bool AnoMudou = setInfoAno(info);
+    // bool DoWMudou = setInfoDoW(info);
 
     uint8_t dataMask        = 0b00000000;
 
-    if (DiaMudou || MesMudou || AnoMudou || DoWMudou) {
+    bool mudouData = DiaMudou || MesMudou || AnoMudou || DoWMudou;
 
-        // Liga Bit
+    if (mudouData) {                    // Liga Bit
+
         dataMask        = 0b00000001;
         _infoScreen.Alterado = dataMask | _infoScreen.Alterado;
 
-    } else {
+    } else {                            // Desliga bit
 
-        // Desliga bit
         dataMask        = 0b11111110;
         _infoScreen.Alterado = dataMask & _infoScreen.Alterado;
 
     }
     
-    return DiaMudou || MesMudou || AnoMudou || DoWMudou;
+    return mudouData;
 
 }
 
-bool Infos::InfoScreen::setInfoDia(dados_t *info) {
+// /* @deprecated */
+// bool Infos::InfoScreen::setInfoDia(dados_t *info) {
 
-    _infoScreen.Data.Dia.mudou = _infoScreen.Data.Dia.valor != 
-                                 info->Data.Dia.valor ? 
-                                 true : false;
+//     _infoScreen.Data.Dia.mudou = _infoScreen.Data.Dia.valor != 
+//                                  info->Data.Dia.valor ? 
+//                                  true : false;
     
-    _infoScreen.Data.Dia.valor = info->Data.Dia.valor;
+//     _infoScreen.Data.Dia.valor = info->Data.Dia.valor;
 
-    return _infoScreen.Data.Dia.mudou;
+//     return _infoScreen.Data.Dia.mudou;
 
-}
+// }
 
-bool Infos::InfoScreen::setInfoMes(dados_t *info) {
+// /* @deprecated */
+// bool Infos::InfoScreen::setInfoMes(dados_t *info) {
 
-    _infoScreen.Data.Mes.mudou = _infoScreen.Data.Mes.valor != 
-                                 info->Data.Mes.valor ? 
-                                 true : false;
+//     _infoScreen.Data.Mes.mudou = _infoScreen.Data.Mes.valor != 
+//                                  info->Data.Mes.valor ? 
+//                                  true : false;
     
-    _infoScreen.Data.Mes.valor = info->Data.Mes.valor;
+//     _infoScreen.Data.Mes.valor = info->Data.Mes.valor;
 
-    return _infoScreen.Data.Mes.mudou;
+//     return _infoScreen.Data.Mes.mudou;
 
-}
+// }
 
-bool Infos::InfoScreen::setInfoAno(dados_t *info) {
+// /* @deprecated */
+// bool Infos::InfoScreen::setInfoAno(dados_t *info) {
 
-    _infoScreen.Data.Ano.mudou = _infoScreen.Data.Ano.valor != 
-                                 info->Data.Ano.valor ? 
-                                 true : false;
+//     _infoScreen.Data.Ano.mudou = _infoScreen.Data.Ano.valor != 
+//                                  info->Data.Ano.valor ? 
+//                                  true : false;
     
-    _infoScreen.Data.Ano.valor = info->Data.Ano.valor;
+//     _infoScreen.Data.Ano.valor = info->Data.Ano.valor;
 
-    return _infoScreen.Data.Ano.mudou;
+//     return _infoScreen.Data.Ano.mudou;
 
-}
+// }
 
-bool Infos::InfoScreen::setInfoDoW(dados_t *info) {
+// /* @deprecated */
+// bool Infos::InfoScreen::setInfoDoW(dados_t *info) {
 
-    _infoScreen.Data.DoW.mudou = _infoScreen.Data.DoW.valor != 
-                                 info->Data.DoW.valor ? 
-                                 true : false;
+//     _infoScreen.Data.DoW.mudou = _infoScreen.Data.DoW.valor != 
+//                                  info->Data.DoW.valor ? 
+//                                  true : false;
     
-    _infoScreen.Data.DoW.valor = info->Data.DoW.valor;
+//     _infoScreen.Data.DoW.valor = info->Data.DoW.valor;
 
-    return _infoScreen.Data.DoW.mudou;
+//     return _infoScreen.Data.DoW.mudou;
 
-}
+// }
 
 #pragma endregion Tratamento de Data
 
@@ -136,65 +146,73 @@ bool Infos::InfoScreen::setInfoDoW(dados_t *info) {
 
 bool Infos::InfoScreen::setInfoTempo(dados_t *info) {
 
-    bool HoraMudou = setInfoHora(info);
-    bool MinMudou  = setInfoMin(info);
-    bool SecMudou  = setInfoSec(info);
+    bool HoraMudou = setValorInfo(&_infoScreen.Tempo.Hora.valor, &info->Tempo.Hora.valor);
+    bool MinMudou  = setValorInfo(&_infoScreen.Tempo.Min.valor, &info->Tempo.Min.valor);
+    bool SecMudou  = setValorInfo(&_infoScreen.Tempo.Sec.valor, &info->Tempo.Sec.valor);
+
+    // @deprecated
+    // bool HoraMudou = setInfoHora(info);
+    // bool MinMudou  = setInfoMin(info);
+    // bool SecMudou  = setInfoSec(info);
 
     uint8_t tempoMask        = 0b00000000;
 
-    if (HoraMudou || MinMudou || SecMudou) {
+    bool mudouTempo = HoraMudou || MinMudou || SecMudou;
 
-        // Liga Bit
+    if (mudouTempo) {                   // Liga Bit
+
         tempoMask        = 0b00000010;
         _infoScreen.Alterado = tempoMask | _infoScreen.Alterado;
 
-    } else {
+    } else {                            // Desliga bit
 
-        // Desliga bit
         tempoMask        = 0b11111101;
         _infoScreen.Alterado = tempoMask & _infoScreen.Alterado;
 
     }
 
-    return HoraMudou || MinMudou || SecMudou;
+    return mudouTempo;
 
 }
 
-bool Infos::InfoScreen::setInfoHora(dados_t *info) {
+// /* @deprecated */
+// bool Infos::InfoScreen::setInfoHora(dados_t *info) {
 
-    _infoScreen.Tempo.Hora.mudou = _infoScreen.Tempo.Hora.valor != 
-                                 info->Tempo.Hora.valor ? 
-                                 true : false;
+//     _infoScreen.Tempo.Hora.mudou = _infoScreen.Tempo.Hora.valor != 
+//                                  info->Tempo.Hora.valor ? 
+//                                  true : false;
     
-    _infoScreen.Tempo.Hora.valor = info->Tempo.Hora.valor;
+//     _infoScreen.Tempo.Hora.valor = info->Tempo.Hora.valor;
 
-    return _infoScreen.Tempo.Hora.mudou;
+//     return _infoScreen.Tempo.Hora.mudou;
 
-}
+// }
 
-bool Infos::InfoScreen::setInfoMin(dados_t *info) {
+// /* @deprecated */
+// bool Infos::InfoScreen::setInfoMin(dados_t *info) {
 
-    _infoScreen.Tempo.Min.mudou = _infoScreen.Tempo.Min.valor != 
-                                 info->Tempo.Min.valor ? 
-                                 true : false;
+//     _infoScreen.Tempo.Min.mudou = _infoScreen.Tempo.Min.valor != 
+//                                  info->Tempo.Min.valor ? 
+//                                  true : false;
     
-    _infoScreen.Tempo.Min.valor = info->Tempo.Min.valor;
+//     _infoScreen.Tempo.Min.valor = info->Tempo.Min.valor;
 
-    return _infoScreen.Tempo.Min.mudou;
+//     return _infoScreen.Tempo.Min.mudou;
 
-}
+// }
 
-bool Infos::InfoScreen::setInfoSec(dados_t *info) {
+// /* @deprecated */
+// bool Infos::InfoScreen::setInfoSec(dados_t *info) {
 
-    _infoScreen.Tempo.Sec.mudou = _infoScreen.Tempo.Sec.valor != 
-                                 info->Tempo.Sec.valor ? 
-                                 true : false;
+//     _infoScreen.Tempo.Sec.mudou = _infoScreen.Tempo.Sec.valor != 
+//                                  info->Tempo.Sec.valor ? 
+//                                  true : false;
     
-    _infoScreen.Tempo.Sec.valor = info->Tempo.Sec.valor;
+//     _infoScreen.Tempo.Sec.valor = info->Tempo.Sec.valor;
 
-    return _infoScreen.Tempo.Sec.mudou;
+//     return _infoScreen.Tempo.Sec.mudou;
 
-}
+// }
 
 #pragma endregion Tratamento de Hora
 
@@ -203,65 +221,73 @@ bool Infos::InfoScreen::setInfoSec(dados_t *info) {
 
 bool Infos::InfoScreen::setInfoAmbiente(dados_t *info) {
 
-    bool TemperaturaMudou   = setInfoTemperatura(info);
-    bool UmidadeMudou       = setInfoUmidade(info);
-    bool LuminosidadeMudou  = setInfoUmidade(info);
+    bool TemperaturaMudou  = setValorInfo(&_infoScreen.Ambiente.Temperatura.valor, &info->Ambiente.Temperatura.valor);
+    bool UmidadeMudou      = setValorInfo(&_infoScreen.Ambiente.Umidade.valor, &info->Ambiente.Umidade.valor);
+    bool LuminosidadeMudou = setValorInfo(&_infoScreen.Ambiente.Luminosidade.valor, &info->Ambiente.Luminosidade.valor);
+
+    //@deprecated
+    // bool TemperaturaMudou   = setInfoTemperatura(info);
+    // bool UmidadeMudou       = setInfoUmidade(info);
+    // bool LuminosidadeMudou  = setInfoUmidade(info);
 
     uint8_t ambienteMask        = 0b00000000;
 
-    if (TemperaturaMudou || UmidadeMudou || LuminosidadeMudou) {
+    bool mudouAmbiente = TemperaturaMudou || UmidadeMudou || LuminosidadeMudou;
 
-        // Liga Bit
+    if (mudouAmbiente) {                // Liga Bit
+        
         ambienteMask        = 0b00000100;
         _infoScreen.Alterado = ambienteMask | _infoScreen.Alterado;
 
-    } else {
+    } else {                            // Desliga bit
 
-        // Desliga bit
         ambienteMask        = 0b11111011;
         _infoScreen.Alterado = ambienteMask & _infoScreen.Alterado;
 
     }
 
-    return TemperaturaMudou || UmidadeMudou || LuminosidadeMudou;
+    return mudouAmbiente;
 
 }
 
-bool Infos::InfoScreen::setInfoTemperatura(dados_t *info) {
+// /* @deprecated */
+// bool Infos::InfoScreen::setInfoTemperatura(dados_t *info) {
 
-    _infoScreen.Ambiente.Temperatura.mudou = _infoScreen.Ambiente.Temperatura.valor != 
-                                            info->Ambiente.Temperatura.valor ? 
-                                            true : false;
+//     _infoScreen.Ambiente.Temperatura.mudou = _infoScreen.Ambiente.Temperatura.valor != 
+//                                             info->Ambiente.Temperatura.valor ? 
+//                                             true : false;
     
-    _infoScreen.Ambiente.Temperatura.valor = info->Ambiente.Temperatura.valor;
+//     _infoScreen.Ambiente.Temperatura.valor = info->Ambiente.Temperatura.valor;
 
-    return _infoScreen.Ambiente.Temperatura.mudou;
+//     return _infoScreen.Ambiente.Temperatura.mudou;
 
-}
+// }
 
-bool Infos::InfoScreen::setInfoUmidade(dados_t *info) {
+// /* @deprecated */
+// bool Infos::InfoScreen::setInfoUmidade(dados_t *info) {
 
-    _infoScreen.Ambiente.Umidade.mudou = _infoScreen.Ambiente.Umidade.valor != 
-                                          info->Ambiente.Umidade.valor ? 
-                                          true : false;
+//     _infoScreen.Ambiente.Umidade.mudou = _infoScreen.Ambiente.Umidade.valor != 
+//                                           info->Ambiente.Umidade.valor ? 
+//                                           true : false;
     
-    _infoScreen.Ambiente.Umidade.valor = info->Ambiente.Umidade.valor;
+//     _infoScreen.Ambiente.Umidade.valor = info->Ambiente.Umidade.valor;
 
-    return _infoScreen.Ambiente.Umidade.mudou;
+//     return _infoScreen.Ambiente.Umidade.mudou;
 
-}
+// }
 
-bool Infos::InfoScreen::setInfoLuminosidade(dados_t *info) {
+// /* @deprecated */
+// bool Infos::InfoScreen::setInfoLuminosidade(dados_t *info) {
 
-    _infoScreen.Ambiente.Luminosidade.mudou = _infoScreen.Ambiente.Luminosidade.valor != 
-                                              info->Ambiente.Luminosidade.valor ? 
-                                              true : false;
+//     _infoScreen.Ambiente.Luminosidade.mudou = _infoScreen.Ambiente.Luminosidade.valor != 
+//                                               info->Ambiente.Luminosidade.valor ? 
+//                                               true : false;
     
-    _infoScreen.Ambiente.Luminosidade.valor = info->Ambiente.Luminosidade.valor;
+//     _infoScreen.Ambiente.Luminosidade.valor = info->Ambiente.Luminosidade.valor;
 
-    return _infoScreen.Ambiente.Luminosidade.mudou;
+//     return _infoScreen.Ambiente.Luminosidade.mudou;
 
-}
+// }
 
 #pragma endregion Tratamento de Ambiente
 
@@ -270,34 +296,124 @@ bool Infos::InfoScreen::setInfoLuminosidade(dados_t *info) {
 
 bool Infos::InfoScreen::setInfoTemperaturaSys(dados_t *info) {
 
-    _infoScreen.TemperaturaSys.mudou = _infoScreen.TemperaturaSys.valor != 
-                                       info->TemperaturaSys.valor ? 
-                                       true : false;
-    
-    _infoScreen.TemperaturaSys.valor = info->TemperaturaSys.valor;
+    bool TemperaturaSysMudou  = setValorInfo(&_infoScreen.TemperaturaSys.valor, &info->TemperaturaSys.valor);
+
+    // @deprecated
+    // _infoScreen.TemperaturaSys.mudou = _infoScreen.TemperaturaSys.valor != 
+    //                                    info->TemperaturaSys.valor ? 
+    //                                    true : false;
+    // _infoScreen.TemperaturaSys.valor = info->TemperaturaSys.valor;
 
     uint8_t tempSysMask        = 0b00000000;
 
-    if (_infoScreen.TemperaturaSys.mudou) {
-
-        // Liga Bit
+    if (TemperaturaSysMudou) {          // Liga Bit
+        
         tempSysMask        = 0b00001000;
         _infoScreen.Alterado = tempSysMask | _infoScreen.Alterado;
 
-    } else {
-
-        // Desliga bit
+    } else {                            // Desliga bit
+        
         tempSysMask        = 0b11110111;
         _infoScreen.Alterado = tempSysMask & _infoScreen.Alterado;
 
     }
 
-    return _infoScreen.TemperaturaSys.mudou;
+    return TemperaturaSysMudou;
 
 }
 
 #pragma endregion Tratamento de Sistema
 
+
+#pragma region Rotinas gerais da classe
+
+/* @brief Ajusta o bit 8 para 0 ou 1. Se o valor mudou o bit 8 será 1 se não será 0. @return retorna o valor com o controle de mudança de valor no bit 8*/
+byte Infos::InfoScreen::setBitChange(bool mudou, uint8_t *valor) {
+
+    byte mask = 0b00000000;
+
+    if (mudou) { mask = 0b10000000; }
+
+    return mask | *valor;
+
+}
+
+/* @brief Converte o valor recebido em valor com controle no bit 8 e retorna o valor com o controle no bit 8. @return retorna o valor com o controle de mudança de valor no bit 8  */
+bool Infos::InfoScreen::setValorInfo(byte *valoInforScreen, byte *valorSys) {
+
+    // TODOSub Done - Efetuando as mudanças no controle do valor para uma única variável
+
+    byte valorOriginal = getvalorOriginal(valoInforScreen);
+
+    bool mudouValor = valorOriginal != *valorSys ? true : 
+                                                   false;
+
+    *valoInforScreen = setBitChange(mudouValor, valorSys);
+
+    return mudouValor;
+
+}
+
+/* @brief Busca o valor junto com o controle de alteração. Este valor contém controle de alteração no bit 8 */
+byte Infos::InfoScreen::getvalorSys(eTipoTodos tipoInfo) {
+
+    byte valorSys   = 0x00;
+
+    switch (tipoInfo) {
+
+        case eTipoTodos::DiaInfo:
+            valorSys = _infoScreen.Data.Dia.valor;
+        break;        
+
+        case eTipoTodos::MesInfo:
+            valorSys = _infoScreen.Data.Dia.valor;
+        break;        
+
+        // TODO: Fazer um case para cada ite de _infoScreen
+
+
+    }
+
+    return  valorSys;      // Retorna valor com controle de alteração no bit 8
+
+}
+
+/* @brief Busca o valor sem o controle de alteração. Este valor não contém o controle de alteração no bit 8 */
+byte Infos::InfoScreen::getvalorOriginal(byte *valor) {
+
+    byte mask       = 0b01111111;
+
+    return mask & *valor;      // Retorna só valor
+
+}
+
+/* @brief Busca o valor da variável sem o controle de alteração. Este valor não contém o controle de alteração no bit 8 */
+byte Infos::InfoScreen::getvalor(eTipoTodos tipoInfo) {
+
+    byte valorSys   = getvalorSys(tipoInfo);
+
+    return getvalorOriginal(&valorSys);      // Retorna só valor
+
+}
+
+/* @brief Verifica se a variável teve alteração e retorn true/false. Se for passado um ponteiro em *value será passado o valor original. Este valor não contém o controle de alteração no bit 8 @param value ponteiro para receber o valor original */
+bool Infos::InfoScreen::valorAlterado(eTipoTodos tipoInfo, byte *value = NULL) {
+
+    byte mask       = 0b10000000;
+    byte valorSys   = getvalorSys(tipoInfo);
+
+    if (value != NULL) {
+        *value = getvalorOriginal(&valorSys);
+    }
+
+    return mask & valorSys;      // Retorna só valor
+
+    // TODO Parei aqui - Continuar amanhã com Finalizar o switch da getvalorSys() e desenvolver como alterar o bit 8 quando recebe os valores na classe
+
+
+}
+
+#pragma endregion Rotinas gerais da classe
 
 #pragma endregion Classe InfoScreen
 

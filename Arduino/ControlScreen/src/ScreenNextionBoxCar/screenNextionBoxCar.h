@@ -70,10 +70,11 @@ public:
     void getTextoOnScreen(char Texto[], byte *pQtdeChar);
 
     void showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW);  // @deprecated
+    void showDataOnScreen(eTipoDataInfo tipoInfo, byte *valor);
 
-    void showDataOnScreen(eTipoDataInfo tipoInfoData, Infos::InfoScreen *infoScreen);
+    void showHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);     // @deprecated
+    void showHoraOnScreen(eTipoTempoInfo tipoInfo, byte *valor);
 
-    void showHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);
     bool getBeepOnScreen();
     void showTempSysOnScreen(int TemperaturaSys);
     void showTemperaturaOnScreen(double TemperaturaAmbiente);

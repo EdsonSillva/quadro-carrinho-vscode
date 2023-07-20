@@ -15,9 +15,13 @@
 #include <Arduino.h>
 #endif
 
+#ifndef __ENUMBOX_H__
+#include "../enum/enumBox.h"
+#endif
+
 typedef struct {
     byte    valor;  // Controle de alteração no valor (no ultimo bit 0b10000000)
-    bool    mudou;
+    // bool    mudou;
 } valor_t;
 
 typedef struct {
@@ -39,7 +43,6 @@ typedef struct {
     valor_t    Luminosidade;
 } ambiente_t;
 
-// incluir uma variável do tipo uint16_t para controlar as mlterações nas variáveis (ganhar 7 bytes)
 typedef struct {
 
     dataScreen_t    Data;
@@ -51,5 +54,14 @@ typedef struct {
 } dados_t,
   dadosSistema_t,
   dadosScreen_t;
+
+typedef struct {
+    eTipoDataInfo           DataInfo;
+    eTipoTempoInfo          TenmpoInfo;
+    eTipoAmbienteInfo       AmbienteInfo;
+    eTipoTemperaturaSysInfo TemperaturaInfo;
+
+} tipoInfo_t;
+
 
 #endif  // __TYPEDEFSCREEN_H__

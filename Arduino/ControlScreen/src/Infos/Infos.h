@@ -49,7 +49,13 @@ namespace Infos {
 
             bool setInfoTemperaturaSys(dados_t *info);
 
-            bool setBitChange(bool mudou, uint8_t dado);
+            byte setBitChange(bool mudou, uint8_t *valor);
+
+            byte getvalorSys(eTipoTodos tipoInfo);
+            byte getvalorOriginal(byte *valor);
+
+            bool setValorInfo(byte *valorInfoScreen, byte *valorSys);
+
 
 
         public:
@@ -62,8 +68,8 @@ namespace Infos {
             
             bool foiAlterado(eTipoDadoInfo tipo);
 
-            bool valorAlterado(/*tipo com todos os tipos*/);
-            byte getvalor(/*tipo com todos os tipos*/);
+            bool valorAlterado(eTipoTodos tipoInfo, byte *value = NULL);
+            byte getvalor(eTipoTodos tipoInfo);
 
     };
 

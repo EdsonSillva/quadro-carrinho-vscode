@@ -209,7 +209,9 @@ void screenNextionBoxCar::getTextoOnScreen(char Texto[], byte *pQtdeChar) {
 
 }
 
-/* @deprecated */
+#pragma region Show informações de data
+
+/* @brief deprecated @deprecated */
 void screenNextionBoxCar::showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW) {
 
     // TODO Analisando mudanças...
@@ -227,41 +229,36 @@ void screenNextionBoxCar::showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte
 
 }
 
-#pragma region Show informações de data
+void screenNextionBoxCar::showDataOnScreen(eTipoDataInfo tipoInfo, byte *valor) {
 
-void screenNextionBoxCar::showDataOnScreen(eTipoDataInfo tipoInfoData, Infos::InfoScreen *infoScreen) {
+    // TODO  Done - Fazendo as mudanças (achei um erro na classe infoScreen, onde não consigo recuperar as informações)
 
-    // TODO  Fazendo as mudanças (achei um erro na classe infoScreen, onde não consigo recuperar as informações)
+    byte    idScreen        = _tela.Global;
+    byte    idObjeto        = 0;
+    byte    valorRecebido   = *valor;
 
-    byte    idScreen    = _tela.Global;
-    byte    idObjeto    = 0;
-    byte    valor       = 0;
-
-    switch (tipoInfoData) {
+    switch (tipoInfo) {
 
         case eTipoDataInfo::DiaInfo:
             idObjeto = _objeto.IDDia;
-            // valor = infoScreen->
         break;
 
         case eTipoDataInfo::MesInfo:
-            idObjeto = _objeto.IDDia;
-            // valor = infoScreen->
+            idObjeto = _objeto.IDMes;
         break;
 
         case eTipoDataInfo::AnoInfo:
-            idObjeto = _objeto.IDDia;
-            // valor = infoScreen->
+            idObjeto = _objeto.IDAno;
+            valorRecebido = (_Milenio + valorRecebido);
         break;
 
         case eTipoDataInfo::DoWorkInfo:
-            idObjeto = _objeto.IDDia;
-            // valor = infoScreen->
+            idObjeto = _objeto.IDDoWGlobal;
         break;
 
     }
 
-    showInfoOnScreen(&idScreen, &idObjeto, &valor);
+    showInfoOnScreen(&idScreen, &idObjeto, &valorRecebido);
 
 
     // NexVariable nDia    = NexVariable(_tela.Global,  _objeto.IDDia,         "");
@@ -277,19 +274,13 @@ void screenNextionBoxCar::showDataOnScreen(eTipoDataInfo tipoInfoData, Infos::In
 
 }
 
-/* @brief Este metodo trabalha com o objeto NexVariable */
-void screenNextionBoxCar::showInfoOnScreen(uint8_t *idScreen, uint8_t *idObjeto, byte *valor) {
-
-    NexVariable objNextion = NexVariable(*idScreen,  *idObjeto, "");
-
-    objNextion.setValueByID((uint32_t)*valor);
-
-}
-
-
 
 #pragma endregion Show informações de data
 
+
+#pragma region Show informações de hora
+
+/* @brief deprecated @deprecated */
 void screenNextionBoxCar::showHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo) {
   
   NexVariable nHora    = NexVariable(_tela.Global, _objeto.IDHora, "");
@@ -301,6 +292,55 @@ void screenNextionBoxCar::showHoraOnScreen(byte *Hora, byte *Minuto, byte *Segun
   nSegundo.setValueByID((uint32_t)*Segundo);
 
 }
+
+void screenNextionBoxCar::showHoraOnScreen(eTipoTempoInfo tipoInfo, byte *valor) {
+
+    // TODO  Fazendo as mudanças (achei um erro na classe infoScreen, onde não consigo recuperar as informações)
+
+    byte    idScreen    = _tela.Global;
+    byte    idObjeto    = 0;
+
+    switch (tipoInfo) {
+
+        case eTipoTempoInfo::HoraInfo:
+            idObjeto = _objeto.IDHora;
+        break;
+
+        case eTipoTempoInfo::MinutoInfo:
+            idObjeto = _objeto.IDMin;
+        break;
+
+        case eTipoTempoInfo::SegundoInfo:
+            idObjeto = _objeto.IDSeg;
+        break;
+
+    }
+
+    showInfoOnScreen(&idScreen, &idObjeto, valor);
+
+//   NexVariable nHora    = NexVariable(_tela.Global, _objeto.IDHora, "");
+//   NexVariable nMinuto  = NexVariable(_tela.Global, _objeto.IDMin, "");
+//   NexVariable nSegundo = NexVariable(_tela.Global, _objeto.IDSeg, "");
+
+//   nHora.setValueByID((uint32_t)*Hora);
+//   nMinuto.setValueByID((uint32_t)*Minuto);
+//   nSegundo.setValueByID((uint32_t)*Segundo);
+
+}
+
+#pragma endregion Show informações de hora
+
+
+/* @brief Este metodo trabalha com o objeto NexVariable */
+void screenNextionBoxCar::showInfoOnScreen(uint8_t *idScreen, uint8_t *idObjeto, byte *valor) {
+
+    NexVariable objNextion = NexVariable(*idScreen,  *idObjeto,  "");
+
+    objNextion.setValueByID((uint32_t)*valor);
+
+}
+
+
 
 /*********************************************************************
  * Le a variável Beep do Screen
