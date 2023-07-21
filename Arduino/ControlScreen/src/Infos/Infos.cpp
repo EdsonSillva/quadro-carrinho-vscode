@@ -341,7 +341,7 @@ byte Infos::InfoScreen::setBitChange(bool mudou, uint8_t *valor) {
 /* @brief Converte o valor recebido em valor com controle no bit 8 e retorna o valor com o controle no bit 8. @return retorna o valor com o controle de mudança de valor no bit 8  */
 bool Infos::InfoScreen::setValorInfo(byte *valoInforScreen, byte *valorSys) {
 
-    // TODOSub Done - Efetuando as mudanças no controle do valor para uma única variável
+    // TODODone - Efetuando as mudanças no controle do valor para uma única variável
 
     byte valorOriginal = getvalorOriginal(valoInforScreen);
 

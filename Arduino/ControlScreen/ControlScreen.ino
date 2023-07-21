@@ -9,7 +9,7 @@
                          onde o outro arduino irá interpretar e executar a função de 
                          interação com os leds do quadro de carrinho
 
-    Autor:          Edson Silva
+    @author:        Edson Silva
     Data Inicio:    27/05/18
     Data Fim:       Ago/20 - 1º versão
     Release:        jun/22

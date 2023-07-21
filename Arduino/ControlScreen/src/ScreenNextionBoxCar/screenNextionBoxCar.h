@@ -61,7 +61,6 @@ public:
     bool existeDadoNoNextion();
     void setAcaoOnScreen(uint32_t Acao);
     void setExecArduinoOnScreen(eCodeExec CodeExec);
-    void setLDROnScreen(uint32_t ValorSensor);
     void getRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao);
     void setDadosRGBBOnScreen(BoxDadosAcao *DadosAcao, bool EEPROMDisp);
     byte getDoWOnScreen();
@@ -75,10 +74,14 @@ public:
     void showHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);     // @deprecated
     void showHoraOnScreen(eTipoTempoInfo tipoInfo, byte *valor);
 
+    void showTemperaturaOnScreen(byte *TemperaturaAmbiente);
+    void showUmidadeOnScreen(byte *UmidadeAmbiente);
+    void showLDROnScreen(byte *ValorSensor);
+
+    void showTempSysOnScreen(byte *TemperaturaSys);
+
     bool getBeepOnScreen();
-    void showTempSysOnScreen(int TemperaturaSys);
-    void showTemperaturaOnScreen(double TemperaturaAmbiente);
-    void showUmidadeOnScreen(double UmidadeAmbiente);
+
     void setBoxesOnScreen(const char Boxes[]);
     byte getSizeBoxesOnScreen();
     byte getQtdeItensBoxesOnScreen();

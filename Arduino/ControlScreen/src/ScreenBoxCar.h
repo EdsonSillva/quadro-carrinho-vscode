@@ -90,17 +90,19 @@ public:
   void stopAcao();
   void obterInfosSistema(Infos::infoSys *infoSistema);
   void atualizarDadosNaTela();
-  void atualizarLDROnScreen();
   
   void atualizarDataHoraOnScreen();
-
   void atualizarDataOnScreen();
   void atualizarHoraOnScreen();
 
+  void atualizarAmbienteOnScreen();
 
-  void atualizarTemperaturaSysOnScreen();
   void atualizarTemperaturaOnScreen();
   void atualizarUmidadeOnScreen();
+  void atualizarLDROnScreen();
+
+  void atualizarTemperaturaSysOnScreen();
+
   void atualizarDadosMemoriaOnScreen();
   void tentarAcessarEAtualizarOnScreen();
   bool DadosRecebidoTela();

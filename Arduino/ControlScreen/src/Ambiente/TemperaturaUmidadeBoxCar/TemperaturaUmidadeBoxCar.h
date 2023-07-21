@@ -1,5 +1,5 @@
 /*
-    Módulo para tratar as chamadas da Biblioteca DHT
+    Módulo para tratar as chamadas da Biblioteca DHT11
     Pino: Analógico A1
     
     Desenvolvido por Edson Silva

@@ -103,13 +103,6 @@ void screenNextionBoxCar::setExecArduinoOnScreen(eCodeExec CodeExec) {
 
 }
 
-void screenNextionBoxCar::setLDROnScreen(uint32_t ValorSensor) {
-
-    NexVariable LDR = NexVariable(_tela.Global, _objeto.IDLDR, "");
-    LDR.setValueByID(ValorSensor);
-      
-}
-
 void screenNextionBoxCar::getRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao) {
 
     uint32_t    value       = -1;
@@ -231,7 +224,7 @@ void screenNextionBoxCar::showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte
 
 void screenNextionBoxCar::showDataOnScreen(eTipoDataInfo tipoInfo, byte *valor) {
 
-    // TODO  Done - Fazendo as mudanças (achei um erro na classe infoScreen, onde não consigo recuperar as informações)
+    // TODODone - Fazendo as mudanças (achei um erro na classe infoScreen, onde não consigo recuperar as informações)
 
     byte    idScreen        = _tela.Global;
     byte    idObjeto        = 0;
@@ -295,8 +288,6 @@ void screenNextionBoxCar::showHoraOnScreen(byte *Hora, byte *Minuto, byte *Segun
 
 void screenNextionBoxCar::showHoraOnScreen(eTipoTempoInfo tipoInfo, byte *valor) {
 
-    // TODO  Fazendo as mudanças (achei um erro na classe infoScreen, onde não consigo recuperar as informações)
-
     byte    idScreen    = _tela.Global;
     byte    idObjeto    = 0;
 
@@ -321,7 +312,6 @@ void screenNextionBoxCar::showHoraOnScreen(eTipoTempoInfo tipoInfo, byte *valor)
 //   NexVariable nHora    = NexVariable(_tela.Global, _objeto.IDHora, "");
 //   NexVariable nMinuto  = NexVariable(_tela.Global, _objeto.IDMin, "");
 //   NexVariable nSegundo = NexVariable(_tela.Global, _objeto.IDSeg, "");
-
 //   nHora.setValueByID((uint32_t)*Hora);
 //   nMinuto.setValueByID((uint32_t)*Minuto);
 //   nSegundo.setValueByID((uint32_t)*Segundo);
@@ -330,21 +320,55 @@ void screenNextionBoxCar::showHoraOnScreen(eTipoTempoInfo tipoInfo, byte *valor)
 
 #pragma endregion Show informações de hora
 
+#pragma region Show informações de Ambiente
+
+ /* @brief Recebe um valor de temperatura do DHT11 e coloca na variável da tela do Nextion */
+void screenNextionBoxCar::showTemperaturaOnScreen(byte *TemperaturaAmbiente) {  
+
+    NexVariable nTemperatura = NexVariable(_tela.Global, _objeto.IDTemp, "");
+    nTemperatura.setValueByID((uint32_t)*TemperaturaAmbiente);
+
+}
+
+ /* @brief Recebe um valor de umidade do DHT11 e coloca na variável da tela do Nextion */
+void screenNextionBoxCar::showUmidadeOnScreen(byte *UmidadeAmbiente) {
+
+    NexVariable nUmidade = NexVariable(_tela.Global, _objeto.IDUmidade, "");  
+    nUmidade.setValueByID((uint32_t)*UmidadeAmbiente);
+
+}
+
+ /* @brief Recebe um valor de luminosidade do LDR e coloca na variável da tela do Nextion */
+void screenNextionBoxCar::showLDROnScreen(byte *ValorSensor) {
+
+    NexVariable LDR = NexVariable(_tela.Global, _objeto.IDLDR, "");
+    LDR.setValueByID((uint32_t)*ValorSensor);
+      
+}
+
+#pragma endregion Show informações de Ambiente
+
+#pragma region Show informações de temperatura do sistema
+
+ /* @brief Le a temperatura do sistema. O sensor fica no device DS3231 */
+void screenNextionBoxCar::showTempSysOnScreen(byte *TemperaturaSys) {
+
+    NexVariable nTempSys = NexVariable(_tela.Global, _objeto.IDTempSys, "");
+    nTempSys.setValueByID((uint32_t)*TemperaturaSys);
+
+}
+
+#pragma endregion
 
 /* @brief Este metodo trabalha com o objeto NexVariable */
 void screenNextionBoxCar::showInfoOnScreen(uint8_t *idScreen, uint8_t *idObjeto, byte *valor) {
 
     NexVariable objNextion = NexVariable(*idScreen,  *idObjeto,  "");
-
     objNextion.setValueByID((uint32_t)*valor);
 
 }
 
-
-
-/*********************************************************************
- * Le a variável Beep do Screen
- *********************************************************************/
+/* @brief Lê a variável Beep do screem para saber se emite Beep ou não */
 bool screenNextionBoxCar::getBeepOnScreen() {
 
     uint32_t      value   = 0;
@@ -354,36 +378,6 @@ bool screenNextionBoxCar::getBeepOnScreen() {
     if((bool)value == 1)
         return true;
     return false;
-
-}
-
- /*********************************************************************
-  * Le a temperatura do sistema. O sensor fica no device DS3231
-  *********************************************************************/
-void screenNextionBoxCar::showTempSysOnScreen(int TemperaturaSys) {
-
-    NexVariable nTempSys = NexVariable(_tela.Global, _objeto.IDTempSys, "");
-    nTempSys.setValueByID((uint32_t)TemperaturaSys);
-
-}
-
- /************************************************************************ 
-  * Le a temperatura do device DH11 e coloca o valor na variável da Tela
-  ************************************************************************/
-void screenNextionBoxCar::showTemperaturaOnScreen(double TemperaturaAmbiente) {  
-
-    NexVariable nTemperatura = NexVariable(_tela.Global, _objeto.IDTemp, "");
-    nTemperatura.setValueByID((uint32_t)TemperaturaAmbiente);
-
-}
-
- /********************************************************************** 
-  * Le a umidade do device DH11 e coloca o valor na variável  da Tela
-  **********************************************************************/
-void screenNextionBoxCar::showUmidadeOnScreen(double UmidadeAmbiente) {
-
-    NexVariable nUmidade = NexVariable(_tela.Global, _objeto.IDUmidade, "");  
-    nUmidade.setValueByID((uint32_t)UmidadeAmbiente);
 
 }
 
@@ -413,7 +407,6 @@ byte screenNextionBoxCar::getQtdeItensBoxesOnScreen() {
     return (byte)value;
 
 }
-
 
 byte screenNextionBoxCar::getBoxesOnScreen(char Boxes[], byte sizeBoxes) {
 
