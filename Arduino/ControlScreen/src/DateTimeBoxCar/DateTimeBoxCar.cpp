@@ -3,7 +3,7 @@
 #include "DateTimeBoxCar.h"
 
 
-DateTimeBoxCar::DateTimeBoxCar(/* args */) { }
+DateTimeBoxCar::DateTimeBoxCar() { }
 
 DateTimeBoxCar::~DateTimeBoxCar() { }
 
@@ -36,7 +36,7 @@ bool DateTimeBoxCar::setHoraOnDS3231(byte Hora, byte Minuto, byte Segundo) {
   _RTC.setSecond(Segundo);
 }
 
-/* @deprecated */
+/*@brief deprecated @deprecated */
 void DateTimeBoxCar::getHoraOnDS3231(byte *Hora, byte *Minuto, byte *Segundo) {
   bool h12, PM;
   *Hora=_RTC.getHour(h12,PM);
@@ -51,7 +51,7 @@ bool DateTimeBoxCar::setDataOnDS3231(byte Dia, byte Mes, byte Ano, byte DoW) {
   _RTC.setDoW(DoW);
 }
 
-/* @deprecated */
+/*@brief deprecated @deprecated */
 void DateTimeBoxCar::getDataOnDS3231(byte *Dia, byte *Mes, byte *Ano, byte *DoW) {
   
   bool Century=false;
@@ -62,7 +62,7 @@ void DateTimeBoxCar::getDataOnDS3231(byte *Dia, byte *Mes, byte *Ano, byte *DoW)
   *DoW=_RTC.getDoW();
 }
 
-/* @deprecated */
+/*@brief deprecated @deprecated */
 void DateTimeBoxCar::getDataOnDS3231(byte *Dia, byte *Mes, byte *Ano, byte *DoW, int *Milenio) {
   
   bool Century=false;
@@ -80,8 +80,6 @@ void DateTimeBoxCar::getDataOnDS3231(byte *Dia, byte *Mes, byte *Ano, byte *DoW,
 /* @brief novo meio de chamar a função */
 void DateTimeBoxCar::getDataOnDS3231(Infos::infoSys *infosSys, int *Milenio) {
   
-    // TODO: mudando esta função para trabalhar com a classe Infos
-
     bool Century=false;
     
     infosSys->Data.Dia.valor = _RTC.getDate();

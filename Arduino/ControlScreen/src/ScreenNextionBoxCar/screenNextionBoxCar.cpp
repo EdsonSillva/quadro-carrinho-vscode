@@ -207,8 +207,6 @@ void screenNextionBoxCar::getTextoOnScreen(char Texto[], byte *pQtdeChar) {
 /* @brief deprecated @deprecated */
 void screenNextionBoxCar::showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW) {
 
-    // TODO Analisando mudanças...
-
     NexVariable nDia    = NexVariable(_tela.Global,  _objeto.IDDia,         "");
     NexVariable nMes    = NexVariable(_tela.Global,  _objeto.IDMes,         "");
     NexVariable nAno    = NexVariable(_tela.Global,  _objeto.IDAno,         "");
@@ -223,8 +221,6 @@ void screenNextionBoxCar::showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte
 }
 
 void screenNextionBoxCar::showDataOnScreen(eTipoDataInfo tipoInfo, byte *valor) {
-
-    // TODODone - Fazendo as mudanças (achei um erro na classe infoScreen, onde não consigo recuperar as informações)
 
     byte    idScreen        = _tela.Global;
     byte    idObjeto        = 0;
@@ -253,23 +249,18 @@ void screenNextionBoxCar::showDataOnScreen(eTipoDataInfo tipoInfo, byte *valor) 
 
     showInfoOnScreen(&idScreen, &idObjeto, &valorRecebido);
 
-
     // NexVariable nDia    = NexVariable(_tela.Global,  _objeto.IDDia,         "");
     // NexVariable nMes    = NexVariable(_tela.Global,  _objeto.IDMes,         "");
     // NexVariable nAno    = NexVariable(_tela.Global,  _objeto.IDAno,         "");
     // NexVariable nDoW    = NexVariable(_tela.Global,  _objeto.IDDoWGlobal,   "");
-    
     // nDia.setValueByID((uint32_t)*Dia);
     // nMes.setValueByID((uint32_t)*Mes);
     // nAno.setValueByID((uint32_t)(_Milenio + *Ano));  
-    
     // nDoW.setValueByID((uint32_t)*DoW);
 
 }
 
-
 #pragma endregion Show informações de data
-
 
 #pragma region Show informações de hora
 

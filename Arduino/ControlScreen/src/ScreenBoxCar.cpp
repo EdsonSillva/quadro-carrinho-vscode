@@ -55,6 +55,8 @@ void ScreenBoxCar::inicializacaoDaTela() {
 
 void ScreenBoxCar::avaliarAcao() {
 
+    //TODO 1) Iniciar as mudanças no reconhecimento do ExecCode e se está apontando que está executando na Tela
+
     if(acaoSelecionada() && !acaoExecutando()) {
         // Existe ação no screen, mas screen.AcaoExecutando() = false: executar a ação
         executarAcao();

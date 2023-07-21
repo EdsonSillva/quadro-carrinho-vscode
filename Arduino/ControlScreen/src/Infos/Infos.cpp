@@ -341,8 +341,6 @@ byte Infos::InfoScreen::setBitChange(bool mudou, uint8_t *valor) {
 /* @brief Converte o valor recebido em valor com controle no bit 8 e retorna o valor com o controle no bit 8. @return retorna o valor com o controle de mudança de valor no bit 8  */
 bool Infos::InfoScreen::setValorInfo(byte *valoInforScreen, byte *valorSys) {
 
-    // TODODone - Efetuando as mudanças no controle do valor para uma única variável
-
     byte valorOriginal = getvalorOriginal(valoInforScreen);
 
     bool mudouValor = valorOriginal != *valorSys ? true : 
@@ -366,11 +364,44 @@ byte Infos::InfoScreen::getvalorSys(eTipoTodos tipoInfo) {
         break;        
 
         case eTipoTodos::MesInfo:
-            valorSys = _infoScreen.Data.Dia.valor;
+            valorSys = _infoScreen.Data.Mes.valor;
         break;        
 
-        // TODO: Fazer um case para cada ite de _infoScreen
+        case eTipoTodos::AnoInfo:
+            valorSys = _infoScreen.Data.Ano.valor;
+        break;        
 
+        case eTipoTodos::DoWorkInfo:
+            valorSys = _infoScreen.Data.DoW.valor;
+        break;        
+
+        case eTipoTodos::HoraInfo:
+            valorSys = _infoScreen.Tempo.Hora.valor;
+        break;        
+
+        case eTipoTodos::MinutoInfo:
+            valorSys = _infoScreen.Tempo.Min.valor;
+        break;        
+
+        case eTipoTodos::SegundoInfo:
+            valorSys = _infoScreen.Tempo.Sec.valor;
+        break;        
+
+        case eTipoTodos::TemperaturaInfo:
+            valorSys = _infoScreen.Ambiente.Temperatura.valor;
+        break;        
+
+        case eTipoTodos::UmidadeInfo:
+            valorSys = _infoScreen.Ambiente.Umidade.valor;
+        break;        
+
+        case eTipoTodos::LuminosidadeInfo:
+            valorSys = _infoScreen.Ambiente.Luminosidade.valor;
+        break;        
+
+        case eTipoTodos::TemperaturaSysInfo:
+            valorSys = _infoScreen.TemperaturaSys.valor;
+        break;        
 
     }
 
@@ -407,9 +438,6 @@ bool Infos::InfoScreen::valorAlterado(eTipoTodos tipoInfo, byte *value = NULL) {
     }
 
     return mask & valorSys;      // Retorna só valor
-
-    // TODO Parei aqui - Continuar amanhã com Finalizar o switch da getvalorSys() e desenvolver como alterar o bit 8 quando recebe os valores na classe
-
 
 }
 
