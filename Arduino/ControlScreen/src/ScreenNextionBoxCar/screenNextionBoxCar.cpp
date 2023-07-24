@@ -65,6 +65,17 @@ byte screenNextionBoxCar::getAcaoOnScreen() {
     return (byte)value;
 }
 
+byte screenNextionBoxCar::getEstadoAcaoOnScreen() {
+
+    uint32_t    value       = 0;
+    NexVariable AcaoArduino = NexVariable(_tela.Global, _objeto.IDAcaoOn, "");
+
+    AcaoArduino.getValueByID(&value);
+    
+    return (byte)value;
+}
+
+
 byte screenNextionBoxCar::getAcaoTemaOnScreen() {
 
     uint32_t    value           = 0;

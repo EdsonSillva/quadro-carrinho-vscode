@@ -56,6 +56,7 @@ public:
     int getMilenio();
     void setVarNextion(char VarGlobal[], int TestoLEngth, String NomeVar);
     byte getAcaoOnScreen();
+    byte getEstadoAcaoOnScreen();
     byte getAcaoTemaOnScreen();
     byte getStandByOnScreen();
     bool existeDadoNoNextion();

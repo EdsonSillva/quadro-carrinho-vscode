@@ -31,7 +31,7 @@ public:
             tela do Nextion.
    */
     uint8_t const   IDAcaoArduino             =  1,
-                    IDAcaoEmExec              = 36,
+                    IDAcaoOn                  = 36,
                     IDStandBy                 = 29,
                     IDArduinoExec             =  3,
                     IDLDR                     = 24,

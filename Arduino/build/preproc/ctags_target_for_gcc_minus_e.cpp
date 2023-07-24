@@ -85,32 +85,35 @@ void setup() {
 
 void loop() {
 
-    byte StandBy = screen.tela.getStandByOnScreen();
+    // byte StandBy = screen.tela.getStandByOnScreen();        // @deprecated
+
+    bool StandBy = screen.getTelaStandBy();
 
     if (!screen.eeprom.disponivel()) {
 
         delay(1000); // Aguarda um tempo e tenta novamente o acesso e buscar das informações
         screen.tentarAcessarEAtualizarOnScreen(); // Se conseguir acessar e buscar as informações seta EEPROM disponível no objeto
 
-    } else if (StandBy > 0) {
+    } else if (StandBy) {
 
-        if (StandBy == 255) {
-            // Problemas na leitura do valor da variável (tela indisponível)
+        // if (StandBy == 255) {
+        //     // Problemas na leitura do valor da variável (tela indisponível)
 
-            ScreenIndisponivel++; // Necessário porque o timeout da serial é afetado pelo processamento na tela
+        //     ScreenIndisponivel++;                       // Necessário porque o timeout da serial é afetado pelo processamento na tela
 
-            if(ScreenIndisponivel > 100) {
-                // screen.som.beepBuzzer(16000, 300),   delay(500);
-                ScreenIndisponivel--; // Decrementa 1 para não estourar o contador
-                delay(1000);
-            }
+        //     if(ScreenIndisponivel > 100) {
+        //         // screen.som.beepBuzzer(16000, 300),   delay(500);
+        //         ScreenIndisponivel--;                  // Decrementa 1 para não estourar o contador
+        //         delay(1000);
+        //     }
 
-        } else {
+        // } else {
 
-            ScreenIndisponivel = 0; // Zera o contador
+            // ScreenIndisponivel = 0;                  // Zera o contador
             while (!screen.DadosRecebidoTela()); // aguarda até a tela acordar (sair do stand by)
-            delay(100); // necessário para processamrento na tela
-        }
+            delay(100); // necessário para processamento na tela (wake up)
+
+        // }
 
     } else {
 

@@ -1,10 +1,10 @@
 
 #include "ScreenBoxCar.h"
 
-
 ScreenBoxCar::ScreenBoxCar() {  }
-
 ScreenBoxCar::~ScreenBoxCar() { }
+
+#pragma region Rotinas de inicialização
 
 void ScreenBoxCar::iniciar() {
 
@@ -53,29 +53,65 @@ void ScreenBoxCar::inicializacaoDaTela() {
     }
 }
 
+#pragma endregion Rotinas de inicialização
+
+/* @brief deprecated @deprecated*/
+// void ScreenBoxCar::avaliarAcao() {
+//     if(acaoSelecionada() && !acaoExecutando()) {
+//         // Existe ação no screen, mas screen.AcaoExecutando() = false: executar a ação
+//         executarAcao();
+//     } else if(!acaoSelecionada() && acaoExecutando()) {
+//         // Não existe ação no screen, mas screen.AcaoExecutando() = true: reset dos leds no quadro
+//         stopAcao();
+//     }
+//     // Não existe acao no screen e screen.AcaoExecutando() = false: não faz nada
+//     atualizarDadosNaTela();        // Atualização das variáveis de Data, hora, tempertura ambiente, temperatura sistema e Umidade
+// }
+
 void ScreenBoxCar::avaliarAcao() {
 
     //TODO 1) Iniciar as mudanças no reconhecimento do ExecCode e se está apontando que está executando na Tela
 
-    if(acaoSelecionada() && !acaoExecutando()) {
-        // Existe ação no screen, mas screen.AcaoExecutando() = false: executar a ação
-        executarAcao();
+    if(tela.existeDadoNoNextion()) {     // Existe alguma solicitação
 
-    } else if(!acaoSelecionada() && acaoExecutando()) {
-        // Não existe ação no screen, mas screen.AcaoExecutando() = true: reset dos leds no quadro
-        stopAcao();
+        // Busca código ação via dado disponível na serial e carrega no objeto acao
+        if(getAcaoSelecionada()) {
+            executarAcao();     // pode ser iniciar uma ação ou cancletar uma já em execução
+        }
 
-    }
+    } 
 
-    // Não existe acao no screen e screen.AcaoExecutando() = false: não faz nada
+    // Não existe ação no screen e screen.AcaoExecutando() = false: não faz nada
     
-    atualizarDadosNaTela();        // Atualização das variáveis de Data, hora, tempertura ambiente, temperatura sistema e Umidade
+    atualizarDadosNaTela();        // Avalia se deve atualizar as variáveis de Data, hora, tempertura ambiente, temperatura sistema e Umidade
+
+    // if(acaoSelecionada() && !acaoExecutando()) {
+    //     // Existe ação no screen, mas screen.AcaoExecutando() = false: executar a ação
+    //     executarAcao();
+    // } else if(!acaoSelecionada() && acaoExecutando()) {
+    //     // Não existe ação no screen, mas screen.AcaoExecutando() = true: reset dos leds no quadro
+    //     stopAcao();
+    // }
+    // // Não existe acao no screen e screen.AcaoExecutando() = false: não faz nada
+    // atualizarDadosNaTela();        // Atualização das variáveis de Data, hora, tempertura ambiente, temperatura sistema e Umidade
 
 }
 
-bool ScreenBoxCar::acaoSelecionada() {
 
-    acao.setCodeAcao(tela.getAcaoOnScreen());
+/* @brief deprecated @deprecated */
+// bool ScreenBoxCar::acaoSelecionada() {
+//     acao.setCodeAcao(tela.getAcaoOnScreen());
+//     if (acao.getCodeAcao() > 0) return true;
+//     return false;
+// }
+
+bool ScreenBoxCar::getAcaoSelecionada() {
+
+    byte CodeAcao = (byte)nexSerial.parseInt();
+
+    acao.setCodeAcao(CodeAcao);
+    acao.setQualAcao((eQualAcao)tela.getEstadoAcaoOnScreen());
+
     if (acao.getCodeAcao() > 0) return true;
     return false;
 
@@ -95,107 +131,298 @@ void ScreenBoxCar::stopAcao() {
 
 }
 
+bool ScreenBoxCar::getTelaStandBy() {
+    return _telaStandBy;
+}
+
+/* @brief deprecated @deprecated */
+// void ScreenBoxCar::executarAcao() {
+//     byte CodeAcao = acao.getCodeAcao();
+//     if (CodeAcao > 20) {
+//         tela.getRGBBrilhoOnScreen(&acao);
+//         switch (CodeAcao) {
+//             case 254:                                               // Device EEPROM não disponível
+//             case 255:                                               // Reset Ação
+//                 digitalWrite(_pinoControle, LOW);               // Sinaliza Off para o outro Arduino
+//                 delay(50);
+//                 break;
+//             default:
+//                 /* 
+//                 *  Ações direcionadas ao quadro de carrinho 
+//                 */
+//                 if(CodeAcao >= eAcaoBox::acaoBatman) {
+//                     carregarBoxesTemaEEPROMCompartilhada((eAcaoBox)CodeAcao);
+//                 } else if(acao.chaveAcaoAtualIsMsg()) {                              // Mensagem na Tela
+//                     char Texto[50] = {0};
+//                     byte QtdeChar = 0;
+//                     tela.getTextoOnScreen(Texto, &QtdeChar);
+//                     eeprom.setTextoOnMemory(Texto, QtdeChar);
+//                 }
+//                 eeprom.setDadosOnMemory(&acao);
+//                 delay(50);                                                  // Aguarda a atuaização da EEPROm 
+//                 digitalWrite(_pinoControle, HIGH);                          // Indica que existe ação para o outro arduino
+//                 acao.setExecutando(true);                                   // Indica que a ação está sendo executada 
+//         }
+//     } else {
+//         /* 
+//         * Ações reservadas para serem usadas na configuração do sistema e screen Nextion
+//         */
+//         switch (CodeAcao) {
+//             case 1:                                                             // Ação Configurar Data
+//                 tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+//                 tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+//                 configurarDataNoDevice();        
+//                 tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+//                 break;
+//             case 2:                                                             // Ação Configurar Hora
+//                 tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+//                 tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+//                 configurarHoraNoDevice();
+//                 tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+//                 break;
+//             case 3:                                                             // Ação Configurar RGB Brilho dos Led's
+//                 tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+//                 break;
+//             case 4:                                                             // Ação Configurar Beep
+//                 tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+//                 tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+//                 _Beep = tela.getBeepOnScreen();
+//                 tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+//                 break;
+//             case 5:                                                             // Ação Ler Dados Tema da EEPROM do Arduino
+//                 tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+//                 tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+//                 carregarBoxesTema();
+//                 tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+//                 break;
+//             case 6:                                                             // Ação Salvar Dados Tema na EEPROM do Arduino
+//                 tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+//                 tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+//                 // salvarBoxesTema();   // Não está funcionando corretamente (perdendo dados ao receber via Serial)
+//                 salvarBoxesTemaByItem();
+//                 tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+//                 break;
+//         }
+//     }
+// }
+
 void ScreenBoxCar::executarAcao() {
 
-    byte CodeAcao = acao.getCodeAcao();
+    byte codeAcao = acao.getCodeAcao();
     
-    if (CodeAcao > 20) {
+    if(codeAcao < 40) {     /* Ações do sistema */
 
-        tela.getRGBBrilhoOnScreen(&acao);
+        // TODODone Feito ...
 
-        switch (CodeAcao) {
+        acaoSistema(&codeAcao);
+    
+    } else {                /* Ações no quadro de carrinho */
+    
+        // TODODone Feito ...
 
-            case 254:                                               // Device EEPROM não disponível
-            case 255:                                               // Reset Ação
+        acaoQuadroCarrinho(&codeAcao);
+    
+    }
+
+    // if (codeAcao > 20) {
+
+    //     tela.getRGBBrilhoOnScreen(&acao);
+
+    //     switch (codeAcao) {
+
+    //         case 254:                                               // Device EEPROM não disponível
+    //         case 255:                                               // Reset Ação
                 
-                digitalWrite(_pinoControle, LOW);               // Sinaliza Off para o outro Arduino
-                delay(50);
+    //             digitalWrite(_pinoControle, LOW);               // Sinaliza Off para o outro Arduino
+    //             delay(50);
 
-                break;
+    //             break;
 
-            default:
+    //         default:
             
-                /* 
-                *  Ações direcionadas ao quadro de carrinho 
-                */
+    //             /* 
+    //             *  Ações direcionadas ao quadro de carrinho 
+    //             */
 
-                if(CodeAcao >= eAcaoBox::acaoBatman) {
+    //             if(codeAcao >= eAcaoBox::acaoBatman) {
                     
-                    carregarBoxesTemaEEPROMCompartilhada((eAcaoBox)CodeAcao);
+    //                 carregarBoxesTemaEEPROMCompartilhada((eAcaoBox)codeAcao);
 
-                } else if(acao.chaveAcaoAtualIsMsg()) {                              // Mensagem na Tela
+    //             } else if(acao.chaveAcaoAtualIsMsg()) {                              // Mensagem na Tela
                     
-                    char Texto[50] = {0};
-                    byte QtdeChar = 0;
-                    tela.getTextoOnScreen(Texto, &QtdeChar);
-                    eeprom.setTextoOnMemory(Texto, QtdeChar);
+    //                 char Texto[50] = {0};
+    //                 byte QtdeChar = 0;
+    //                 tela.getTextoOnScreen(Texto, &QtdeChar);
+    //                 eeprom.setTextoOnMemory(Texto, QtdeChar);
                 
-                }
+    //             }
 
-                eeprom.setDadosOnMemory(&acao);
-                delay(50);                                                  // Aguarda a atuaização da EEPROm 
-                digitalWrite(_pinoControle, HIGH);                          // Indica que existe ação para o outro arduino
-                acao.setExecutando(true);                                   // Indica que a ação está sendo executada 
+    //             eeprom.setDadosOnMemory(&acao);
+    //             delay(50);                                                  // Aguarda a atuaização da EEPROm 
+    //             digitalWrite(_pinoControle, HIGH);                          // Indica que existe ação para o outro arduino
+    //             acao.setExecutando(true);                                   // Indica que a ação está sendo executada 
 
-        }
+    //     }
 
-    } else {
+    // } else {
 
-        /* 
-        * Ações reservadas para serem usadas na configuração do sistema e screen Nextion
-        */
-        switch (CodeAcao) {
+    //     /* 
+    //     * Ações reservadas para serem usadas na configuração do sistema e screen Nextion
+    //     */
+    //     switch (codeAcao) {
 
-            case 1:                                                             // Ação Configurar Data
+    //         case 1:                                                             // Ação Configurar Data
 
-                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
-                configurarDataNoDevice();        
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
-                break;
+    //             tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+    //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+    //             configurarDataNoDevice();        
+    //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+    //             break;
 
-            case 2:                                                             // Ação Configurar Hora
+    //         case 2:                                                             // Ação Configurar Hora
 
-                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
-                configurarHoraNoDevice();
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
-                break;
+    //             tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+    //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+    //             configurarHoraNoDevice();
+    //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+    //             break;
 
-            case 3:                                                             // Ação Configurar RGB Brilho dos Led's
+    //         case 3:                                                             // Ação Configurar RGB Brilho dos Led's
 
-                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-                break;
+    //             tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+    //             break;
 
-            case 4:                                                             // Ação Configurar Beep
+    //         case 4:                                                             // Ação Configurar Beep
 
-                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
-                _Beep = tela.getBeepOnScreen();
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
-                break;
+    //             tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+    //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+    //             _Beep = tela.getBeepOnScreen();
+    //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+    //             break;
 
-            case 5:                                                             // Ação Ler Dados Tema da EEPROM do Arduino
+    //         case 5:                                                             // Ação Ler Dados Tema da EEPROM do Arduino
 
-                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
-                carregarBoxesTema();
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
-                break;
+    //             tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+    //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+    //             carregarBoxesTema();
+    //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+    //             break;
 
-            case 6:                                                             // Ação Salvar Dados Tema na EEPROM do Arduino
+    //         case 6:                                                             // Ação Salvar Dados Tema na EEPROM do Arduino
 
-                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
-                // salvarBoxesTema();   // Não está funcionando corretamente (perdendo dados ao receber via Serial)
-                salvarBoxesTemaByItem();
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
-                break;
-        }
+    //             tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+    //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+    //             // salvarBoxesTema();   // Não está funcionando corretamente (perdendo dados ao receber via Serial)
+    //             salvarBoxesTemaByItem();
+    //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+    //             break;
+    //     }
+
+    // }
+
+}
+
+void ScreenBoxCar::acaoSistema(byte *codeAcao) {
+
+    switch ((eAcaoSistema)*codeAcao) {
+
+        case eAcaoSistema::configurarData:      // Ação Configurar Data
+
+            tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+            configurarDataNoDevice();        
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+            break;
+
+        case eAcaoSistema::configurarHora:      // Ação Configurar Hora
+
+            tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+            configurarHoraNoDevice();
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+            break;
+
+        case eAcaoSistema::standBy:             // Ação indicando q o screen está enm stand by ou não
+
+            if(acao.getQualAcao() == eQualAcao::executarAcao) {
+                _telaStandBy = true;
+            } else {
+                _telaStandBy = false;
+            }
+            break;
+
+        case eAcaoSistema::configurarBeep:      // Ação Configurar Beep
+
+            tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+            _Beep = tela.getBeepOnScreen();
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+            break;
+
+        case eAcaoSistema::carregarTemas:       // Ação Ler Dados Tema da EEPROM do Arduino
+
+            tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+            carregarBoxesTema();
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+            break;
+
+        case eAcaoSistema::salvarTemas:         // Ação Salvar Dados Tema na EEPROM do Arduino
+
+            tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+            // salvarBoxesTema();   // Não está funcionando corretamente (perdendo dados ao receber via Serial)
+            salvarBoxesTemaByItem();
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+            break;
+    }
+
+}
+
+void ScreenBoxCar::acaoQuadroCarrinho(byte *codeAcao) {
+
+    switch (acao.getQualAcao())
+    {
+    case eQualAcao::semAcao:
+    case eQualAcao::pararAcao:
+
+        stopAcao();
+        acao.setExecutando(false);   // Indica que a ação parou de executar
+        break;
+    
+    default:        // eQualAcao::executarAcao
+
+        executarAcaoQuadroCarrinho(codeAcao);
+        break;
 
     }
 
 }
+
+void ScreenBoxCar::executarAcaoQuadroCarrinho(byte *codeAcao) {
+
+    tela.getRGBBrilhoOnScreen(&acao);
+
+    if(*codeAcao >= eAcaoBox::acaoBatman) {     // Açoes de tema
+        
+        carregarBoxesTemaEEPROMCompartilhada((eAcaoBox)*codeAcao);
+
+    } else if(acao.chaveAcaoAtualIsMsg()) {     // Mensagem na Tela
+        
+        char Texto[50] = {0};
+        byte QtdeChar = 0;
+        tela.getTextoOnScreen(Texto, &QtdeChar);
+        eeprom.setTextoOnMemory(Texto, QtdeChar);
+    
+    }
+
+    eeprom.setDadosOnMemory(&acao);
+    delay(50);                                  // Aguarda a atualização da EEPROM 
+    digitalWrite(_pinoControle, HIGH);          // Indica que existe ação para o outro arduino
+    acao.setExecutando(true);                   // Indica que a ação está sendo executada 
+    
+}
+
 
 void ScreenBoxCar::tentarAcessarEAtualizarOnScreen(){
     
@@ -236,11 +463,9 @@ void ScreenBoxCar::configurarHoraNoDevice() {
 
 void ScreenBoxCar::atualizarDadosNaTela() {
 
-    // TODODone: Finalizado mudanças na atualização
-
     if(_Beep) som.beepBuzzer();
 
-    if(millis() >= _MaxWait) {
+    if(millis() >= _maxWait) {
 
         Infos::infoSys infoSistema = Infos::infoSys();
 
@@ -277,7 +502,7 @@ void ScreenBoxCar::atualizarDadosNaTela() {
         // atualizarUmidadeOnScreen();
         // atualizarLDROnScreen();
 
-        _MaxWait = millis() + 1000;                    // Acrescenta 1 segundo de espera
+        _maxWait = millis() + 1000;                    // Acrescenta 1 segundo de espera
 
     }
     
@@ -408,9 +633,7 @@ void ScreenBoxCar::salvarBoxesTemaByItem() {
 
 /* @brief Funciona, mas a recepção dos dados via Serial Nextion não estão sendo recebidos na totalidade */
 void ScreenBoxCar::buscarBoxesOnScreen(char Boxes[], byte sizeBoxes) {
-
     byte sizeRecebido = tela.getBoxesOnScreen(Boxes, sizeBoxes);
-
 }
 
 void ScreenBoxCar::buscarBoxesOnScreenByItem(byte Boxes[], byte sizeBoxes) {
@@ -576,7 +799,6 @@ void ScreenBoxCar::atualizarHoraOnScreen() {
     byte valor      = 0x00;
 
     // byte Hora, Minuto, Segundo;
-
     // data.getHoraOnDS3231(&Hora, &Minuto, &Segundo);
     // tela.showHoraOnScreen(&Hora, &Minuto, &Segundo);
 

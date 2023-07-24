@@ -50,8 +50,9 @@ private:
   byte    _pinoUsandoEEPROM       = _pino_eeprom_usado_;
   byte    _pinoAlertaEEPROM       = _pino_eeprom_alerta_;
   bool    _Beep                   = true;
-  long    _MaxWait                = millis();
+  long    _maxWait                = millis();
   bool    _telaOnLine             = false;
+  bool    _telaStandBy            = false;
 
   void configurarDataNoDevice();
   void configurarHoraNoDevice();
@@ -84,10 +85,15 @@ public:
   void iniciar();
   void avaliarAcao();
   void executarAcao();
+  void executarAcaoQuadroCarrinho(byte *codeAcao);
+  void acaoSistema(byte *codeAcao);
+  void acaoQuadroCarrinho(byte *codeAcao);
   // void executaConfig();
-  bool acaoSelecionada();
+  bool acaoSelecionada();   // @deprecated
+  bool getAcaoSelecionada();
   bool acaoExecutando();
   void stopAcao();
+  bool getTelaStandBy();
   void obterInfosSistema(Infos::infoSys *infoSistema);
   void atualizarDadosNaTela();
   
