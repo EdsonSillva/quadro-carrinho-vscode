@@ -34,30 +34,42 @@ public:
                     IDAcaoOn                  = 36,
                     IDStandBy                 = 29,
                     IDArduinoExec             =  3,
+                    
                     IDLDR                     = 24,
+                    
+                    /* RGB Brilho */
                     IDR                       = 20,
                     IDG                       = 21,
                     IDB                       = 22,
                     IDBrilho                  = 23,
                     IDCorRGB                  = 19,
+
                     IDEEPROMDisp              = 25,
                     IDDoW                     = 26,
                     IDTexto                   = 26,
                     IDTextoQtde               = 27,
+                    
+                    /* Data */
                     IDDia                     =  8,
                     IDMes                     =  9,
                     IDAno                     = 10,
                     IDDoWGlobal               = 12,
+                    
+                    /* Hora*/
                     IDHora                    = 13,
                     IDMin                     = 14,
                     IDSeg                     = 15,
+                    
                     IDBeep                    = 28,
                     IDTempSys                 = 17,
                     IDTemp                    = 16,
                     IDUmidade                 = 18,
+                    
+                    /* Data ou Hora */
                     IDDH                      = 11,
                     IDMM                      = 12,
                     IDAS                      = 13,
+                    
                     IDAcaoTema                = 59,
                     IDBoxes                   = 22,
                     IDBoxesLinCol             = 53,

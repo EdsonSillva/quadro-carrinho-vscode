@@ -46,7 +46,7 @@ private:
 
     void DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS);
 
-    void showInfoOnScreen(uint8_t *idScreen, uint8_t *idObjeto, byte *valor);
+    void showInfoOnScreen(uint8_t *idScreen, uint8_t *idObjeto, uint32_t *valor);
 
 public:
     screenNextionBoxCar();
@@ -60,12 +60,13 @@ public:
     byte getAcaoTemaOnScreen();
     byte getStandByOnScreen();
     bool existeDadoNoNextion();
+    bool limparBufferNexSerial();
     void setAcaoOnScreen(uint32_t Acao);
     void setExecArduinoOnScreen(eCodeExec CodeExec);
     void getRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao);
     void setDadosRGBBOnScreen(BoxDadosAcao *DadosAcao, bool EEPROMDisp);
     byte getDoWOnScreen();
-    void getDataOnScreen(byte *pDia, byte *pMes, byte *pAno, byte *DoW);
+    void getDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW);
     void getHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);
     void getTextoOnScreen(char Texto[], byte *pQtdeChar);
 

@@ -72,11 +72,25 @@ void ScreenBoxCar::avaliarAcao() {
 
     //TODO 1) Iniciar as mudanças no reconhecimento do ExecCode e se está apontando que está executando na Tela
 
+    // nexSerial.print(F("avaliarAcao()"));
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
     if(tela.existeDadoNoNextion()) {     // Existe alguma solicitação
+
+        nexSerial.print(F(">>> existeDadoNoNextion()-sim"));
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+        // TODODone criar função para limpar o buffer da serial
+
+        tela.limparBufferNexSerial();
+        // nexSerial.flush();
+        // delay(10);
 
         // Busca código ação via dado disponível na serial e carrega no objeto acao
         if(getAcaoSelecionada()) {
+            
             executarAcao();     // pode ser iniciar uma ação ou cancletar uma já em execução
+
         }
 
     } 
@@ -107,10 +121,21 @@ void ScreenBoxCar::avaliarAcao() {
 
 bool ScreenBoxCar::getAcaoSelecionada() {
 
-    byte CodeAcao = (byte)nexSerial.parseInt();
+    // nexSerial.flush();
+    byte codeAcao =  tela.getAcaoOnScreen();
 
-    acao.setCodeAcao(CodeAcao);
+    nexSerial.print(F("getAcaoSelecionada()"));
+    nexSerial.print(F("codeAcao="));
+    nexSerial.print(codeAcao);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    acao.setCodeAcao(codeAcao);
     acao.setQualAcao((eQualAcao)tela.getEstadoAcaoOnScreen());
+
+    nexSerial.print(F("qualAcao="));
+    nexSerial.print(acao.getQualAcao());
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
 
     if (acao.getCodeAcao() > 0) return true;
     return false;
@@ -133,6 +158,10 @@ void ScreenBoxCar::stopAcao() {
 
 bool ScreenBoxCar::getTelaStandBy() {
     return _telaStandBy;
+}
+
+void ScreenBoxCar::setTelaStandBy(bool valor) {
+    _telaStandBy = valor;
 }
 
 /* @brief deprecated @deprecated */
@@ -209,107 +238,93 @@ bool ScreenBoxCar::getTelaStandBy() {
 void ScreenBoxCar::executarAcao() {
 
     byte codeAcao = acao.getCodeAcao();
-    
+
+    nexSerial.print(F("executarAcao()"));
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("......"));
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("codeAcao="));
+    nexSerial.print(codeAcao);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    // nexSerial.print(F("......"));
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
     if(codeAcao < 40) {     /* Ações do sistema */
 
-        // TODODone Feito ...
+        nexSerial.print(F("executar acaoSistema()"));
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
         acaoSistema(&codeAcao);
     
     } else {                /* Ações no quadro de carrinho */
     
-        // TODODone Feito ...
+        nexSerial.print(F("executar acaoQuadroCarrinho()"));
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
         acaoQuadroCarrinho(&codeAcao);
     
     }
 
     // if (codeAcao > 20) {
-
     //     tela.getRGBBrilhoOnScreen(&acao);
-
     //     switch (codeAcao) {
-
     //         case 254:                                               // Device EEPROM não disponível
     //         case 255:                                               // Reset Ação
-                
     //             digitalWrite(_pinoControle, LOW);               // Sinaliza Off para o outro Arduino
     //             delay(50);
-
     //             break;
-
     //         default:
-            
     //             /* 
     //             *  Ações direcionadas ao quadro de carrinho 
     //             */
-
     //             if(codeAcao >= eAcaoBox::acaoBatman) {
-                    
     //                 carregarBoxesTemaEEPROMCompartilhada((eAcaoBox)codeAcao);
-
     //             } else if(acao.chaveAcaoAtualIsMsg()) {                              // Mensagem na Tela
-                    
     //                 char Texto[50] = {0};
     //                 byte QtdeChar = 0;
     //                 tela.getTextoOnScreen(Texto, &QtdeChar);
     //                 eeprom.setTextoOnMemory(Texto, QtdeChar);
-                
     //             }
-
     //             eeprom.setDadosOnMemory(&acao);
     //             delay(50);                                                  // Aguarda a atuaização da EEPROm 
     //             digitalWrite(_pinoControle, HIGH);                          // Indica que existe ação para o outro arduino
     //             acao.setExecutando(true);                                   // Indica que a ação está sendo executada 
-
     //     }
-
     // } else {
-
     //     /* 
     //     * Ações reservadas para serem usadas na configuração do sistema e screen Nextion
     //     */
     //     switch (codeAcao) {
-
     //         case 1:                                                             // Ação Configurar Data
-
     //             tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
     //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
     //             configurarDataNoDevice();        
     //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
     //             break;
-
     //         case 2:                                                             // Ação Configurar Hora
-
     //             tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
     //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
     //             configurarHoraNoDevice();
     //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
     //             break;
-
     //         case 3:                                                             // Ação Configurar RGB Brilho dos Led's
-
     //             tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
     //             break;
-
     //         case 4:                                                             // Ação Configurar Beep
-
     //             tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
     //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
     //             _Beep = tela.getBeepOnScreen();
     //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
     //             break;
-
     //         case 5:                                                             // Ação Ler Dados Tema da EEPROM do Arduino
-
     //             tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
     //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
     //             carregarBoxesTema();
     //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
     //             break;
-
     //         case 6:                                                             // Ação Salvar Dados Tema na EEPROM do Arduino
-
     //             tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
     //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
     //             // salvarBoxesTema();   // Não está funcionando corretamente (perdendo dados ao receber via Serial)
@@ -317,7 +332,6 @@ void ScreenBoxCar::executarAcao() {
     //             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
     //             break;
     //     }
-
     // }
 
 }
@@ -328,7 +342,9 @@ void ScreenBoxCar::acaoSistema(byte *codeAcao) {
 
         case eAcaoSistema::configurarData:      // Ação Configurar Data
 
-            tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+            // TODO 01 Data
+
+            tela.setAcaoOnScreen(0);                                        // reset Ação Modo Idle
             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
             configurarDataNoDevice();        
             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
@@ -336,10 +352,21 @@ void ScreenBoxCar::acaoSistema(byte *codeAcao) {
 
         case eAcaoSistema::configurarHora:      // Ação Configurar Hora
 
-            tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+
+            // nexSerial.print(F(">>> eAcaoSistema::configurarHora"));
+            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+            // nexSerial.print(F("......"));
+            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+            // TODO 10 Hora
+
+            tela.setAcaoOnScreen(0);                                       // reset Ação Modo Idle
             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
             configurarHoraNoDevice();
             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+
+            _maxWait = 0;       // Necessário para executar a rotina de atualização
+
             break;
 
         case eAcaoSistema::standBy:             // Ação indicando q o screen está enm stand by ou não
@@ -447,21 +474,81 @@ void ScreenBoxCar::atualizarDadosMemoriaOnScreen() {
 
 void ScreenBoxCar::configurarDataNoDevice() {
 
+
+    // TODO 02
+
+
     byte Dia, Mes, Ano, DoW;
     tela.getDataOnScreen(&Dia, &Mes, &Ano, &DoW);                       // Le a data indicada da tela de configurações
+
+
+    nexSerial.print(F(">>> retorno do nextion"));
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("Dia:"));
+    nexSerial.print(Dia);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(Dia, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("Mes:"));
+    nexSerial.print(Mes);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(Mes, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("Ano:"));
+    nexSerial.print(Ano);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(Ano, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("DoW:"));
+    nexSerial.print(DoW);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(DoW, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
     data.setDataOnDS3231(Dia, Mes,  Ano, DoW);                          // Seta a data no dispositivo DS3231
+
 
 }
 
 void ScreenBoxCar::configurarHoraNoDevice() {
 
+    // TODO 11 Hora
+
     byte Hora, Minuto, Segundo;
     tela.getHoraOnScreen(&Hora, &Minuto, &Segundo);                     // Le a hora selecionada da tela de configuração
+
+    nexSerial.print(F(">>> retorno do nextion"));
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("hora="));
+    nexSerial.print(Hora);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(Hora, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("Min="));
+    nexSerial.print(Minuto);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(Minuto, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("Seg="));
+    nexSerial.print(Segundo);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(Segundo, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
     data.setHoraOnDS3231(Hora, Minuto,  Segundo);                       // Seta a hora no dispositivo DS3231
 
 }
 
 void ScreenBoxCar::atualizarDadosNaTela() {
+
+    // TODO 04 (Atualização)
 
     if(_Beep) som.beepBuzzer();
 
@@ -473,6 +560,77 @@ void ScreenBoxCar::atualizarDadosNaTela() {
 
         infoTela.setInfoScreen(&infoSistema);
 
+        nexSerial.print(F("Ano="));
+        nexSerial.print(infoTela.getvalor(eTipoTodos::AnoInfo));
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+        nexSerial.print(F("AnoSys="));
+        nexSerial.print(infoTela.getvalorSys(eTipoTodos::AnoInfo));
+        nexSerial.print(F("|0b"));
+        nexSerial.print(infoTela.getvalorSys(eTipoTodos::AnoInfo), BIN);
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+
+
+        nexSerial.print(F("Mes="));
+        nexSerial.print(infoTela.getvalor(eTipoTodos::MesInfo));
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+        nexSerial.print(F("MesSys="));
+        nexSerial.print(infoTela.getvalorSys(eTipoTodos::MesInfo));
+        nexSerial.print(F("|0b"));
+        nexSerial.print(infoTela.getvalorSys(eTipoTodos::MesInfo), BIN);
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+
+
+        nexSerial.print(F("Dia="));
+        nexSerial.print(infoTela.getvalor(eTipoTodos::DiaInfo));
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+        nexSerial.print(F("DiaSys="));
+        nexSerial.print(infoTela.getvalorSys(eTipoTodos::DiaInfo));
+        nexSerial.print(F("|0b"));
+        nexSerial.print(infoTela.getvalorSys(eTipoTodos::DiaInfo), BIN);
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+
+
+        nexSerial.print(F("Hora="));
+        nexSerial.print(infoTela.getvalor(eTipoTodos::HoraInfo));
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+        nexSerial.print(F("HoraSys="));
+        nexSerial.print(infoTela.getvalorSys(eTipoTodos::HoraInfo));
+        nexSerial.print(F("|0b"));
+        nexSerial.print(infoTela.getvalorSys(eTipoTodos::HoraInfo), BIN);
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+
+
+        nexSerial.print(F("Minuto="));
+        nexSerial.print(infoTela.getvalor(eTipoTodos::MinutoInfo));
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+        nexSerial.print(F("MinutoSys="));
+        nexSerial.print(infoTela.getvalorSys(eTipoTodos::MinutoInfo));
+        nexSerial.print(F("|0b"));
+        nexSerial.print(infoTela.getvalorSys(eTipoTodos::MinutoInfo), BIN);
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+
+
+        nexSerial.print(F("Segundo="));
+        nexSerial.print(infoTela.getvalor(eTipoTodos::SegundoInfo));
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+        nexSerial.print(F("SegundoSys="));
+        nexSerial.print(infoTela.getvalorSys(eTipoTodos::SegundoInfo));
+        nexSerial.print(F("|0b"));
+        nexSerial.print(infoTela.getvalorSys(eTipoTodos::SegundoInfo), BIN);
+        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+
         if (infoTela.existeAlteracao()) {
 
             bool InfoMudou = false;
@@ -482,15 +640,30 @@ void ScreenBoxCar::atualizarDadosNaTela() {
             }
 
             if(infoTela.foiAlterado(eTipoDadoInfo::TempoInfo)) {
+
+
+                // if(infoTela.valorAlterado(eTipoTodos::HoraInfo)) {
+
+                //     nexSerial.print(F("Tempo Alterado (Hora)"));
+                //     nexSerial.print(infoTela.getvalor(eTipoTodos::HoraInfo));
+                //     nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+                //     nexSerial.print(F("Tempo Alterado (Hora)"));
+                //     nexSerial.print(infoTela.getvalorSys(eTipoTodos::HoraInfo), BIN);
+                //     nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+                // }
+
                 atualizarHoraOnScreen();
+
             }
 
             if(infoTela.foiAlterado(eTipoDadoInfo::AmbienteInfo)) {
-                    atualizarAmbienteOnScreen();
+                    // atualizarAmbienteOnScreen();
             }
 
             if(infoTela.foiAlterado(eTipoDadoInfo::TempreraturaSysInfo)) {
-                atualizarTemperaturaSysOnScreen();
+                // atualizarTemperaturaSysOnScreen();
             }
 
         }
@@ -502,7 +675,7 @@ void ScreenBoxCar::atualizarDadosNaTela() {
         // atualizarUmidadeOnScreen();
         // atualizarLDROnScreen();
 
-        _maxWait = millis() + 1000;                    // Acrescenta 1 segundo de espera
+        _maxWait = millis() + 10000;                    // Acrescenta 1 segundo de espera
 
     }
     
@@ -716,6 +889,11 @@ void ScreenBoxCar::gravarDadosEEPROMInoByItem(byte Boxes[], byte sizeBoxes, int 
 
 void ScreenBoxCar::obterInfosSistema(Infos::infoSys *infoSistema) {
     
+
+    // TODO 05 Obtendo dados dos devices
+
+
+
     int Milenio      = tela.getMilenio();
     // data.getDataOnDS3231(&Dia, &Mes, &Ano, &DoW, &Milenio);
     data.getDataOnDS3231(infoSistema, &Milenio);
@@ -782,6 +960,14 @@ void ScreenBoxCar::atualizarDataOnScreen() {
     }
 
     mudouValor = infoTela.valorAlterado(eTipoTodos::AnoInfo, &valor);
+
+    // nexSerial.print(F("..."));
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("...valor(Ano)="));
+    // nexSerial.print(valor);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+
     if (mudouValor) {
         tela.showDataOnScreen(eTipoDataInfo::AnoInfo, &valor);
     }
@@ -807,18 +993,15 @@ void ScreenBoxCar::atualizarHoraOnScreen() {
         tela.showHoraOnScreen(eTipoTempoInfo::HoraInfo, &valor);
     }
 
-    mudouValor = infoTela.valorAlterado(eTipoTodos::MesInfo, &valor);
+    mudouValor = infoTela.valorAlterado(eTipoTodos::MinutoInfo, &valor);
     if (mudouValor) {
         tela.showHoraOnScreen(eTipoTempoInfo::MinutoInfo, &valor);
     }
 
-    mudouValor = infoTela.valorAlterado(eTipoTodos::AnoInfo, &valor);
+    mudouValor = infoTela.valorAlterado(eTipoTodos::SegundoInfo, &valor);
     if (mudouValor) {
         tela.showHoraOnScreen(eTipoTempoInfo::SegundoInfo, &valor);
     }
-
-
-
 
 }
 
@@ -883,7 +1066,7 @@ void ScreenBoxCar::atualizarTemperaturaSysOnScreen() {
 
     mudouValor = infoTela.valorAlterado(eTipoTodos::TemperaturaSysInfo, &valor);
     if (mudouValor) {
-        tela.showTemperaturaOnScreen(&valor);
+        tela.showTempSysOnScreen(&valor);
     }
 
     // byte temperatura = (byte)data.getTemperaturaSysOnDS3231();

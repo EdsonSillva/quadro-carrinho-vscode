@@ -9,8 +9,8 @@ screenNextionBoxCar::~screenNextionBoxCar() { }
 bool screenNextionBoxCar::iniciarNextion() {
 
     bool Ok = false;
-    Ok = nexInit();                                        // Necessário usar esta função para estabelecer a conexão com a tela
-    delay(500);
+    Ok = nexInit();         // Necessário usar esta função para estabelecer a conexão com a tela
+    delay(500);             // Aguarda este tempo para processamento da tela
     return Ok;
 
 }
@@ -19,17 +19,73 @@ bool screenNextionBoxCar::existeDadoNoNextion() {
     return nexSerial.available() > 0 ? true : false;
 }
 
+bool screenNextionBoxCar::limparBufferNexSerial() {
+    while (nexSerial.available())
+        nexSerial.read();
+    delay(10);      // Aguarda este tempo para processamento da UART
+    return (bool)nexSerial.available();
+}
+
 void screenNextionBoxCar::DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS) {
 
-    uint32_t    value =   -1;
+
+    //TODO 08 DataHoraOnScreen()
+
+    uint32_t    value   =   0;
+    bool        exec_ok = false;
 
     NexSlider   sDH   =   NexSlider(_tela.ConfigDataHora, _objeto.IDDH, "sDH");
     NexSlider   sMM   =   NexSlider(_tela.ConfigDataHora, _objeto.IDMM, "sMM");
     NexSlider   sAS   =   NexSlider(_tela.ConfigDataHora, _objeto.IDAS, "sAS");
 
-    sDH.getValue(&value),   *pDH = (byte)value;
-    sMM.getValue(&value),   *pMM = (byte)value;
-    sAS.getValue(&value);
+    nexSerial.print(F(">>> <<< DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS)"));
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    exec_ok = sDH.getValue(&value),   *pDH = (byte)value;
+
+    nexSerial.print(F("exec_ok:"));
+    nexSerial.print(exec_ok);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(exec_ok, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("hora(value)="));
+    nexSerial.print(value);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(value, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("hora(*pDH)="));
+    nexSerial.print(*pDH);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(*pDH, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    
+    exec_ok = sMM.getValue(&value),   *pMM = (byte)value;
+ 
+
+    nexSerial.print(F("exec_ok:"));
+    nexSerial.print(exec_ok);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(exec_ok, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("Minuto(value)="));
+    nexSerial.print(value);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(value, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("hora(*pMM)="));
+    nexSerial.print(*pMM);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(*pMM, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+ 
+ 
+    exec_ok = sAS.getValue(&value);
 
     if (value < 60) {           // Tela no Screen em Configuração de Hora
         *pAS = (byte)value;
@@ -41,6 +97,30 @@ void screenNextionBoxCar::DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS) {
 
         *pAS = (byte)(value - _Milenio);
     }
+
+
+    nexSerial.print(F("exec_ok:"));
+    nexSerial.print(exec_ok);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(exec_ok, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+
+    nexSerial.print(F("Segundo(value)="));
+    nexSerial.print(value);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(value, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("Segundo(*pMM)="));
+    nexSerial.print(*pAS);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(*pAS, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+
+
+
 }
 
 int screenNextionBoxCar::getMilenio() {
@@ -175,27 +255,55 @@ byte screenNextionBoxCar::getDoWOnScreen(){
 
 }
 
-void screenNextionBoxCar::getDataOnScreen(byte *pDia, byte *pMes, byte *pAno, byte *DoW) {
+void screenNextionBoxCar::getDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW) {
 
-    byte  bDH,  bMM,  bAS, bDoW;
+    // TODO 07 getDataOnScreen()Ks
 
-    DataHoraOnScreen(&bDH, &bMM, &bAS);
-    bDoW    = getDoWOnScreen();
-    *pDia   = bDH;
-    *pMes   = bMM;
-    *pAno   = bAS;
-    *DoW    = bDoW;
+    byte  dia,  mes,  ano, doW;
+
+    DataHoraOnScreen(&dia, &mes, &ano);
+    doW   = getDoWOnScreen();
+    *Dia   = dia;
+    *Mes   = mes;
+    *Ano   = ano;
+    *DoW   = doW;
 
 }
 
 void screenNextionBoxCar::getHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo) {
 
-    byte  bDH,  bMM,  bAS;
 
-    DataHoraOnScreen(&bDH, &bMM, &bAS);
-    *Hora      = bDH;
-    *Minuto    = bMM;
-    *Segundo   = bAS;
+    // TODO 12 getHoraOnScreen()
+
+
+    byte  hora,  minuto,  segundo;
+
+    DataHoraOnScreen(&hora, &minuto, &segundo);
+    *Hora      = hora;
+    *Minuto    = minuto;
+    *Segundo   = segundo;
+
+    nexSerial.print(F(">>> <<< getHoraOnScreen()"));
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("hora(bDH)="));
+    nexSerial.print(hora);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(hora, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("Min(bMM)="));
+    nexSerial.print(minuto);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(minuto, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    nexSerial.print(F("Seg(bAS)="));
+    nexSerial.print(segundo);
+    nexSerial.print(F("| 0x"));
+    nexSerial.print(segundo, HEX);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
 
 }
 
@@ -233,9 +341,10 @@ void screenNextionBoxCar::showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte
 
 void screenNextionBoxCar::showDataOnScreen(eTipoDataInfo tipoInfo, byte *valor) {
 
-    byte    idScreen        = _tela.Global;
-    byte    idObjeto        = 0;
-    byte    valorRecebido   = *valor;
+    byte        idScreen        = _tela.Global;
+    byte        idObjeto        = 0;
+    // byte        valorFinal      = 0;
+    uint32_t    valorScreen     = *valor;
 
     switch (tipoInfo) {
 
@@ -249,7 +358,26 @@ void screenNextionBoxCar::showDataOnScreen(eTipoDataInfo tipoInfo, byte *valor) 
 
         case eTipoDataInfo::AnoInfo:
             idObjeto = _objeto.IDAno;
-            valorRecebido = (_Milenio + valorRecebido);
+            valorScreen = (_Milenio + *valor);
+
+            // nexSerial.print(F("..."));
+            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+            // nexSerial.print(F("...valor(Ano)="));
+            // nexSerial.print(*valor);
+            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+            // nexSerial.print(F("..."));
+            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+            // nexSerial.print(F("...Milenio(Ano)="));
+            // nexSerial.print(_Milenio);
+            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+            // nexSerial.print(F("..."));
+            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+            // nexSerial.print(F("...valorScreen(Ano)="));
+            // nexSerial.print(valorScreen);
+            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+            
         break;
 
         case eTipoDataInfo::DoWorkInfo:
@@ -258,7 +386,7 @@ void screenNextionBoxCar::showDataOnScreen(eTipoDataInfo tipoInfo, byte *valor) 
 
     }
 
-    showInfoOnScreen(&idScreen, &idObjeto, &valorRecebido);
+    showInfoOnScreen(&idScreen, &idObjeto, &valorScreen);
 
     // NexVariable nDia    = NexVariable(_tela.Global,  _objeto.IDDia,         "");
     // NexVariable nMes    = NexVariable(_tela.Global,  _objeto.IDMes,         "");
@@ -290,8 +418,9 @@ void screenNextionBoxCar::showHoraOnScreen(byte *Hora, byte *Minuto, byte *Segun
 
 void screenNextionBoxCar::showHoraOnScreen(eTipoTempoInfo tipoInfo, byte *valor) {
 
-    byte    idScreen    = _tela.Global;
-    byte    idObjeto    = 0;
+    byte        idScreen        = _tela.Global;
+    byte        idObjeto        = 0;
+    uint32_t    valorScreen     = *valor;
 
     switch (tipoInfo) {
 
@@ -309,7 +438,7 @@ void screenNextionBoxCar::showHoraOnScreen(eTipoTempoInfo tipoInfo, byte *valor)
 
     }
 
-    showInfoOnScreen(&idScreen, &idObjeto, valor);
+    showInfoOnScreen(&idScreen, &idObjeto, &valorScreen);
 
 //   NexVariable nHora    = NexVariable(_tela.Global, _objeto.IDHora, "");
 //   NexVariable nMinuto  = NexVariable(_tela.Global, _objeto.IDMin, "");
@@ -363,10 +492,10 @@ void screenNextionBoxCar::showTempSysOnScreen(byte *TemperaturaSys) {
 #pragma endregion
 
 /* @brief Este metodo trabalha com o objeto NexVariable */
-void screenNextionBoxCar::showInfoOnScreen(uint8_t *idScreen, uint8_t *idObjeto, byte *valor) {
+void screenNextionBoxCar::showInfoOnScreen(uint8_t *idScreen, uint8_t *idObjeto, uint32_t *valor) {
 
     NexVariable objNextion = NexVariable(*idScreen,  *idObjeto,  "");
-    objNextion.setValueByID((uint32_t)*valor);
+    objNextion.setValueByID(*valor);
 
 }
 

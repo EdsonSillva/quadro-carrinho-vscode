@@ -29,7 +29,6 @@
 #include "enum/enumBox.h"
 #endif
 
-// #include "BuzzerBoxCar/BuzzerBoxCar.h"
 #include "ScreenNextionBoxCar/screenNextionBoxCar.h"
 #include "DateTimeBoxCar/DateTimeBoxCar.h"
 #include "Ambiente/Ambiente.h"
@@ -52,7 +51,7 @@ private:
   bool    _Beep                   = true;
   long    _maxWait                = millis();
   bool    _telaOnLine             = false;
-  bool    _telaStandBy            = false;
+  bool    _telaStandBy            = true;     // inicia o sistema com standby da tela (O nextion após tela de splash solicita o stop do standby)
 
   void configurarDataNoDevice();
   void configurarHoraNoDevice();
@@ -94,6 +93,7 @@ public:
   bool acaoExecutando();
   void stopAcao();
   bool getTelaStandBy();
+  void setTelaStandBy(bool valor);
   void obterInfosSistema(Infos::infoSys *infoSistema);
   void atualizarDadosNaTela();
   

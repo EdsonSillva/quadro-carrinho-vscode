@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.cpp": "cpp",
+        "new": "cpp"
+    },
+    "todo-tree.tree.scanMode": "workspace"
+}

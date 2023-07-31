@@ -77,9 +77,21 @@ void (*ResetScreen)() = 0; // Função de Reset apontando para o endereço 0 do 
 ScreenBoxCar screen = ScreenBoxCar();
 byte ScreenIndisponivel = 0;
 
+
 void setup() {
 
     screen.iniciar();
+
+    Serial.print((reinterpret_cast<const __FlashStringHelper *>(
+# 66 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 3
+                   (__extension__({static const char __c[] __attribute__((__progmem__)) = (
+# 66 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino"
+                   "Iniciando os testes NewExec Code"
+# 66 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 3
+                   ); &__c[0];}))
+# 66 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino"
+                   )));
+    Serial.write(0xff),Serial.write(0xff),Serial.write(0xff);
 
 }
 
@@ -88,6 +100,14 @@ void loop() {
     // byte StandBy = screen.tela.getStandByOnScreen();        // @deprecated
 
     bool StandBy = screen.getTelaStandBy();
+
+    static double monitorando;
+
+    // nexSerial.print(F("Monitorando: "));
+    // nexSerial.print(monitorando);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    monitorando++;
 
     if (!screen.eeprom.disponivel()) {
 
@@ -109,9 +129,33 @@ void loop() {
 
         // } else {
 
+            Serial.print((reinterpret_cast<const __FlashStringHelper *>(
+# 105 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 3
+                           (__extension__({static const char __c[] __attribute__((__progmem__)) = (
+# 105 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino"
+                           "Entrei em standBy"
+# 105 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 3
+                           ); &__c[0];}))
+# 105 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino"
+                           )));
+            Serial.write(0xff),Serial.write(0xff),Serial.write(0xff);
+
             // ScreenIndisponivel = 0;                  // Zera o contador
             while (!screen.DadosRecebidoTela()); // aguarda até a tela acordar (sair do stand by)
+            screen.tela.limparBufferNexSerial(); // limpa a UART
+            screen.setTelaStandBy(false);
             delay(100); // necessário para processamento na tela (wake up)
+
+            Serial.print((reinterpret_cast<const __FlashStringHelper *>(
+# 114 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 3
+                           (__extension__({static const char __c[] __attribute__((__progmem__)) = (
+# 114 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino"
+                           "Sai do standBy"
+# 114 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino" 3
+                           ); &__c[0];}))
+# 114 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlScreen\\ControlScreen.ino"
+                           )));
+            Serial.write(0xff),Serial.write(0xff),Serial.write(0xff);
 
         // }
 

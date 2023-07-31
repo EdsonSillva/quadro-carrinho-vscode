@@ -13,6 +13,10 @@
 #include <Arduino.h>
 #endif
 
+#ifndef __SCREENNEXTIONBOXCAR_H__
+#include "../ScreenNextionBoxCar/screenNextionBoxCar.h"
+#endif
+
 #ifndef __TYPEDEFSCREEN_H__
 #include "../typedef/typedefScreen.h"
 #endif
@@ -51,7 +55,6 @@ namespace Infos {
 
             byte setBitChange(bool mudou, uint8_t *valor);
 
-            byte getvalorSys(eTipoTodos tipoInfo);
             byte getvalorOriginal(byte *valor);
 
             bool setValorInfo(byte *valorInfoScreen, byte *valorSys);
@@ -62,6 +65,9 @@ namespace Infos {
 
             InfoScreen();
             ~InfoScreen();
+
+            byte getvalorSys(eTipoTodos tipoInfo);
+
 
             void setInfoScreen(dados_t *info);
             bool existeAlteracao();

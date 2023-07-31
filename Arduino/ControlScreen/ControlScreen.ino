@@ -58,9 +58,13 @@ void (*ResetScreen)() = 0;            // Função de Reset apontando para o ende
 ScreenBoxCar    screen                  = ScreenBoxCar();
 byte            ScreenIndisponivel      = 0;
 
+
 void setup() {
 
     screen.iniciar();
+
+    nexSerial.print(F("Iniciando os testes NewExec Code"));
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 }
 
@@ -69,6 +73,14 @@ void loop() {
     // byte StandBy = screen.tela.getStandByOnScreen();        // @deprecated
 
     bool StandBy = screen.getTelaStandBy();
+
+    static double monitorando;
+
+    // nexSerial.print(F("Monitorando: "));
+    // nexSerial.print(monitorando);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    monitorando++;
 
     if (!screen.eeprom.disponivel()) {
         
@@ -90,9 +102,17 @@ void loop() {
 
         // } else {
             
+            nexSerial.print(F("Entrei em standBy"));
+            nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
             // ScreenIndisponivel = 0;                  // Zera o contador
             while (!screen.DadosRecebidoTela());        // aguarda até a tela acordar (sair do stand by)
+            screen.tela.limparBufferNexSerial();        // limpa a UART
+            screen.setTelaStandBy(false);
             delay(100);                                 // necessário para processamento na tela (wake up)
+
+            nexSerial.print(F("Sai do standBy"));
+            nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
         // }
 

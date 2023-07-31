@@ -252,41 +252,27 @@ bool Infos::InfoScreen::setInfoAmbiente(dados_t *info) {
 
 // /* @deprecated */
 // bool Infos::InfoScreen::setInfoTemperatura(dados_t *info) {
-
 //     _infoScreen.Ambiente.Temperatura.mudou = _infoScreen.Ambiente.Temperatura.valor != 
 //                                             info->Ambiente.Temperatura.valor ? 
 //                                             true : false;
-    
 //     _infoScreen.Ambiente.Temperatura.valor = info->Ambiente.Temperatura.valor;
-
 //     return _infoScreen.Ambiente.Temperatura.mudou;
-
 // }
-
 // /* @deprecated */
 // bool Infos::InfoScreen::setInfoUmidade(dados_t *info) {
-
 //     _infoScreen.Ambiente.Umidade.mudou = _infoScreen.Ambiente.Umidade.valor != 
 //                                           info->Ambiente.Umidade.valor ? 
 //                                           true : false;
-    
 //     _infoScreen.Ambiente.Umidade.valor = info->Ambiente.Umidade.valor;
-
 //     return _infoScreen.Ambiente.Umidade.mudou;
-
 // }
-
 // /* @deprecated */
 // bool Infos::InfoScreen::setInfoLuminosidade(dados_t *info) {
-
 //     _infoScreen.Ambiente.Luminosidade.mudou = _infoScreen.Ambiente.Luminosidade.valor != 
 //                                               info->Ambiente.Luminosidade.valor ? 
 //                                               true : false;
-    
 //     _infoScreen.Ambiente.Luminosidade.valor = info->Ambiente.Luminosidade.valor;
-
 //     return _infoScreen.Ambiente.Luminosidade.mudou;
-
 // }
 
 #pragma endregion Tratamento de Ambiente
@@ -369,6 +355,15 @@ byte Infos::InfoScreen::getvalorSys(eTipoTodos tipoInfo) {
 
         case eTipoTodos::AnoInfo:
             valorSys = _infoScreen.Data.Ano.valor;
+
+            // nexSerial.print(F("valorSys(Ano)="));
+            // nexSerial.print(valorSys);
+            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+            // nexSerial.print(F("valorSys(Ano)=0b"));
+            // nexSerial.print(valorSys, BIN);
+            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
         break;        
 
         case eTipoTodos::DoWorkInfo:
@@ -437,7 +432,7 @@ bool Infos::InfoScreen::valorAlterado(eTipoTodos tipoInfo, byte *value = NULL) {
         *value = getvalorOriginal(&valorSys);
     }
 
-    return mask & valorSys;      // Retorna só valor
+    return mask & valorSys;      // Retorna true or false
 
 }
 

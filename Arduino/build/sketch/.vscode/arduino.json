@@ -4,5 +4,6 @@
     "board": "arduino:avr:nano",
     "programmer": "avrisp",
     "sketch": "ControlScreen.ino",
-    "output": "../build"
+    "output": "../build",
+    "port": "COM21"
 }
