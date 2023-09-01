@@ -1,4 +1,4 @@
-C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\build\libraries\BoxBuzzerCar\BoxBuzzerCar.cpp.o: \
+C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\.Projetos\.IoT\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\build\libraries\BoxBuzzerCar\BoxBuzzerCar.cpp.o: \
  C:\Users\edson\Documents\Arduino\libraries\BoxBuzzerCar\src\BoxBuzzerCar.cpp \
  C:\Users\edson\Documents\Arduino\libraries\BoxBuzzerCar\src\BoxBuzzerCar.h \
  C:\Users\edson\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \

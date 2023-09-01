@@ -1,4 +1,4 @@
-C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\build\libraries\BoxDadosAcao\BoxDadosAcao.cpp.o: \
+C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\.Projetos\.IoT\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\build\libraries\BoxDadosAcao\BoxDadosAcao.cpp.o: \
  C:\Users\edson\Documents\Arduino\libraries\BoxDadosAcao\src\BoxDadosAcao.cpp \
  C:\Users\edson\Documents\Arduino\libraries\BoxDadosAcao\src\BoxDadosAcao.h \
  C:\Users\edson\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \

@@ -1,4 +1,4 @@
-C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\build\libraries\BoxEEPROM\Pinos.cpp.o: \
+C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\.Projetos\.IoT\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\build\libraries\BoxEEPROM\Pinos.cpp.o: \
  C:\Users\edson\Documents\Arduino\libraries\BoxEEPROM\src\Pinos.cpp \
  C:\Users\edson\Documents\Arduino\libraries\BoxEEPROM\src/Pinos.h \
  C:\Users\edson\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \

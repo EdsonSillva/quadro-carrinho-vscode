@@ -63,8 +63,8 @@ void setup() {
 
     screen.iniciar();
 
-    nexSerial.print(F("Iniciando os testes NewExec Code"));
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    //nexSerial.print(F("Iniciando os testes NewExec Code"));
+    //nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 }
 
@@ -102,8 +102,8 @@ void loop() {
 
         // } else {
             
-            nexSerial.print(F("Entrei em standBy"));
-            nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+            // nexSerial.print(F("Entrei em standBy"));
+            // nexSerial.write(0xff),nexSerial.write(0xff),//nexSerial.write(0xff);
 
             // ScreenIndisponivel = 0;                  // Zera o contador
             while (!screen.DadosRecebidoTela());        // aguarda até a tela acordar (sair do stand by)
@@ -111,8 +111,8 @@ void loop() {
             screen.setTelaStandBy(false);
             delay(100);                                 // necessário para processamento na tela (wake up)
 
-            nexSerial.print(F("Sai do standBy"));
-            nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+            // nexSerial.print(F("Sai do standBy"));
+            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
         // }
 

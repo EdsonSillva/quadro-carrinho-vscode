@@ -11,7 +11,7 @@
  */
 enum eAcaoBox {
 
-    semAcao                 =   0,
+    semAcaoBox              =   0,
     acaoAceso               =  49,
     acaoXadrez              =  52,
     acaoLinha               =  55,
@@ -48,6 +48,24 @@ enum eAcaoBox {
     acaoMazda               = 148,
     acaoBugatti             = 151,
 
+};
+
+
+enum eQualAcao {
+    semAcao                 = 0,
+    executarAcao            = 1,
+    pararAcao               = 2
+};
+
+
+enum eAcaoSistema {
+    semAcaoSistema          = 0,
+    configurarData          = 1,
+    configurarHora          = 2,
+    standBy                 = 3,
+    configurarBeep          = 4,
+    carregarTemas           = 5,
+    salvarTemas             = 6,
 };
 
 #endif  // __BOXENUMACAO_H__

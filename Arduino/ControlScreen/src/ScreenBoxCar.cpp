@@ -77,8 +77,8 @@ void ScreenBoxCar::avaliarAcao() {
 
     if(tela.existeDadoNoNextion()) {     // Existe alguma solicitação
 
-        nexSerial.print(F(">>> existeDadoNoNextion()-sim"));
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+        // nexSerial.print(F(">>> existeDadoNoNextion()-sim"));
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
         // TODODone criar função para limpar o buffer da serial
 
@@ -124,17 +124,17 @@ bool ScreenBoxCar::getAcaoSelecionada() {
     // nexSerial.flush();
     byte codeAcao =  tela.getAcaoOnScreen();
 
-    nexSerial.print(F("getAcaoSelecionada()"));
-    nexSerial.print(F("codeAcao="));
-    nexSerial.print(codeAcao);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("getAcaoSelecionada()"));
+    // nexSerial.print(F("codeAcao="));
+    // nexSerial.print(codeAcao);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
     acao.setCodeAcao(codeAcao);
     acao.setQualAcao((eQualAcao)tela.getEstadoAcaoOnScreen());
 
-    nexSerial.print(F("qualAcao="));
-    nexSerial.print(acao.getQualAcao());
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("qualAcao="));
+    // nexSerial.print(acao.getQualAcao());
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 
     if (acao.getCodeAcao() > 0) return true;
@@ -239,29 +239,29 @@ void ScreenBoxCar::executarAcao() {
 
     byte codeAcao = acao.getCodeAcao();
 
-    nexSerial.print(F("executarAcao()"));
+    // nexSerial.print(F("executarAcao()"));
     // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
     // nexSerial.print(F("......"));
     // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("codeAcao="));
-    nexSerial.print(codeAcao);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("codeAcao="));
+    // nexSerial.print(codeAcao);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
     // nexSerial.print(F("......"));
     // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
     if(codeAcao < 40) {     /* Ações do sistema */
 
-        nexSerial.print(F("executar acaoSistema()"));
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+        // nexSerial.print(F("executar acaoSistema()"));
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
         acaoSistema(&codeAcao);
     
     } else {                /* Ações no quadro de carrinho */
     
-        nexSerial.print(F("executar acaoQuadroCarrinho()"));
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+        // nexSerial.print(F("executar acaoQuadroCarrinho()"));
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
         acaoQuadroCarrinho(&codeAcao);
     
@@ -380,7 +380,7 @@ void ScreenBoxCar::acaoSistema(byte *codeAcao) {
 
         case eAcaoSistema::configurarBeep:      // Ação Configurar Beep
 
-            tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+            tela.setAcaoOnScreen(0);                                       // reset Ação Modo Idle
             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
             _Beep = tela.getBeepOnScreen();
             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
@@ -388,7 +388,10 @@ void ScreenBoxCar::acaoSistema(byte *codeAcao) {
 
         case eAcaoSistema::carregarTemas:       // Ação Ler Dados Tema da EEPROM do Arduino
 
-            tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+            nexSerial.print(F(">>> eAcaoSistema::carregarTemas"));
+            nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff),delay(400);
+
+            tela.setAcaoOnScreen(0);                                       // reset Ação Modo Idle
             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
             carregarBoxesTema();
             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
@@ -396,7 +399,10 @@ void ScreenBoxCar::acaoSistema(byte *codeAcao) {
 
         case eAcaoSistema::salvarTemas:         // Ação Salvar Dados Tema na EEPROM do Arduino
 
-            tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
+            nexSerial.print(F(">>> eAcaoSistema::salvarTemas"));
+            nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff),delay(400);
+
+            tela.setAcaoOnScreen(0);                                       // reset Ação Modo Idle
             tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
             // salvarBoxesTema();   // Não está funcionando corretamente (perdendo dados ao receber via Serial)
             salvarBoxesTemaByItem();
@@ -447,6 +453,9 @@ void ScreenBoxCar::executarAcaoQuadroCarrinho(byte *codeAcao) {
     delay(50);                                  // Aguarda a atualização da EEPROM 
     digitalWrite(_pinoControle, HIGH);          // Indica que existe ação para o outro arduino
     acao.setExecutando(true);                   // Indica que a ação está sendo executada 
+
+    tela.setAcaoOnScreen(0);                    // reset Ação Modo Idle
+
     
 }
 
@@ -482,32 +491,32 @@ void ScreenBoxCar::configurarDataNoDevice() {
     tela.getDataOnScreen(&Dia, &Mes, &Ano, &DoW);                       // Le a data indicada da tela de configurações
 
 
-    nexSerial.print(F(">>> retorno do nextion"));
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F(">>> retorno do nextion"));
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Dia:"));
-    nexSerial.print(Dia);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(Dia, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Dia:"));
+    // nexSerial.print(Dia);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(Dia, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Mes:"));
-    nexSerial.print(Mes);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(Mes, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Mes:"));
+    // nexSerial.print(Mes);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(Mes, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Ano:"));
-    nexSerial.print(Ano);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(Ano, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Ano:"));
+    // nexSerial.print(Ano);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(Ano, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("DoW:"));
-    nexSerial.print(DoW);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(DoW, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("DoW:"));
+    // nexSerial.print(DoW);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(DoW, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
     data.setDataOnDS3231(Dia, Mes,  Ano, DoW);                          // Seta a data no dispositivo DS3231
 
@@ -521,26 +530,26 @@ void ScreenBoxCar::configurarHoraNoDevice() {
     byte Hora, Minuto, Segundo;
     tela.getHoraOnScreen(&Hora, &Minuto, &Segundo);                     // Le a hora selecionada da tela de configuração
 
-    nexSerial.print(F(">>> retorno do nextion"));
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F(">>> retorno do nextion"));
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("hora="));
-    nexSerial.print(Hora);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(Hora, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("hora="));
+    // nexSerial.print(Hora);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(Hora, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Min="));
-    nexSerial.print(Minuto);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(Minuto, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Min="));
+    // nexSerial.print(Minuto);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(Minuto, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Seg="));
-    nexSerial.print(Segundo);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(Segundo, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Seg="));
+    // nexSerial.print(Segundo);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(Segundo, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
     data.setHoraOnDS3231(Hora, Minuto,  Segundo);                       // Seta a hora no dispositivo DS3231
 
@@ -560,75 +569,73 @@ void ScreenBoxCar::atualizarDadosNaTela() {
 
         infoTela.setInfoScreen(&infoSistema);
 
-        nexSerial.print(F("Ano="));
-        nexSerial.print(infoTela.getvalor(eTipoTodos::AnoInfo));
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+        // nexSerial.print(F("Ano="));
+        // nexSerial.print(infoTela.getvalor(eTipoTodos::AnoInfo));
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-        nexSerial.print(F("AnoSys="));
-        nexSerial.print(infoTela.getvalorSys(eTipoTodos::AnoInfo));
-        nexSerial.print(F("|0b"));
-        nexSerial.print(infoTela.getvalorSys(eTipoTodos::AnoInfo), BIN);
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+        // nexSerial.print(F("AnoSys="));
+        // nexSerial.print(infoTela.getvalorSys(eTipoTodos::AnoInfo));
+        // nexSerial.print(F("|0b"));
+        // nexSerial.print(infoTela.getvalorSys(eTipoTodos::AnoInfo), BIN);
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
+        // nexSerial.print(F("Mes="));
+        // nexSerial.print(infoTela.getvalor(eTipoTodos::MesInfo));
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-
-        nexSerial.print(F("Mes="));
-        nexSerial.print(infoTela.getvalor(eTipoTodos::MesInfo));
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
-
-        nexSerial.print(F("MesSys="));
-        nexSerial.print(infoTela.getvalorSys(eTipoTodos::MesInfo));
-        nexSerial.print(F("|0b"));
-        nexSerial.print(infoTela.getvalorSys(eTipoTodos::MesInfo), BIN);
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+        // nexSerial.print(F("MesSys="));
+        // nexSerial.print(infoTela.getvalorSys(eTipoTodos::MesInfo));
+        // nexSerial.print(F("|0b"));
+        // nexSerial.print(infoTela.getvalorSys(eTipoTodos::MesInfo), BIN);
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 
 
-        nexSerial.print(F("Dia="));
-        nexSerial.print(infoTela.getvalor(eTipoTodos::DiaInfo));
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+        // nexSerial.print(F("Dia="));
+        // nexSerial.print(infoTela.getvalor(eTipoTodos::DiaInfo));
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-        nexSerial.print(F("DiaSys="));
-        nexSerial.print(infoTela.getvalorSys(eTipoTodos::DiaInfo));
-        nexSerial.print(F("|0b"));
-        nexSerial.print(infoTela.getvalorSys(eTipoTodos::DiaInfo), BIN);
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
-
-
-
-        nexSerial.print(F("Hora="));
-        nexSerial.print(infoTela.getvalor(eTipoTodos::HoraInfo));
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
-
-        nexSerial.print(F("HoraSys="));
-        nexSerial.print(infoTela.getvalorSys(eTipoTodos::HoraInfo));
-        nexSerial.print(F("|0b"));
-        nexSerial.print(infoTela.getvalorSys(eTipoTodos::HoraInfo), BIN);
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+        // nexSerial.print(F("DiaSys="));
+        // nexSerial.print(infoTela.getvalorSys(eTipoTodos::DiaInfo));
+        // nexSerial.print(F("|0b"));
+        // nexSerial.print(infoTela.getvalorSys(eTipoTodos::DiaInfo), BIN);
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 
 
-        nexSerial.print(F("Minuto="));
-        nexSerial.print(infoTela.getvalor(eTipoTodos::MinutoInfo));
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+        // nexSerial.print(F("Hora="));
+        // nexSerial.print(infoTela.getvalor(eTipoTodos::HoraInfo));
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-        nexSerial.print(F("MinutoSys="));
-        nexSerial.print(infoTela.getvalorSys(eTipoTodos::MinutoInfo));
-        nexSerial.print(F("|0b"));
-        nexSerial.print(infoTela.getvalorSys(eTipoTodos::MinutoInfo), BIN);
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+        // nexSerial.print(F("HoraSys="));
+        // nexSerial.print(infoTela.getvalorSys(eTipoTodos::HoraInfo));
+        // nexSerial.print(F("|0b"));
+        // nexSerial.print(infoTela.getvalorSys(eTipoTodos::HoraInfo), BIN);
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 
 
-        nexSerial.print(F("Segundo="));
-        nexSerial.print(infoTela.getvalor(eTipoTodos::SegundoInfo));
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+        // nexSerial.print(F("Minuto="));
+        // nexSerial.print(infoTela.getvalor(eTipoTodos::MinutoInfo));
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-        nexSerial.print(F("SegundoSys="));
-        nexSerial.print(infoTela.getvalorSys(eTipoTodos::SegundoInfo));
-        nexSerial.print(F("|0b"));
-        nexSerial.print(infoTela.getvalorSys(eTipoTodos::SegundoInfo), BIN);
-        nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+        // nexSerial.print(F("MinutoSys="));
+        // nexSerial.print(infoTela.getvalorSys(eTipoTodos::MinutoInfo));
+        // nexSerial.print(F("|0b"));
+        // nexSerial.print(infoTela.getvalorSys(eTipoTodos::MinutoInfo), BIN);
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+
+
+        // nexSerial.print(F("Segundo="));
+        // nexSerial.print(infoTela.getvalor(eTipoTodos::SegundoInfo));
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+        // nexSerial.print(F("SegundoSys="));
+        // nexSerial.print(infoTela.getvalorSys(eTipoTodos::SegundoInfo));
+        // nexSerial.print(F("|0b"));
+        // nexSerial.print(infoTela.getvalorSys(eTipoTodos::SegundoInfo), BIN);
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 
         if (infoTela.existeAlteracao()) {
@@ -719,6 +726,13 @@ bool ScreenBoxCar::lerEEPROMIno(byte Boxes[]) {
 
     byte acaoTema       = tela.getAcaoTemaOnScreen();
     byte posicaoTema    = acao.getPosicaoTemaBat(acaoTema);
+
+    // TODO Estou aqui avaliando o retorno do código do tema
+
+    nexSerial.print(F("acaoTema="));
+    nexSerial.print(acaoTema);
+    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff),delay(400);
+
 
     if(posicaoTema > 0) {
 

@@ -38,50 +38,50 @@ void screenNextionBoxCar::DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS) {
     NexSlider   sMM   =   NexSlider(_tela.ConfigDataHora, _objeto.IDMM, "sMM");
     NexSlider   sAS   =   NexSlider(_tela.ConfigDataHora, _objeto.IDAS, "sAS");
 
-    nexSerial.print(F(">>> <<< DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS)"));
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F(">>> <<< DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS)"));
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
     exec_ok = sDH.getValue(&value),   *pDH = (byte)value;
 
-    nexSerial.print(F("exec_ok:"));
-    nexSerial.print(exec_ok);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(exec_ok, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("exec_ok:"));
+    // nexSerial.print(exec_ok);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(exec_ok, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("hora(value)="));
-    nexSerial.print(value);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(value, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("hora(value)="));
+    // nexSerial.print(value);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(value, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("hora(*pDH)="));
-    nexSerial.print(*pDH);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(*pDH, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("hora(*pDH)="));
+    // nexSerial.print(*pDH);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(*pDH, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
     
     exec_ok = sMM.getValue(&value),   *pMM = (byte)value;
  
 
-    nexSerial.print(F("exec_ok:"));
-    nexSerial.print(exec_ok);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(exec_ok, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("exec_ok:"));
+    // nexSerial.print(exec_ok);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(exec_ok, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Minuto(value)="));
-    nexSerial.print(value);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(value, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Minuto(value)="));
+    // nexSerial.print(value);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(value, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("hora(*pMM)="));
-    nexSerial.print(*pMM);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(*pMM, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("hora(*pMM)="));
+    // nexSerial.print(*pMM);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(*pMM, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
  
  
@@ -99,24 +99,24 @@ void screenNextionBoxCar::DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS) {
     }
 
 
-    nexSerial.print(F("exec_ok:"));
-    nexSerial.print(exec_ok);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(exec_ok, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("exec_ok:"));
+    // nexSerial.print(exec_ok);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(exec_ok, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 
-    nexSerial.print(F("Segundo(value)="));
-    nexSerial.print(value);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(value, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Segundo(value)="));
+    // nexSerial.print(value);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(value, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Segundo(*pMM)="));
-    nexSerial.print(*pAS);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(*pAS, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Segundo(*pMM)="));
+    // nexSerial.print(*pAS);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(*pAS, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 
 
@@ -283,26 +283,26 @@ void screenNextionBoxCar::getHoraOnScreen(byte *Hora, byte *Minuto, byte *Segund
     *Minuto    = minuto;
     *Segundo   = segundo;
 
-    nexSerial.print(F(">>> <<< getHoraOnScreen()"));
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F(">>> <<< getHoraOnScreen()"));
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("hora(bDH)="));
-    nexSerial.print(hora);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(hora, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("hora(bDH)="));
+    // nexSerial.print(hora);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(hora, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Min(bMM)="));
-    nexSerial.print(minuto);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(minuto, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Min(bMM)="));
+    // nexSerial.print(minuto);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(minuto, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Seg(bAS)="));
-    nexSerial.print(segundo);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(segundo, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Seg(bAS)="));
+    // nexSerial.print(segundo);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(segundo, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 
 }

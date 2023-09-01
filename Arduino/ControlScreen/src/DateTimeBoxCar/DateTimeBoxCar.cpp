@@ -34,26 +34,26 @@ bool DateTimeBoxCar::setHoraOnDS3231(byte Hora, byte Minuto, byte Segundo) {
 
     // TODO 12 Hora
 
-    nexSerial.print(F(">>> setando a hora no DS3231"));
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F(">>> setando a hora no DS3231"));
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Hora:"));
-    nexSerial.print(Hora);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(Hora);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Hora:"));
+    // nexSerial.print(Hora);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(Hora);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Minuto:"));
-    nexSerial.print(Minuto);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(Minuto, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Minuto:"));
+    // nexSerial.print(Minuto);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(Minuto, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Segundo:"));
-    nexSerial.print(Segundo);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(Segundo, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Segundo:"));
+    // nexSerial.print(Segundo);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(Segundo, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
   _RTC.setHour(Hora);
   _RTC.setMinute(Minuto);
@@ -75,32 +75,32 @@ bool DateTimeBoxCar::setDataOnDS3231(byte Dia, byte Mes, byte Ano, byte DoW) {
     // TODO 03
 
 
-    nexSerial.print(F(">>> setando a data no DS3231"));
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F(">>> setando a data no DS3231"));
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Dia:"));
-    nexSerial.print(Dia);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(Dia, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Dia:"));
+    // nexSerial.print(Dia);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(Dia, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Mes:"));
-    nexSerial.print(Mes);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(Mes, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Mes:"));
+    // nexSerial.print(Mes);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(Mes, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("Ano:"));
-    nexSerial.print(Ano);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(Ano, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("Ano:"));
+    // nexSerial.print(Ano);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(Ano, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("DoW:"));
-    nexSerial.print(DoW);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(DoW, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("DoW:"));
+    // nexSerial.print(DoW);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(DoW, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 
   _RTC.setDate(Dia);
@@ -154,29 +154,29 @@ void DateTimeBoxCar::getDataOnDS3231(Infos::infoSys *infosSys, int *Milenio) {
                                         );
 
 
-    nexSerial.print(F("infosSys->DoW:"));
-    nexSerial.print(infosSys->Data.DoW.valor);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(infosSys->Data.DoW.valor, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("infosSys->DoW:"));
+    // nexSerial.print(infosSys->Data.DoW.valor);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(infosSys->Data.DoW.valor, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("infosSys->Ano:"));
-    nexSerial.print(infosSys->Data.Ano.valor);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(infosSys->Data.Ano.valor, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("infosSys->Ano:"));
+    // nexSerial.print(infosSys->Data.Ano.valor);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(infosSys->Data.Ano.valor, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("infosSys->Mes:"));
-    nexSerial.print(infosSys->Data.Mes.valor);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(infosSys->Data.Mes.valor, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("infosSys->Mes:"));
+    // nexSerial.print(infosSys->Data.Mes.valor);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(infosSys->Data.Mes.valor, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("infosSys->Dia:"));
-    nexSerial.print(infosSys->Data.Dia.valor);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(infosSys->Data.Dia.valor, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("infosSys->Dia:"));
+    // nexSerial.print(infosSys->Data.Dia.valor);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(infosSys->Data.Dia.valor, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 
 }
@@ -191,26 +191,26 @@ void DateTimeBoxCar::getHoraOnDS3231(Infos::infoSys *infosSys) {
     infosSys->Tempo.Sec.valor = _RTC.getSecond();
 
 
-    nexSerial.print(F(">>> Hora"));
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F(">>> Hora"));
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("infosSys->Hora:"));
-    nexSerial.print(infosSys->Tempo.Hora.valor);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(infosSys->Tempo.Hora.valor, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("infosSys->Hora:"));
+    // nexSerial.print(infosSys->Tempo.Hora.valor);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(infosSys->Tempo.Hora.valor, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("infosSys->Minuto:"));
-    nexSerial.print(infosSys->Tempo.Min.valor);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(infosSys->Tempo.Min.valor, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("infosSys->Minuto:"));
+    // nexSerial.print(infosSys->Tempo.Min.valor);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(infosSys->Tempo.Min.valor, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    nexSerial.print(F("infosSys->Segundo:"));
-    nexSerial.print(infosSys->Tempo.Sec.valor);
-    nexSerial.print(F("| 0x"));
-    nexSerial.print(infosSys->Tempo.Sec.valor, HEX);
-    nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+    // nexSerial.print(F("infosSys->Segundo:"));
+    // nexSerial.print(infosSys->Tempo.Sec.valor);
+    // nexSerial.print(F("| 0x"));
+    // nexSerial.print(infosSys->Tempo.Sec.valor, HEX);
+    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 
 
