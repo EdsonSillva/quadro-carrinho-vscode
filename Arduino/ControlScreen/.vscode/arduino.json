@@ -3,5 +3,5 @@
     "board": "arduino:avr:nano",
     "programmer": "avrisp",
     "sketch": "ControlScreen.ino",
-    "port": "COM21"
+    "port": "COM29"
 }

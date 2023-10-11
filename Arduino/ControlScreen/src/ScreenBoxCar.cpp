@@ -559,8 +559,6 @@ void ScreenBoxCar::atualizarDadosNaTela() {
 
     // TODO 04 (Atualização)
 
-    if(_Beep) som.beepBuzzer();
-
     if(millis() >= _maxWait) {
 
         Infos::infoSys infoSistema = Infos::infoSys();
@@ -589,8 +587,6 @@ void ScreenBoxCar::atualizarDadosNaTela() {
         // nexSerial.print(infoTela.getvalorSys(eTipoTodos::MesInfo), BIN);
         // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-
-
         // nexSerial.print(F("Dia="));
         // nexSerial.print(infoTela.getvalor(eTipoTodos::DiaInfo));
         // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
@@ -600,8 +596,6 @@ void ScreenBoxCar::atualizarDadosNaTela() {
         // nexSerial.print(F("|0b"));
         // nexSerial.print(infoTela.getvalorSys(eTipoTodos::DiaInfo), BIN);
         // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
-
-
 
         // nexSerial.print(F("Hora="));
         // nexSerial.print(infoTela.getvalor(eTipoTodos::HoraInfo));
@@ -613,8 +607,6 @@ void ScreenBoxCar::atualizarDadosNaTela() {
         // nexSerial.print(infoTela.getvalorSys(eTipoTodos::HoraInfo), BIN);
         // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-
-
         // nexSerial.print(F("Minuto="));
         // nexSerial.print(infoTela.getvalor(eTipoTodos::MinutoInfo));
         // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
@@ -624,8 +616,6 @@ void ScreenBoxCar::atualizarDadosNaTela() {
         // nexSerial.print(F("|0b"));
         // nexSerial.print(infoTela.getvalorSys(eTipoTodos::MinutoInfo), BIN);
         // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
-
-
 
         // nexSerial.print(F("Segundo="));
         // nexSerial.print(infoTela.getvalor(eTipoTodos::SegundoInfo));
@@ -637,8 +627,9 @@ void ScreenBoxCar::atualizarDadosNaTela() {
         // nexSerial.print(infoTela.getvalorSys(eTipoTodos::SegundoInfo), BIN);
         // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-
         if (infoTela.existeAlteracao()) {
+
+            if(_Beep) som.beepBuzzer();
 
             bool InfoMudou = false;
 
@@ -647,7 +638,6 @@ void ScreenBoxCar::atualizarDadosNaTela() {
             }
 
             if(infoTela.foiAlterado(eTipoDadoInfo::TempoInfo)) {
-
 
                 // if(infoTela.valorAlterado(eTipoTodos::HoraInfo)) {
 
@@ -666,11 +656,11 @@ void ScreenBoxCar::atualizarDadosNaTela() {
             }
 
             if(infoTela.foiAlterado(eTipoDadoInfo::AmbienteInfo)) {
-                    // atualizarAmbienteOnScreen();
+                atualizarAmbienteOnScreen();
             }
 
             if(infoTela.foiAlterado(eTipoDadoInfo::TempreraturaSysInfo)) {
-                // atualizarTemperaturaSysOnScreen();
+                atualizarTemperaturaSysOnScreen();
             }
 
         }
@@ -682,7 +672,7 @@ void ScreenBoxCar::atualizarDadosNaTela() {
         // atualizarUmidadeOnScreen();
         // atualizarLDROnScreen();
 
-        _maxWait = millis() + 10000;                    // Acrescenta 1 segundo de espera
+        _maxWait = millis() + 1200;                    // Acrescenta um tempo de espera
 
     }
     

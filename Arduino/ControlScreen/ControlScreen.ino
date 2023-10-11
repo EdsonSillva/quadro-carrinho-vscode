@@ -74,13 +74,13 @@ void loop() {
 
     bool StandBy = screen.getTelaStandBy();
 
-    static double monitorando;
+    // static double monitorando;
 
     // nexSerial.print(F("Monitorando: "));
     // nexSerial.print(monitorando);
     // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
-    monitorando++;
+    // monitorando++;
 
     if (!screen.eeprom.disponivel()) {
         
@@ -109,7 +109,7 @@ void loop() {
             while (!screen.DadosRecebidoTela());        // aguarda até a tela acordar (sair do stand by)
             screen.tela.limparBufferNexSerial();        // limpa a UART
             screen.setTelaStandBy(false);
-            delay(100);                                 // necessário para processamento na tela (wake up)
+            delay(100);                                 // necessário para processamento da tela (wake up)
 
             // nexSerial.print(F("Sai do standBy"));
             // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);

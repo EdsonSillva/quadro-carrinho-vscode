@@ -2,6 +2,6 @@
     "sketch": "eepromINO.ino",
     "configuration": "cpu=atmega328old",
     "board": "arduino:avr:nano",
-    "port": "COM21",
+    "port": "COM28",
     "programmer": "avrisp"
 }
