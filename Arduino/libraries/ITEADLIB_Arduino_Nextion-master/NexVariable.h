@@ -84,14 +84,22 @@ public: /* methods */
     uint32_t getValue(uint32_t *number);
 
     /**
-     * Get val attribute of component pelo PID e CID
+     * Get val attribute of component pelo PID e CID (Implementado para o projeto Quadro de carrinhos)
      *
      * @param number - buffer storing data retur
      * @return the length of the data 
      */
     uint32_t getValueByID(uint32_t *number);
- 
-	
+
+    /**
+     * Get val attribute of component pelo PID e CID (Implementado para o projeto Quadro de carrinhos)
+     *
+     * @param number - buffer storing data retur
+     * @return the length of the data 
+     */
+    uint32_t getValueByID(uint32_t *number, bool *existiaDadosSerial);
+
+
     /**
      * Set val attribute of component
      *
@@ -107,6 +115,14 @@ public: /* methods */
      * @return true if success, false for failure
      */
     bool setValueByID(uint32_t number);
+
+    /**
+     * Set val attribute of component pelo PID e CID
+     *
+     * @param number - To set up the data
+     * @return true if success, false for failure
+     */
+    bool setValueByID(uint32_t number, bool *existiaDadosSerial);
 
 };
 /**

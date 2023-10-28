@@ -22,7 +22,7 @@ bool screenNextionBoxCar::existeDadoNoNextion() {
 bool screenNextionBoxCar::limparBufferNexSerial() {
     while (nexSerial.available())
         nexSerial.read();
-    delay(10);      // Aguarda este tempo para processamento da UART
+    delay(10);                      // Aguarda este tempo para processamento da UART
     return (bool)nexSerial.available();
 }
 
@@ -439,14 +439,6 @@ void screenNextionBoxCar::showHoraOnScreen(eTipoTempoInfo tipoInfo, byte *valor)
     }
 
     showInfoOnScreen(&idScreen, &idObjeto, &valorScreen);
-
-//   NexVariable nHora    = NexVariable(_tela.Global, _objeto.IDHora, "");
-//   NexVariable nMinuto  = NexVariable(_tela.Global, _objeto.IDMin, "");
-//   NexVariable nSegundo = NexVariable(_tela.Global, _objeto.IDSeg, "");
-//   nHora.setValueByID((uint32_t)*Hora);
-//   nMinuto.setValueByID((uint32_t)*Minuto);
-//   nSegundo.setValueByID((uint32_t)*Segundo);
-
 }
 
 #pragma endregion Show informações de hora
@@ -456,25 +448,43 @@ void screenNextionBoxCar::showHoraOnScreen(eTipoTempoInfo tipoInfo, byte *valor)
  /* @brief Recebe um valor de temperatura do DHT11 e coloca na variável da tela do Nextion */
 void screenNextionBoxCar::showTemperaturaOnScreen(byte *TemperaturaAmbiente) {  
 
-    NexVariable nTemperatura = NexVariable(_tela.Global, _objeto.IDTemp, "");
-    nTemperatura.setValueByID((uint32_t)*TemperaturaAmbiente);
+    // NexVariable nTemperatura = NexVariable(_tela.Global, _objeto.IDTemp, "");
+    // nTemperatura.setValueByID((uint32_t)*TemperaturaAmbiente);
+
+    byte        idScreen        = _tela.Global;
+    byte        idObjeto        = _objeto.IDTemp;
+    uint32_t    valorScreen     = *TemperaturaAmbiente;
+
+    showInfoOnScreen(&idScreen, &idObjeto, &valorScreen);
 
 }
 
  /* @brief Recebe um valor de umidade do DHT11 e coloca na variável da tela do Nextion */
 void screenNextionBoxCar::showUmidadeOnScreen(byte *UmidadeAmbiente) {
 
-    NexVariable nUmidade = NexVariable(_tela.Global, _objeto.IDUmidade, "");  
-    nUmidade.setValueByID((uint32_t)*UmidadeAmbiente);
+    // NexVariable nUmidade = NexVariable(_tela.Global, _objeto.IDUmidade, "");  
+    // nUmidade.setValueByID((uint32_t)*UmidadeAmbiente);
+
+    byte        idScreen        = _tela.Global;
+    byte        idObjeto        = _objeto.IDUmidade;
+    uint32_t    valorScreen     = *UmidadeAmbiente;
+
+    showInfoOnScreen(&idScreen, &idObjeto, &valorScreen);
 
 }
 
  /* @brief Recebe um valor de luminosidade do LDR e coloca na variável da tela do Nextion */
 void screenNextionBoxCar::showLDROnScreen(byte *ValorSensor) {
 
-    NexVariable LDR = NexVariable(_tela.Global, _objeto.IDLDR, "");
-    LDR.setValueByID((uint32_t)*ValorSensor);
-      
+    // NexVariable LDR = NexVariable(_tela.Global, _objeto.IDLDR, "");
+    // LDR.setValueByID((uint32_t)*ValorSensor);
+
+    byte        idScreen        = _tela.Global;
+    byte        idObjeto        = _objeto.IDLDR;
+    uint32_t    valorScreen     = *ValorSensor;
+
+    showInfoOnScreen(&idScreen, &idObjeto, &valorScreen);
+
 }
 
 #pragma endregion Show informações de Ambiente
@@ -484,8 +494,14 @@ void screenNextionBoxCar::showLDROnScreen(byte *ValorSensor) {
  /* @brief Le a temperatura do sistema. O sensor fica no device DS3231 */
 void screenNextionBoxCar::showTempSysOnScreen(byte *TemperaturaSys) {
 
-    NexVariable nTempSys = NexVariable(_tela.Global, _objeto.IDTempSys, "");
-    nTempSys.setValueByID((uint32_t)*TemperaturaSys);
+    // NexVariable nTempSys = NexVariable(_tela.Global, _objeto.IDTempSys, "");
+    // nTempSys.setValueByID((uint32_t)*TemperaturaSys);
+
+    byte        idScreen        = _tela.Global;
+    byte        idObjeto        = _objeto.IDTempSys;
+    uint32_t    valorScreen     = *TemperaturaSys;
+
+    showInfoOnScreen(&idScreen, &idObjeto, &valorScreen);
 
 }
 
@@ -495,7 +511,7 @@ void screenNextionBoxCar::showTempSysOnScreen(byte *TemperaturaSys) {
 void screenNextionBoxCar::showInfoOnScreen(uint8_t *idScreen, uint8_t *idObjeto, uint32_t *valor) {
 
     NexVariable objNextion = NexVariable(*idScreen,  *idObjeto,  "");
-    objNextion.setValueByID(*valor);
+    objNextion.setValueByID(*valor, &_existiaDadosSerial);
 
 }
 

@@ -22,7 +22,7 @@ Para guardar as informações dos box em cada tema foi utilizado a memória inte
 
 A estrutura definida foi:
 
-- As 50 primeiras posições guarda o código do tema. Estes intervalo foi batizado de  BAT (Box Alocation Table)
+- As 50 primeiras posições guarda o código do tema. Este intervalo foi batizado de  BAT (Box Alocation Table)
 - O restante das posições são usadas para guardar os endereçoes dos box. Cada byte guarda a linha e coluna do box num formato de 0b00001111, onde os primeiros 4 bits (0000) representam a linha e os outros 4 bits (1111) representam a coluna. Nesta versão foi definido um tamanho de 20 bytes por tema, ou seja pode ser definido até 20 box para cada tema. A tela nextion está controlando a inclusão para este máximo.
 
 Importante: Se for usado um <b>novo arduino nano</b>, a memória EEPROM interna deverá passar pela seguinte inicialização:

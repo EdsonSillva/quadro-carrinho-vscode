@@ -39,10 +39,11 @@ class screenNextionBoxCar
 {
 private:
 
-    screenNextionJanela     _tela       = screenNextionJanela();
-    screenNextionObjeto     _objeto     = screenNextionObjeto();
-    eCodeExec               _CodeExec   = eCodeExec::SemExecucao;
-    int                     _Milenio    = 2000;
+    screenNextionJanela     _tela               = screenNextionJanela();
+    screenNextionObjeto     _objeto             = screenNextionObjeto();
+    eCodeExec               _CodeExec           = eCodeExec::SemExecucao;
+    int                     _Milenio            = 2000;
+    bool                    _existiaDadosSerial = false;
 
     void DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS);
 
@@ -51,6 +52,8 @@ private:
 public:
     screenNextionBoxCar();
     ~screenNextionBoxCar();
+
+    bool existiaDadosSerial() {return _existiaDadosSerial;};
 
     bool iniciarNextion();
     int getMilenio();

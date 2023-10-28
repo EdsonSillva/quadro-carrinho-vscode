@@ -15,6 +15,7 @@ BoxDadosAcao::~BoxDadosAcao() { }
 
 void BoxDadosAcao::setCodeAcao(byte CodeAcao) {
     _CodeAcao = CodeAcao;
+    _QualAcao = eQualAcao::semAcao;  // Inicializa sem ação (Esta variável tem q ser setada lendo qualAcao o Nextion está apontando)
 }
 
 void BoxDadosAcao::setQualAcao(eQualAcao qualAcao) {
@@ -56,28 +57,6 @@ void BoxDadosAcao::setCodeAcaoRGBB(byte CodeAcao, byte R, byte G, byte B, byte B
     setRGBB(R, G, B, Brilho);
 }
 
-// /* @brief deprecated @deprecated */
-// String BoxDadosAcao::gerarChaveAcao() {
-//     _ChaveAcaoAnterior = _ChaveAcaoAtual;
-//     _ChaveAcaoAtual = ((String)(String(_CodeAcao) + String(_R) + String(_G) + String(_B) + String(_Brilho)));
-// }
-
-// /* @brief deprecated @deprecated */
-// String BoxDadosAcao::getChaveAcao() {
-//     return _ChaveAcaoAtual;
-// }
-
-// /* @brief deprecated @deprecated */
-// String BoxDadosAcao::getChaveAcaoAnterior() {
-//     return _ChaveAcaoAnterior;
-// }
-
-// /* @brief deprecated @deprecated */
-// bool BoxDadosAcao::chaveAcaoAnteriorAtualIgual() {
-//     return _ChaveAcaoAnterior == _ChaveAcaoAtual ?  true : 
-//                                                     false;
-// }
-
 byte BoxDadosAcao::getCodeAcao() {
     return _CodeAcao;
 }
@@ -87,8 +66,9 @@ byte BoxDadosAcao::getIDAcaoMsg() {
 }
 
 bool BoxDadosAcao::chaveAcaoAtualIsMsg() {
-    return _CodeAcao == _IDAcaoMsg ?    true : 
-                                        false;
+    // return _CodeAcao == _IDAcaoMsg ?    true : 
+    //                                     false;
+    return (_CodeAcao == _IDAcaoMsg);
 }
 
 byte BoxDadosAcao::getR() {

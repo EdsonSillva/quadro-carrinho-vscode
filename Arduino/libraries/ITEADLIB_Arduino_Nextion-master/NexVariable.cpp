@@ -40,6 +40,15 @@ uint32_t NexVariable::getValueByID(uint32_t *number)
     return recvRetNumber(number);
 }
 
+uint32_t NexVariable::getValueByID(uint32_t *number, bool* existiaDadosSerial)
+{
+    String cmd = String("get ");
+    cmd += String("p[") + getObjPid() + String("].b[") + getObjCid() + String("]");
+    cmd += ".val";
+    sendCommand(cmd.c_str(), existiaDadosSerial);
+    return recvRetNumber(number);
+}
+
 bool NexVariable::setValue(uint32_t number)
 {
     char buf[10] = {0};
@@ -69,6 +78,20 @@ bool NexVariable::setValueByID(uint32_t number)
     return recvRetCommandFinished();
 }
 
+bool NexVariable::setValueByID(uint32_t number, bool *existiaDadosSerial)
+{
+    char buf[10] = {0};
+	String cmd;		
+    
+    utoa(number, buf, 10);
+    cmd += String("p[") + getObjPid() + String("].b[") + getObjCid() + String("]");
+    cmd += ".val=";
+    cmd += buf;
+
+    sendCommand(cmd.c_str(), existiaDadosSerial);
+    return recvRetCommandFinished();
+}
+
 uint32_t NexVariable::getText(char *buffer, uint32_t len)
 {
     String cmd;
@@ -88,7 +111,6 @@ uint32_t NexVariable::getTextByID(char *buffer, uint32_t len)
     sendCommand(cmd.c_str());
     return recvRetString(buffer,len);
 }
-
 
 bool NexVariable::setText(const char *buffer)
 {

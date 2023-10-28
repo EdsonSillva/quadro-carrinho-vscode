@@ -46,6 +46,7 @@ void loop() { }
 #include "src/ScreenBoxCar.h"
 #include <SD.h>
 
+
 /**
  * Definição das funções utilizadas no projeto
  */
@@ -70,17 +71,7 @@ void setup() {
 
 void loop() {
 
-    // byte StandBy = screen.tela.getStandByOnScreen();        // @deprecated
-
     bool StandBy = screen.getTelaStandBy();
-
-    // static double monitorando;
-
-    // nexSerial.print(F("Monitorando: "));
-    // nexSerial.print(monitorando);
-    // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
-
-    // monitorando++;
 
     if (!screen.eeprom.disponivel()) {
         
@@ -89,36 +80,21 @@ void loop() {
 
     } else if (StandBy) {
 
-        // if (StandBy == 255) {
-        //     // Problemas na leitura do valor da variável (tela indisponível)
-            
-        //     ScreenIndisponivel++;                       // Necessário porque o timeout da serial é afetado pelo processamento na tela
-    
-        //     if(ScreenIndisponivel > 100) {
-        //         // screen.som.beepBuzzer(16000, 300),   delay(500);
-        //         ScreenIndisponivel--;                  // Decrementa 1 para não estourar o contador
-        //         delay(1000);
-        //     }
-
-        // } else {
-            
-            // nexSerial.print(F("Entrei em standBy"));
-            // nexSerial.write(0xff),nexSerial.write(0xff),//nexSerial.write(0xff);
-
-            // ScreenIndisponivel = 0;                  // Zera o contador
-            while (!screen.DadosRecebidoTela());        // aguarda até a tela acordar (sair do stand by)
-            screen.tela.limparBufferNexSerial();        // limpa a UART
-            screen.setTelaStandBy(false);
-            delay(100);                                 // necessário para processamento da tela (wake up)
-
-            // nexSerial.print(F("Sai do standBy"));
-            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
-
-        // }
+        // ScreenIndisponivel = 0;                  // Zera o contador
+        while (!screen.DadosRecebidoTela());        // aguarda até a tela acordar (sair do stand by)
+        screen.tela.limparBufferNexSerial();        // limpa a UART
+        screen.setTelaStandBy(false);
+        delay(100);                                 // necessário para processamento da tela (wake up)
 
     } else {
 
-        screen.avaliarAcao();
+        // TODO: Problemas no reconhecimento q existe ação. Ao chamar as rotinas de atualizxação das informações no nextion
+        //       o metodo do nextion apaga toda chamada da UART (RX), com isso o comando feito na tela se perde
+
+        // NAO FUNCIONOU BEM, PORQUE O NEXTION SEMPRE RETORNO ALGO QUANDO É ENVIADO INFORMAÇÕES NA TX
+        // FUNCIONARIA BEM COM PINOS DIGITAIS DA NEXTION SINALIZANDO UM "CHANGE"
+
+        screen.avaliarAcao();       // Avalia e executa a ação
     
     }    
 }
