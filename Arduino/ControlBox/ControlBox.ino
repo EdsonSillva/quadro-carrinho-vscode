@@ -72,7 +72,6 @@ void loop() {
     if (box.acaoSolicitada()) {
         
         box.identificarExecutarAcao();
-        delay(2000);
     
     }
 

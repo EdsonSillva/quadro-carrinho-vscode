@@ -52,6 +52,7 @@ private:
   long    _maxWait                = millis();
   bool    _telaOnLine             = false;
   bool    _telaStandBy            = true;     // inicia o sistema com standby da tela (O nextion após tela de splash solicita o stop do standby)
+  bool    _SerialTinhaDados       = false;    // usado para a rotina de atualização informa q existia dados na Serial
 
   void configurarDataNoDevice();
   void configurarHoraNoDevice();

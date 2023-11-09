@@ -88,7 +88,7 @@ void loop() {
 
     } else {
 
-        // TODO: Problemas no reconhecimento q existe ação. Ao chamar as rotinas de atualizxação das informações no nextion
+        // TODO: Problemas no reconhecimento q existe ação. Ao chamar as rotinas de atualização das informações no nextion
         //       o metodo do nextion apaga toda chamada da UART (RX), com isso o comando feito na tela se perde
 
         // NAO FUNCIONOU BEM, PORQUE O NEXTION SEMPRE RETORNO ALGO QUANDO É ENVIADO INFORMAÇÕES NA TX

@@ -359,25 +359,6 @@ void screenNextionBoxCar::showDataOnScreen(eTipoDataInfo tipoInfo, byte *valor) 
         case eTipoDataInfo::AnoInfo:
             idObjeto = _objeto.IDAno;
             valorScreen = (_Milenio + *valor);
-
-            // nexSerial.print(F("..."));
-            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
-            // nexSerial.print(F("...valor(Ano)="));
-            // nexSerial.print(*valor);
-            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
-
-            // nexSerial.print(F("..."));
-            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
-            // nexSerial.print(F("...Milenio(Ano)="));
-            // nexSerial.print(_Milenio);
-            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
-
-            // nexSerial.print(F("..."));
-            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
-            // nexSerial.print(F("...valorScreen(Ano)="));
-            // nexSerial.print(valorScreen);
-            // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
-            
         break;
 
         case eTipoDataInfo::DoWorkInfo:
@@ -387,15 +368,6 @@ void screenNextionBoxCar::showDataOnScreen(eTipoDataInfo tipoInfo, byte *valor) 
     }
 
     showInfoOnScreen(&idScreen, &idObjeto, &valorScreen);
-
-    // NexVariable nDia    = NexVariable(_tela.Global,  _objeto.IDDia,         "");
-    // NexVariable nMes    = NexVariable(_tela.Global,  _objeto.IDMes,         "");
-    // NexVariable nAno    = NexVariable(_tela.Global,  _objeto.IDAno,         "");
-    // NexVariable nDoW    = NexVariable(_tela.Global,  _objeto.IDDoWGlobal,   "");
-    // nDia.setValueByID((uint32_t)*Dia);
-    // nMes.setValueByID((uint32_t)*Mes);
-    // nAno.setValueByID((uint32_t)(_Milenio + *Ano));  
-    // nDoW.setValueByID((uint32_t)*DoW);
 
 }
 

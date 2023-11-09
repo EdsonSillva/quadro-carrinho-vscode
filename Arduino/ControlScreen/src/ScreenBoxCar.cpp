@@ -58,7 +58,7 @@ void ScreenBoxCar::inicializacaoDaTela() {
 void ScreenBoxCar::avaliarAcao() {
 
     // if(tela.existeDadoNoNextion() || nexSerialExistiaDados) {     // Existe alguma solicitação
-    if(tela.existeDadoNoNextion() || tela.existiaDadosSerial()) {    // Existe alguma solicitação
+    if(tela.existeDadoNoNextion() || _SerialTinhaDados) {            // Existia alguma solicitação q foi capturada no processo de atualização
 
         tela.limparBufferNexSerial();
 
@@ -233,6 +233,14 @@ void ScreenBoxCar::executarAcaoQuadroCarrinho(byte *codeAcao) {
         eeprom.setTextoOnMemory(Texto, QtdeChar);
         delay(50);                              // Aguarda a atualização da EEPROM 
     
+        // nexSerial.print(F("Texto|"));
+        // nexSerial.print(Texto);
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+        // nexSerial.print(F("QtdeChar|"));
+        // nexSerial.print(QtdeChar);
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
     }
 
     eeprom.setDadosOnMemory(&acao);
@@ -293,6 +301,8 @@ void ScreenBoxCar::atualizarDadosNaTela() {
 
         infoTela.setInfoScreen(&infoSistema);
 
+        _SerialTinhaDados = false;      // Inicializa a variável para garantir q ela venha com true somente se houver alguma solicitação no processo de atualização
+
         if (infoTela.existeAlteracao()) {
 
             if(_Beep) som.beepBuzzer();
@@ -301,20 +311,22 @@ void ScreenBoxCar::atualizarDadosNaTela() {
 
             if(infoTela.foiAlterado(eTipoDadoInfo::DataInfo)) {
                 atualizarDataOnScreen();
+                if (_SerialTinhaDados) return;      // Abandona Atualização para atender requisição da tela
             }
 
             if(infoTela.foiAlterado(eTipoDadoInfo::TempoInfo)) {
-
                 atualizarHoraOnScreen();
-
+                if (_SerialTinhaDados) return;      // Abandona Atualização para atender requisição da tela
             }
 
             if(infoTela.foiAlterado(eTipoDadoInfo::AmbienteInfo)) {
                 atualizarAmbienteOnScreen();
+                if (_SerialTinhaDados) return;      // Abandona Atualização para atender requisição da tela
             }
 
             if(infoTela.foiAlterado(eTipoDadoInfo::TempreraturaSysInfo)) {
                 atualizarTemperaturaSysOnScreen();
+                if (_SerialTinhaDados) return;      // Abandona Atualização para atender requisição da tela
             }
 
         }
@@ -568,21 +580,25 @@ void ScreenBoxCar::atualizarDataOnScreen() {
     mudouValor = infoTela.valorAlterado(eTipoTodos::DiaInfo, &valor);
     if (mudouValor) {
         tela.showDataOnScreen(eTipoDataInfo::DiaInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
     }
 
     mudouValor = infoTela.valorAlterado(eTipoTodos::MesInfo, &valor);
     if (mudouValor) {
         tela.showDataOnScreen(eTipoDataInfo::MesInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
     }
 
     mudouValor = infoTela.valorAlterado(eTipoTodos::AnoInfo, &valor);
     if (mudouValor) {
         tela.showDataOnScreen(eTipoDataInfo::AnoInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
     }
 
     mudouValor = infoTela.valorAlterado(eTipoTodos::DoWorkInfo, &valor);
     if (mudouValor) {
         tela.showDataOnScreen(eTipoDataInfo::DoWorkInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
     }
 
 }
@@ -595,16 +611,19 @@ void ScreenBoxCar::atualizarHoraOnScreen() {
     mudouValor = infoTela.valorAlterado(eTipoTodos::HoraInfo, &valor);
     if (mudouValor) {
         tela.showHoraOnScreen(eTipoTempoInfo::HoraInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
     }
 
     mudouValor = infoTela.valorAlterado(eTipoTodos::MinutoInfo, &valor);
     if (mudouValor) {
         tela.showHoraOnScreen(eTipoTempoInfo::MinutoInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
     }
 
     mudouValor = infoTela.valorAlterado(eTipoTodos::SegundoInfo, &valor);
     if (mudouValor) {
         tela.showHoraOnScreen(eTipoTempoInfo::SegundoInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
     }
 
 }
@@ -622,16 +641,19 @@ void ScreenBoxCar::atualizarAmbienteOnScreen() {
     mudouValor = infoTela.valorAlterado(eTipoTodos::TemperaturaInfo, &valor);
     if (mudouValor) {
         tela.showTemperaturaOnScreen(&valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
     }
 
     mudouValor = infoTela.valorAlterado(eTipoTodos::UmidadeInfo, &valor);
     if (mudouValor) {
         tela.showUmidadeOnScreen(&valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
     }
 
     mudouValor = infoTela.valorAlterado(eTipoTodos::LuminosidadeInfo, &valor);
     if (mudouValor) {
         tela.showLDROnScreen(&valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
     }
 
 }
@@ -663,6 +685,7 @@ void ScreenBoxCar::atualizarTemperaturaSysOnScreen() {
     mudouValor = infoTela.valorAlterado(eTipoTodos::TemperaturaSysInfo, &valor);
     if (mudouValor) {
         tela.showTempSysOnScreen(&valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
     }
 
 }

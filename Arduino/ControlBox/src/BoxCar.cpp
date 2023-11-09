@@ -90,6 +90,8 @@ void BoxCar::executarAcao(eAcaoBox CodigoAcao) {
 
     default:
 
+        // Ações temáticas
+
         byte sizeBoxes          = dadosAcao.getSizeTemaBat();
         byte Boxes[sizeBoxes];
 
