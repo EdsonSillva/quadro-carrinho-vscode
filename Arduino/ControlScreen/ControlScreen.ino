@@ -9,7 +9,7 @@
                          onde o outro arduino irá interpretar e executar a função de 
                          interação com os leds do quadro de carrinho
 
-    Autor:          Edson Silva
+    @author:        Edson Silva
     Data Inicio:    27/05/18
     Data Fim:       Ago/20 - 1º versão
     Release:        jun/22
@@ -36,6 +36,7 @@ void loop() { }
 
 #include <Arduino.h>
 #include <Nextion.h>
+
 #include <BoxEEPROM.h>
 #include <BoxDadosAcao.h>
 #include <BoxBuzzerCar.h>
@@ -44,6 +45,7 @@ void loop() { }
 #include <EEPROM.h>
 #include "src/ScreenBoxCar.h"
 #include <SD.h>
+
 
 /**
  * Definição das funções utilizadas no projeto
@@ -57,44 +59,42 @@ void (*ResetScreen)() = 0;            // Função de Reset apontando para o ende
 ScreenBoxCar    screen                  = ScreenBoxCar();
 byte            ScreenIndisponivel      = 0;
 
+
 void setup() {
 
     screen.iniciar();
+
+    //nexSerial.print(F("Iniciando os testes NewExec Code"));
+    //nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
 
 }
 
 void loop() {
 
-    byte StandBy = screen.tela.getStandByOnScreen();
+    bool StandBy = screen.getTelaStandBy();
 
     if (!screen.eeprom.disponivel()) {
         
         delay(1000);                                    // Aguarda um tempo e tenta novamente o acesso e buscar das informações
         screen.tentarAcessarEAtualizarOnScreen();       // Se conseguir acessar e buscar as informações seta EEPROM disponível no objeto
 
-    } else if (StandBy > 0) {
+    } else if (StandBy) {
 
-        if (StandBy == 255) {
-            // Problemas na leitura do valor da variável (tela indisponível)
-            
-            ScreenIndisponivel++;                       // Necessário porque o timeout da serial é afetado pelo processamento na tela
-    
-            if(ScreenIndisponivel > 100) {
-                // screen.som.beepBuzzer(16000, 300),   delay(500);
-                ScreenIndisponivel--;                  // Decrementa 1 para não estourar o contador
-                delay(1000);
-            }
-
-        } else {
-            
-            ScreenIndisponivel = 0;                     // Zera o contador
-            while (!screen.DadosRecebidoTela());        // aguarda até a tela acordar (sair do stand by)
-            delay(100);                                 // necessário para processamrento na tela
-        }
+        // ScreenIndisponivel = 0;                  // Zera o contador
+        while (!screen.DadosRecebidoTela());        // aguarda até a tela acordar (sair do stand by)
+        screen.tela.limparBufferNexSerial();        // limpa a UART
+        screen.setTelaStandBy(false);
+        delay(100);                                 // necessário para processamento da tela (wake up)
 
     } else {
 
-        screen.avaliarAcao();
+        // TODO: Problemas no reconhecimento q existe ação. Ao chamar as rotinas de atualização das informações no nextion
+        //       o metodo do nextion apaga toda chamada da UART (RX), com isso o comando feito na tela se perde
+
+        // NAO FUNCIONOU BEM, PORQUE O NEXTION SEMPRE RETORNO ALGO QUANDO É ENVIADO INFORMAÇÕES NA TX
+        // FUNCIONARIA BEM COM PINOS DIGITAIS DA NEXTION SINALIZANDO UM "CHANGE"
+
+        screen.avaliarAcao();       // Avalia e executa a ação
     
     }    
 }

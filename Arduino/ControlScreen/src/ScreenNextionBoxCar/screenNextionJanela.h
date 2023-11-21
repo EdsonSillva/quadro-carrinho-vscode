@@ -23,8 +23,7 @@ public:
     screenNextionJanela();
     ~screenNextionJanela();
 
-   /* Declaração dos ID's das Janelas do Nextion
-    * ------------------------------------------ */ 
+   /* Declaração dos ID's das Janelas do Nextion */
     uint8_t const   Splash              =  0,
                     MenuAcao            =  1,
                     Selecao             =  2,
@@ -35,7 +34,6 @@ public:
                     Creditos            = 11,
                     Global              = 12;     // Contêm o id de controle da tela do device Nextion
 };
-
 
 
 #endif  // __SCREENNEXTIONJANELA_H__

@@ -11,10 +11,10 @@
 #define __AMBIENTE_H__
 
 #include "SensorLDRBoxCar/SensorLDRBoxCar.h"
-#include "TemperaturaHumidadeBoxCar/TemperaturaHumidadeBoxCar.h"
+#include "TemperaturaUmidadeBoxCar/TemperaturaUmidadeBoxCar.h"
 
 
-class Ambiente : public SensorLDRBoxCar, public TemperaturaHumidadeBoxCar
+class Ambiente : public SensorLDRBoxCar, public TemperaturaUmidadeBoxCar
 {
 private:
     

@@ -73,6 +73,12 @@ void AcaoScreen::mensagem(BoxDadosAcao *DadosAcao, byte LinhaShow) {
 
     _eeprom.getTextoOnMemory(Msg, &QtdeChar);
 
+    if (!_eeprom.disponivel()) {
+        Msg[0] = 'E', Msg[1] = 'R',Msg[2] = 'R',Msg[3] = 'O',Msg[4] = ' ';
+        Msg[5] = 'E', Msg[6] = 'E',Msg[7] = 'P',Msg[8] = 'R',Msg[9] = 'O',Msg[10] = 'M';
+        QtdeChar = 11;
+    }
+
     while(acaoAtiva()) {
         _box.showMsgBox(Msg, QtdeChar - 1, DadosAcao, LinhaShow);
     }

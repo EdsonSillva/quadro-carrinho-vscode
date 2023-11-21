@@ -39,7 +39,7 @@ void BoxCar::identificarExecutarAcao() {
     executarAcao((eAcaoBox)dadosAcao.getCodeAcao());
 
     // Efetuar o reset no quadro de carrinhos após a ação
-    executarAcao(eAcaoBox::semAcao);
+    executarAcao(eAcaoBox::semAcaoBox);
 
 }
 
@@ -48,7 +48,7 @@ void BoxCar::executarAcao(eAcaoBox CodigoAcao) {
     switch (CodigoAcao)
     {
 
-    case eAcaoBox::semAcao:
+    case eAcaoBox::semAcaoBox:
 
         acaoBox.todosLedsApagados();
         break;
@@ -89,6 +89,8 @@ void BoxCar::executarAcao(eAcaoBox CodigoAcao) {
         break;
 
     default:
+
+        // Ações temáticas
 
         byte sizeBoxes          = dadosAcao.getSizeTemaBat();
         byte Boxes[sizeBoxes];

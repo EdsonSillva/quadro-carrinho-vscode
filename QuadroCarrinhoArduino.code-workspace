@@ -2,12 +2,17 @@
 	"folders": [
 		{
 			"name": "# Arduino Controle Box",
-			"path": "C://Users//edson//OneDrive//Documentos//.Desenvolvimento//Arduino//Projetos//IDE-vscode//quadro-carrinho-vscode//Arduino//ControlBox",
+			"path": "C://Users//edson//OneDrive//Documentos//.Desenvolvimento//.Projetos//.IoT//Arduino//Projetos//IDE-vscode//quadro-carrinho-vscode//Arduino//ControlBox",
 		},
 
 		{
 			"name": "# Arduino Controle Nextion",
-			"path": "C://Users//edson//OneDrive//Documentos//.Desenvolvimento//Arduino//Projetos//IDE-vscode//quadro-carrinho-vscode//Arduino//ControlScreen",
+			"path": "C://Users//edson//OneDrive//Documentos//.Desenvolvimento//.Projetos//.IoT//Arduino//Projetos//IDE-vscode//quadro-carrinho-vscode//Arduino//ControlScreen",
+		},
+
+				{
+			"name": "# Arduino Suporte EEPROM Ino",
+			"path": "C://Users//edson//OneDrive//Documentos//.Desenvolvimento//.Projetos//.IoT//Arduino//Projetos//IDE-vscode//quadro-carrinho-vscode//Arduino//suporte//eepromINO",
 		},
 
 		{
@@ -19,9 +24,15 @@
 			"name": "# Libary Dados Acao",
 			"path": "C://users//edson//Documents//Arduino//libraries//BoxDadosAcao",
 		},
+
 		{
 			"name": "# Libary Buzzer",
 			"path": "C://users//edson//Documents//Arduino//libraries//BoxBuzzerCar",
+		},
+
+		{
+			"name": "# Libary Nextion",
+			"path": "C://users//edson//Documents//Arduino//libraries//ITEADLIB_Arduino_Nextion-master",
 		},
 
 		{
@@ -36,7 +47,8 @@
 			"cstddef": "cpp",
 			"initializer_list": "cpp"
 		},
-		"window.title": "${dirty}${activeEditorShort}${separator}${rootnamPath}${separator}${appName}"
+		"window.title": "${dirty}${activeEditorShort}${separator}${rootnamPath}${separator}${appName}",
+		"todo-tree.tree.scanMode": "workspace"
 	}
 
 }

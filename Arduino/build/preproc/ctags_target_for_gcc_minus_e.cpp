@@ -1,4 +1,4 @@
-# 1 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
+# 1 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
 /*
 
     Projeto Quadro de carrinhos
@@ -30,7 +30,7 @@
     Release:        jun/22
 
 */
-# 18 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
+# 18 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
 /*
 
     Define para direcionar a compilação do sketch
@@ -42,29 +42,29 @@
 
 
 */
-# 37 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
-# 38 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
-# 39 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
-# 40 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
-# 41 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
-# 42 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
-# 43 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
-# 44 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
-# 45 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 37 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
+# 38 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 39 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 40 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 41 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 42 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 43 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 44 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 45 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
 
 
-# 48 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
+# 48 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino" 2
 
 
 
 
-# 51 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
+# 51 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
 /**
 
  * Definição das funções utilizadas no projeto
 
  */
-# 55 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
+# 55 "C:\\Users\\edson\\OneDrive\\Documentos\\.Desenvolvimento\\.Projetos\\.IoT\\Arduino\\Projetos\\IDE-vscode\\quadro-carrinho-vscode\\Arduino\\ControlBox\\ControlBox.ino"
 void setup();
 void loop();
 

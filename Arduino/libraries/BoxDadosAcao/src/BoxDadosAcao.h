@@ -36,19 +36,21 @@ class BoxDadosAcao
 {
 private:
 
-    bool    _Executando                 = false;
-    byte    _IDAcaoMsg                  = _IDAcaoMsg_;
-    byte    _CodeAcao                   = 0;
-    byte    _R                          = 0;
-    byte    _G                          = 0;
-    byte    _B                          = 0;
-    byte    _GammaR                     = 0;
-    byte    _GammaG                     = 0;
-    byte    _GammaB                     = 0;
-    byte    _Brilho                     = _BrilhoDefault_;
+    bool        _Executando                 = false;
+    byte        _IDAcaoMsg                  = _IDAcaoMsg_;
+    byte        _CodeAcao                   = 0;
+    byte        _R                          = 0;
+    byte        _G                          = 0;
+    byte        _B                          = 0;
+    byte        _GammaR                     = 0;
+    byte        _GammaG                     = 0;
+    byte        _GammaB                     = 0;
+    byte        _Brilho                     = _BrilhoDefault_;
 
-    String  _ChaveAcaoAtual             = "";
-    String  _ChaveAcaoAnterior          = "";
+    eQualAcao   _QualAcao                   = eQualAcao::semAcao;
+
+    // String  _ChaveAcaoAtual             = "";        // @deprecated
+    // String  _ChaveAcaoAnterior          = "";        // @deprecated
 
     // Controle dos acessos a memória EEPROM do Arduino
     int     _addressInicioEEPROMIno     = _AddessInicioEEPROMIno_;
@@ -64,10 +66,15 @@ private:
 
 
 public:
+
     BoxDadosAcao();
     ~BoxDadosAcao();
 
     void setCodeAcao(byte CodeAcao);
+
+    void setQualAcao(eQualAcao qualAcao);
+    eQualAcao getQualAcao();
+
     void setExecutando(bool valor);
     bool getExecutando();
     void limpaDados();
@@ -75,9 +82,12 @@ public:
     void setRGBGamma(byte GammaR, byte GammaG, byte GammaB);
     void setCodeAcaoRGBB(byte CodeAcao, byte R, byte G, byte B, byte Brilho);
     void setBrilho(byte Brilho);
-    String gerarChaveAcao();
-    String getChaveAcao();
-    String getChaveAcaoAnterior();
+
+    // String gerarChaveAcao();                // @deprecated
+    // String getChaveAcao();                  // @deprecated
+    // String getChaveAcaoAnterior();          // @deprecated
+    // bool chaveAcaoAnteriorAtualIgual();     // @deprecated
+
     byte getR();
     byte getG();
     byte getB();
@@ -87,7 +97,6 @@ public:
     byte getBrilho();
     byte getCodeAcao();
     byte getIDAcaoMsg();
-    bool chaveAcaoAnteriorAtualIgual();
     bool chaveAcaoAtualIsMsg();
 
     int posicaoInicialDadoTema(byte PosicaoTemaBat);

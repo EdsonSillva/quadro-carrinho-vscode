@@ -168,17 +168,43 @@ __return:
  */
 void sendCommand(const char* cmd)
 {
+
     while (nexSerial.available())
     {
         nexSerial.read();
     }
-    
+
     nexSerial.print(cmd);
     nexSerial.write(0xFF);
     nexSerial.write(0xFF);
     nexSerial.write(0xFF);
 }
 
+
+/*
+ * Send command to Nextion. (project Box Car)
+ *
+ * @param cmd - the string of command.
+ * @param existiaDadosSerial - the value boolean of exist data on serial.
+ */
+void sendCommand(const char* cmd, bool* existiaDadosSerial)
+{
+     
+    // Projeto Quadro de carrinhos Edson Silva
+    *existiaDadosSerial = nexSerial.available() ?   true :
+                                                    false;
+
+    while (nexSerial.available())
+    {
+        nexSerial.read();
+    }
+
+    nexSerial.print(cmd);
+    nexSerial.write(0xFF);
+    nexSerial.write(0xFF);
+    nexSerial.write(0xFF);
+
+}
 
 /*
  * Command is executed successfully. 

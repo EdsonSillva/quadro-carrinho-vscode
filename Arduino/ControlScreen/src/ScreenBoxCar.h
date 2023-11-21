@@ -29,14 +29,16 @@
 #include "enum/enumBox.h"
 #endif
 
-// #include "BuzzerBoxCar/BuzzerBoxCar.h"
 #include "ScreenNextionBoxCar/screenNextionBoxCar.h"
 #include "DateTimeBoxCar/DateTimeBoxCar.h"
 #include "Ambiente/Ambiente.h"
+#include "Infos/Infos.h"
+
 
 #define   _pin_Controle_          12
 #define   _pino_eeprom_usado_     11
 #define   _pino_eeprom_alerta_     8
+
 
 class ScreenBoxCar
 {
@@ -47,8 +49,10 @@ private:
   byte    _pinoUsandoEEPROM       = _pino_eeprom_usado_;
   byte    _pinoAlertaEEPROM       = _pino_eeprom_alerta_;
   bool    _Beep                   = true;
-  long    _MaxWait                = millis();
+  long    _maxWait                = millis();
   bool    _telaOnLine             = false;
+  bool    _telaStandBy            = true;     // inicia o sistema com standby da tela (O nextion após tela de splash solicita o stop do standby)
+  bool    _SerialTinhaDados       = false;    // usado para a rotina de atualização informa q existia dados na Serial
 
   void configurarDataNoDevice();
   void configurarHoraNoDevice();
@@ -64,31 +68,48 @@ private:
   void gravarDadosEEPROMInoByItem(byte Boxes[], byte sizeBoxes, int PosicaoTema);
   void inicializacaoDaTela();
 
+
 public:
 
   ScreenBoxCar();
   ~ScreenBoxCar();
 
-  screenNextionBoxCar         tela        = screenNextionBoxCar();
-  BoxBuzzerCar                som         = BoxBuzzerCar();
-  DateTimeBoxCar              data        = DateTimeBoxCar();
-  Ambiente                    ambiente    = Ambiente();
-  BoxEEPROM                   eeprom      = BoxEEPROM(&som);
-  BoxDadosAcao                acao        = BoxDadosAcao();
+  screenNextionBoxCar         tela          = screenNextionBoxCar();
+  BoxBuzzerCar                som           = BoxBuzzerCar();
+  DateTimeBoxCar              data          = DateTimeBoxCar();
+  Ambiente                    ambiente      = Ambiente();
+  BoxEEPROM                   eeprom        = BoxEEPROM(&som);
+  BoxDadosAcao                acao          = BoxDadosAcao();
+  Infos::InfoScreen           infoTela      = Infos::InfoScreen();
 
   void iniciar();
   void avaliarAcao();
   void executarAcao();
+  void executarAcaoQuadroCarrinho(byte *codeAcao);
+  void acaoSistema(byte *codeAcao);
+  void acaoQuadroCarrinho(byte *codeAcao);
   // void executaConfig();
-  bool acaoSelecionada();
+  bool acaoSelecionada();   // @deprecated
+  bool getAcaoSelecionada();
   bool acaoExecutando();
   void stopAcao();
+  bool getTelaStandBy();
+  void setTelaStandBy(bool valor);
+  void obterInfosSistema(Infos::infoSys *infoSistema);
   void atualizarDadosNaTela();
-  void atualizarLDROnScreen();
+  
   void atualizarDataHoraOnScreen();
-  void atualizarTemperaturaSysOnScreen();
+  void atualizarDataOnScreen();
+  void atualizarHoraOnScreen();
+
+  void atualizarAmbienteOnScreen();
+
   void atualizarTemperaturaOnScreen();
-  void atualizarHumidadeOnScreen();
+  void atualizarUmidadeOnScreen();
+  void atualizarLDROnScreen();
+
+  void atualizarTemperaturaSysOnScreen();
+
   void atualizarDadosMemoriaOnScreen();
   void tentarAcessarEAtualizarOnScreen();
   bool DadosRecebidoTela();

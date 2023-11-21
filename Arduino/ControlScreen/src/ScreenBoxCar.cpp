@@ -1,10 +1,10 @@
 
 #include "ScreenBoxCar.h"
 
-
-ScreenBoxCar::ScreenBoxCar() { }
-
+ScreenBoxCar::ScreenBoxCar() {  }
 ScreenBoxCar::~ScreenBoxCar() { }
+
+#pragma region Rotinas de inicialização
 
 void ScreenBoxCar::iniciar() {
 
@@ -53,28 +53,42 @@ void ScreenBoxCar::inicializacaoDaTela() {
     }
 }
 
+#pragma endregion Rotinas de inicialização
+
 void ScreenBoxCar::avaliarAcao() {
 
-    if(acaoSelecionada() && !acaoExecutando()) {
-        // Existe ação no screen, mas screen.AcaoExecutando() = false: executar a ação
-        executarAcao();
+    // if(tela.existeDadoNoNextion() || nexSerialExistiaDados) {     // Existe alguma solicitação
+    if(tela.existeDadoNoNextion() || _SerialTinhaDados) {            // Existia alguma solicitação q foi capturada no processo de atualização
 
-    } else if(!acaoSelecionada() && acaoExecutando()) {
-        // Não existe ação no screen, mas screen.AcaoExecutando() = true: reset dos leds no quadro
-        stopAcao();
+        tela.limparBufferNexSerial();
+
+        // Busca código ação na variável da tela nextion e carrega no objeto acao
+        if(getAcaoSelecionada()) {
+            
+            executarAcao();     // pode iniciar uma ação ou cancletar uma já em execução
+
+        }
 
     }
 
-    // Não existe acao no screen e screen.AcaoExecutando() = false: não faz nada
-    
-    atualizarDadosNaTela();        // Atualização das variáveis de Data, hora, tempertura e humidade
+    atualizarDadosNaTela();        // Avalia se deve atualizar as variáveis de Data, hora, tempertura ambiente, temperatura sistema e Umidade
 
 }
 
-bool ScreenBoxCar::acaoSelecionada() {
+bool ScreenBoxCar::getAcaoSelecionada() {
 
-    acao.setCodeAcao(tela.getAcaoOnScreen());
-    if (acao.getCodeAcao() > 0) return true;
+    byte codeAcao =  tela.getAcaoOnScreen();
+
+    acao.setCodeAcao(codeAcao);
+
+    if (acao.getCodeAcao() > 0) {
+
+        // Se existir ação, busca o que deve ser feito com ela
+        acao.setQualAcao((eQualAcao)tela.getEstadoAcaoOnScreen());
+        return true;
+    
+    }
+    
     return false;
 
 }
@@ -93,106 +107,149 @@ void ScreenBoxCar::stopAcao() {
 
 }
 
+bool ScreenBoxCar::getTelaStandBy() {
+    return _telaStandBy;
+}
+
+void ScreenBoxCar::setTelaStandBy(bool valor) {
+    _telaStandBy = valor;
+}
+
 void ScreenBoxCar::executarAcao() {
 
-    byte CodeAcao = acao.getCodeAcao();
+    byte codeAcao = acao.getCodeAcao();
+
+    if(codeAcao < 40) {     /* Ações do sistema */
+
+        acaoSistema(&codeAcao);
     
-    if (CodeAcao > 20) {
+    } else {                /* Ações no quadro de carrinho */
+    
+        acaoQuadroCarrinho(&codeAcao);
+    
+    }
 
-        tela.getRGBBrilhoOnScreen(&acao);
+}
 
-        switch (CodeAcao) {
+void ScreenBoxCar::acaoSistema(byte *codeAcao) {
 
-            case 254:                                               // Device EEPROM não disponível
-            case 255:                                               // Reset Ação
-                
-                digitalWrite(_pinoControle, LOW);               // Sinaliza Off para o outro Arduino
-                delay(50);
+    switch ((eAcaoSistema)*codeAcao) {
 
-                break;
+        case eAcaoSistema::configurarData:      // Ação Configurar Data
 
-            default:
-            
-                /* 
-                *  Ações direcionadas ao quadro de carrinho 
-                */
+            tela.setAcaoOnScreen(0);                                        // reset Ação Modo Idle
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+            configurarDataNoDevice();        
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+            break;
 
-                if(CodeAcao >= eAcaoBox::acaoBatman) {
-                    
-                    carregarBoxesTemaEEPROMCompartilhada((eAcaoBox)CodeAcao);
+        case eAcaoSistema::configurarHora:      // Ação Configurar Hora
 
-                } else if(acao.chaveAcaoAtualIsMsg()) {                              // Mensagem na Tela
-                    
-                    char Texto[50] = {0};
-                    byte QtdeChar = 0;
-                    tela.getTextoOnScreen(Texto, &QtdeChar);
-                    eeprom.setTextoOnMemory(Texto, QtdeChar);
-                
-                }
+            tela.setAcaoOnScreen(0);                                        // reset Ação Modo Idle
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+            configurarHoraNoDevice();
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
 
-                eeprom.setDadosOnMemory(&acao);
-                delay(50);                                                  // Aguarda a atuaização da EEPROm 
-                digitalWrite(_pinoControle, HIGH);                          // Indica que existe ação para o outro arduino
-                acao.setExecutando(true);                                   // Indica que a ação está sendo executada 
+            _maxWait = 0;                                                   // Necessário para executar a rotina de atualização
 
-        }
+            break;
 
-    } else {
+        case eAcaoSistema::standBy:             // Ação indicando q o screen está enm stand by ou não
 
-        /* 
-        * Ações reservadas para serem usadas na configuração do sistema e screen Nextion
-        */
-        switch (CodeAcao) {
+            if(acao.getQualAcao() == eQualAcao::executarAcao) {
+                _telaStandBy = true;
+            } else {
+                _telaStandBy = false;
+            }
+            break;
 
-            case 1:                                                             // Ação Configurar Data
+        case eAcaoSistema::configurarBeep:      // Ação Configurar Beep
 
-                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
-                configurarDataNoDevice();        
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
-                break;
+            tela.setAcaoOnScreen(0);                                        // reset Ação Modo Idle
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+            _Beep = tela.getBeepOnScreen();
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+            break;
 
-            case 2:                                                             // Ação Configurar Hora
+        case eAcaoSistema::carregarTemas:       // Ação Ler Dados Tema da EEPROM do Arduino
 
-                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
-                configurarHoraNoDevice();
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
-                break;
+            nexSerial.print(F(">>> eAcaoSistema::carregarTemas"));
+            nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff),delay(400);
 
-            case 3:                                                             // Ação Configurar RGB Brilho dos Led's
+            tela.setAcaoOnScreen(0);                                        // reset Ação Modo Idle
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+            carregarBoxesTema();
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+            break;
 
-                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-                break;
+        case eAcaoSistema::salvarTemas:         // Ação Salvar Dados Tema na EEPROM do Arduino
 
-            case 4:                                                             // Ação Configurar Beep
+            nexSerial.print(F(">>> eAcaoSistema::salvarTemas"));
+            nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff),delay(400);
 
-                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
-                _Beep = tela.getBeepOnScreen();
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
-                break;
+            tela.setAcaoOnScreen(0);                                       // reset Ação Modo Idle
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
+            // salvarBoxesTema();   // Não está funcionando corretamente (perdendo dados ao receber via Serial)
+            salvarBoxesTemaByItem();
+            tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
+            break;
+    }
 
-            case 5:                                                             // Ação Ler Dados Tema da EEPROM do Arduino
+}
 
-                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
-                carregarBoxesTema();
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
-                break;
+void ScreenBoxCar::acaoQuadroCarrinho(byte *codeAcao) {
 
-            case 6:                                                             // Ação Salvar Dados Tema na EEPROM do Arduino
+    switch (acao.getQualAcao())
+    {
+    case eQualAcao::semAcao:
+    case eQualAcao::pararAcao:
 
-                tela.setAcaoOnScreen(-1);                                       // reset Ação Modo Idle
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutando);      // Informando ao Screem que está processando o pedido
-                // salvarBoxesTema();   // Não está funcionando corretamente (perdendo dados ao receber via Serial)
-                salvarBoxesTemaByItem();
-                tela.setExecArduinoOnScreen(eCodeExec::ArduinoExecutado);       // Informando ao Screem que processou o pedido
-                break;
-        }
+        stopAcao();
+        acao.setExecutando(false);   // Indica que a ação parou de executar
+        break;
+    
+    default:        // eQualAcao::executarAcao
+
+        executarAcaoQuadroCarrinho(codeAcao);
+        break;
 
     }
 
+}
+
+void ScreenBoxCar::executarAcaoQuadroCarrinho(byte *codeAcao) {
+
+    tela.getRGBBrilhoOnScreen(&acao);
+
+    if(*codeAcao >= eAcaoBox::acaoBatman) {     // Açoes de tema
+        
+        carregarBoxesTemaEEPROMCompartilhada((eAcaoBox)*codeAcao);
+
+    } else if(acao.chaveAcaoAtualIsMsg()) {     // Mensagem na Tela
+        
+        char Texto[50] = {0};
+        byte QtdeChar = 0;
+        tela.getTextoOnScreen(Texto, &QtdeChar);
+        eeprom.setTextoOnMemory(Texto, QtdeChar);
+        delay(50);                              // Aguarda a atualização da EEPROM 
+    
+        // nexSerial.print(F("Texto|"));
+        // nexSerial.print(Texto);
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+        // nexSerial.print(F("QtdeChar|"));
+        // nexSerial.print(QtdeChar);
+        // nexSerial.write(0xff),nexSerial.write(0xff),nexSerial.write(0xff);
+
+    }
+
+    eeprom.setDadosOnMemory(&acao);
+    delay(50);                                  // Aguarda a atualização da EEPROM 
+    digitalWrite(_pinoControle, HIGH);          // Indica que existe ação para o outro arduino
+    acao.setExecutando(true);                   // Indica que a ação está sendo executada 
+
+    tela.setAcaoOnScreen(0);                    // reset Ação Modo Idle
+    
 }
 
 void ScreenBoxCar::tentarAcessarEAtualizarOnScreen(){
@@ -216,51 +273,10 @@ void ScreenBoxCar::atualizarDadosMemoriaOnScreen() {
     }
 }
 
-void ScreenBoxCar::atualizarLDROnScreen() {
-
-    uint32_t ValorSensor = (uint32_t)ambiente.getValorMapInvertidoOnLDR();
-    tela.setLDROnScreen(ValorSensor);
-
-}
-
-void ScreenBoxCar::atualizarDataHoraOnScreen() {
-
-    byte Dia,  Mes,     Ano,      DoW;
-    byte Hora, Minuto,  Segundo;
-    int Milenio      = tela.getMilenio();
-
-    data.getDataOnDS3231(&Dia, &Mes, &Ano, &DoW, &Milenio);
-    tela.showDataOnScreen(&Dia, &Mes, &Ano, &DoW);
-
-    data.getHoraOnDS3231(&Hora, &Minuto, &Segundo);
-    tela.showHoraOnScreen(&Hora, &Minuto, &Segundo);
-
-}
-
-void ScreenBoxCar::atualizarTemperaturaSysOnScreen() {
-    
-    int temperatura = data.getTemperaturaSysOnDS3231();
-    tela.showTempSysOnScreen(temperatura);
-    
-}
-
-void ScreenBoxCar::atualizarTemperaturaOnScreen() {
-
-    double ValorSensor = ambiente.getTemperaturaOnDHT();
-    tela.showTemperaturaOnScreen(ValorSensor);
-
-}
-
-void ScreenBoxCar::atualizarHumidadeOnScreen() {
-
-    double ValorSensor = ambiente.getHumidadeOnDHT();
-    tela.showHumidadeOnScreen(ValorSensor);
-
-}
-
 void ScreenBoxCar::configurarDataNoDevice() {
 
     byte Dia, Mes, Ano, DoW;
+
     tela.getDataOnScreen(&Dia, &Mes, &Ano, &DoW);                       // Le a data indicada da tela de configurações
     data.setDataOnDS3231(Dia, Mes,  Ano, DoW);                          // Seta a data no dispositivo DS3231
 
@@ -269,6 +285,7 @@ void ScreenBoxCar::configurarDataNoDevice() {
 void ScreenBoxCar::configurarHoraNoDevice() {
 
     byte Hora, Minuto, Segundo;
+
     tela.getHoraOnScreen(&Hora, &Minuto, &Segundo);                     // Le a hora selecionada da tela de configuração
     data.setHoraOnDS3231(Hora, Minuto,  Segundo);                       // Seta a hora no dispositivo DS3231
 
@@ -276,17 +293,45 @@ void ScreenBoxCar::configurarHoraNoDevice() {
 
 void ScreenBoxCar::atualizarDadosNaTela() {
 
-    if(_Beep) som.beepBuzzer();
+    if(millis() >= _maxWait) {
 
-    if(millis() >= _MaxWait) {
-        
-        atualizarDataHoraOnScreen();
-        atualizarTemperaturaSysOnScreen();
-        atualizarTemperaturaOnScreen();       
-        atualizarHumidadeOnScreen();
-        atualizarLDROnScreen();
+        Infos::infoSys infoSistema = Infos::infoSys();
 
-        _MaxWait = millis() + 10;                    // Acrescenta mais 0,5 segundo
+        obterInfosSistema(&infoSistema);
+
+        infoTela.setInfoScreen(&infoSistema);
+
+        _SerialTinhaDados = false;      // Inicializa a variável para garantir q ela venha com true somente se houver alguma solicitação no processo de atualização
+
+        if (infoTela.existeAlteracao()) {
+
+            if(_Beep) som.beepBuzzer();
+
+            bool InfoMudou = false;
+
+            if(infoTela.foiAlterado(eTipoDadoInfo::DataInfo)) {
+                atualizarDataOnScreen();
+                if (_SerialTinhaDados) return;      // Abandona Atualização para atender requisição da tela
+            }
+
+            if(infoTela.foiAlterado(eTipoDadoInfo::TempoInfo)) {
+                atualizarHoraOnScreen();
+                if (_SerialTinhaDados) return;      // Abandona Atualização para atender requisição da tela
+            }
+
+            if(infoTela.foiAlterado(eTipoDadoInfo::AmbienteInfo)) {
+                atualizarAmbienteOnScreen();
+                if (_SerialTinhaDados) return;      // Abandona Atualização para atender requisição da tela
+            }
+
+            if(infoTela.foiAlterado(eTipoDadoInfo::TempreraturaSysInfo)) {
+                atualizarTemperaturaSysOnScreen();
+                if (_SerialTinhaDados) return;      // Abandona Atualização para atender requisição da tela
+            }
+
+        }
+
+        _maxWait = millis() + 1100;                    // Acrescenta um tempo de espera
 
     }
     
@@ -417,9 +462,7 @@ void ScreenBoxCar::salvarBoxesTemaByItem() {
 
 /* @brief Funciona, mas a recepção dos dados via Serial Nextion não estão sendo recebidos na totalidade */
 void ScreenBoxCar::buscarBoxesOnScreen(char Boxes[], byte sizeBoxes) {
-
     byte sizeRecebido = tela.getBoxesOnScreen(Boxes, sizeBoxes);
-
 }
 
 void ScreenBoxCar::buscarBoxesOnScreenByItem(byte Boxes[], byte sizeBoxes) {
@@ -500,4 +543,155 @@ void ScreenBoxCar::gravarDadosEEPROMInoByItem(byte Boxes[], byte sizeBoxes, int 
 
 }
 
+void ScreenBoxCar::obterInfosSistema(Infos::infoSys *infoSistema) {
+    
+    int Milenio      = tela.getMilenio();
+
+    data.getDataOnDS3231(infoSistema, &Milenio);
+    data.getHoraOnDS3231(infoSistema);
+
+    infoSistema->Ambiente.Temperatura.valor = (byte)ambiente.getTemperaturaOnDHT();
+
+    infoSistema->Ambiente.Umidade.valor = (byte)ambiente.getUmidadeOnDHT();
+
+    infoSistema->Ambiente.Luminosidade.valor = (byte)ambiente.getValorMapInvertidoOnLDR();
+
+    infoSistema->TemperaturaSys.valor = data.getTemperaturaSysOnDS3231();
+
+}
+
+#pragma region ### ATUALIZAÇÕES SISTEMA ###
+
+#pragma region Atualização de data e hora
+
+/* @brief deprecated @deprecated */
+void ScreenBoxCar::atualizarDataHoraOnScreen() {
+
+    atualizarDataOnScreen();
+    atualizarHoraOnScreen();
+
+}
+
+void ScreenBoxCar::atualizarDataOnScreen() {
+
+    bool mudouValor = false;
+    byte valor      = 0x00;
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::DiaInfo, &valor);
+    if (mudouValor) {
+        tela.showDataOnScreen(eTipoDataInfo::DiaInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
+    }
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::MesInfo, &valor);
+    if (mudouValor) {
+        tela.showDataOnScreen(eTipoDataInfo::MesInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
+    }
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::AnoInfo, &valor);
+    if (mudouValor) {
+        tela.showDataOnScreen(eTipoDataInfo::AnoInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
+    }
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::DoWorkInfo, &valor);
+    if (mudouValor) {
+        tela.showDataOnScreen(eTipoDataInfo::DoWorkInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
+    }
+
+}
+
+void ScreenBoxCar::atualizarHoraOnScreen() {
+
+    bool mudouValor = false;
+    byte valor      = 0x00;
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::HoraInfo, &valor);
+    if (mudouValor) {
+        tela.showHoraOnScreen(eTipoTempoInfo::HoraInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
+    }
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::MinutoInfo, &valor);
+    if (mudouValor) {
+        tela.showHoraOnScreen(eTipoTempoInfo::MinutoInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
+    }
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::SegundoInfo, &valor);
+    if (mudouValor) {
+        tela.showHoraOnScreen(eTipoTempoInfo::SegundoInfo, &valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
+    }
+
+}
+
+#pragma endregion Atualização de data e hora
+
+#pragma region Atualizações de Ambiente
+
+
+void ScreenBoxCar::atualizarAmbienteOnScreen() {
+
+    bool mudouValor = false;
+    byte valor      = 0x00;
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::TemperaturaInfo, &valor);
+    if (mudouValor) {
+        tela.showTemperaturaOnScreen(&valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
+    }
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::UmidadeInfo, &valor);
+    if (mudouValor) {
+        tela.showUmidadeOnScreen(&valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
+    }
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::LuminosidadeInfo, &valor);
+    if (mudouValor) {
+        tela.showLDROnScreen(&valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
+    }
+
+}
+
+/* @brief deprecated @deprecated */
+void ScreenBoxCar::atualizarTemperaturaOnScreen() {
+    double ValorSensor = ambiente.getTemperaturaOnDHT();
+}
+
+/* @brief deprecated @deprecated */
+void ScreenBoxCar::atualizarUmidadeOnScreen() {
+    double ValorSensor = ambiente.getUmidadeOnDHT();
+}
+
+/* @brief deprecated @deprecated */
+void ScreenBoxCar::atualizarLDROnScreen() {
+    uint32_t ValorSensor = (uint32_t)ambiente.getValorMapInvertidoOnLDR();
+}
+
+#pragma endregion Atualizações de Ambiente
+
+#pragma region Atualizações de sistema
+
+void ScreenBoxCar::atualizarTemperaturaSysOnScreen() {
+    
+    bool mudouValor = false;
+    byte valor      = 0x00;
+
+    mudouValor = infoTela.valorAlterado(eTipoTodos::TemperaturaSysInfo, &valor);
+    if (mudouValor) {
+        tela.showTempSysOnScreen(&valor);
+        _SerialTinhaDados = _SerialTinhaDados || tela.existiaDadosSerial();
+    }
+
+}
+
+#pragma endregion Atualizações de sistema
+
+
+#pragma endregion ### ATUALIZAÇÕES SISTEMA ###
 

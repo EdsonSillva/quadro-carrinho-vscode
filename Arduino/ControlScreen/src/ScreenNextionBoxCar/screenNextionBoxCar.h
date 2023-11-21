@@ -24,6 +24,10 @@
 #include <BoxDadosAcao.h>
 #endif
 
+#ifndef __INFOS_H__
+#include "../Infos/Infos.h"
+#endif
+
 #include "../enum/enumBox.h"
 #include "screenNextionJanela.h"
 #include "ScreenNextionObjeto.h"
@@ -35,39 +39,54 @@ class screenNextionBoxCar
 {
 private:
 
-    screenNextionJanela     _tela       = screenNextionJanela();
-    screenNextionObjeto     _objeto     = screenNextionObjeto();
-    eCodeExec               _CodeExec   = eCodeExec::SemExecucao;
-    int                     _Milenio    = 2000;
+    screenNextionJanela     _tela               = screenNextionJanela();
+    screenNextionObjeto     _objeto             = screenNextionObjeto();
+    eCodeExec               _CodeExec           = eCodeExec::SemExecucao;
+    int                     _Milenio            = 2000;
+    bool                    _existiaDadosSerial = false;
 
     void DataHoraOnScreen(byte *pDH, byte *pMM, byte *pAS);
+
+    void showInfoOnScreen(uint8_t *idScreen, uint8_t *idObjeto, uint32_t *valor);
 
 public:
     screenNextionBoxCar();
     ~screenNextionBoxCar();
 
+    bool existiaDadosSerial() {return _existiaDadosSerial;};
+
     bool iniciarNextion();
     int getMilenio();
     void setVarNextion(char VarGlobal[], int TestoLEngth, String NomeVar);
     byte getAcaoOnScreen();
+    byte getEstadoAcaoOnScreen();
     byte getAcaoTemaOnScreen();
     byte getStandByOnScreen();
     bool existeDadoNoNextion();
+    bool limparBufferNexSerial();
     void setAcaoOnScreen(uint32_t Acao);
     void setExecArduinoOnScreen(eCodeExec CodeExec);
-    void setLDROnScreen(uint32_t ValorSensor);
     void getRGBBrilhoOnScreen(BoxDadosAcao *DadosAcao);
     void setDadosRGBBOnScreen(BoxDadosAcao *DadosAcao, bool EEPROMDisp);
     byte getDoWOnScreen();
-    void getDataOnScreen(byte *pDia, byte *pMes, byte *pAno, byte *DoW);
+    void getDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW);
     void getHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);
     void getTextoOnScreen(char Texto[], byte *pQtdeChar);
-    void showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW);
-    void showHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);
+
+    void showDataOnScreen(byte *Dia, byte *Mes, byte *Ano, byte *DoW);  // @deprecated
+    void showDataOnScreen(eTipoDataInfo tipoInfo, byte *valor);
+
+    void showHoraOnScreen(byte *Hora, byte *Minuto, byte *Segundo);     // @deprecated
+    void showHoraOnScreen(eTipoTempoInfo tipoInfo, byte *valor);
+
+    void showTemperaturaOnScreen(byte *TemperaturaAmbiente);
+    void showUmidadeOnScreen(byte *UmidadeAmbiente);
+    void showLDROnScreen(byte *ValorSensor);
+
+    void showTempSysOnScreen(byte *TemperaturaSys);
+
     bool getBeepOnScreen();
-    void showTempSysOnScreen(int TemperaturaSys);
-    void showTemperaturaOnScreen(double TemperaturaAmbiente);
-    void showHumidadeOnScreen(double HumidadeAmbiente);
+
     void setBoxesOnScreen(const char Boxes[]);
     byte getSizeBoxesOnScreen();
     byte getQtdeItensBoxesOnScreen();

@@ -1,4 +1,4 @@
-C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\build\libraries\BoxEEPROM\BoxEEPROM.cpp.o: \
+C:\Users\edson\OneDrive\Documentos\.Desenvolvimento\.Projetos\.IoT\Arduino\Projetos\IDE-vscode\quadro-carrinho-vscode\Arduino\build\libraries\BoxEEPROM\BoxEEPROM.cpp.o: \
  C:\Users\edson\Documents\Arduino\libraries\BoxEEPROM\src\BoxEEPROM.cpp \
  C:\Users\edson\Documents\Arduino\libraries\BoxEEPROM\src/BoxEEPROM.h \
  C:\Users\edson\Documents\Arduino\libraries\BoxDadosAcao\src/BoxDadosAcao.h \
