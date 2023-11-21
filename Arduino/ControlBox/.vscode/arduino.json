@@ -3,5 +3,5 @@
     "board": "arduino:avr:nano",
     "programmer": "avrisp",
     "sketch": "ControlBox.ino",
-    "port": "COM33"
+    "port": "COM29"
 }
