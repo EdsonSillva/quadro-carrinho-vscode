@@ -81,8 +81,9 @@ void AcaoBox::showSaudacaoBox(BoxDadosAcao *DadosAcao, byte LuzFundo, int Aguard
 
 }
 
+// TODO: Ajustado o final do loop para 16, por ter 16 posições o MapaBox
 void AcaoBox::iniciarMapaBox() {
-    for(byte Indice = 0; Indice <= 14; Indice++){
+    for(byte Indice = 0; Indice <= 15; Indice++){
         _MapaBox[Indice] = 0b0000000000000000;
     }
 }
@@ -340,11 +341,11 @@ void AcaoBox::boxAcaoTematicoByItem(BoxDadosAcao *DadosAcao, byte Boxes[], byte 
         Coluna = (byte)((Coluna - DeslocamentoColuna) * -1);    // Invertendo a posiçao para posição do bit
 
         bitSet(_MapaBox[Linha], Coluna);
-        bitSet(_MapaBox[Linha], 16 );           // Necessário manter 1 na 16* posição do bit
+        bitSet(_MapaBox[Linha], 16 );                           // Necessário manter 1 na 16* posição do bit
 
     }
 
-    showMapaBoxes(DadosAcao, 50);       // Mostra Tema no quadro
+    showMapaBoxes(DadosAcao, 50);                               // Mostra Tema no quadro
 
 }
 
